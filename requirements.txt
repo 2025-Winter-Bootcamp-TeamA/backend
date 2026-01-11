@@ -1,0 +1,54 @@
+# Django 핵심
+Django==5.0.1
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+django-filter==23.5
+
+# 데이터베이스
+psycopg[binary]>=3.2.0
+django-redis==5.4.0
+
+# Celery 비동기 작업
+celery==5.3.6
+flower==2.0.1
+
+# 환경변수 관리
+python-dotenv==1.0.0
+python-decouple==3.8
+
+# API 문서화
+drf-yasg==1.21.7
+
+# 인증
+djangorestframework-simplejwt==5.3.1
+PyJWT==2.8.0
+
+# AI/ML
+openai==1.12.0
+google-generativeai==0.3.2
+httpx==0.26.0
+
+# 데이터 처리
+pandas>=2.2.0
+numpy>=2.0.0
+
+# 웹 스크래핑
+beautifulsoup4==4.12.3
+requests==2.31.0
+selenium==4.17.2
+
+# 프로덕션 서버
+gunicorn==21.2.0
+
+# 개발 도구
+django-debug-toolbar==4.3.0
+
+# 테스트
+pytest==8.0.0
+pytest-django==4.7.0
+pytest-cov==4.1.0
+factory-boy==3.3.0
+
+# 유틸리티
+Pillow>=10.4.0
+python-dateutil==2.8.2

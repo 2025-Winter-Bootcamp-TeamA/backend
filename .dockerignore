@@ -1,0 +1,96 @@
+# Git
+.git
+.gitignore
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+.eggs/
+dist/
+build/
+
+# 환경변수 (비밀 정보)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# 테스트
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# 로그
+logs/
+*.log
+
+# 미디어 및 정적 파일 (Docker 볼륨으로 관리)
+media/
+staticfiles/
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# 문서
+*.md
+docs/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 데이터베이스
+pgdata/
+*.sql
+*.dump
+dump.rdb
+redis-data/
+
+# 모니터링 (Grafana, Prometheus, Loki)
+grafana.db
+grafana-data/
+prometheus-data/
+loki-data/
+
+# 메시지 큐
+rabbitmq-data/
+
+# 보안 파일
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+
+# 백업 파일
+*.bak
+*.backup
+*.tmp
+tmp/
+temp/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PID 파일
+*.pid
+
+# 기타
+*.pid
+node_modules/
+npm-debug.log
