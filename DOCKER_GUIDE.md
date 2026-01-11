@@ -91,7 +91,7 @@ docker compose -f docker-compose.dev.yml down
 **접속 URL:**
 - Django: http://localhost:8000
 - Swagger API 문서: http://localhost:8000/swagger/
-- RabbitMQ 관리 콘솔: http://localhost:15672 (teamA / 2025)
+- RabbitMQ 관리 콘솔: http://localhost:15672 (.env 파일 참고)
 
 ---
 
