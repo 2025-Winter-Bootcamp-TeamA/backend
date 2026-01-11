@@ -1,0 +1,99 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# 가상환경
+venv/
+env/
+ENV/
+
+# Django
+*.log
+local_settings.py
+db.sqlite3
+staticfiles/
+media/
+
+# 환경변수
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 테스트
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# 로그
+logs/
+*.log
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
+
+# 데이터베이스
+pgdata/
+*.sql
+*.dump
+dump.rdb
+redis-data/
+
+# 모니터링 (Grafana, Prometheus, Loki)
+grafana.db
+grafana-data/
+prometheus-data/
+loki-data/
+
+# 메시지 큐
+rabbitmq-data/
+
+# 보안 파일
+*.pem
+*.key
+*.crt
+*.p12
+secrets/
+
+# 백업 파일
+*.bak
+*.backup
+*.tmp
+tmp/
+temp/
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# PID 파일
+*.pid
