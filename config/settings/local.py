@@ -6,7 +6,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # 로컬 개발 환경
 
 # CORS 설정 (개발 환경)
 CORS_ALLOW_ALL_ORIGINS = True
@@ -38,7 +38,8 @@ MIDDLEWARE += [
 
 INTERNAL_IPS = [
     '127.0.0.1',
-]
+    'localhost',
+]  # Django Debug Toolbar 표시 IP
 
 # REST Framework 개발 설정
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += [
