@@ -39,133 +39,60 @@ sudo apt-get install docker.io docker-compose-v2
 sudo usermod -aG docker $USER
 ```
 
-### Python 3.11 설치 (로컬 개발 시)
-
-**macOS:**
-```bash
-brew install python@3.11
-```
-
-**Windows:**
-[Python 공식 사이트](https://www.python.org/downloads/)에서 3.11 버전 다운로드
-
-**Linux (Ubuntu):**
-```bash
-sudo apt-get install python3.11 python3.11-venv python3-pip
-```
-
 ---
 
-## Docker Compose 파일 비교
+## 빠른 시작
 
-### docker-compose.dev.yml (개발용 - 인프라만)
-
-| 서비스 | 설명 |
-|--------|------|
-| db | PostgreSQL |
-| redis | Redis |
-| rabbitmq | RabbitMQ |
-
-**특징:**
-- 인프라 서비스만 포함 (DB, 캐시, 메시지 브로커)
-- healthcheck 없음 (빠른 시작)
-- Django, Celery, Nginx 없음
-
-### docker-compose.yml (전체 서비스)
-
-| 서비스 | 설명 |
-|--------|------|
-| db | PostgreSQL |
-| redis | Redis |
-| rabbitmq | RabbitMQ |
-| backend | Django + Gunicorn |
-| celery | Celery Worker |
-| celery-beat | Celery 스케줄러 |
-| nginx | 리버스 프록시 |
-
-**특징:**
-- 모든 서비스 포함
-- healthcheck로 서비스 의존성 관리
-- 프로덕션과 유사한 환경
-
-### 언제 어떤 파일을 사용하나요?
-
-| 파일 | 용도 | Django 실행 방식 |
-|------|------|------------------|
-| `docker-compose.dev.yml` | 로컬 개발 | `python manage.py runserver` (직접 실행) |
-| `docker-compose.yml` | 통합 테스트/배포 | Docker 컨테이너 (Gunicorn) |
-
-**docker-compose.dev.yml 사용 시점:**
-- 코드 수정하면서 개발할 때
-- 빠른 핫 리로드가 필요할 때
-- 디버깅할 때
-
-**docker-compose.yml 사용 시점:**
-- 프로덕션 환경과 동일하게 테스트할 때
-- 전체 시스템 통합 테스트할 때
-- 다른 팀원에게 전체 환경을 공유할 때
-
----
-
-## 빠른 시작 (Docker 사용)
-
-### 1. 개발용 인프라 실행 (PostgreSQL, Redis, RabbitMQ)
+### 개발환경 실행
 
 ```bash
-# backend 디렉토리에서 실행
+# 1. 환경변수 설정
+cp .env.example .env
+# .env 파일을 열어 실제 값 입력
+
+# 2. 전체 서비스 실행
 docker compose -f docker-compose.dev.yml up -d
 
-# 실행 상태 확인
+# 3. 실행 상태 확인
 docker compose -f docker-compose.dev.yml ps
 
-# 로그 확인
-docker compose -f docker-compose.dev.yml logs -f
+# 4. 로그 확인
+docker compose -f docker-compose.dev.yml logs -f backend
 ```
 
-### 2. 전체 서비스 실행 (Backend + Gunicorn + Celery + Nginx)
-
-```bash
-# backend 디렉토리에서 실행
-docker compose up -d --build
-
-# 실행 상태 확인
-docker compose ps
-
-# 로그 확인
-docker compose logs -f backend
-```
-
-### 3. 서비스 접속
+### 서비스 접속
 
 | 서비스 | URL |
 |--------|-----|
 | Backend API | http://localhost:8000/api/v1/ |
 | API 문서 (Swagger) | http://localhost:8000/swagger/ |
 | Django Admin | http://localhost:8000/admin/ |
-| RabbitMQ 관리 콘솔 | http://localhost:15672 (teamA/2025) |
+| RabbitMQ 관리 콘솔 | http://localhost:15672 |
 
-### 4. 서비스 중지
+### 서비스 중지
 
 ```bash
-# 전체 서비스 중지
-docker compose down
+# 중지 (컨테이너 유지)
+docker compose -f docker-compose.dev.yml stop
 
-# 개발용 서비스 중지
+# 중지 + 삭제
 docker compose -f docker-compose.dev.yml down
 
-# 볼륨 포함 완전 삭제
-docker compose down -v
+# 볼륨 포함 완전 삭제 (DB 데이터 삭제됨)
+docker compose -f docker-compose.dev.yml down -v
 ```
 
 ---
 
 ## 로컬 개발 환경 (Docker 없이)
 
+인프라만 Docker로 실행하고, Django는 로컬에서 실행하는 방법입니다.
+
 ### 1. 가상환경 설정
 
 ```bash
 # 가상환경 생성
-python3.11 -m venv venv
+python3 -m venv venv
 
 # 활성화 (macOS/Linux)
 source venv/bin/activate
@@ -180,115 +107,33 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 3. 환경변수 설정
-
-모든 환경변수(Backend + Frontend)는 `backend/.env`에서 통합 관리됩니다.
-팀원에게 `.env` 파일을 직접 전달받아 `backend/` 폴더에 위치시키세요.
-
-> ⚠️ `.env` 파일은 Git에 커밋되지 않습니다. 팀원 간 별도로 공유해야 합니다.
-
-**주요 환경변수:**
-| 변수명 | 설명 |
-|--------|------|
-| `SECRET_KEY` | Django 시크릿 키 |
-| `DB_*` | PostgreSQL 접속 정보 |
-| `REDIS_URL` | Redis 접속 URL |
-| `CELERY_BROKER_URL` | RabbitMQ 접속 URL |
-| `GOOGLE_API_KEY` | Google AI API 키 |
-| `OPENAI_API_KEY` | OpenAI API 키 |
-| `NEXT_PUBLIC_*` | Frontend 환경변수 |
-
-### 4. 데이터베이스 설정
+### 3. 인프라 실행
 
 ```bash
-# Docker로 PostgreSQL만 실행
-docker compose -f docker-compose.dev.yml up -d postgres
+docker compose -f docker-compose.dev.yml up -d postgres redis rabbitmq
+```
 
-# 또는 개별 실행
-docker run -d \
-  --name postgres \
-  -e POSTGRES_DB=teamAdb \
-  -e POSTGRES_USER=teamA \
-  -e POSTGRES_PASSWORD=2025 \
-  -p 5432:5432 \
-  postgres:15
+### 4. Django 서버 실행
 
+```bash
 # 마이그레이션
 python manage.py migrate
 
 # 관리자 계정 생성
 python manage.py createsuperuser
-```
 
-### 5. 서버 실행
-
-```bash
+# 서버 실행
 python manage.py runserver
 ```
 
----
-
-## Celery 실행
-
-비동기 작업 처리를 위해 Celery를 실행합니다.
+### 5. Celery 실행 (선택)
 
 ```bash
-# Redis 실행
-docker run -d --name redis -p 6379:6379 redis:7-alpine
-
-# RabbitMQ 실행
-docker run -d --name rabbitmq -p 5672:5672 -p 15672:15672 rabbitmq:3-management
-
-# Celery Worker 실행
+# 새 터미널에서 Celery Worker 실행
 celery -A config worker -l info
 
-# Celery Beat 실행 (스케줄러)
+# 새 터미널에서 Celery Beat 실행
 celery -A config beat -l info
-```
-
----
-
-## API 엔드포인트
-
-| 경로 | 설명 |
-|------|------|
-| `/api/v1/users/` | 사용자 인증 및 프로필 |
-| `/api/v1/trends/` | 기술 트렌드 |
-| `/api/v1/jobs/` | 채용 공고 |
-| `/api/v1/resumes/` | 이력서 관리 |
-| `/api/v1/interviews/` | 면접 준비 |
-| `/swagger/` | API 문서 (Swagger) |
-| `/admin/` | 관리자 페이지 |
-
----
-
-## 프로젝트 구조
-
-```
-backend/
-├── apps/                       # Django 앱
-│   ├── users/                  # 사용자 관리
-│   ├── trends/                 # 기술 트렌드
-│   ├── jobs/                   # 채용 공고
-│   ├── resumes/                # 이력서
-│   └── interviews/             # 면접 준비
-├── config/                     # 설정
-│   ├── settings/               # 환경별 설정
-│   │   ├── base.py             # 공통 설정
-│   │   ├── local.py            # 로컬 개발
-│   │   └── production.py       # 프로덕션
-│   ├── urls.py                 # URL 라우팅
-│   ├── wsgi.py                 # WSGI
-│   ├── asgi.py                 # ASGI
-│   └── celery.py               # Celery
-├── nginx/                      # Nginx 설정
-│   └── nginx.conf
-├── docker-compose.yml          # 전체 서비스 Docker Compose
-├── docker-compose.dev.yml      # 개발용 Docker Compose (DB만)
-├── Dockerfile                  # Docker 이미지 빌드
-├── requirements.txt            # Python 패키지
-├── manage.py                   # Django CLI
-└── .env                        # 환경변수 (Git 제외, 팀원 간 공유)
 ```
 
 ---
@@ -299,16 +144,19 @@ backend/
 
 ```bash
 # 컨테이너 상태 확인
-docker compose ps
+docker compose -f docker-compose.dev.yml ps
 
 # 특정 서비스 재시작
-docker compose restart backend
+docker compose -f docker-compose.dev.yml restart backend
 
 # 컨테이너 내부 접속
-docker compose exec backend bash
+docker compose -f docker-compose.dev.yml exec backend bash
 
-# 데이터베이스 접속
-docker compose exec postgres psql -U teamA -d teamAdb
+# 데이터베이스 접속 (환경변수 사용)
+docker compose -f docker-compose.dev.yml exec postgres psql -U ${DB_USER} -d ${DB_NAME}
+
+# 이미지 재빌드
+docker compose -f docker-compose.dev.yml build --no-cache backend
 ```
 
 ### Django 관련
@@ -340,4 +188,37 @@ pytest --cov
 
 # 특정 앱 테스트
 pytest apps/users/
+```
+
+---
+
+## 문제 해결
+
+### 포트 충돌
+
+```bash
+# 사용 중인 포트 확인
+lsof -i :8000
+lsof -i :5432
+
+# 해당 프로세스 종료
+kill -9 <PID>
+```
+
+### 데이터베이스 초기화
+
+```bash
+# 볼륨 삭제 후 재시작
+docker compose -f docker-compose.dev.yml down -v
+docker compose -f docker-compose.dev.yml up -d
+```
+
+### 컨테이너 로그 확인
+
+```bash
+# 특정 서비스 로그
+docker compose -f docker-compose.dev.yml logs -f backend
+
+# 최근 100줄만
+docker compose -f docker-compose.dev.yml logs --tail=100 backend
 ```

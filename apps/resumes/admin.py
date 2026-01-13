@@ -21,5 +21,6 @@ class ResumeStackAdmin(admin.ModelAdmin):
 
 @admin.register(ResumeMatching)
 class ResumeMatchingAdmin(admin.ModelAdmin):
-    list_display = ['resume_stack', 'job_posting_stack', 'matching_rate']
-    list_filter = ['matching_rate']
+    list_display = ['resume', 'job_posting', 'score', 'question', 'created_at', 'is_deleted']
+    list_filter = ['is_deleted', 'created_at']
+    search_fields = ['resume__title', 'job_posting__title', 'question']

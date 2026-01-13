@@ -11,8 +11,8 @@ from decouple import config
 # 프로젝트 기본 경로
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-# 보안 키 (환경변수에서 로드)
-SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production')
+# 보안 키 (환경변수에서 로드, 필수값)
+SECRET_KEY = config('SECRET_KEY')
 
 # 설치된 앱
 INSTALLED_APPS = [
@@ -139,8 +139,8 @@ SIMPLE_JWT = {
 }
 
 # Celery 설정
-CELERY_BROKER_URL = config('CELERY_BROKER_URL', default='amqp://teamA:2025@localhost:5672//')
-CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND', default='redis://localhost:6379/0')
+CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
@@ -152,7 +152,7 @@ CELERY_TASK_TIME_LIMIT = 30 * 60  # 30분
 CACHES = {
     'default': {
         'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': config('REDIS_URL', default='redis://localhost:6379/1'),
+        'LOCATION': config('REDIS_URL'),
         'OPTIONS': {
             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
         }
@@ -178,11 +178,6 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
         },
-        'file': {
-            'class': 'logging.FileHandler',
-            'filename': BASE_DIR / 'logs' / 'django.log',
-            'formatter': 'verbose',
-        },
     },
     'root': {
         'handlers': ['console'],
@@ -190,7 +185,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'file'],
+            'handlers': ['console'],  # Docker 환경에서는 console만 사용 (stdout/stderr)
             'level': 'INFO',
             'propagate': False,
         },
