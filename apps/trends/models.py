@@ -251,14 +251,6 @@ class TechBookmark(models.Model):
         auto_now_add=True,
         verbose_name='등록일자'
     )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name='수정일자'
-    )
-    is_deleted = models.BooleanField(
-        default=False,
-        verbose_name='삭제 여부'
-    )
 
     class Meta:
         db_table = 'tech_bookmark'

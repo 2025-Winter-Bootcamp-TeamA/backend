@@ -88,6 +88,17 @@ class JobPosting(models.Model):
         null=True,
         verbose_name='직무 설명'
     )
+    expiry_date = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name='마감일'
+    )
+    career = models.CharField(
+        max_length=255,
+        blank=True,
+        null=True,
+        verbose_name='경력'
+    )
     stack_count = models.BigIntegerField(
         default=0,
         verbose_name='채용 공고 스택 수'
@@ -137,6 +148,10 @@ class JobPostingStack(models.Model):
         related_name='job_postings',
         verbose_name='기술 스택'
     )
+    job_stack_count = models.BigIntegerField(
+        default=0,
+        verbose_name='채용공고 스택 언급량'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='등록일자'
@@ -176,14 +191,6 @@ class CorpBookmark(models.Model):
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='등록일자'
-    )
-    updated_at = models.DateTimeField(
-        auto_now=True,
-        verbose_name='수정일자'
-    )
-    is_deleted = models.BooleanField(
-        default=False,
-        verbose_name='삭제 여부'
     )
 
     class Meta:

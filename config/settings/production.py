@@ -13,6 +13,7 @@ CORS_ALLOWED_ORIGINS = config('CORS_ALLOWED_ORIGINS', default='').split(',')
 CORS_ALLOW_CREDENTIALS = True
 
 # 데이터베이스 설정 (AWS RDS PostgreSQL)
+# 모든 DB 설정은 환경변수로 관리 (보안상 중요)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
@@ -20,7 +21,7 @@ DATABASES = {
         'USER': config('DB_USER'),
         'PASSWORD': config('DB_PASSWORD'),
         'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT', default='5432'),
+        'PORT': config('DB_PORT'),  # 환경변수 필수 (기본값 제거)
         'OPTIONS': {
             'sslmode': 'require',
         },
@@ -50,4 +51,6 @@ AWS_S3_OBJECT_PARAMETERS = {
 }
 
 # 프로덕션 로깅
-LOGGING['handlers']['file']['filename'] = '/var/log/django/django.log'
+# Docker 환경에서는 stdout/stderr로 로그 출력 (docker logs로 확인 가능)
+# 파일 로그는 필요시 별도 로그 수집 시스템(Grafana Loki 등) 사용
+# LOGGING['loggers']['django']['handlers'] = ['console']  # 이미 base.py에서 설정됨

@@ -8,8 +8,8 @@ services:
     image: postgres:15
     container_name: postgres
     environment:
-      POSTGRES_DB: teamAdb
-      POSTGRES_USER: teamA
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       TZ: Asia/Seoul
       PGTZ: Asia/Seoul
@@ -17,7 +17,7 @@ services:
       - postgres_data:/var/lib/postgresql/data
     # 배포환경: 외부 포트 노출 안함 (내부 네트워크만)
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U teamA"]
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -46,7 +46,7 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: teamA
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
       TZ: Asia/Seoul
     # 배포환경: 외부 포트 노출 안함
@@ -76,11 +76,12 @@ services:
     env_file:
       - .env
     environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
       - DB_HOST=postgres
       - DB_PORT=5432
       - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://teamA:${RABBITMQ_PASSWORD}@rabbitmq:5672//
+      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - TZ=Asia/Seoul
     depends_on:
@@ -104,11 +105,12 @@ services:
     env_file:
       - .env
     environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
       - DB_HOST=postgres
       - DB_PORT=5432
       - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://teamA:${RABBITMQ_PASSWORD}@rabbitmq:5672//
+      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - TZ=Asia/Seoul
     depends_on:
@@ -129,11 +131,12 @@ services:
     env_file:
       - .env
     environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
       - DB_HOST=postgres
       - DB_PORT=5432
       - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://teamA:${RABBITMQ_PASSWORD}@rabbitmq:5672//
+      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
       - CELERY_RESULT_BACKEND=redis://redis:6379/0
       - TZ=Asia/Seoul
     depends_on:
