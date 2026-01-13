@@ -6,7 +6,7 @@ ERD의 resume, resume_stack, resume_matching 테이블 기반
 from django.db import models
 from django.conf import settings
 from apps.trends.models import TechStack
-from apps.jobs.models import JobPostingStack
+from apps.jobs.models import JobPosting
 
 
 class Resume(models.Model):
@@ -82,19 +82,19 @@ class ResumeMatching(models.Model):
     ERD: resume_matching 테이블
     이력서와 채용 공고 간의 매칭 결과 저장
     """
-    job_posting_stack = models.ForeignKey(
-        JobPostingStack,
+    job_posting = models.ForeignKey(
+        JobPosting,
         on_delete=models.CASCADE,
-        related_name='matchings',
-        verbose_name='채용 공고 스택'
+        related_name='resume_matchings',
+        verbose_name='채용 공고'
     )
-    resume_stack = models.ForeignKey(
-        ResumeStack,
+    resume = models.ForeignKey(
+        Resume,
         on_delete=models.CASCADE,
-        related_name='matchings',
-        verbose_name='이력서 스택'
+        related_name='job_matchings',
+        verbose_name='이력서'
     )
-    matching_rate = models.DecimalField(
+    score = models.DecimalField(
         max_digits=5,
         decimal_places=2,
         verbose_name='매칭률'
@@ -102,7 +102,24 @@ class ResumeMatching(models.Model):
     feedback = models.TextField(
         blank=True,
         null=True,
-        verbose_name='피드백'
+        verbose_name='분석 내용'
+    )
+    question = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='면접 질문'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='등록일자'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='수정일자'
+    )
+    is_deleted = models.BooleanField(
+        default=False,
+        verbose_name='삭제 여부'
     )
 
     class Meta:

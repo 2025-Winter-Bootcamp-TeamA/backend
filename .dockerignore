@@ -26,6 +26,7 @@ build/
 .vscode/
 *.swp
 *.swo
+*~
 
 # 테스트
 .pytest_cache/
@@ -33,9 +34,16 @@ build/
 htmlcov/
 .tox/
 
+# Django
+local_settings.py
+
 # 로그
 logs/
 *.log
+
+# Celery
+celerybeat-schedule
+celerybeat.pid
 
 # 미디어 및 정적 파일 (Docker 볼륨으로 관리)
 media/
@@ -91,6 +99,5 @@ temp/
 *.pid
 
 # 기타
-*.pid
 node_modules/
 npm-debug.log
