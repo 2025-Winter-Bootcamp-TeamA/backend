@@ -6,7 +6,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '0.0.0.0']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']  # 로컬 개발 환경
 
 # CORS 설정 (개발 환경)
 CORS_ALLOW_ALL_ORIGINS = True
@@ -16,11 +16,11 @@ CORS_ALLOW_CREDENTIALS = True
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME', default='teamAdb'),
-        'USER': config('DB_USER', default='teamA'),
-        'PASSWORD': config('DB_PASSWORD', default='2025'),
-        'HOST': config('DB_HOST', default='localhost'),
-        'PORT': config('DB_PORT', default='5432'),
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
     }
 }
 
@@ -38,7 +38,8 @@ MIDDLEWARE += [
 
 INTERNAL_IPS = [
     '127.0.0.1',
-]
+    'localhost',
+]  # Django Debug Toolbar 표시 IP
 
 # REST Framework 개발 설정
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += [
