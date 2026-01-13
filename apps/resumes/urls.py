@@ -17,4 +17,8 @@ urlpatterns = [
 
     # 채용 공고 매칭
     path('<int:pk>/match/<int:job_posting_id>/', views.ResumeMatchingView.as_view(), name='resume_matching'),
+    
+    # 매칭 목록 및 상세
+    path('matchings/', views.ResumeMatchingListView.as_view(), name='resume_matching_list'),
+    path('matchings/<int:pk>/', views.ResumeMatchingDetailView.as_view(), name='resume_matching_detail'),
 ]

@@ -33,27 +33,6 @@ backend/
 
 ---
 
-## 서비스 구성
-
-### 공통 서비스
-
-| 서비스 | 설명 | 포트 |
-|--------|------|------|
-| postgres | PostgreSQL 데이터베이스 | 5432 |
-| redis | 캐시 및 Celery 결과 저장소 | 6379 |
-| rabbitmq | 메시지 브로커 (Celery용) | 5672, 15672 |
-| backend | Django 애플리케이션 | 8000 |
-| celery | 비동기 작업 처리 워커 | - |
-| celery-beat | 주기적 작업 스케줄러 | - |
-
-### 배포환경 전용
-
-| 서비스 | 설명 | 포트 |
-|--------|------|------|
-| nginx | 리버스 프록시, 정적 파일 서빙 | 80, 443 |
-
----
-
 ## 개발환경 실행 방법
 
 ### 방법 1: 전체 Docker 실행 (권장)
@@ -167,33 +146,6 @@ docker compose down
 
 ---
 
-## 환경변수 설정
-
-### 초기 설정
-
-```bash
-# .env.example을 복사하여 .env 파일 생성
-cp .env.example .env
-
-# .env 파일을 열어 실제 비밀번호 입력
-```
-
-### 필수 환경변수
-
-| 변수명 | 설명 |
-|--------|------|
-| `DB_PASSWORD` | PostgreSQL 비밀번호 |
-| `RABBITMQ_PASSWORD` | RabbitMQ 비밀번호 |
-| `SECRET_KEY` | Django 시크릿 키 |
-
-### 주의사항
-
-- `.env` 파일은 **Git에 커밋하지 마세요** (`.gitignore`에 포함)
-- `.env.example` 파일만 커밋하여 팀원들이 참고할 수 있게 합니다
-- 배포 시에는 안전한 비밀번호를 사용하세요
-
----
-
 ## 유용한 명령어
 
 ### Docker 관련
@@ -208,8 +160,8 @@ docker compose -f docker-compose.dev.yml restart backend
 # 컨테이너 내부 접속
 docker compose -f docker-compose.dev.yml exec backend bash
 
-# 데이터베이스 접속
-docker compose -f docker-compose.dev.yml exec postgres psql -U teamA -d teamAdb
+# 데이터베이스 접속 (환경변수 사용)
+docker compose -f docker-compose.dev.yml exec postgres psql -U ${DB_USER} -d ${DB_NAME}
 
 # 로그 확인 (실시간)
 docker compose -f docker-compose.dev.yml logs -f backend celery

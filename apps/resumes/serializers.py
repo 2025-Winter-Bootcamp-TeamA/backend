@@ -37,7 +37,13 @@ class ResumeDetailSerializer(serializers.ModelSerializer):
 
 class ResumeMatchingSerializer(serializers.ModelSerializer):
     """이력서 매칭 시리얼라이저"""
+    job_posting_title = serializers.CharField(source='job_posting.title', read_only=True)
+    resume_title = serializers.CharField(source='resume.title', read_only=True)
 
     class Meta:
         model = ResumeMatching
-        fields = ['id', 'matching_rate', 'feedback']
+        fields = [
+            'id', 'job_posting', 'resume', 'job_posting_title', 'resume_title',
+            'score', 'feedback', 'question', 'created_at', 'updated_at'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']

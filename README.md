@@ -41,77 +41,6 @@ sudo usermod -aG docker $USER
 
 ---
 
-## 환경변수 설정
-
-### 1. .env 파일 생성
-
-```bash
-# .env.example을 복사하여 .env 파일 생성
-cp .env.example .env
-```
-
-### 2. .env 파일 수정
-
-`.env` 파일을 열어 실제 값을 입력하세요.
-
-**필수 환경변수:**
-| 변수명 | 설명 |
-|--------|------|
-| `SECRET_KEY` | Django 시크릿 키 |
-| `DB_PASSWORD` | PostgreSQL 비밀번호 |
-| `RABBITMQ_PASSWORD` | RabbitMQ 비밀번호 |
-
-**SECRET_KEY 생성 방법:**
-```bash
-python -c "from django.core.management.utils import get_random_secret_key; print(get_random_secret_key())"
-```
-
-> `.env` 파일은 Git에 커밋되지 않습니다. 팀원 간 별도로 공유해야 합니다.
-
----
-
-## Docker Compose 파일 비교
-
-| 파일 | 용도 | 실행 명령어 |
-|------|------|-------------|
-| `docker-compose.dev.yml` | 개발환경 | `docker compose -f docker-compose.dev.yml up -d` |
-| `docker-compose.yml` | 배포환경 | `docker compose up -d` |
-
-### docker-compose.dev.yml (개발환경)
-
-| 서비스 | 설명 | 포트 |
-|--------|------|------|
-| postgres | PostgreSQL | 127.0.0.1:5432 |
-| redis | Redis | 127.0.0.1:6379 |
-| rabbitmq | RabbitMQ | 127.0.0.1:5672, 15672 |
-| backend | Django (runserver) | 127.0.0.1:8000 |
-| celery | Celery Worker | - |
-| celery-beat | Celery 스케줄러 | - |
-
-**특징:**
-- 모든 포트가 `127.0.0.1`로 바인딩 (로컬에서만 접근 가능)
-- `runserver` 사용 (코드 변경 시 자동 재시작)
-- 볼륨 마운트로 코드 실시간 반영
-
-### docker-compose.yml (배포환경)
-
-| 서비스 | 설명 |
-|--------|------|
-| postgres | PostgreSQL (내부 네트워크만) |
-| redis | Redis (내부 네트워크만) |
-| rabbitmq | RabbitMQ (내부 네트워크만) |
-| backend | Django + Gunicorn |
-| celery | Celery Worker |
-| celery-beat | Celery 스케줄러 |
-| nginx | 리버스 프록시 (80, 443) |
-
-**특징:**
-- Nginx를 통해서만 외부 접근 가능
-- `gunicorn` 사용 (멀티 워커)
-- `restart: always` 설정
-
----
-
 ## 빠른 시작
 
 ### 개발환경 실행
@@ -209,52 +138,6 @@ celery -A config beat -l info
 
 ---
 
-## API 엔드포인트
-
-| 경로 | 설명 |
-|------|------|
-| `/api/v1/users/` | 사용자 인증 및 프로필 |
-| `/api/v1/trends/` | 기술 트렌드 |
-| `/api/v1/jobs/` | 채용 공고 |
-| `/api/v1/resumes/` | 이력서 관리 |
-| `/api/v1/interviews/` | 면접 준비 |
-| `/swagger/` | API 문서 (Swagger) |
-| `/admin/` | 관리자 페이지 |
-
----
-
-## 프로젝트 구조
-
-```
-backend/
-├── apps/                       # Django 앱
-│   ├── users/                  # 사용자 관리
-│   ├── trends/                 # 기술 트렌드
-│   ├── jobs/                   # 채용 공고
-│   ├── resumes/                # 이력서
-│   └── interviews/             # 면접 준비
-├── config/                     # 설정
-│   ├── settings/               # 환경별 설정
-│   │   ├── base.py             # 공통 설정
-│   │   ├── local.py            # 로컬 개발
-│   │   └── production.py       # 프로덕션
-│   ├── urls.py                 # URL 라우팅
-│   ├── wsgi.py                 # WSGI
-│   ├── asgi.py                 # ASGI
-│   └── celery.py               # Celery
-├── nginx/                      # Nginx 설정
-│   └── nginx.conf
-├── docker-compose.yml          # 배포용 Docker Compose
-├── docker-compose.dev.yml      # 개발용 Docker Compose
-├── Dockerfile                  # Docker 이미지 빌드
-├── requirements.txt            # Python 패키지
-├── manage.py                   # Django CLI
-├── .env.example                # 환경변수 템플릿
-└── .env                        # 환경변수 (Git 제외)
-```
-
----
-
 ## 유용한 명령어
 
 ### Docker 관련
@@ -269,8 +152,8 @@ docker compose -f docker-compose.dev.yml restart backend
 # 컨테이너 내부 접속
 docker compose -f docker-compose.dev.yml exec backend bash
 
-# 데이터베이스 접속
-docker compose -f docker-compose.dev.yml exec postgres psql -U teamA -d teamAdb
+# 데이터베이스 접속 (환경변수 사용)
+docker compose -f docker-compose.dev.yml exec postgres psql -U ${DB_USER} -d ${DB_NAME}
 
 # 이미지 재빌드
 docker compose -f docker-compose.dev.yml build --no-cache backend
