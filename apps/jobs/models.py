@@ -192,7 +192,10 @@ class CorpBookmark(models.Model):
         auto_now_add=True,
         verbose_name='등록일자'
     )
-
+    is_deleted = models.BooleanField(
+        default=False,
+        verbose_name='삭제 여부'    # 관리자 페이지에서 is_deleted 대신 보여줄 이름
+    )
     class Meta:
         db_table = 'corp_bookmark'
         verbose_name = '기업 즐겨찾기'
