@@ -11,8 +11,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      TZ: Asia/Seoul
-      PGTZ: Asia/Seoul
+      TZ: ${TZ}
+      PGTZ: ${TZ}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     # 배포환경: 외부 포트 노출 안함 (내부 네트워크만)
@@ -30,7 +30,7 @@ services:
     image: redis:7-alpine
     container_name: redis
     environment:
-      TZ: Asia/Seoul
+      TZ: ${TZ}
     # 배포환경: 외부 포트 노출 안함
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
@@ -48,7 +48,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-      TZ: Asia/Seoul
+      TZ: ${TZ}
     # 배포환경: 외부 포트 노출 안함
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
@@ -78,12 +78,6 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       postgres:
         condition: service_healthy
@@ -107,12 +101,6 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       - backend
       - rabbitmq
@@ -133,12 +121,6 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       - celery
     networks:
@@ -150,7 +132,7 @@ services:
     image: nginx:alpine
     container_name: nginx
     environment:
-      TZ: Asia/Seoul
+      TZ: ${TZ}
     ports:
       - "80:80"
       - "443:443"
