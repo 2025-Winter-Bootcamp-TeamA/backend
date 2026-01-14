@@ -15,6 +15,9 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('logout/', views.LogoutView.as_view(), name='logout'),
 
+    # 소셜 로그인
+    path('social/google/', views.GoogleLoginView.as_view(), name='google_login'),
+
     # 프로필
     path('me/', views.ProfileView.as_view(), name='profile'),
 ]
