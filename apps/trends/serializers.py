@@ -41,3 +41,16 @@ class TechBookmarkSerializer(serializers.ModelSerializer):
     class Meta:
         model = TechBookmark
         fields = ['id', 'tech_stack', 'created_at']
+
+
+class TechStackByCategorySerializer(serializers.ModelSerializer):
+    """카테고리별 기술 스택을 위한 시리얼라이저"""
+    category_id = serializers.SerializerMethodField()
+
+    class Meta:
+        model = TechStack
+        fields = ['name', 'category_id']
+
+    def get_category_id(self, obj):
+        # Get category_id from the view's context
+        return self.context.get('category_id')
