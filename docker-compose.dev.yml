@@ -11,8 +11,8 @@ services:
       POSTGRES_DB: ${DB_NAME}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
-      TZ: Asia/Seoul
-      PGTZ: Asia/Seoul
+      TZ: ${TZ}
+      PGTZ: ${TZ}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -30,7 +30,7 @@ services:
     image: redis:7-alpine
     container_name: redis
     environment:
-      TZ: Asia/Seoul
+      TZ: ${TZ}
     ports:
       - "6379:6379"
     healthcheck:
@@ -48,7 +48,7 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-      TZ: Asia/Seoul
+      TZ: ${TZ}
     ports:
       - "5672:5672"    # AMQP 포트
       - "15672:15672"  # 관리 콘솔
@@ -77,14 +77,6 @@ services:
       - "8000:8000"
     env_file:
       - .env
-    environment:
-      - DEBUG=True
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       postgres:
         condition: service_healthy
@@ -106,14 +98,6 @@ services:
       - .:/app  # 개발환경: 코드 변경 시 실시간 반영
     env_file:
       - .env
-    environment:
-      - DEBUG=True
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       - backend
       - rabbitmq
@@ -132,14 +116,6 @@ services:
       - .:/app
     env_file:
       - .env
-    environment:
-      - DEBUG=True
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - REDIS_URL=redis://redis:6379/1
-      - CELERY_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-      - CELERY_RESULT_BACKEND=redis://redis:6379/0
-      - TZ=Asia/Seoul
     depends_on:
       - celery
     networks:
