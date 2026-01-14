@@ -78,7 +78,8 @@ class GoogleLoginView(APIView):
             # 1. 구글 API로 사용자 정보 조회
             response = requests.get(
                 'https://www.googleapis.com/oauth2/v3/userinfo',
-                headers={'Authorization': f'Bearer {access_token}'}
+                headers={'Authorization': f'Bearer {access_token}'},
+                timeout=10
             )
             response.raise_for_status()
             user_data = response.json()
@@ -114,14 +115,18 @@ class GoogleLoginView(APIView):
                 'access': str(refresh.access_token),
                 'user': UserSerializer(user).data
             })
+            import logging
 
         except requests.RequestException as e:
+            logging.error(f'Google API call failed: {e}')
             return Response(
-                {'error': f'구글 API 호출 실패: {str(e)}'},
+                {'error': '구글 API 호출에 실패했습니다.'},
                 status=status.HTTP_400_BAD_REQUEST
             )
+
         except Exception as e:
+            logging.exception('Unexpected error during Google login')
             return Response(
-                {'error': f'로그인 실패: {str(e)}'},
+                {'error': '로그인 처리 중 오류가 발생했습니다.'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
