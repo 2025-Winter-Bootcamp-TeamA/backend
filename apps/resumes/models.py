@@ -8,7 +8,6 @@ from django.conf import settings
 from apps.trends.models import TechStack
 from apps.jobs.models import JobPosting
 
-
 class Resume(models.Model):
     """
     이력서 모델
