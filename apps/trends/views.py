@@ -7,11 +7,34 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from .models import TechStack, Category, TechTrend, TechBookmark
 from .serializers import (
     TechStackSerializer, CategorySerializer,
-    TechTrendSerializer, TechBookmarkSerializer
+    TechTrendSerializer, TechBookmarkSerializer, TechStackByCategorySerializer
 )
+
+
+class CategoryTechStackListView(generics.ListAPIView):
+    """카테고리별 기술 스택 목록"""
+    permission_classes = [AllowAny]
+    serializer_class = TechStackByCategorySerializer
+
+    def get_queryset(self):
+        return TechStack.objects.filter(
+            category_relations__category_id=self.kwargs['category_id'],
+            is_deleted=False
+        )
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['category_id'] = self.kwargs.get('category_id')
+        return context
+
+    def list(self, request, *args, **kwargs):
+        # Check for category existence before proceeding
+        get_object_or_404(Category, pk=self.kwargs['category_id'], is_deleted=False)
+        return super().list(request, *args, **kwargs)
 
 
 class TechStackListView(generics.ListAPIView):
