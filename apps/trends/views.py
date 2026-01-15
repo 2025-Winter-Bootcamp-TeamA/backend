@@ -54,6 +54,17 @@ class TechStackDetailView(generics.RetrieveAPIView):
     serializer_class = TechStackSerializer
 
 
+class TechDocsURLView(APIView):
+    """기술 스택 공식 문서 URL 조회"""
+    permission_classes = [AllowAny]
+
+    def get(self, request, tech_stack_id):
+        # is_deleted=False 조건으로 삭제되지 않은 객체만 조회, 없으면 404 에러
+        tech_stack = get_object_or_404(TechStack, pk=tech_stack_id, is_deleted=False)
+
+        return Response({'docs_url': tech_stack.docs_url})
+
+
 class CategoryListView(generics.ListAPIView):
     """카테고리 목록"""
     permission_classes = [AllowAny]
