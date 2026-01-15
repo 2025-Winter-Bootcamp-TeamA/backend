@@ -12,6 +12,9 @@ urlpatterns = [
     path('', views.ResumeListCreateView.as_view(), name='resume_list_create'),
     path('<int:pk>/', views.ResumeDetailView.as_view(), name='resume_detail'),
 
+    # 이력서 복원
+    path('<int:pk>/restore/', views.ResumeRestoreView.as_view(), name='resume_restore'),
+
     # 이력서 분석
     path('<int:pk>/analyze/', views.ResumeAnalyzeView.as_view(), name='resume_analyze'),
 

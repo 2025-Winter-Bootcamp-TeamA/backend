@@ -9,6 +9,7 @@ from rest_framework.permissions import IsAuthenticated
 from apps.jobs.models import JobPosting
 from .models import Resume, ResumeMatching
 from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer
+from django.db import transaction
 
 
 class ResumeListCreateView(generics.ListCreateAPIView):
@@ -136,3 +137,44 @@ class ResumeMatchingDetailView(generics.RetrieveAPIView):
             resume__user=self.request.user,
             is_deleted=False
         ).select_related('job_posting', 'resume')
+
+
+class ResumeRestoreView(APIView):
+    """이력서 복원 (분석 내용 및 면접 질문 포함)"""
+    permission_classes = [IsAuthenticated]
+
+    def patch(self, request, pk):
+        """
+        삭제된 이력서를 복원합니다.
+        이력서와 함께 관련된 분석 내용(ResumeMatching)도 복원됩니다.
+        """
+        try:
+            resume = Resume.objects.get(
+                pk=pk,
+                user=request.user,
+                is_deleted=True
+            )
+        except Resume.DoesNotExist:
+            return Response(
+                {'error': '삭제된 이력서를 찾을 수 없습니다.'},
+                status=status.HTTP_404_NOT_FOUND
+            )
+
+        # 트랜잭션으로 이력서와 관련 매칭 정보를 함께 복원
+        with transaction.atomic():
+            # 이력서 복원
+            resume.is_deleted = False
+            resume.save()
+
+            # 관련된 분석 내용 및 면접 질문(ResumeMatching) 복원
+            restored_count = ResumeMatching.objects.filter(
+                resume=resume,
+                is_deleted=True
+            ).update(is_deleted=False)
+
+        return Response({
+            'message': '이력서가 성공적으로 복원되었습니다.',
+            'resume_id': resume.id,
+            'resume_title': resume.title,
+            'restored_matchings': restored_count
+        }, status=status.HTTP_200_OK)
