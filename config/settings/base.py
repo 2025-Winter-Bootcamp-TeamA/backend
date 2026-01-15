@@ -31,10 +31,15 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    'allauth',  # 소셜 로그인
+
+    # 소셜 로그인
+    'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+
+    # AWS S3 연동을 위한 라이브러리
+    'storages',
 
     # 프로젝트 앱
     'apps.users',
@@ -104,7 +109,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 
-# 미디어 파일 설정
+# 미디어 파일 설정 (기본값)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
@@ -153,8 +158,18 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
-# Celery 설정
-CELERY_BROKER_URL = config('CELERY_BROKER_URL')
+# ==========================================
+# Celery 설정 (보안 강화: 동적 조립)
+# ==========================================
+# 환경 변수에서 재료를 각각 가져옵니다.
+MQ_USER = config('RABBITMQ_USER')
+MQ_PASS = config('RABBITMQ_PASSWORD')
+MQ_HOST = config('RABBITMQ_HOST')
+MQ_PORT = config('RABBITMQ_PORT')
+
+# 가져온 재료로 접속 주소를 조립합니다.
+CELERY_BROKER_URL = f"amqp://{MQ_USER}:{MQ_PASS}@{MQ_HOST}:{MQ_PORT}//"
+
 CELERY_RESULT_BACKEND = config('CELERY_RESULT_BACKEND')
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
@@ -200,13 +215,38 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console'],  # Docker 환경에서는 console만 사용 (stdout/stderr)
+            'handlers': ['console'],
             'level': 'INFO',
             'propagate': False,
         },
     },
 }
 
+# ==========================================
+# AWS S3 설정 (이미지/파일 업로드용)
+# ==========================================
+# 1. AWS 접속 정보 (비밀번호는 .env에서 가져옵니다!)
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET_ACCESS_KEY')
+AWS_STORAGE_BUCKET_NAME = config('AWS_STORAGE_BUCKET_NAME')
+AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
+
+# 2. AWS S3 접속 설정
+# 버킷 이름이 설정되어 있을 때만 S3를 사용합니다.
+if AWS_STORAGE_BUCKET_NAME:
+    # 파일 덮어쓰기 방지 (같은 이름의 파일이 올라오면 이름 뒤에 난수 생성)
+    AWS_S3_FILE_OVERWRITE = False
+    
+    # 이미지를 누구나 볼 수 있게 서명 기능 끄기 (공개 버킷이므로)
+    AWS_QUERYSTRING_AUTH = False 
+    
+    # 미디어 파일(이미지 등)을 S3에 저장하는 도구 연결
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    
+    # S3 이미지 주소 자동 생성 (https://버킷이름.s3.amazonaws.com/...)
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
+
 # AI API 키 설정
-GOOGLE_API_KEY = config('GOOGLE_API_KEY', default='')
-OPENAI_API_KEY = config('OPENAI_API_KEY', default='')
+GOOGLE_API_KEY = config('GOOGLE_API_KEY')
+OPENAI_API_KEY = config('OPENAI_API_KEY')
