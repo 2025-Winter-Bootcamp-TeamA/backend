@@ -3,44 +3,6 @@ name: bootcamp-teamA
 # 배포 환경용 Docker Compose 설정
 
 services:
-  # PostgreSQL 데이터베이스
-  postgres:
-    image: postgres:15
-    container_name: postgres
-    environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      TZ: ${TZ}
-      PGTZ: ${TZ}
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    # 배포환경: 외부 포트 노출 안함 (내부 네트워크만)
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - teamA-network
-    restart: always
-
-  # Redis 캐시 및 Celery 결과 저장소
-  redis:
-    image: redis:7-alpine
-    container_name: redis
-    environment:
-      TZ: ${TZ}
-    # 배포환경: 외부 포트 노출 안함
-    healthcheck:
-      test: ["CMD", "redis-cli", "ping"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - teamA-network
-    restart: always
-
   # RabbitMQ 메시지 브로커
   rabbitmq:
     image: rabbitmq:3-management
@@ -49,7 +11,9 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
       TZ: ${TZ}
-    # 배포환경: 외부 포트 노출 안함
+    ports:
+      - "5672:5672"   # API 서버 접속용 포트
+      - "15672:15672" # 관리자 웹 UI 포트
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
       interval: 30s
@@ -78,13 +42,23 @@ services:
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
+    networks:
+      - teamA-network
+    restart: always
+
+  # Nginx 리버스 프록시
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_volume:/app/staticfiles:ro
+      - media_volume:/app/media:ro
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      rabbitmq:
-        condition: service_healthy
+      - backend
     networks:
       - teamA-network
     restart: always
@@ -102,9 +76,7 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings.production
       - DEBUG=False
     depends_on:
-      - backend
       - rabbitmq
-      - redis
     networks:
       - teamA-network
     restart: always
@@ -127,24 +99,6 @@ services:
       - teamA-network
     restart: always
 
-  # Nginx 리버스 프록시
-  nginx:
-    image: nginx:alpine
-    container_name: nginx
-    environment:
-      TZ: ${TZ}
-    ports:
-      - "80:80"
-      - "443:443"
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - static_volume:/app/staticfiles:ro
-      - media_volume:/app/media:ro
-    depends_on:
-      - backend
-    networks:
-      - teamA-network
-    restart: always
 
 volumes:
   postgres_data:

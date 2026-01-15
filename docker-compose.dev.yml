@@ -12,7 +12,6 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       TZ: ${TZ}
-      PGTZ: ${TZ}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
