@@ -23,6 +23,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # 소셜 로그인용
 
     # 서드파티 앱
     'rest_framework',
@@ -30,7 +31,15 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    'storages',  # [추가] AWS S3 연동을 위한 라이브러리
+
+    # 소셜 로그인
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+
+    # AWS S3 연동을 위한 라이브러리
+    'storages',
 
     # 프로젝트 앱
     'apps.users',
@@ -50,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -106,8 +116,17 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # 기본 PK 필드 타입
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# 소셜 로그인 사이트 ID
+SITE_ID = 1
+
 # 사용자 정의 User 모델
 AUTH_USER_MODEL = 'users.User'
+
+# 소셜 로그인 인증 백엔드
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Django REST Framework 설정
 REST_FRAMEWORK = {
