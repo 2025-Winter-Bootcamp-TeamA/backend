@@ -52,5 +52,4 @@ class TechStackByCategorySerializer(serializers.ModelSerializer):
         fields = ['name', 'category_id']
 
     def get_category_id(self, obj):
-        # Get category_id from the view's context
-        return self.context.get('category_id')
+        return self.context.get('category_id') # 카테고리 ID를 컨텍스트로 가져옴
