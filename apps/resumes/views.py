@@ -5,7 +5,11 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from apps.jobs.models import JobPosting
 from .models import Resume, ResumeMatching
-from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer
+from .serializers import (
+    ResumeSerializer, 
+    ResumeDetailSerializer, 
+    ResumeMatchingSerializer
+)
 from django.db import transaction
 
 class ResumeListCreateView(generics.ListCreateAPIView):
