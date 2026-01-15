@@ -9,9 +9,12 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from .models import TechStack, Category, TechTrend, TechBookmark
+from drf_yasg.utils import swagger_auto_schema
 from .serializers import (
     TechStackSerializer, CategorySerializer,
-    TechTrendSerializer, TechBookmarkSerializer, TechStackByCategorySerializer
+    TechTrendSerializer, TechStackByCategorySerializer,
+    TechBookmarkListSerializer, TechBookmarkCreateSerializer,
+    TechBookmarkCreateResponseSerializer
 )
 
 
@@ -95,35 +98,47 @@ class TrendRankingView(APIView):
         return Response(serializer.data)
 
 
-class TechBookmarkListView(generics.ListAPIView):
-    """내 기술 즐겨찾기 목록"""
-    permission_classes = [IsAuthenticated]
-    serializer_class = TechBookmarkSerializer
-
-    def get_queryset(self):
-        return TechBookmark.objects.filter(
-            user=self.request.user,
-            is_deleted=False
-        )
+class TechBookmarkListCreateAPIView(APIView):
+    """
+    기술 즐겨찾기 목록 조회 및 생성 API
+    - GET /tech-bookmarks: 즐겨찾기 기술 목록 조회
+    - POST /tech-bookmarks: 즐겨찾기 기술 추가
+    """
+    #permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]  # 인증 없이도 접근 가능하도록 변경(테스트 목적)
 
 
-class TechBookmarkToggleView(APIView):
-    """기술 즐겨찾기 토글"""
-    permission_classes = [IsAuthenticated]
+    def get(self, request):
+        bookmarks = TechBookmark.objects.filter(user=request.user).order_by('-created_at')
+        serializer = TechBookmarkListSerializer(bookmarks, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def post(self, request, tech_stack_id):
-        bookmark, created = TechBookmark.objects.get_or_create(
-            user=request.user,
-            tech_stack_id=tech_stack_id,
-            defaults={'is_deleted': False}
-        )
+    @swagger_auto_schema(request_body=TechBookmarkCreateSerializer)
+    def post(self, request):
+        serializer = TechBookmarkCreateSerializer(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        
+        tech_id = serializer.validated_data.get('tech_id')
+        tech_stack = get_object_or_404(TechStack, id=tech_id)
+        
+        tech_bookmark = TechBookmark.objects.create(user=request.user, tech_stack=tech_stack)
 
-        if not created:
-            bookmark.is_deleted = not bookmark.is_deleted
-            bookmark.save()
-
-        action = '추가' if not bookmark.is_deleted else '삭제'
-        return Response({
-            'message': f'즐겨찾기가 {action}되었습니다.',
-            'is_bookmarked': not bookmark.is_deleted
+        response_serializer = TechBookmarkCreateResponseSerializer({
+            'tech_bookmark_id': tech_bookmark.id,
+            'tech_stack_id': tech_bookmark.tech_stack.id,
+            'message': "즐겨찾기에 추가되었습니다."
         })
+        return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+
+class TechBookmarkDeleteAPIView(APIView):
+    """
+    기술 즐겨찾기 삭제 API
+    - DELETE /tech-bookmarks/{tech_bookmark_id}: 즐겨찾기 기술 삭제
+    """
+    permission_classes = [IsAuthenticated]
+
+    def delete(self, request, tech_bookmark_id):
+        bookmark = get_object_or_404(TechBookmark, id=tech_bookmark_id, user=request.user)
+        bookmark.delete()
+        return Response({'message': '즐겨찾기가 해제 되었습니다.'}, status=status.HTTP_200_OK)
