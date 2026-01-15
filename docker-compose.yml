@@ -14,7 +14,6 @@ services:
     ports:
       - "5672:5672"   # API 서버 접속용 포트
       - "15672:15672" # 관리자 웹 UI 포트
-    # 배포환경: 외부 포트 노출 안함
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
       interval: 30s
