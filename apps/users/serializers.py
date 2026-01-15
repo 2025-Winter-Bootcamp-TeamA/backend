@@ -8,16 +8,24 @@ from .models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """사용자 정보 시리얼라이저"""
-
     class Meta:
         model = User
-        fields = ['id', 'email', 'name', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'email', 'created_at', 'updated_at']
+        # ERD 규격에 맞춰 응답하고 싶은 필드들을 리스트에 추가
+        fields = [
+            'id', 
+            'username',  # 추가된 아이디 필드
+            'email', 
+            'name', 
+            'is_deleted', # 추가된 삭제 여부 필드
+            'created_at', 
+            'updated_at'
+        ]
+        # 읽기 전용 필드 설정 (생성/수정 시 자동 처리되는 필드들)
+        read_only_fields = ['id', 'created_at', 'updated_at']
 
-
+""" 
 class SignupSerializer(serializers.ModelSerializer):
-    """회원가입 시리얼라이저"""
+    #회원가입 시리얼라이저
     password = serializers.CharField(write_only=True, min_length=8)
     password_confirm = serializers.CharField(write_only=True)
 
@@ -38,7 +46,7 @@ class SignupSerializer(serializers.ModelSerializer):
 
 
 class LoginSerializer(serializers.Serializer):
-    """로그인 시리얼라이저"""
+    #로그인 시리얼라이저
     email = serializers.EmailField()
     password = serializers.CharField()
 
@@ -49,4 +57,5 @@ class LoginSerializer(serializers.Serializer):
         if not user.is_active:
             raise serializers.ValidationError('비활성화된 계정입니다.')
         data['user'] = user
-        return data
+        return data 
+ """
