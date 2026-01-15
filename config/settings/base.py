@@ -248,5 +248,18 @@ if AWS_STORAGE_BUCKET_NAME:
     MEDIA_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
 
 # AI API 키 설정
-GOOGLE_API_KEY = config('GOOGLE_API_KEY')
-OPENAI_API_KEY = config('OPENAI_API_KEY')
+GOOGLE_API_KEY = config('GOOGLE_API_KEY', default='')
+OPENAI_API_KEY = config('OPENAI_API_KEY', default='')
+
+# Swagger (drf-yasg) 설정
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Bearer': {
+            'type': 'apiKey',
+            'name': 'Authorization',
+            'in': 'header',
+            'description': 'JWT "Bearer <token>"'
+        }
+    },
+    'USE_SESSION_AUTH': False,
+}
