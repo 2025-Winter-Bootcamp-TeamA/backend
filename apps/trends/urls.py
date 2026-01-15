@@ -22,6 +22,6 @@ urlpatterns = [
     path('ranking/', views.TrendRankingView.as_view(), name='trend_ranking'),
 
     # 즐겨찾기
-    path('bookmarks/', views.TechBookmarkListView.as_view(), name='bookmark_list'),
-    path('bookmarks/<int:tech_stack_id>/', views.TechBookmarkToggleView.as_view(), name='bookmark_toggle'),
+    path('tech-bookmarks/', views.TechBookmarkListCreateAPIView.as_view(), name='tech_bookmarks_list_create'),
+    path('tech-bookmarks/<int:tech_bookmark_id>/', views.TechBookmarkDeleteAPIView.as_view(), name='tech_bookmarks_delete'),
 ]
