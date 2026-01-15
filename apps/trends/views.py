@@ -104,8 +104,7 @@ class TechBookmarkListCreateAPIView(APIView):
     - GET /tech-bookmarks: 즐겨찾기 기술 목록 조회
     - POST /tech-bookmarks: 즐겨찾기 기술 추가
     """
-    #permission_classes = [IsAuthenticated]
-    permission_classes = [AllowAny]  # 인증 없이도 접근 가능하도록 변경(테스트 목적)
+    permission_classes = [IsAuthenticated]
 
 
     def get(self, request):
