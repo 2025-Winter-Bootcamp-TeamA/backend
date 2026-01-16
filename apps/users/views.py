@@ -10,7 +10,9 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from .serializers import UserSerializer# SignupSerializer, LoginSerializer
 import requests
 from decouple import config
-
+from drf_yasg.utils import swagger_auto_schema # Swagger 설정을 위한 데코레이터 임포트
+from drf_yasg import openapi # 상세한 파라미터 설정을 위한 모듈
+import logging
 
 """ class SignupView(generics.CreateAPIView):
     permission_classes = [AllowAny]
@@ -34,9 +36,12 @@ class LoginView(APIView):
  """
 
 class LogoutView(APIView):
-    """로그아웃"""
+    
     permission_classes = [IsAuthenticated]
-
+    @swagger_auto_schema(
+            operation_summary="로그아웃",
+            operation_description="사용자의 리프레시 토큰을 블랙리스트에 추가하여 로그아웃 처리합니다."
+        )
     def post(self, request):
         try:
             refresh_token = request.data['refresh']
@@ -61,6 +66,17 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 class GoogleLoginView(APIView):
     """구글 소셜 로그인"""
     permission_classes = [AllowAny]
+    @swagger_auto_schema(
+        operation_summary="구글 소셜 로그인 완료",
+        operation_description="구글에서 받은 access_token을 이용해 JWT 토큰을 발급받습니다.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'access_token': openapi.Schema(type=openapi.TYPE_STRING, description='구글 access_token')
+            },
+            required=['access_token']
+        ),
+    )
 
     def post(self, request):
         access_token = request.data.get('access_token')
@@ -115,7 +131,6 @@ class GoogleLoginView(APIView):
                 'access': str(refresh.access_token),
                 'user': UserSerializer(user).data
             })
-            import logging
 
         except requests.RequestException as e:
             logging.error(f'Google API call failed: {e}')
@@ -132,8 +147,12 @@ class GoogleLoginView(APIView):
             )
 class GoogleLoginStartView(APIView):
     """구글 로그인 시작 (Redirect URL 반환)"""
+    
     permission_classes = [AllowAny]
-
+    @swagger_auto_schema(
+        operation_summary="구글 로그인 시작",
+        operation_description="구글 로그인 페이지로 리다이렉트할 수 있는 URL을 반환합니다.",
+    ) 
     def get(self, request):
         # 환경변수에서 가져오기 (없으면 하드코딩된 값 사용)
         client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
