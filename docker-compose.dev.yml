@@ -8,16 +8,16 @@ services:
     image: postgres:15
     container_name: postgres
     environment:
-      POSTGRES_DB: ${DB_NAME}
-      POSTGRES_USER: ${DB_USER}
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
-      TZ: ${TZ}
+      POSTGRES_DB: teamA_db
+      POSTGRES_USER: teamA
+      POSTGRES_PASSWORD: 2025
+      TZ: Asia/Seoul
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${DB_USER}"]
+      test: ["CMD-SHELL", "pg_isready -U teamA"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -29,7 +29,7 @@ services:
     image: redis:7-alpine
     container_name: redis
     environment:
-      TZ: ${TZ}
+      TZ: Asia/Seoul
     ports:
       - "6379:6379"
     healthcheck:
@@ -45,9 +45,9 @@ services:
     image: rabbitmq:3-management
     container_name: rabbitmq
     environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
-      TZ: ${TZ}
+      RABBITMQ_DEFAULT_USER: teamA
+      RABBITMQ_DEFAULT_PASS: 2025
+      TZ: Asia/Seoul
     ports:
       - "5672:5672"    # AMQP 포트
       - "15672:15672"  # 관리 콘솔
