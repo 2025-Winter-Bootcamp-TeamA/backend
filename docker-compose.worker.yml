@@ -1,0 +1,56 @@
+version: '3.8'
+
+services:
+  # 1. RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
+    ports:
+      - "5672:5672"   # API 서버 접속용 포트
+      - "15672:15672" # 관리자 페이지
+    networks:
+      - teamA-network
+    restart: always
+
+  # 2. Celery Worker (비동기 작업 처리)
+  celery:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery
+    command: celery -A config worker -l warning
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+    depends_on:
+      - rabbitmq
+    networks:
+      - teamA-network
+    restart: always
+
+  # 3. Celery Beat (스케줄러)
+  celery-beat:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: celery-beat
+    command: celery -A config beat -l warning
+    env_file:
+      - .env
+    environment:
+      - RABBITMQ_HOST=${RABBITMQ_HOST}
+      - DJANGO_SETTINGS_MODULE=config.settings.production
+    depends_on:
+      - celery
+    networks:
+      - teamA-network
+    restart: always
+
+networks:
+  teamA-network:
+    driver: bridge
