@@ -32,11 +32,12 @@ jobs:
             
             # 3. .env 파일 생성 (Secrets에 저장된 내용으로 덮어쓰기)
             echo "${{ secrets.ENV_FILE }}" > .env
-            
+
             # 4. API 서버 컨테이너 실행 (Backend, Nginx만)
-            # --build: 코드 변경사항 반영
-            # --remove-orphans: docker-compose.yml에서 빠진 postgres, redis 컨테이너 자동 삭제
-            docker compose up -d --build --remove-orphans backend nginx
+            # 기존 것 끄고
+            sudo docker compose -f docker-compose.api.yml down
+            # 새 설정으로 켜기 (이미지 빌드 포함)
+            sudo docker compose -f docker-compose.api.yml up -d --build --remove-orphans
             
             # 5. 불필요한 이미지 정리 (용량 확보)
             docker image prune -f
@@ -69,6 +70,7 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env
             
             # 워커 서버 컨테이너 실행 (RabbitMQ, Celery만)
-            docker compose up -d --build --remove-orphans rabbitmq celery celery-beat
+            sudo docker compose -f docker-compose.worker.yml down
+            sudo docker compose -f docker-compose.worker.yml up -d --build --remove-orphans
             
             docker image prune -f
