@@ -13,14 +13,15 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
 
 # 데이터베이스 설정 (로컬 PostgreSQL)
+# docker-compose.dev.yml의 값과 일치
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
+        'NAME': 'teamA_db',       # docker-compose.dev.yml과 동일
+        'USER': 'teamA',          # docker-compose.dev.yml과 동일
+        'PASSWORD': '2025',       # docker-compose.dev.yml과 동일
+        'HOST': 'postgres',       # Docker 컨테이너 이름
+        'PORT': '5432',
     }
 }
 
