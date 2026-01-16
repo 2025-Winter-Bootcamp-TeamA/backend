@@ -1,0 +1,74 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: ["main"] # main 브랜치에 푸시될 때 실행
+
+jobs:
+  # ====================================================
+  # 1. API 서버 배포 (Backend + Nginx)
+  # ====================================================
+  deploy-api:
+    name: Deploy API Server
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy API via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_API }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            # 1. 프로젝트 폴더로 이동 (폴더가 없으면 clone)
+            if [ ! -d "backend" ]; then
+              git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
+            fi
+            cd backend
+            
+            # 2. 최신 코드 받기
+            git pull origin main
+            
+            # 3. .env 파일 생성 (Secrets에 저장된 내용으로 덮어쓰기)
+            echo "${{ secrets.ENV_FILE }}" > .env
+            
+            # 4. API 서버 컨테이너 실행 (Backend, Nginx만)
+            # --build: 코드 변경사항 반영
+            # --remove-orphans: docker-compose.yml에서 빠진 postgres, redis 컨테이너 자동 삭제
+            docker compose up -d --build --remove-orphans backend nginx
+            
+            # 5. 불필요한 이미지 정리 (용량 확보)
+            docker image prune -f
+
+  # ====================================================
+  # 2. 워커 서버 배포 (RabbitMQ + Celery)
+  # ====================================================
+  deploy-worker:
+    name: Deploy Worker Server
+    runs-on: ubuntu-latest
+    needs: deploy-api  # API 배포 완료 후 실행
+    
+    steps:
+      - name: Deploy Worker via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_WORKER }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            if [ ! -d "backend" ]; then
+              git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
+            fi
+            cd backend
+            
+            git pull origin main
+            
+            # .env 파일 생성
+            echo "${{ secrets.ENV_FILE }}" > .env
+            
+            # 워커 서버 컨테이너 실행 (RabbitMQ, Celery만)
+            docker compose up -d --build --remove-orphans rabbitmq celery celery-beat
+            
+            docker image prune -f

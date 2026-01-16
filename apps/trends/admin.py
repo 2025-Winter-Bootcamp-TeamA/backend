@@ -33,5 +33,5 @@ class ArticleAdmin(admin.ModelAdmin):
 
 @admin.register(TechBookmark)
 class TechBookmarkAdmin(admin.ModelAdmin):
-    list_display = ['user', 'tech_stack', 'created_at', 'is_deleted']
-    list_filter = ['is_deleted']
+    list_display = ['user', 'tech_stack', 'created_at']
+    list_filter = []

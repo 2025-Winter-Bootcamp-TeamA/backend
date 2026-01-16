@@ -708,7 +708,6 @@ Stackdriver,https://img.stackshare.io/service/734/lHYLxJV3_400x400.jpg,https://c
 Dropwizard,https://img.stackshare.io/service/2210/KGguccbW.png,http://dropwizard.io
 Apex,https://img.stackshare.io/service/4301/10543471.png,https://github.com/apex/apex
 StatusPage.io,https://img.stackshare.io/service/279/sp-logo-blue-white-background.jpg,https://betterstack.com/status-page?utm_medium=c&utm_campaign=adwords15273603349&utm_source=adwords&utm_content=766768852277&utm_term=status+page&gad_source=1&gad_campaignid=15273603349&gbraid=0AAAAAoQQaXpY9_6bMNgkUwcuER_lvuOzT&gclid=EAIaIQobChMIicSEvfOIkgMVvnsPAh2OICAnEAAYASABEgLT9_D_BwE
-PowerBI,https://img.stackshare.io/service/3900/default_24450b16a7ae6135db44c4b2c5c708772669a477.png,https://powerbi.microsoft.com/en-us
 pgvector,https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png,https://github.com/pgvector/pgvector
 Data Studio,https://img.stackshare.io/service/5339/default_22520817f170e749efbed2f5b3921aa849d831d1.png,https://www.google.com/analytics/data-studio
 JavaFX,https://img.stackshare.io/service/5278/jW4dnFtA_400x400.jpg,http://docs.oracle.com/javase/8/javase-clienttechnologies.htm
@@ -948,21 +947,15 @@ Heroku,https://img.stackshare.io/service/133/3wgIDj3j.png,https://www.heroku.com
 Yarn,https://img.stackshare.io/service/5848/44mC-kJ3.jpg,https://yarnpkg.com
 Google AdSense,https://img.stackshare.io/service/5137/xvWejEyc_400x400.jpg,https://www.google.com/adsense/start
 ASP.NET Core,https://img.stackshare.io/service/11331/asp.net-core.png,https://dotnet.microsoft.com/ko-kr/apps/aspnet
-Animate.css ,https://img.stackshare.io/service/9195/default_5aa00f79c6648507ba5f6c66c130a832332e5adc.png,https://animate.style
 GitLab CI,https://img.stackshare.io/service/5545/9pAwHBR0.jpg,https://docs.gitlab.com/ci/
 Serverless,https://img.stackshare.io/service/5095/serverless-logo.png,https://www.serverless.com/
 Storybook,https://img.stackshare.io/service/9240/sOct-Txm_400x400.png,https://storybook.js.org/
 Matomo,https://img.stackshare.io/service/8914/n0MGIAF6_400x400.jpg,https://matomo.org/
 Amazon EKS,https://img.stackshare.io/service/7991/amazon-eks.png,https://aws.amazon.com/eks
-Telegram ,https://img.stackshare.io/service/3940/default_eed74f7686cb824aef9591e3e5b8605da4a29b17.jpg,https://telegram.org
-Angular Material ,https://img.stackshare.io/service/5445/cb8U-gL6_400x400.jpg,https://material.angular.io
 Ghost,https://img.stackshare.io/service/1228/XRKixLnT_400x400.png,https://ghost.org
 Anaconda,https://img.stackshare.io/service/4168/default_e178e145a73f964f6c6b903800bc0a1152f4be27.jpg,https://www.anaconda.com
 Bazel,https://img.stackshare.io/service/2697/default_85ab1999fe6310acaeece180990057d2e9ebfb3a.jpg,http://bazel.io
-Windows Server ,https://img.stackshare.io/service/5108/2bsDgJd0_400x400.jpg,https://www.microsoft.com/en-us/cloud-platform/windows-server
 Dash,https://img.stackshare.io/service/2405/HB_dh5cX.png,http://kapeli.com/dash
-Blockchain ,https://img.stackshare.io/service/10608/default_2e4e6445d2b6326eb7c7748f17ae5109a99121fc.png,https://www.blockchain.com
-WP Rocket ,https://img.stackshare.io/service/6122/jxMNWpTm_400x400.jpg,https://wp-rocket.me
 Laravel Forge,https://img.stackshare.io/service/1727/maxresdefault.jpg,https://forge.laravel.com
 OmniAuth,https://img.stackshare.io/service/1433/omniauth.png,https://github.com/intridea/omniauth
 TinyMCE,https://img.stackshare.io/service/3655/eVcDQYNK_400x400.png,https://www.tiny.cloud
@@ -1005,3 +998,74 @@ Salesforce Marketing Cloud,https://img.stackshare.io/service/8520/mVUDo78h_400x4
 Torch,https://img.stackshare.io/service/4475/hpYQzO_U_400x400.png,http://torch.ch
 Sumo Logic,https://img.stackshare.io/service/370/default_e067d8482359b704f1577f7712967ff5218c784d.png,https://www.sumologic.com
 Ktor,https://img.stackshare.io/service/11590/ktor.png,https://ktor.io 
+ARM Cortex-M,,https://elec4.co.kr/contents/article_detail?article_idx=17179
+ARM Cortex-A,,https://www.arm.com/products/silicon-ip-cpu/cortex-a/cortex-a72
+STM32,,https://www.st.com/ko/stm32/stm32.html
+AVR / PIC,,replace_here
+RISC-V,,https://riscv.org/
+Nordic nRF,,https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop
+FPGA,,replace_here
+FreeRTOS,,replace_here
+Zephyr,,replace_here
+Yocto Project,,replace_here
+Buildroot,,replace_here
+QNX / VxWorks,,replace_here
+uC/OS (Micrium),,replace_here
+Bare-metal,,replace_here
+UART,,replace_here
+I2C,,https://wikidocs.net/257474
+SPI,,https://wikidocs.net/278729
+CAN bus,,replace_here
+Modbus,,replace_here
+EtherCAT,,replace_here
+BLE (Bluetooth Low Energy),,replace_here
+Zigbee,,replace_here
+HAL (Hardware Abstraction Layer),,replace_here
+Device Driver,,replace_here
+Register Level Programming,,replace_here
+GPIO/PWM,,replace_here
+ADC/DAC,,replace_here
+DMA(Direct Memory Access),,replace_here
+Watchdog Timer,,replace_here
+Verilog/VHDL,,replace_here
+Keil MDK / IAR Workbench,,replace_here
+GNU Arm Toolchain (GCC),,replace_here
+OpenOCD,,replace_here
+J-Link / ST-LINK,,replace_here
+Oscilloscope / Logic Analyzer,,replace_here
+OTA (Over-The-Air),,replace_here
+Edge AI (TinyML),,replace_here
+Bootloader,,replace_here
+MISRA C,,replace_here
+Functional Safety (ISO 26262),,https://www.iso.org/standard/43464.html
+Burp Suite,,replace_here
+Metasploit,,replace_here
+ZAP (OWASP),,replace_here
+WAF (Web Application Firewall),,replace_here
+SQL Injection / XSS,,replace_here
+Wireshark,,https://www.wireshark.org/
+Nmap,,replace_here
+IDS/IPS,,replace_here
+SSH / SFTP / FTP,,replace_here
+WireGuard,,https://www.wireguard.com/
+Suricata,,https://suricata.io/
+Snort,,https://www.snort.org/
+OIDC,,replace_here
+MFA (Multi-Factor Authentication),,https://aws.amazon.com/ko/what-is/mfa/
+RBAC / ABAC,,replace_here
+Falco,,replace_here
+Trivy,,replace_here
+KMS (Key Management Service),,replace_here
+Ghidra / IDA Pro,,replace_here
+John the Ripper / Hashcat,,replace_here
+"SIEM (Splunk, ELK Stack)",,replace_here
+Godot,,replace_here
+GameMaker,,replace_here
+Love2D,,replace_here
+MonoGame,,replace_here
+Phaser,,replace_here
+PixiJS,,replace_here
+Babylon.js,,replace_here
+PlayCanvas,,replace_here
+Haxe,,replace_here
+Cocos2d-x,,replace_here
