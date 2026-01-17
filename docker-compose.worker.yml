@@ -29,6 +29,8 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
       - rabbitmq
+    links:
+      - rabbitmq
     networks:
       - teamA-network
     restart: always
@@ -47,6 +49,8 @@ services:
       - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
       - celery
+    links:
+      - rabbitmq
     networks:
       - teamA-network
     restart: always
