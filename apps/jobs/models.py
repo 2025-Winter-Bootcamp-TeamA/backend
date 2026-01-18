@@ -83,26 +83,33 @@ class JobPosting(models.Model):
         null=True,
         verbose_name='채용 공고 제목'
     )
+    
     description = models.TextField(
         blank=True,
         null=True,
         verbose_name='직무 설명'
     )
+
+    #삭제 예정(거의 다 없음)
     expiry_date = models.DateField(
         blank=True,
         null=True,
         verbose_name='마감일'
     )
+
     career = models.CharField(
         max_length=255,
         blank=True,
         null=True,
         verbose_name='경력'
     )
+
+    #삭제 예정
     stack_count = models.BigIntegerField(
         default=0,
         verbose_name='채용 공고 스택 수'
     )
+
     posting_number = models.BigIntegerField(
         blank=True,
         null=True,
@@ -148,10 +155,13 @@ class JobPostingStack(models.Model):
         related_name='job_postings',
         verbose_name='기술 스택'
     )
+
+    #삭제 예정
     job_stack_count = models.BigIntegerField(
         default=0,
         verbose_name='채용공고 스택 언급량'
     )
+
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='등록일자'
