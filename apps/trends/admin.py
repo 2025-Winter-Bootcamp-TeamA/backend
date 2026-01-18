@@ -14,9 +14,14 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(TechStack)
 class TechStackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'created_at', 'is_deleted']
+    list_display = ['name', 'get_categories', 'created_at', 'is_deleted']
     search_fields = ['name']
-
+    def get_categories(self, obj):
+        categories = obj.category_relations.all()
+        return ", ".join([rel.category.name for rel in categories])
+    get_categories.short_description = '카테고리'
+    def get_queryset(self, request):
+        return super().get_queryset(request).prefetch_related('category_relations__category')
 
 @admin.register(TechTrend)
 class TechTrendAdmin(admin.ModelAdmin):
