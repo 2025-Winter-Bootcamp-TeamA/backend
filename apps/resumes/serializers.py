@@ -68,7 +68,7 @@ class ResumeSerializer(serializers.ModelSerializer):
         return resume
 
 class ResumeDetailSerializer(serializers.ModelSerializer):
-    """이력서 상세 시리얼라이저"""
+    """이력서 상세 정보 조회용 시리얼라이저"""
 
     resume_id = serializers.IntegerField(source='id', read_only=True)
     resume_title = serializers.CharField(source='title', read_only=True)
@@ -78,8 +78,8 @@ class ResumeDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resume
-        fields = ['id', 'title', 'url', 'tech_stacks', 'created_at']
-        read_only_fields = ['id', 'created_at']
+        fields = ['id', 'title', 'url', 'tech_stacks', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
 
 class ResumeMatchingSerializer(serializers.ModelSerializer):
