@@ -39,7 +39,7 @@ jobs:
             # 새 설정으로 켜기 (이미지 빌드 포함)
             sudo docker compose -f docker-compose.api.yml up -d --build --remove-orphans
 
-            # 컨테이너 실행 후 데이터베이스 관련 작업 수행
+            # 컨테이너 실행 후 데이터베이스 관련 작업 수행 (csv 변경시 사용)
             echo "Starting Database Migration and Data Import..."
             sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py migrate --noinput
             sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py import_tech_stacks
