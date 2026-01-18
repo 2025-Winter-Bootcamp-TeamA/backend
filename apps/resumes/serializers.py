@@ -1,11 +1,8 @@
-"""
-이력서 시리얼라이저
-"""
-
+import os
 from rest_framework import serializers
+from django.core.files.storage import default_storage
 from apps.trends.serializers import TechStackSerializer
 from .models import Resume, ResumeStack, ResumeMatching
-
 
 class ResumeStackSerializer(serializers.ModelSerializer):
     """이력서 기술 스택 시리얼라이저"""
@@ -15,28 +12,51 @@ class ResumeStackSerializer(serializers.ModelSerializer):
         model = ResumeStack
         fields = ['tech_stack']
 
-
 class ResumeSerializer(serializers.ModelSerializer):
-    """이력서 시리얼라이저"""
+    """이력서 목록 및 업로드용 시리얼라이저"""
+    file = serializers.FileField(write_only=True, required=True)
+    title = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Resume
-        fields = ['id', 'title', 'url', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'url', 'file', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
+    def create(self, validated_data):
+        file_obj = validated_data.pop('file', None)
+        user = self.context['request'].user
+        
+        # 제목 자동 추출
+        title = validated_data.get('title')
+        if (not title or title.strip() == "") and file_obj:
+            title = os.path.splitext(file_obj.name)[0]
+        
+        resume = Resume.objects.create(user=user, title=title, **validated_data)
+        
+        if file_obj:
+            file_path = f"resumes/user_{user.id}/{resume.id}_{file_obj.name}"
+            saved_path = default_storage.save(file_path, file_obj)
+            resume.url = default_storage.url(saved_path)
+            resume.save()
+
+            # 기술 스택 저장 로직 (현재는 빈 상태로 유지)
+            extracted_tech_stack_ids = [] # 추후 분석 로직 연동
+            for ts_id in extracted_tech_stack_ids:
+                ResumeStack.objects.create(resume=resume, tech_stack_id=ts_id)
+            
+        return resume
 
 class ResumeDetailSerializer(serializers.ModelSerializer):
-    """이력서 상세 시리얼라이저"""
+    """이력서 상세 정보 조회용 시리얼라이저"""
     tech_stacks = ResumeStackSerializer(many=True, read_only=True)
 
     class Meta:
         model = Resume
         fields = ['id', 'title', 'url', 'tech_stacks', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at', 'updated_at']
-
+        read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
 class ResumeMatchingSerializer(serializers.ModelSerializer):
-    """이력서 매칭 시리얼라이저"""
+    """이력서 매칭 정보 시리얼라이저"""
     job_posting_title = serializers.CharField(source='job_posting.title', read_only=True)
     resume_title = serializers.CharField(source='resume.title', read_only=True)
 
@@ -44,6 +64,6 @@ class ResumeMatchingSerializer(serializers.ModelSerializer):
         model = ResumeMatching
         fields = [
             'id', 'job_posting', 'resume', 'job_posting_title', 'resume_title',
-            'score', 'feedback', 'question', 'created_at', 'updated_at'
+            'score', 'feedback', 'question', 'created_at'
         ]
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'created_at']
