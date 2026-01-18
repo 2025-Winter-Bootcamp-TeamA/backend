@@ -245,8 +245,8 @@ Docker Desktop에서 **bootcamp-teamA** 그룹으로 컨테이너들이 표시�
 
 ### 기술 스택 데이터베이스 반영
 
-docker compose -f backend/docker-compose.dev.yml exec backend python manage.py import_tech_stacks
+docker compose -f docker-compose.dev.yml exec backend python manage.py import_tech_stacks
 
-docker compose -f backend/docker-compose.dev.yml exec backend python manage.py import_categories
+docker compose -f docker-compose.dev.yml exec backend python manage.py import_categories
 
 기술 스택 수정 사항 있을 시 csv 두개 수정하고 아래 명령 실행
