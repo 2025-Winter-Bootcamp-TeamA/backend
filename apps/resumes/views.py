@@ -23,8 +23,8 @@ class ResumeListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
-class ResumeDetailView(generics.RetrieveUpdateDestroyAPIView):
-    """이력서 상세 조회/수정/삭제"""
+class ResumeDetailView(generics.RetrieveDestroyAPIView):
+    """이력서 상세 조회/삭제"""
     permission_classes = [IsAuthenticated]
     serializer_class = ResumeDetailSerializer
 
@@ -32,8 +32,6 @@ class ResumeDetailView(generics.RetrieveUpdateDestroyAPIView):
         return Resume.objects.filter(user=self.request.user, is_deleted=False)
 
     def perform_destroy(self, instance):
-        instance.is_deleted = True
-        instance.save()
         # 삭제 시 관련된 분석 데이터도 함께 Soft Delete
         with transaction.atomic():
             instance.is_deleted = True
