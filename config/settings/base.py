@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-
     # 소셜 로그인
     'allauth',
     'allauth.account',
@@ -263,3 +262,4 @@ SWAGGER_SETTINGS = {
     },
     'USE_SESSION_AUTH': False,
 }
+

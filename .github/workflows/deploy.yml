@@ -1,0 +1,82 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: ["main"] # main 브랜치에 푸시될 때 실행
+
+jobs:
+  # ====================================================
+  # 1. API 서버 배포 (Backend + Nginx)
+  # ====================================================
+  deploy-api:
+    name: Deploy API Server
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Deploy API via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_API }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            # 1. 프로젝트 폴더로 이동 (폴더가 없으면 clone)
+            if [ ! -d "backend" ]; then
+              git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
+            fi
+            cd backend
+            
+            # 2. 최신 코드 받기
+            git pull origin main
+            
+            # 3. .env 파일 생성 (Secrets에 저장된 내용으로 덮어쓰기)
+            echo "${{ secrets.ENV_FILE }}" > .env
+
+            # 4. API 서버 컨테이너 실행 (Backend, Nginx만)
+            # 기존 것 끄고
+            sudo docker compose -f docker-compose.api.yml down
+            # 새 설정으로 켜기 (이미지 빌드 포함)
+            sudo docker compose -f docker-compose.api.yml up -d --build --remove-orphans
+
+            # 컨테이너 실행 후 데이터베이스 관련 작업 수행 (csv 변경시 사용)
+            # echo "Starting Database Migration and Data Import..."
+            # sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py migrate --noinput
+            # sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py import_tech_stacks
+            # sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py import_categories
+            
+            # 5. 불필요한 이미지 정리 (용량 확보)
+            docker image prune -f
+
+  # ====================================================
+  # 2. 워커 서버 배포 (RabbitMQ + Celery)
+  # ====================================================
+  deploy-worker:
+    name: Deploy Worker Server
+    runs-on: ubuntu-latest
+    needs: deploy-api  # API 배포 완료 후 실행
+    
+    steps:
+      - name: Deploy Worker via SSH
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_WORKER }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          port: 22
+          script: |
+            if [ ! -d "backend" ]; then
+              git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
+            fi
+            cd backend
+            
+            git pull origin main
+            
+            # .env 파일 생성
+            echo "${{ secrets.ENV_FILE }}" > .env
+            
+            # 워커 서버 컨테이너 실행 (RabbitMQ, Celery만)
+            sudo docker compose -f docker-compose.worker.yml down
+            sudo docker compose -f docker-compose.worker.yml up -d --build --remove-orphans
+            
+            docker image prune -f

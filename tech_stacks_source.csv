@@ -86,7 +86,6 @@ Symfony,https://img.stackshare.io/service/1197/logosf_positif_03_icon.png,http:/
 Drupal,https://img.stackshare.io/service/1226/H9IAAYru_400x400.jpg,https://www.drupal.org
 InVision,https://img.stackshare.io/service/165/r9uL4jWU.png,http://www.invisionapp.com
 Grunt,https://img.stackshare.io/service/845/falgg2jybmhgk16y62lr.png,http://gruntjs.com
-Animate.css,,https://animate.style
 Zendesk,https://img.stackshare.io/service/70/ObVtJEgP_400x400.png,http://www.zendesk.com
 Memcached,https://img.stackshare.io/service/1040/hDNnpa4a_400x400.jpg,http://memcached.org
 Next.js,https://img.stackshare.io/service/5936/nextjs.png,https://nextjs.org
@@ -418,7 +417,6 @@ Ionicons,https://img.stackshare.io/service/5368/icon.png,http://ionicons.com
 Play,https://img.stackshare.io/service/1013/HqN22PuY.png,http://www.playframework.com
 Material Design,https://img.stackshare.io/service/3994/guidelines-icon-192x192.png,https://www.google.com/design/spec/material-design/introduction.html
 Neovim,https://img.stackshare.io/service/983/XDy-S1r6.png,http://neovim.org
-Telegram,,https://telegram.org
 Ethereum,https://img.stackshare.io/service/1634/default_dacdb57c0b4f9d422e4a23aed8b9bbf7a6024fed.jpg,https://ethereum.org
 Spring Data,https://img.stackshare.io/service/7624/IG6D4Ro2_400x400.png,https://spring.io/projects/spring-data
 Salesforce,https://img.stackshare.io/service/12695/D78-IV9i_400x400.jpg,https://www.salesforce.com/in
@@ -428,7 +426,6 @@ Oracle PL/SQL,https://img.stackshare.io/service/7328/plsql.png,http://www.oracle
 flake8,https://img.stackshare.io/service/4838/default_c37162891c64eca7fafe782d9c191e409aae1e93.png,https://github.com/PyCQA/flake8
 F#,https://img.stackshare.io/service/2155/yRNL7yTW.png,http://fsharp.org
 three.js,https://img.stackshare.io/service/5883/preview.png,https://threejs.org
-Angular Material,,https://material.angular.io
 Incapsula,https://img.stackshare.io/service/16/pmMygGUP.jpg,http://www.incapsula.com
 Apache Flink,https://img.stackshare.io/service/2968/kQB_QIB_.png,https://flink.apache.org
 Julia,https://img.stackshare.io/package_manager/3914/default_a30825f60d1159a8bca0d7d45c4988f63eeb2b0f.png,http://pkg.julialang.org
@@ -649,7 +646,6 @@ FreshDesk,https://img.stackshare.io/service/72/d0xmceuw_400x400.jpg,http://fresh
 Unreal Engine,https://img.stackshare.io/service/2990/6DO-xqph_400x400.jpg,https://www.unrealengine.com/en-US
 Zuul,https://img.stackshare.io/service/2932/zuul.png,https://github.com/Netflix/zuul
 monday.com,https://img.stackshare.io/service/9761/monday_logo_icon.png,https://monday.com
-Windows Server,,https://www.microsoft.com/en-us/cloud-platform/windows-server
 Gitea,https://img.stackshare.io/service/6378/preview.png,https://gitea.com
 React Hot Loader,https://img.stackshare.io/no-img-open-source.png,http://gaearon.github.io/react-hot-loader
 Pardot,https://img.stackshare.io/service/7676/NHOel0Hh_400x400.jpg,https://www.pardot.com
@@ -673,7 +669,6 @@ Bitrise,https://img.stackshare.io/service/2686/wFlFGsF3_400x400.jpg,http://bitri
 Vue Native,https://img.stackshare.io/service/9117/logo.png,https://vue-native.io
 RethinkDB,https://img.stackshare.io/service/531/Sp0fIxul_400x400.jpg,http://www.rethinkdb.com
 Esbuild,https://img.stackshare.io/service/25166/default_2dcc9286a150737a14625d18f6f93747f72be430.png,https://esbuild.github.io
-Blockchain,,https://www.blockchain.com
 Angular Universal,https://img.stackshare.io/service/6665/cb8U-gL6_400x400.jpg,https://angular.io/guide/universal
 JFrog Artifactory,https://img.stackshare.io/service/4711/jfrog-artifactory-logo.png,https://www.jfrog.com/artifactory
 Blender,https://img.stackshare.io/service/4008/default_6881268b7b648c93220623333752e32de98d7953.jpg,https://www.blender.org
@@ -842,7 +837,6 @@ boot2docker,https://img.stackshare.io/service/773/6394678.png,http://boot2docker
 OneDrive,https://img.stackshare.io/service/1814/X4ZS9emh_400x400.png,https://onedrive.live.com
 CoreOS,https://img.stackshare.io/service/1608/92f941aa760503ef8552a9fbc77ef9b6.png,https://coreos.com
 Rundeck,https://img.stackshare.io/service/1865/y1xV4CZ5_400x400.jpg,https://www.rundeck.com
-WP Rocket,,https://wp-rocket.me
 XenForo,https://img.stackshare.io/service/6119/xf_400x400.png,http://xenforo.com
 Zsh (Z shell),https://img.stackshare.io/no-img-open-source.png,https://www.zsh.org
 reselect,https://img.stackshare.io/service/7757/13142323.png,https://github.com/reactjs/reselect
@@ -947,15 +941,21 @@ Heroku,https://img.stackshare.io/service/133/3wgIDj3j.png,https://www.heroku.com
 Yarn,https://img.stackshare.io/service/5848/44mC-kJ3.jpg,https://yarnpkg.com
 Google AdSense,https://img.stackshare.io/service/5137/xvWejEyc_400x400.jpg,https://www.google.com/adsense/start
 ASP.NET Core,https://img.stackshare.io/service/11331/asp.net-core.png,https://dotnet.microsoft.com/ko-kr/apps/aspnet
+Animate.css ,https://img.stackshare.io/service/9195/default_5aa00f79c6648507ba5f6c66c130a832332e5adc.png,https://animate.style
 GitLab CI,https://img.stackshare.io/service/5545/9pAwHBR0.jpg,https://docs.gitlab.com/ci/
 Serverless,https://img.stackshare.io/service/5095/serverless-logo.png,https://www.serverless.com/
 Storybook,https://img.stackshare.io/service/9240/sOct-Txm_400x400.png,https://storybook.js.org/
 Matomo,https://img.stackshare.io/service/8914/n0MGIAF6_400x400.jpg,https://matomo.org/
 Amazon EKS,https://img.stackshare.io/service/7991/amazon-eks.png,https://aws.amazon.com/eks
+Telegram ,https://img.stackshare.io/service/3940/default_eed74f7686cb824aef9591e3e5b8605da4a29b17.jpg,https://telegram.org
+Angular Material ,https://img.stackshare.io/service/5445/cb8U-gL6_400x400.jpg,https://material.angular.io
 Ghost,https://img.stackshare.io/service/1228/XRKixLnT_400x400.png,https://ghost.org
 Anaconda,https://img.stackshare.io/service/4168/default_e178e145a73f964f6c6b903800bc0a1152f4be27.jpg,https://www.anaconda.com
 Bazel,https://img.stackshare.io/service/2697/default_85ab1999fe6310acaeece180990057d2e9ebfb3a.jpg,http://bazel.io
+Windows Server ,https://img.stackshare.io/service/5108/2bsDgJd0_400x400.jpg,https://www.microsoft.com/en-us/cloud-platform/windows-server
 Dash,https://img.stackshare.io/service/2405/HB_dh5cX.png,http://kapeli.com/dash
+Blockchain ,https://img.stackshare.io/service/10608/default_2e4e6445d2b6326eb7c7748f17ae5109a99121fc.png,https://www.blockchain.com
+WP Rocket ,https://img.stackshare.io/service/6122/jxMNWpTm_400x400.jpg,https://wp-rocket.me
 Laravel Forge,https://img.stackshare.io/service/1727/maxresdefault.jpg,https://forge.laravel.com
 OmniAuth,https://img.stackshare.io/service/1433/omniauth.png,https://github.com/intridea/omniauth
 TinyMCE,https://img.stackshare.io/service/3655/eVcDQYNK_400x400.png,https://www.tiny.cloud
@@ -998,74 +998,73 @@ Salesforce Marketing Cloud,https://img.stackshare.io/service/8520/mVUDo78h_400x4
 Torch,https://img.stackshare.io/service/4475/hpYQzO_U_400x400.png,http://torch.ch
 Sumo Logic,https://img.stackshare.io/service/370/default_e067d8482359b704f1577f7712967ff5218c784d.png,https://www.sumologic.com
 Ktor,https://img.stackshare.io/service/11590/ktor.png,https://ktor.io 
-ARM Cortex-M,,https://elec4.co.kr/contents/article_detail?article_idx=17179
-ARM Cortex-A,,https://www.arm.com/products/silicon-ip-cpu/cortex-a/cortex-a72
-STM32,,https://www.st.com/ko/stm32/stm32.html
-AVR / PIC,,replace_here
-RISC-V,,https://riscv.org/
-Nordic nRF,,https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop
-FPGA,,replace_here
-FreeRTOS,,replace_here
-Zephyr,,replace_here
-Yocto Project,,replace_here
-Buildroot,,replace_here
-QNX / VxWorks,,replace_here
-uC/OS (Micrium),,replace_here
-Bare-metal,,replace_here
-UART,,replace_here
+ARM Cortex-M,https://www.dusuniot.com/wp-content/uploads/2024/07/arm-cortex-a-processor-hero.jpg-900x506x2.jpg,https://elec4.co.kr/contents/article_detail?article_idx=17179
+ARM Cortex-A,https://www.dusuniot.com/wp-content/uploads/2024/07/arm-cortex-a-processor-hero.jpg-900x506x2.jpg,https://www.arm.com/products/silicon-ip-cpu/cortex-a/cortex-a72
+STM32,https://kr.mathworks.com/products/connections/product_detail/stm32-embedded-target/_jcr_content/thumbnail.adapt.1200.medium.jpeg/1636406079647.jpeg,https://www.st.com/ko/stm32/stm32.html
+AVR / PIC,https://t3.ftcdn.net/jpg/15/06/90/28/360_F_1506902820_oGjDODYN8amCwvqsn5N05Gdq6g6hP37m.jpg,https://www.microchip.com/
+RISC-V,https://image.zdnet.co.kr/2022/02/08/76d6332b8660ae1f0d4b89c0bb3153cc.jpg,https://riscv.org/
+Nordic nRF,https://riscv.org/wp-content/uploads/2020/08/nordic.png,https://www.nordicsemi.com/Products/Development-tools/nRF-Connect-for-Desktop
+FPGA,https://file.notion.so/f/f/0352cd16-a8d3-81e0-b220-00039cc98d51/0bbabc10-311d-4b35-ad00-ada03641a219/스크린샷_2026-01-18_오전_12.36.35.png?table=block&id=2eb2cd16-a8d3-80ef-b637-c5f4978438b9&spaceId=0352cd16-a8d3-81e0-b220-00039cc98d51&expirationTimestamp=1768687200000&signature=nIKkCDws6GfWRp9QB7dv9i0X6IhSMidQo_2th0kQA9o&downloadName=스크린샷+2026-01-18+오전+12.36.35.png,https://www.amd.com/ko/products/adaptive-socs-and-fpgas/fpga.html
+FreeRTOS,https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_freeRTOS.png,https://www.freertos.org/
+Zephyr,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeXJn_zUafm82JM8HnmjKXvDTXiDfKfBDUcA&s,https://github.com/zephyrproject-rtos/zephyr
+Yocto Project,https://docs.yoctoproject.org/_static/YoctoProject_Logo_RGB.jpg,https://docs.yoctoproject.org/
+Buildroot,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBe66vzN5flzCZHGn6QAs9QHy-LdtU5QQ0LQ&s,https://buildroot.org/docs.html
+QNX / VxWorks,https://docs.conan.io/en/1.66/_images/conan-vxworks_logo.png,https://www.windriver.com/products/embedded/vxworks
+uC/OS (Micrium),https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRbdVwADztyPLoICbkfeGPfEVtDRA-mYQoG4w&s,https://www.silabs.com/software-and-tools/micrium-os
+Bare-metal,https://media.licdn.com/dms/image/v2/C4D1BAQEYj3E0NdybTw/company-background_10000/company-background_10000/0/1583350161993/baremetalstandard_cover?e=2147483647&v=beta&t=QFSn1DZiu80qAvWVPpk8f3bkBiTcQ0Ur3OtB7X4lzZg,replace_here
+UART,https://cdn.rohde-schwarz.com/image/products/test-and-measurement/oscilloscopes/uart-oscilloscope-software-serial-triggering-and-decoding-infographic-rohde-schwarz_200_232_320_180_5.jpg,https://xmctutorial.readthedocs.io/ko/stable/Uart/
 I2C,,https://wikidocs.net/257474
-SPI,,https://wikidocs.net/278729
-CAN bus,,replace_here
-Modbus,,replace_here
-EtherCAT,,replace_here
-BLE (Bluetooth Low Energy),,replace_here
-Zigbee,,replace_here
-HAL (Hardware Abstraction Layer),,replace_here
-Device Driver,,replace_here
-Register Level Programming,,replace_here
-GPIO/PWM,,replace_here
+SPI,https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/SPI_logo.svg/2560px-SPI_logo.svg.png,https://wikidocs.net/278729
+CAN bus,https://upload.wikimedia.org/wikipedia/commons/d/d1/CAN_Logo.svg,https://www.csselectronics.com/pages/can-bus-hardware-software-docs
+Modbus,https://www.wago.com/medias/logo-modbus-2000x1125.jpg?context=bWFzdGVyfGltYWdlc3w4OTQ3NHxpbWFnZS9qcGVnfGFXMWhaMlZ6TDJobFl5OW9OREl2TVRBME1qa3pNVEExTURBNE9UUXVhbkJufDY2YzgxOTViMmM0NWNiODg0MjE0ZTA5NmRiYjQyYTk5MzcxMTU0ODFhNDc4ZjQxNWI2ZjcyOTE2MThmNjA0NmU,https://www.modbus.org/modbus-specifications
+EtherCAT,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSGmB8yr5EsaD1jzTAqN_Voj0XgkNsrxeQuEw&s,https://www.ethercat.org/default.htm
+BLE (Bluetooth Low Energy),https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8KtK2J8z6D1-lXX8-hBJMRNp4u7ZSyYIxSQ&s,https://www.bluetooth.com/specifications/specs/core-specification-6-2/
+Zigbee,https://kr.element14.com/wcsstore/ExtendedSitesCatalogAssetStore/cms/asset/images/common/campaign/internet_of_things/zigbee-logo.jpg,https://csa-iot.org/
+HAL (Hardware Abstraction Layer),https://www.shutterstock.com/image-illustration/hal-hardware-abstraction-layer-acronym-260nw-2618288311.jpg,https://source.android.com/docs/core/architecture/hal?hl=ko
+Device Driver,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99qD-tmMMKJnXzPGCq9G0K0-oo3VACuhmvQ&s,https://learn.microsoft.com/ko-kr/windows-hardware/drivers/usbcon/usb-driver-development-guide
+Register Level Programming,,https://www.scribd.com/document/701470705/Register-Level-Programming
+GPIO/PWM,,https://sourceforge.net/p/raspberry-gpio-python/wiki/PWM/
 ADC/DAC,,replace_here
-DMA(Direct Memory Access),,replace_here
-Watchdog Timer,,replace_here
+DMA(Direct Memory Access),,https://elinux.org/images/4/49/20140429-dma.pdf
+Watchdog Timer,,https://xmctutorial.readthedocs.io/ko/stable/Watchdog/
 Verilog/VHDL,,replace_here
 Keil MDK / IAR Workbench,,replace_here
-GNU Arm Toolchain (GCC),,replace_here
-OpenOCD,,replace_here
-J-Link / ST-LINK,,replace_here
-Oscilloscope / Logic Analyzer,,replace_here
-OTA (Over-The-Air),,replace_here
-Edge AI (TinyML),,replace_here
-Bootloader,,replace_here
-MISRA C,,replace_here
-Functional Safety (ISO 26262),,https://www.iso.org/standard/43464.html
-Burp Suite,,replace_here
-Metasploit,,replace_here
-ZAP (OWASP),,replace_here
-WAF (Web Application Firewall),,replace_here
-SQL Injection / XSS,,replace_here
-Wireshark,,https://www.wireshark.org/
-Nmap,,replace_here
+GNU Arm Toolchain (GCC),https://i.namu.wiki/i/lai6Q5otWPpXicpFG-Qot8d4q6khizSUe1d3j8Bi84gIPXOSVaipSAknkmx7MzonKMSvV_SLF7FnkQ1X1iy7LA.svg,https://developer.arm.com/Tools%20and%20Software/GNU%20Toolchain
+OpenOCD,,https://openocd.org/
+J-Link / ST-LINK,,https://www.st.com/resource/en/user_manual/um1075-stlinkv2-incircuit-debuggerprogrammer-for-stm8-and-stm32-stmicroelectronics.pdf
+OTA (Over-The-Air),https://pbs.twimg.com/profile_images/2046005787/OTA_logo_400x400.png,https://developer.mozilla.org/ko/docs/Glossary/OTA
+Edge AI (TinyML),https://edge-ai-tech.eu/wp-content/uploads/2023/01/KDT-JU-EdgeAI_Logo_Transparent.png,https://docs.openedgeplatform.intel.com/dev/ai-libraries.html
+Bootloader,,https://source.android.com/docs/core/architecture/bootloader?hl=ko
+MISRA C,https://misra.org.uk/app/uploads/2023/03/Misra-C-25.jpg,https://scitools.com/misra?googlead=misra&gad_source=1&gad_campaignid=18932175558&gbraid=0AAAAAD_vmEtoTIPjf77ugg7oOlpIpmhEz&gclid=Cj0KCQiAprLLBhCMARIsAEDhdPd_xYfFkFF_rehhnsN5GksA6lrPNU6ZqGKus7h9wwNV7EmtJR8FLbYaAk88EALw_wcB
+Functional Safety (ISO 26262),https://www.microchip.com/en-us/solutions/technologies/functional-safety/_jcr_content/root/responsivegrid/container/isolatedimage_1342522310/image.coreimg.jpeg/1671622420885/functional-safety-support-mrt346079.jpeg,https://www.iso.org/standard/43464.html
+Burp Suite,https://ptdts.co.id/assets/img/product/Burpsuite/Burpsuite-logo.jpg,https://portswigger.net/burp
+Metasploit,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQveOHt8rUeXuPHV3s_GD9y4pzLPJ9DXXaAvA&s,https://docs.metasploit.com/
+ZAP (OWASP),https://miro.medium.com/1*ehhGqaKCKVnOw3Nlu1ajmA.png,https://www.zaproxy.org/docs/
+WAF (Web Application Firewall),https://cloudkul.com/blog/wp-content/uploads/2022/03/AWS-WAF-logo.png,https://docs.aws.amazon.com/ko_kr/waf/
+SQL Injection / XSS,https://siphonsec.com/img/banners/xss-4.jpg,https://developer.mozilla.org/ko/docs/Glossary/SQL_Injection
+Wireshark,https://velog.velcdn.com/images/chobowhack05/post/7b400767-eede-4fcf-9bb6-54dc333de5e3/image.png,https://www.wireshark.org/
+Nmap,https://images.velog.io/images/lsh9672/post/d20f8ada-ba33-435e-8f2d-03ee818a3a9b/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.webp,https://nmap.org/docs.html
 IDS/IPS,,replace_here
-SSH / SFTP / FTP,,replace_here
-WireGuard,,https://www.wireguard.com/
-Suricata,,https://suricata.io/
-Snort,,https://www.snort.org/
-OIDC,,replace_here
-MFA (Multi-Factor Authentication),,https://aws.amazon.com/ko/what-is/mfa/
+SSH / SFTP / FTP,https://blog.kakaocdn.net/dna/bkDanV/btrWtdVVziD/AAAAAAAAAAAAAAAAAAAAACANyPoadZ_hO04f0gCPgmQLBTr-vu0GrelbFOw1KKwy/img.png?credential=yqXZFxpELC7KVnFOS48ylbz2pIh7yKj8&expires=1769871599&allow_ip=&allow_referer=&signature=s9b6qmoXQMGe8M1MXxhWmhDvMKg%3D,https://www.openssh.org/manual.html
+WireGuard,https://cdn.sanity.io/images/zo1bnlq1/production/e7ab3cc3c01529f028b6dc1e09749b12d52bf3e0-1554x1552.png?w=1554&auto=format,https://www.wireguard.com/
+Suricata,https://velog.velcdn.com/images/kimkh1474/post/7a0712c8-3bca-443a-9784-fa72cbeabcb1/image.png,https://suricata.io/
+Snort,https://www.rapid7.com/cdn/assets/bltae99b55e97ffb716/683de1003a1c5afc7f4ba89e/thumb-snort.jpg,https://www.snort.org/
+OIDC,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6Thj3WEmUl2V15zoivylDxoCDtRjumdL9Gw&s,https://www.microsoft.com/ko-kr/security/business/security-101/what-is-openid-connect-oidc
+MFA (Multi-Factor Authentication),https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmCLKrnHZajowFPnIbZvpksZFRVhYUAFLW3Q&s,https://aws.amazon.com/ko/what-is/mfa/
 RBAC / ABAC,,replace_here
-Falco,,replace_here
-Trivy,,replace_here
-KMS (Key Management Service),,replace_here
-Ghidra / IDA Pro,,replace_here
-John the Ripper / Hashcat,,replace_here
-"SIEM (Splunk, ELK Stack)",,replace_here
-Godot,,replace_here
-GameMaker,,replace_here
-Love2D,,replace_here
-MonoGame,,replace_here
-Phaser,,replace_here
-PixiJS,,replace_here
-Babylon.js,,replace_here
-PlayCanvas,,replace_here
-Haxe,,replace_here
-Cocos2d-x,,replace_here
+Falco,https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FebVdhH%2FbtsOdEomRiq%2FAAAAAAAAAAAAAAAAAAAAAHPtHP9wBcO6iIsrJYrgRy4KGkZUQvHeCLpdVkRtylU3%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1769871599%26allow_ip%3D%26allow_referer%3D%26signature%3D4zv20DP7eXMKyRCuvT5IAZaeWLI%253D,https://falco.org/
+Trivy,https://all4chip.com/data/editor/2109/287c295a2aebb1a79dafc4759f55e755_1630968799_5628.png,https://trivy.dev/docs/latest/guide/
+KMS (Key Management Service),https://tech.cloud.nongshim.co.kr/wp-content/uploads/image-141.png,https://docs.aws.amazon.com/ko_kr/kms/latest/developerguide/overview.html
+Ghidra / IDA Pro,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1LnY9w9sZxBbi-dno8nZTnYA0YnNjqqEYQ&s,https://github.com/NationalSecurityAgency/ghidra
+John the Ripper / Hashcat,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTJzkDKpUyJ0aNjvFw4yH0DZGxfTqymkNilA&s,https://hashcat.net/hashcat/
+"SIEM (Splunk, ELK Stack)",https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2YwEuNEfwjTuKQYiP1WLoixaOC__k8jqFbQ&s,https://www.splunk.com/ko_kr
+Godot,https://dl.flathub.org/media/org/godotengine/GodotSharp/af2144b3c87340ae312187ff465d4740/icons/128x128@2/org.godotengine.GodotSharp.png,https://docs.godotengine.org/en/stable/
+GameMaker,https://img.notionusercontent.com/s3/prod-files-secure/0352cd16-a8d3-81e0-b220-00039cc98d51/fcfff2d3-3459-4e62-9c63-478a6117aa1e/스크린샷_2026-01-18_오전_1.12.30.png/size/w=2000?exp=1768752793&sig=fexebSTcIqrPvIBpLOvgKGgTKYMWb-JapniuFaM0-AQ&id=2eb2cd16-a8d3-804b-a6a5-c01d37f6a051&table=block&userId=232f9ae6-a9ce-4dd1-b3f9-4d9f5eb269a9,https://gamemaker.io/en
+Love2D,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN9WG5lQXSvoBvVFNVWAKn_cCXR8ddEMx3GQ&s,https://love2d.org/
+MonoGame,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJBJOB2H5f3o33bZi7gezdKH7iDWYI-TO-WA&s,https://monogame.net/
+Phaser,https://upload.wikimedia.org/wikipedia/commons/e/e7/Phaser_Logo.png,https://phaser.io/
+PixiJS,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6TZVVYL6X_0mo3iGkJp7plbbzaeOWdxnGsA&s,https://pixijs.com/
+Babylon.js,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW5BbCkIrbydNms3teZaN4TpEWE39_vRgqZw&s,https://www.babylonjs.com/
+PlayCanvas,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrHVZQheOy2TNhf_RWRWvGmglUw53eA5SISA&s,https://playcanvas.com/
+Haxe,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKmZ3WCQQVIK2mjovTlFYKbdf1bZJE6r0E4sBGEc__ig&s,https://haxe.org/
+Cocos2d-x,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4l31QKbbC_KhhxVT-nczFpEyYaaRZWNUdpw&s,https://www.cocos.com/en/cocos2d-x

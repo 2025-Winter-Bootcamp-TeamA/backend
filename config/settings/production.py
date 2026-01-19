@@ -54,3 +54,6 @@ AWS_S3_OBJECT_PARAMETERS = {
 # Docker 환경에서는 stdout/stderr로 로그 출력 (docker logs로 확인 가능)
 # 파일 로그는 필요시 별도 로그 수집 시스템(Grafana Loki 등) 사용
 # LOGGING['loggers']['django']['handlers'] = ['console']  # 이미 base.py에서 설정됨
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
