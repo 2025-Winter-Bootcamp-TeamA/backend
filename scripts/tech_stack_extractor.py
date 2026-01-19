@@ -44,7 +44,7 @@ def final_perfect_extractor(text, master_list, model="gemma3:12b"):
         ollama_host = os.getenv('OLLAMA_HOST', 'http://localhost:11434') # 기본 Ollama 주소
         client = ollama.Client(host=ollama_host)
         
-        response = client.chat(model=model, messages=[{{'role': 'user', 'content': prompt}}], format='json', options={{'temperature': 0}})
+        response = client.chat(model=model, messages=[{'role': 'user', 'content': prompt}], format='json', options={'temperature': 0})
         
         raw_content = response['message']['content']
         parsed_content = json.loads(raw_content)
@@ -72,32 +72,30 @@ def final_perfect_extractor(text, master_list, model="gemma3:12b"):
             if clean_cand in target_lower_map:
                 matched_original = target_lower_map[clean_cand]
             
-            # (B) 2순위: 부분 일치 및 유의어 매핑
+            # (B) 2순위: 부분 일치 및 유의어 매핑 (개선된 로직)
             else:
-                # 후보 단어가 포함된 리스트 항목들을 모두 찾은 뒤, '짧은 순'으로 정렬
-                # (Azure를 찾았을 때 Azure DevOps보다 Azure가 먼저 걸리도록 함)
-                possible_keys = [k for k in target_lower_map.keys() if clean_cand in k or k in clean_cand]
-                possible_keys.sort(key=len) 
+                # 후보(clean_cand)가 독립된 단어로서 포함된 DB의 모든 기술명(key)을 찾음
+                possible_keys = []
+                for k in target_lower_map.keys():
+                    if re.search(rf"\b{re.escape(clean_cand)}\b", k):
+                        possible_keys.append(k)
                 
-                for target_key in possible_keys:
-                    original_name = target_lower_map[target_key]
-                    
-                    # [검증 로직] 
-                    # 만약 리스트 명칭(Azure DevOps)이 후보(Azure)보다 길다면,
-                    # 본문에 그 차이(DevOps)가 실제로 존재하는지 확인!
-                    remaining_part = target_key.replace(clean_cand, "").strip()
-                    
-                    if not remaining_part: # 후보와 리스트가 사실상 같음
-                        matched_original = original_name
-                        break
-                    elif any(word in text_lower for word in remaining_part.split()):
-                        # 본문에 나머지 단어(예: DevOps)가 있을 때만 매칭
-                        matched_original = original_name
-                        break
-                    elif clean_cand in target_key.split():
-                        # 후보 단어(AWS)가 리스트 항목의 핵심 독립 단어라면 인정 (브랜드명 대응)
-                        matched_original = original_name
-                        break
+                possible_keys.sort(key=len)
+
+                # 가장 적합한 키를 찾음
+                for key in possible_keys:
+                    # 남는 부분(확장된 부분)이 원본 텍스트에 존재하는지 확인
+                    remaining_part = re.sub(rf"\b{re.escape(clean_cand)}\b", "", key, count=1).strip()
+                    remaining_words = [word for word in re.split(r'[\s.-]', remaining_part) if word]
+
+                    # 남는 부분이 없거나(react -> react.js), 남는 단어가 원문에 모두 있으면
+                    if not remaining_words or all(word.lower() in text_lower for word in remaining_words):
+                        matched_original = target_lower_map[key]
+                        break # 가장 짧고, 검증된 매칭을 찾았으므로 종료
+                
+                # 만약 위에서 검증된 매칭을 못찾았지만, 가능한 후보가 단 하나뿐이라면 (모호하지 않은 경우)
+                if not matched_original and len(possible_keys) == 1:
+                    matched_original = target_lower_map[possible_keys[0]]
 
             # (C) 3순위: 최종 검증 (오탐 방지)
             if matched_original:
