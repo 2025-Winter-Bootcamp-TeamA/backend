@@ -1,20 +1,24 @@
-"""
-이력서 뷰
-"""
-
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.parsers import MultiPartParser, FormParser
 from apps.jobs.models import JobPosting
 from .models import Resume, ResumeMatching
 from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer
 
+from .serializers import (
+    ResumeSerializer, 
+    ResumeDetailSerializer, 
+    ResumeMatchingSerializer
+)
+
 
 class ResumeListCreateView(generics.ListCreateAPIView):
-    """이력서 목록 조회 및 생성"""
+    """이력서 목록 조회 및 생성(PDF 업로드)"""
     permission_classes = [IsAuthenticated]
     serializer_class = ResumeSerializer
+    parser_classes = [MultiPartParser, FormParser]
 
     def get_queryset(self):
         return Resume.objects.filter(

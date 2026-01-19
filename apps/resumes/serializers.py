@@ -17,34 +17,59 @@ class ResumeStackSerializer(serializers.ModelSerializer):
 
 
 class ResumeSerializer(serializers.ModelSerializer):
-    """이력서 시리얼라이저"""
-    # 프론트/명세서에서 사용하는 필드명에 맞춘 매핑
+    """
+    이력서 목록 및 업로드용 시리얼라이저
+    - 목록 조회 시: get_tech_stacks 사용
+    - 업로드 시: create() 사용
+    """
+
+    # 목록 조회용
     resume_id = serializers.IntegerField(source='id', read_only=True)
     resume_title = serializers.CharField(source='title')
     resume_url = serializers.CharField(source='url', allow_blank=True, allow_null=True, required=False)
-    # 리스트 UI에서 사용하는 날짜 포맷(YYYY.MM.DD)으로 변환
     created_at = serializers.DateTimeField(format='%Y.%m.%d', read_only=True)
-    # 보유 기술은 최대 3개까지만 노출
+
     tech_stacks = serializers.SerializerMethodField()
+
+    # 업로드용
+    file = serializers.FileField(write_only=True, required=True)
+    title = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Resume
-        fields = [
-            'resume_id',
-            'resume_title',
-            'resume_url',
-            'created_at',
-            'tech_stacks',
-        ]
-        read_only_fields = ['resume_id', 'created_at']
+        fields = ['id', 'title', 'url', 'file', 'created_at', 'updated_at']
+        read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
     def get_tech_stacks(self, obj):
         """
         이력서에 연결된 보유 기술 중 최대 3개까지만 반환
         """
-        # obj.tech_stacks: ResumeStack 역참조 (related_name='tech_stacks')
         stacks = obj.tech_stacks.select_related('tech_stack')[:3]
         return ResumeStackSerializer(stacks, many=True).data
+    
+    def create(self, validated_data):
+        file_obj = validated_data.pop('file', None)
+        user = self.context['request'].user
+
+        # 제목 자동 추출
+        title = validated_data.get('title')
+        if (not title or title.strip() == "") and file_obj:
+            title = os.path.splitext(file_obj.name)[0]
+
+        resume = Resume.objects.create(user=user, title=title, **validated_data)
+
+        if file_obj:
+            file_path = f"resumes/user_{user.id}/{resume.id}_{file_obj.name}"
+            saved_path = default_storage.save(file_path, file_obj)
+            resume.url = default_storage.url(saved_path)
+            resume.save()
+
+            # 기술 스택 저장 로직 (현재는 빈 상태로 유지)
+            extracted_tech_stack_ids = [] # 추후 분석 로직 연동
+            for ts_id in extracted_tech_stack_ids:
+                ResumeStack.objects.create(resume=resume, tech_stack_id=ts_id)
+
+        return resume
 
 
 class ResumeDetailSerializer(serializers.ModelSerializer):
