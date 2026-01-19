@@ -13,18 +13,23 @@ class ResumeStackSerializer(serializers.ModelSerializer):
         fields = ['tech_stack']
 
 class ResumeSerializer(serializers.ModelSerializer):
-    """이력서 목록 및 업로드용 시리얼라이저"""
-    file = serializers.FileField(write_only=True, required=True)
-    title = serializers.CharField(required=False, allow_blank=True)
+    """
+    이력서 목록 및 업로드용 시리얼라이저
+    - 목록 조회 시: get_tech_stacks 사용
+    - 업로드 시: create() 사용
+    """
 
-    # 프론트/명세서에서 사용하는 필드명에 맞춘 매핑
+    # 목록 조회용
     resume_id = serializers.IntegerField(source='id', read_only=True)
     resume_title = serializers.CharField(source='title')
     resume_url = serializers.CharField(source='url', allow_blank=True, allow_null=True, required=False)
-    # 리스트 UI에서 사용하는 날짜 포맷(YYYY.MM.DD)으로 변환
     created_at = serializers.DateTimeField(format='%Y.%m.%d', read_only=True)
-    # 보유 기술은 최대 3개까지만 노출
+
     tech_stacks = serializers.SerializerMethodField()
+
+    # 업로드용
+    file = serializers.FileField(write_only=True, required=True)
+    title = serializers.CharField(required=False, allow_blank=True)
 
     class Meta:
         model = Resume
@@ -35,7 +40,6 @@ class ResumeSerializer(serializers.ModelSerializer):
         """
         이력서에 연결된 보유 기술 중 최대 3개까지만 반환
         """
-        # obj.tech_stacks: ResumeStack 역참조 (related_name='tech_stacks')
         stacks = obj.tech_stacks.select_related('tech_stack')[:3]
         return ResumeStackSerializer(stacks, many=True).data
 
