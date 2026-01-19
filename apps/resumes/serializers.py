@@ -33,7 +33,9 @@ class ResumeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resume
-        fields = ['id', 'title', 'url', 'file', 'created_at', 'updated_at']
+        fields = [
+        'resume_id', 'resume_title', 'resume_url', 'tech_stacks',
+        'title', 'file', 'created_at', 'updated_at']
         read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
     def get_tech_stacks(self, obj):
@@ -48,7 +50,7 @@ class ResumeSerializer(serializers.ModelSerializer):
         user = self.context['request'].user
         
         # 제목 자동 추출
-        title = validated_data.get('title')
+        title = validated_data.pop('title', None)
         if (not title or title.strip() == "") and file_obj:
             title = os.path.splitext(file_obj.name)[0]
         
@@ -78,7 +80,7 @@ class ResumeDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Resume
-        fields = ['id', 'title', 'url', 'tech_stacks', 'created_at', 'updated_at']
+        fields = ['resume_id', 'resume_title', 'resume_url', 'tech_stacks', 'created_at', 'updated_at']
         read_only_fields = ['id', 'url', 'created_at', 'updated_at']
 
 
