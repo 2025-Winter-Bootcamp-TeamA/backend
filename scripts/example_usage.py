@@ -65,7 +65,7 @@ if __name__ == "__main__":
         print("정확한 PDF 파일 경로로 'local_pdf_path' 변수를 수정해주세요.\n")
 
 
-    url_pdf_path = "" 
+    url_pdf_path = "https://2025-winter-bootcamp-team-a-s3.s3.amazonaws.com/resumes/user_2/3_%EA%B8%B0%EC%88%A0%20%EC%8A%A4%ED%83%9D%20%EC%B6%94%EC%B6%9C%20%ED%94%84%EB%A1%AC%ED%94%84%ED%8A%B8%20%EA%B0%9C%EC%84%A0.pdf" 
 
     if url_pdf_path:
         result_url = analyze_pdf_for_tech_stacks(url_pdf_path, is_url=True)
