@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'apps.jobs',
     'apps.resumes',
     'apps.interviews',
+
+    'apps.analytics'
 ]
 
 # 미들웨어
@@ -235,6 +237,9 @@ AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 if AWS_STORAGE_BUCKET_NAME:
     # 파일 덮어쓰기 방지 (같은 이름의 파일이 올라오면 이름 뒤에 난수 생성)
     AWS_S3_FILE_OVERWRITE = False
+    
+    # 새로 업로드되는 파일을 공개적으로 읽을 수 있도록 설정 (중요!)
+    AWS_DEFAULT_ACL = 'public-read'
     
     # 이미지를 누구나 볼 수 있게 서명 기능 끄기 (공개 버킷이므로)
     AWS_QUERYSTRING_AUTH = False 
