@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'apps.jobs',
     'apps.resumes',
     'apps.interviews',
+
+    'apps.analytics'
 ]
 
 # 미들웨어
