@@ -27,12 +27,23 @@ class ResumeSerializer(serializers.ModelSerializer):
 
 class ResumeDetailSerializer(serializers.ModelSerializer):
     """이력서 상세 시리얼라이저"""
+
+    resume_id = serializers.IntegerField(source='id', read_only=True)
+    resume_title = serializers.CharField(source='title', read_only=True)
+    resume_url = serializers.CharField(source='url', read_only=True)
+    created_at = serializers.DateTimeField(format='%Y-%m-%dT%H:%M:%S', read_only=True)
     tech_stacks = ResumeStackSerializer(many=True, read_only=True)
 
     class Meta:
         model = Resume
-        fields = ['id', 'title', 'url', 'tech_stacks', 'created_at', 'updated_at']
-        read_only_fields = ['id', 'created_at', 'updated_at']
+        fields = [
+            'resume_id', 
+            'resume_title',
+            'resume_url',
+            'tech_stacks',
+            'created_at'
+            ]
+        read_only_fields = ['id', 'created_at']
 
 
 class ResumeMatchingSerializer(serializers.ModelSerializer):

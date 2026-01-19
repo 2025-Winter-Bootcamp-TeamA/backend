@@ -11,6 +11,7 @@ urlpatterns = [
     # 이력서 CRUD
     path('', views.ResumeListCreateView.as_view(), name='resume_list_create'),
     path('<int:pk>/', views.ResumeDetailView.as_view(), name='resume_detail'),
+    
 
     # 이력서 분석
     path('<int:pk>/analyze/', views.ResumeAnalyzeView.as_view(), name='resume_analyze'),
