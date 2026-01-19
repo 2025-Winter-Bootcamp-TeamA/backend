@@ -1,3 +1,4 @@
+# 추출기 원형
 import ollama
 import json
 import re
