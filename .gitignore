@@ -96,4 +96,6 @@ temp/
 
 # PID 파일
 *.pid
+
+# llm 돌린 결과 로그
 tech_stack_extraction_log.jsonl
