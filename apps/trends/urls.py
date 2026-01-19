@@ -16,6 +16,7 @@ urlpatterns = [
     # 카테고리
     path('categories/', views.CategoryListView.as_view(), name='category_list'),
     path('categories/<int:category_id>/', views.CategoryTechStackListView.as_view(), name='category_tech_stack_list'),
+    path('categories/<int:category_id>/job-posting', views.CategoryJobPostingListView.as_view(), name='category_job_posting_list'),
 
     # 트렌드
     path('', views.TechTrendListView.as_view(), name='trend_list'),
