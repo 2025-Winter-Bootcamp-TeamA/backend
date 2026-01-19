@@ -19,6 +19,8 @@ class ResumeListCreateView(generics.ListCreateAPIView):
     parser_classes = [MultiPartParser, FormParser]
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Resume.objects.none()
         return Resume.objects.filter(user=self.request.user, is_deleted=False)
 
     def perform_create(self, serializer):
@@ -30,6 +32,8 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
     serializer_class = ResumeDetailSerializer
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return Resume.objects.none()
         return Resume.objects.filter(user=self.request.user, is_deleted=False)
 
     def perform_destroy(self, instance):
@@ -73,16 +77,20 @@ class ResumeMatchingView(APIView):
         except (Resume.DoesNotExist, JobPosting.DoesNotExist):
             return Response({'error': '데이터를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
+
 class ResumeMatchingListView(generics.ListAPIView):
     """이력서 매칭 목록 조회"""
     permission_classes = [IsAuthenticated]
     serializer_class = ResumeMatchingSerializer
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return ResumeMatching.objects.none()
         return ResumeMatching.objects.filter(
             resume__user=self.request.user,
             is_deleted=False
         ).select_related('job_posting', 'resume')
+
 
 class ResumeMatchingDetailView(generics.RetrieveAPIView):
     """이력서 매칭 상세 조회"""
@@ -90,6 +98,8 @@ class ResumeMatchingDetailView(generics.RetrieveAPIView):
     serializer_class = ResumeMatchingSerializer
 
     def get_queryset(self):
+        if getattr(self, 'swagger_fake_view', False):
+            return ResumeMatching.objects.none()
         return ResumeMatching.objects.filter(
             resume__user=self.request.user,
             is_deleted=False
@@ -129,9 +139,11 @@ class ResumeRestoreView(APIView):
                 is_deleted=True
             ).update(is_deleted=False)
 
+        # 주석
         return Response({
             'message': '이력서가 성공적으로 복원되었습니다.',
             'resume_id': resume.id,
             'resume_title': resume.title,
             'restored_matchings': restored_count
         }, status=status.HTTP_200_OK)
+    
