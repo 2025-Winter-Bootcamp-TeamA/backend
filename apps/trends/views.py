@@ -17,6 +17,36 @@ from .serializers import (
     TechBookmarkCreateResponseSerializer
 )
 
+from apps.jobs.models import JobPosting
+from apps.jobs.serializers import JobPostingSerializer 
+from apps.trends.models import Category
+
+class CategoryJobPostingListView(generics.ListAPIView):
+    """
+    특정 카테고리에 포함된 기술 스택을 가진 채용 공고 목록 조회
+    """
+    permission_classes = [AllowAny]
+    # apps/jobs/serializers.py에 있는 시리얼라이저를 사용합니다.
+    serializer_class = JobPostingSerializer 
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+
+        # 1. 카테고리 존재 및 삭제 여부 확인
+        get_object_or_404(Category, id=category_id, is_deleted=False)
+
+        # 2. 해당 카테고리에 속한 기술 스택(TechStack)들을 먼저 찾습니다.
+        stacks_in_category = TechStack.objects.filter(
+            category_relations__category_id=category_id, 
+            is_deleted=False
+        )
+
+        # 3. [핵심 수정] 위에서 찾은 스택을 가진 공고를 찾습니다.
+        # tech_stacks (중간테이블) -> tech_stack (진짜 기술스택) -> in 필터링
+        return JobPosting.objects.select_related('corp').filter(
+            tech_stacks__tech_stack__in=stacks_in_category, # 여기에 __tech_stack을 추가했습니다!
+            is_deleted=False
+        ).distinct().order_by('-id')
 
 class CategoryTechStackListView(generics.ListAPIView):
     """카테고리별 기술 스택 목록"""
