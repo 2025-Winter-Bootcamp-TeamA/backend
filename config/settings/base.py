@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    # 소셜 로그인
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 
     # AWS S3 연동을 위한 라이브러리
     'storages',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    #'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
