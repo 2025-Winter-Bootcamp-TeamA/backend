@@ -162,8 +162,12 @@ class Article(models.Model):
         default=0,
         verbose_name='게시글 언급량'
     )
+    view_count = models.BigIntegerField(
+        default=0,
+        verbose_name="조회수"
+    )
     url = models.TextField(
-        verbose_name='게시글 URL'
+        unique=True, verbose_name='게시글 URL'
     )
     source = models.TextField(
         verbose_name='게시글 출처'
@@ -228,6 +232,7 @@ class ArticleStack(models.Model):
         db_table = 'article_stack'
         verbose_name = '게시글-기술 연결'
         verbose_name_plural = '게시글-기술 연결 목록'
+        unique_together = ['article','tech_stack']
 
 
 class TechBookmark(models.Model):
