@@ -232,7 +232,9 @@ class GoogleLoginCallbackView(APIView):
             
             email = user_data.get('email')
             name = user_data.get('name')
-            
+            # 구글에서 프로필 이미지 URL 가져오기
+            picture = user_data.get('picture')
+
             if not email:
                 return Response(
                     {'error': '구글에서 이메일을 가져올 수 없습니다.'},
@@ -247,13 +249,26 @@ class GoogleLoginCallbackView(APIView):
                 defaults={
                     'username': email.split('@')[0],
                     'name': name or 'Google User',
+                    'profile_image': picture,  # 생성 시 이미지 저장
                     'is_deleted': False
                 }
             )
-            
-            if created and name:
-                user.name = name
-                user.save()
+            if not created:
+                is_changed = False
+                
+                # 이름이 바뀌었으면 업데이트
+                if name and user.name != name:
+                    user.name = name
+                    is_changed = True
+                
+                # 사진이 바뀌었으면 업데이트
+                if picture and user.profile_image != picture:
+                    user.profile_image = picture
+                    is_changed = True
+                
+                # 변경사항이 있을 때만 DB 저장 (쿼리 절약)
+                if is_changed:
+                    user.save()
             
             # 4. JWT 토큰 발급
             refresh = RefreshToken.for_user(user)
