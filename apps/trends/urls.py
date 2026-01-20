@@ -25,4 +25,7 @@ urlpatterns = [
     # 즐겨찾기
     path('tech-bookmarks/', views.TechBookmarkListCreateAPIView.as_view(), name='tech_bookmarks_list_create'),
     path('tech-bookmarks/<int:tech_bookmark_id>/', views.TechBookmarkDeleteAPIView.as_view(), name='tech_bookmarks_delete'),
+    
+    # 기술 스택 관계
+    path('tech-stacks/<int:id>/relations/', views.TechStackRelationsView.as_view(), name='tech_stack_relations'),
 ]
