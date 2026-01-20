@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    # 소셜 로그인
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 
     # AWS S3 연동을 위한 라이브러리
     'storages',
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'apps.jobs',
     'apps.resumes',
     'apps.interviews',
+
+    'apps.analytics'
 ]
 
 # 미들웨어
@@ -58,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    #'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -238,6 +240,9 @@ if AWS_STORAGE_BUCKET_NAME:
     
     # 이미지를 누구나 볼 수 있게 서명 기능 끄기 (공개 버킷이므로)
     AWS_QUERYSTRING_AUTH = False 
+    
+    # 업로드된 파일을 누구나 읽을 수 있게 설정 (중요!)
+    AWS_DEFAULT_ACL = 'public-read'
     
     # 미디어 파일(이미지 등)을 S3에 저장하는 도구 연결
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'

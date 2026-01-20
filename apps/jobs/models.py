@@ -63,7 +63,6 @@ class Corp(models.Model):
     def __str__(self):
         return self.name
 
-
 class JobPosting(models.Model):
     """
     채용 공고 모델
@@ -78,38 +77,30 @@ class JobPosting(models.Model):
     url = models.TextField(
         verbose_name='채용 공고 URL'
     )
+    #erd에 없음
     title = models.TextField(
         blank=True,
         null=True,
         verbose_name='채용 공고 제목'
     )
-    
+    #erd에 없음
     description = models.TextField(
         blank=True,
         null=True,
         verbose_name='직무 설명'
     )
 
-    #삭제 예정(거의 다 없음)
     expiry_date = models.DateField(
         blank=True,
         null=True,
         verbose_name='마감일'
     )
-
     career = models.CharField(
         max_length=255,
         blank=True,
         null=True,
         verbose_name='경력'
     )
-
-    #삭제 예정
-    stack_count = models.BigIntegerField(
-        default=0,
-        verbose_name='채용 공고 스택 수'
-    )
-
     posting_number = models.BigIntegerField(
         blank=True,
         null=True,
@@ -155,12 +146,11 @@ class JobPostingStack(models.Model):
         related_name='job_postings',
         verbose_name='기술 스택'
     )
-
-    #삭제 예정
-    job_stack_count = models.BigIntegerField(
-        default=0,
-        verbose_name='채용공고 스택 언급량'
-    )
+    # #삭제 예정
+    # job_stack_count = models.BigIntegerField(
+    #     default=0,
+    #     verbose_name='채용공고 스택 언급량'
+    # )
 
     created_at = models.DateTimeField(
         auto_now_add=True,
@@ -177,6 +167,7 @@ class JobPostingStack(models.Model):
 
     class Meta:
         db_table = 'job_posting_stack'
+        unique_together = (('job_posting', 'tech_stack'),)
         verbose_name = '채용 공고-기술 연결'
         verbose_name_plural = '채용 공고-기술 연결 목록'
 

@@ -3,10 +3,11 @@ import time
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from apps.jobs.models import Corp, JobPosting, JobPostingStack
-from apps.trends.models import TechStack 
+from apps.trends.models import TechStack
+from fuzzywuzzy import process  # 문자열 유사도 매칭을 위해 필수
 
 class Command(BaseCommand):
-    help = '원티드 IT 개발 직군 공고 수집 (개수 지정 가능, 기본값 1000개)'
+    help = '원티드 IT 개발 직군 공고 수집 (경력 추출 및 Fuzzy 기술 매칭 포함)'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -25,10 +26,9 @@ class Command(BaseCommand):
             "Referer": "https://www.wanted.co.kr/wdlist/518"
         }
 
-        if target_count == 0:
-            self.stdout.write(self.style.WARNING("[INFO] 목표: 전체 공고를 끝까지 수집합니다."))
-        else:
-            self.stdout.write(self.style.WARNING(f"[INFO] 목표: 최신 공고 최대 {target_count}개를 수집합니다."))
+        # [성능 최적화] 우리 DB에 있는 기술 스택 이름만 메모리에 로드
+        existing_stacks = list(TechStack.objects.values_list('name', flat=True))
+        self.stdout.write(self.style.SUCCESS(f"[INFO] 현재 DB 내 기술 스택 {len(existing_stacks)}개를 로드했습니다."))
 
         limit = 50
         offset = 0
@@ -36,10 +36,8 @@ class Command(BaseCommand):
 
         while True:
             if target_count > 0 and total_collected >= target_count:
-                self.stdout.write(self.style.SUCCESS(f"[SUCCESS] 목표 개수({target_count}개)에 도달하여 수집을 종료합니다."))
+                self.stdout.write(self.style.SUCCESS(f"[SUCCESS] 목표 개수({target_count}개) 도달."))
                 break
-
-            self.stdout.write(f"[INFO] 목록 가져오는 중... (Offset: {offset}, 현재 수집: {total_collected}개)")
 
             params = {
                 "country": "kr",
@@ -53,47 +51,48 @@ class Command(BaseCommand):
 
             try:
                 response = requests.get(base_url, params=params, headers=headers)
-                if response.status_code != 200:
-                    self.stdout.write(self.style.ERROR(f"[ERROR] 목록 API 호출 실패: {response.status_code}"))
-                    break
-
-                jobs_data = response.json().get('data', [])
+                if response.status_code != 200: break
                 
-                if not jobs_data:
-                    self.stdout.write(self.style.SUCCESS("[SUCCESS] 더 이상 가져올 공고가 없습니다 (목록 끝)."))
-                    break
+                jobs_data = response.json().get('data', [])
+                if not jobs_data: break
 
                 for job in jobs_data:
-                    if target_count > 0 and total_collected >= target_count:
-                        break
+                    if target_count > 0 and total_collected >= target_count: break
                     
-                    # [수정] 개별 공고 처리 중 에러가 나도 멈추지 않도록 try-except를 안으로 넣음
+                    wanted_job_id = job.get('id')
                     try:
-                        wanted_job_id = job.get('id')
-                        # [수정] company가 None일 경우 방어 로직 추가
                         company_info = job.get('company') or {}
                         corp_name = company_info.get('name')
-                        
-                        if not wanted_job_id or not corp_name:
-                            continue
+                        if not wanted_job_id or not corp_name: continue
 
+                        # 상세 데이터 가져오기
                         detail_url = f"https://www.wanted.co.kr/api/v4/jobs/{wanted_job_id}"
                         detail_res = requests.get(detail_url, headers=headers)
-                        
-                        if detail_res.status_code != 200:
-                            continue
+                        if detail_res.status_code != 200: continue
                         
                         detail_data = detail_res.json()
-                        job_detail = detail_data.get('job') or {} # [수정] job이 None이면 빈 딕셔너리로
+                        job_detail = detail_data.get('job') or {}
 
-                        # 1. 주소 및 좌표 추출 (가장 에러가 많이 나는 부분 방어)
-                        address_info = job_detail.get('address') or {} # [수정] None 방지
-                        full_address = address_info.get('full_location')
+                        # 1. 경력 정보 추출
+                        annual_from = job_detail.get('annual_from', 0)
+                        annual_to = job_detail.get('annual_to', 0)
+                        is_newbie = job_detail.get('is_newbie', False)
+
+                        if is_newbie and annual_to == 0:
+                            career_str = "신입"
+                        elif is_newbie and annual_to > 0:
+                            career_str = f"신입 ~ {annual_to}년"
+                        elif annual_from > 0 and annual_to > 0:
+                            career_str = f"{annual_from}년차" if annual_from == annual_to else f"{annual_from} ~ {annual_to}년"
+                        elif annual_from > 0:
+                            career_str = f"{annual_from}년 이상"
+                        else:
+                            career_str = "경력 무관"
+
+                        # 2. 주소 및 본문
+                        address_info = job_detail.get('address') or {}
                         geo_location = (address_info.get('geo_location') or {}).get('n_location') or {}
-                        lat = geo_location.get('lat')
-                        lng = geo_location.get('lng')
-
-                        # 2. 본문 내용
+                        
                         detail_content = job_detail.get('detail') or {}
                         full_description = (
                             f"## 주요업무\n{detail_content.get('main_tasks', '')}\n\n"
@@ -101,69 +100,84 @@ class Command(BaseCommand):
                             f"## 우대사항\n{detail_content.get('preferred_points', '')}"
                         )
                         
-                        due_time = job_detail.get('due_time') 
-                        career_str = "채용 상세 참조"
                         skill_tags = job_detail.get('skill_tags', [])
-
-                        # [수정] 로고 URL 추출 시에도 None 방지
-                        logo_img = job.get('logo_img') or {}
-                        logo_thumb = logo_img.get('thumb')
+                        logo_thumb = (job.get('logo_img') or {}).get('thumb')
 
                         with transaction.atomic():
+                            # 1. 기업 정보 저장
                             corp, _ = Corp.objects.update_or_create(
                                 name=corp_name,
                                 defaults={
                                     'logo_url': logo_thumb,
-                                    'address': full_address,
-                                    'latitude': lat,
-                                    'longitude': lng,
+                                    'address': address_info.get('full_location'),
+                                    'latitude': geo_location.get('lat'),
+                                    'longitude': geo_location.get('lng'),
                                     'is_deleted': False
                                 }
                             )
 
-                            job_obj, created = JobPosting.objects.update_or_create(
+                            # 2. 공고 정보 저장 (stack_count 강제 할당으로 에러 방지)
+                            job_obj, _ = JobPosting.objects.update_or_create(
                                 posting_number=wanted_job_id,
                                 defaults={
                                     'corp': corp,
                                     'title': job.get('position'),
                                     'url': f"https://www.wanted.co.kr/wd/{wanted_job_id}",
                                     'description': full_description,
-                                    'expiry_date': due_time,
-                                    'career': career_str,
-                                    'stack_count': len(skill_tags),
+                                    'expiry_date': job_detail.get('due_time'),
+                                    'career': career_str, 
+                                    #'stack_count': 0,  # [핵심] DB의 NOT NULL 제약조건 통과를 위해 0 할당
                                     'is_deleted': False 
                                 }
                             )
 
+                            # --- [3. Fuzzy Matching 및 언급량 계산 기반 기술 스택 연결] ---
                             JobPostingStack.objects.filter(job_posting=job_obj).delete()
+
+                            # 본문 텍스트를 소문자로 변환하여 대소문자 구분 없이 카운트 준비
+                            description_lower = full_description.lower()
+
                             for skill in skill_tags:
                                 skill_name = skill.get('title')
-                                if not skill_name:
-                                    continue
+                                if not skill_name: continue
                                 
-                                ts, _ = TechStack.objects.get_or_create(
-                                    name=skill_name,
-                                    defaults={'is_deleted': False} 
-                                )
-                                JobPostingStack.objects.create(
-                                    job_posting=job_obj, tech_stack=ts, job_stack_count=1 
-                                )
-                        
-                        total_collected += 1
-                    
+                                # 1. Fuzzy Matching 실행
+                                match = process.extractOne(skill_name, existing_stacks, score_cutoff=85)
+
+                                if match:
+                                    target_name = match[0]
+                                    ts = TechStack.objects.get(name=target_name)
+                                    
+                                    # # 2. 언급량(Count) 계산
+                                    # # 본문에서 해당 기술명이 몇 번 등장하는지 계산 (최소 1번은 태그에 있었으므로 1 보장)
+                                    # mention_count = description_lower.count(target_name.lower())
+                                    # if mention_count == 0:
+                                    #     mention_count = 1  # 태그에는 있지만 본문 설명에는 직접 언급되지 않은 경우
+                                    
+                                    # 3. 데이터 저장
+                                    JobPostingStack.objects.create(
+                                        job_posting=job_obj, 
+                                        tech_stack=ts, 
+                                        #job_stack_count=mention_count  # 계산된 언급량 반영
+                                    )
+                                    
+                                    # self.stdout.write(f"   [Matched] {target_name} ({mention_count}회 언급)")
+                                else:
+                                    self.stdout.write(self.style.WARNING(f"   [Skip] 신규 기술 발견: {skill_name}"))
+                                                                            
+                                total_collected += 1
+                        if total_collected % 10 == 0:
+                            self.stdout.write(f"[PROGRESS] {total_collected}개 공고 처리 완료...")
+
                     except Exception as inner_e:
-                        # 개별 공고 수집 실패 시 로그만 남기고 다음 공고로 넘어감 (멈추지 않음!)
-                        self.stdout.write(self.style.ERROR(f"[ERROR] 공고(ID:{wanted_job_id}) 처리 중 건너뜀: {str(inner_e)}"))
+                        self.stdout.write(self.style.ERROR(f"[ERROR] ID:{wanted_job_id} 처리 실패: {str(inner_e)}"))
                         continue
                 
-                # 다음 페이지로 이동 (여기가 실행되어야 무한루프 안 빠짐)
                 offset += limit
                 time.sleep(1)
 
             except Exception as e:
-                self.stdout.write(self.style.ERROR(f"[FATAL ERROR] 목록 처리 중 치명적 오류: {str(e)}"))
-                time.sleep(3)
-                # 치명적 오류가 나도 다음 페이지 시도를 위해 offset 증가 (선택사항, 혹은 break)
+                self.stdout.write(self.style.ERROR(f"[FATAL] 오류 발생: {str(e)}"))
                 offset += limit
 
-        self.stdout.write(self.style.SUCCESS(f"[SUCCESS] 최종 완료! 총 {total_collected}건 수집됨."))
+        self.stdout.write(self.style.SUCCESS(f"[FINISH] 최종 완료! 총 {total_collected}건의 공고가 동기화되었습니다."))

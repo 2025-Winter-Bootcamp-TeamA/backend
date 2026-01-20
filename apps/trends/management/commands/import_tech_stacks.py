@@ -8,14 +8,14 @@ from django.core.files.storage import default_storage
 from apps.trends.models import TechStack
 
 class Command(BaseCommand):
-    help = 'tech_stacks_source.csv로부터 기술 스택을 읽어 이미지를 S3에 저장하고 DB를 동기화합니다.'
+    help = 'tech_stacks_merged_final.csv로부터 기술 스택을 읽어 이미지를 S3에 저장하고 DB를 동기화합니다.'
 
     def add_arguments(self, parser):
         parser.add_argument(
             'source_csv',
             type=str,
             nargs='?',
-            default='tech_stacks_source.csv'
+            default='tech_stacks_merged_final.csv'
         )
 
     @transaction.atomic
@@ -34,9 +34,10 @@ class Command(BaseCommand):
                 updated_count = 0
                 
                 for row in reader:
-                    stack_name = row.get('Name', '').strip()
-                    image_url = row.get('Image', '').strip()
-                    link_url = row.get('Link', 'replace_here').strip()
+                    stack_name = row.get('name', '').strip()
+                    description = row.get('description', '').strip()
+                    image_url = row.get('image', '').strip()
+                    link_url = row.get('link', '').strip()
 
                     if not stack_name:
                         continue
@@ -72,8 +73,9 @@ class Command(BaseCommand):
                     obj, created = TechStack.objects.update_or_create(
                         name=stack_name,
                         defaults={
+                            'description': description if description else None,
                             'logo': final_logo_path,
-                            'docs_url': link_url if link_url != 'replace_here' else None,
+                            'docs_url': link_url if link_url and link_url != 'replace_here' else None,
                             'is_deleted': False
                         }
                     )

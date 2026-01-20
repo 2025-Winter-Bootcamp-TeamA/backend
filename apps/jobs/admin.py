@@ -73,13 +73,13 @@ from .models import Corp, JobPosting, JobPostingStack, CorpBookmark
 
 @admin.register(Corp)
 class CorpAdmin(admin.ModelAdmin):
-    list_display = ['name', 'address', 'created_at', 'is_deleted']
+    list_display = ['name', 'address', 'created_at', 'is_deleted','latitude','longitude']
     search_fields = ['name', 'address']
 
 
 @admin.register(JobPosting)
 class JobPostingAdmin(admin.ModelAdmin):
-    list_display = ['corp', 'title', 'stack_count', 'created_at']
+    list_display = ['corp', 'title', 'created_at','expiry_date','career','posting_number']
     list_filter = ['corp', 'created_at']
     search_fields = ['title', 'corp__name']
 
