@@ -13,7 +13,8 @@ from decouple import config
 from drf_yasg.utils import swagger_auto_schema # Swagger 설정을 위한 데코레이터 임포트
 from drf_yasg import openapi # 상세한 파라미터 설정을 위한 모듈
 import logging
-
+from django.shortcuts import get_object_or_404
+from .models import User  
 """ class SignupView(generics.CreateAPIView):
     permission_classes = [AllowAny]
     serializer_class = SignupSerializer
@@ -39,7 +40,7 @@ class LogoutView(APIView):
     
     permission_classes = [IsAuthenticated]
     @swagger_auto_schema(
-            operation_summary="로그아웃",
+            #operation_summary="로그아웃",
             operation_description="사용자의 리프레시 토큰을 블랙리스트에 추가하여 로그아웃 처리합니다."
         )
     def post(self, request):
@@ -67,7 +68,7 @@ class GoogleLoginView(APIView):
     """구글 소셜 로그인"""
     permission_classes = [AllowAny]
     @swagger_auto_schema(
-        operation_summary="구글 소셜 로그인 완료",
+        #operation_summary="구글 소셜 로그인 완료",
         operation_description="구글에서 받은 access_token을 이용해 JWT 토큰을 발급받습니다.",
         request_body=openapi.Schema(
             type=openapi.TYPE_OBJECT,
@@ -150,7 +151,7 @@ class GoogleLoginStartView(APIView):
     
     permission_classes = [AllowAny]
     @swagger_auto_schema(
-        operation_summary="구글 로그인 시작",
+        #operation_summary="구글 로그인 시작",
         operation_description="구글 로그인 페이지로 리다이렉트할 수 있는 URL을 반환합니다.",
     ) 
     def get(self, request):
@@ -177,7 +178,7 @@ class GoogleLoginCallbackView(APIView):
     permission_classes = [AllowAny]
     
     @swagger_auto_schema(
-        operation_summary="구글 로그인 콜백",
+        #operation_summary="구글 로그인 콜백",
         operation_description="Google에서 받은 authorization code를 access_token으로 교환하고 JWT를 발급합니다.",
         manual_parameters=[
             openapi.Parameter('code', openapi.IN_QUERY, description="Google authorization code", type=openapi.TYPE_STRING),
@@ -280,4 +281,47 @@ class GoogleLoginCallbackView(APIView):
             return Response(
                 {'error': '로그인 처리 중 오류가 발생했습니다.'},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+        
+class UserDeleteView(APIView):
+    """
+    회원 삭제 (논리 삭제: is_deleted=True, is_active=False)
+    API: DELETE /auth/{users_id}
+    """
+    permission_classes = [IsAuthenticated]
+
+    @swagger_auto_schema(
+        operation_description="특정 사용자의 계정을 비활성화(Soft Delete) 합니다.",
+        responses={
+            204: "삭제 성공",
+            403: "권한 없음 (본인 계정만 삭제 가능)",
+            404: "사용자를 찾을 수 없음"
+        }
+    )
+    def delete(self, request, users_id):
+        # 1. 삭제할 대상 객체 조회
+        target_user = get_object_or_404(User, id=users_id)
+
+        # 2. 권한 검증: 본인이거나 관리자(is_staff)인 경우에만 삭제 허용
+        if request.user.id != target_user.id and not request.user.is_staff:
+            return Response(
+                {'error': '본인의 계정만 삭제할 수 있습니다.'},
+                status=status.HTTP_403_FORBIDDEN
+            )
+
+        try:
+            # 3. 논리 삭제 처리 (DB에서 지우지 않고 플래그만 변경)
+            target_user.is_deleted = True
+            target_user.is_active = False  # 로그인 차단
+            target_user.save()
+
+            return Response(
+                {'message': f'회원(ID: {users_id}) 탈퇴 처리가 완료되었습니다.'},
+                status=status.HTTP_204_NO_CONTENT
+            )
+        except Exception as e:
+            # 에러 로그 출력 등 필요 시 추가
+            return Response(
+                {'error': '회원 삭제 중 오류가 발생했습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
             )
