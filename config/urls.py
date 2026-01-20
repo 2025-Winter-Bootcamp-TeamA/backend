@@ -30,15 +30,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # API 엔드포인트
-    path('api/v1/users/', include('apps.users.urls')),
+    #path('api/v1/users/', include('apps.users.urls')),
+    path('api/v1/', include('apps.users.urls')),
     path('api/v1/trends/', include('apps.trends.urls')),
     path('api/v1/', include('apps.jobs.urls')),
     path('api/v1/resumes/', include('apps.resumes.urls')),
     path('api/v1/interviews/', include('apps.interviews.urls')),
     
     # 인증 (백엔드 OAuth Flow)
-    path('api/v1/auth/google/start/', user_views.GoogleLoginStartView.as_view(), name='google_start'),
-    path('api/v1/auth/google/callback/', user_views.GoogleLoginCallbackView.as_view(), name='google_callback'),
+    #path('api/v1/auth/google/start/', user_views.GoogleLoginStartView.as_view(), name='google_start'),
+    #path('api/v1/auth/google/callback/', user_views.GoogleLoginCallbackView.as_view(), name='google_callback'),
 
     # API 문서
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
