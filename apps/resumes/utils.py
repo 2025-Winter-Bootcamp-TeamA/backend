@@ -10,6 +10,7 @@ import json
 import requests
 from PyPDF2 import PdfReader
 from django.conf import settings
+from decouple import config
 from apps.trends.models import TechStack
 
 
@@ -65,17 +66,20 @@ def extract_text_from_pdf(pdf_data):
         raise Exception(f"PDF 텍스트 추출 실패: {str(e)}")
 
 
-def extract_tech_stacks_with_ollama(resume_text, ollama_url="http://localhost:11434"):
+def extract_tech_stacks_with_ollama(resume_text, ollama_url=None):
     """
     Ollama Gemma3:12b 모델을 사용하여 이력서에서 기술 스택 추출
     
     Args:
         resume_text (str): 이력서 텍스트
-        ollama_url (str): Ollama 서버 URL
+        ollama_url (str): Ollama 서버 URL (None이면 환경변수 OLLAMA_URL 사용)
         
     Returns:
         list: 추출된 기술 스택 이름 리스트
     """
+    # 환경변수에서 Ollama URL 가져오기
+    if ollama_url is None:
+        ollama_url = config('OLLAMA_URL', default='http://localhost:11434')
     try:
         # 데이터베이스에 있는 모든 기술 스택 목록 가져오기
         all_tech_stacks = list(TechStack.objects.values_list('name', flat=True))
@@ -151,17 +155,20 @@ def extract_tech_stacks_with_ollama(resume_text, ollama_url="http://localhost:11
         raise Exception(f"Ollama 기술 스택 추출 실패: {str(e)}")
 
 
-def analyze_resume(s3_url, ollama_url="http://localhost:11434"):
+def analyze_resume(s3_url, ollama_url=None):
     """
     S3 URL에서 PDF를 다운로드하고, 텍스트를 추출한 후, Ollama로 기술 스택 분석
     
     Args:
         s3_url (str): S3 PDF URL
-        ollama_url (str): Ollama 서버 URL
+        ollama_url (str): Ollama 서버 URL (None이면 환경변수 OLLAMA_URL 사용)
         
     Returns:
         tuple: (텍스트, 기술 스택 리스트)
     """
+    # 환경변수에서 Ollama URL 가져오기
+    if ollama_url is None:
+        ollama_url = config('OLLAMA_URL', default='http://localhost:11434')
     # 1. S3에서 PDF 다운로드
     pdf_data = download_pdf_from_s3(s3_url)
     

@@ -47,6 +47,11 @@ class TechStack(models.Model):
         max_length=255,
         verbose_name='기술명'
     )
+    description = models.TextField(
+        blank=True,
+        null=True,
+        verbose_name='기술 설명'
+    )
     logo = models.TextField(
         blank=True,
         null=True,
