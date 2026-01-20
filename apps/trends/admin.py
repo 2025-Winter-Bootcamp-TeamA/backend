@@ -3,7 +3,7 @@
 """
 
 from django.contrib import admin
-from .models import Category, TechStack, TechTrend, Article, TechBookmark
+from .models import Category, TechStack, TechTrend, Article, TechBookmark, ArticleStack
 
 
 @admin.register(Category)
@@ -32,7 +32,7 @@ class TechTrendAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'source', 'stack_count', 'created_at']
+    list_display = ['id', 'view_count', 'source', 'url', 'created_at']
     list_filter = ['source']
 
 
@@ -40,3 +40,9 @@ class ArticleAdmin(admin.ModelAdmin):
 class TechBookmarkAdmin(admin.ModelAdmin):
     list_display = ['user', 'tech_stack', 'created_at']
     list_filter = []
+
+@admin.register(ArticleStack) 
+class ArticleStackAdmin(admin.ModelAdmin): 
+    list_display = ['article', 'tech_stack', 'count', 'created_at', 'is_deleted'] 
+    list_filter = ['tech_stack'] 
+    search_fields = ['article__url', 'tech_stack__name'] 
