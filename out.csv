@@ -1,1070 +1,1040 @@
-tech,mentions,total_views,avg_views_per_mention
-c#,2639,67755640,25674.740431981812
-python,1304,63425232,48638.981595092024
-sql,2655,61650263,23220.43804143126
-java,2600,57707728,22195.28
-javascript,1736,51089364,29429.35714285714
-.net,3255,46283410,14219.173579109063
-d,3869,45276929,11702.488756784698
-windows,3019,45139370,14951.762172904935
-c++,1798,35562842,19779.11123470523
-make,5158,31825118,6170.0500193873595
-simple,2547,23939666,9399.162151550845
-mysql,673,21043157,31267.692421991083
-git,294,19921085,67758.7925170068
-php,1305,17213864,13190.700383141762
-shell,431,16555291,38411.34802784223
-asp.net,1445,15828024,10953.64982698962
-linux,937,15205858,16228.236926360725
-oracle,510,12528404,24565.498039215687
-mean,934,11570858,12388.498929336189
-xml,1265,10868228,8591.484584980237
-visual studio,1208,10841796,8974.996688741721
-jquery,434,10129900,23340.78341013825
-box,680,8876769,13054.072058823529
-google,983,7578478,7709.540183112919
-ruby,710,7202280,10144.05633802817
-eclipse,485,6942358,14314.140206185568
-db,821,6397860,7792.764920828258
-firefox,535,5781544,10806.624299065421
-parse,508,5442160,10712.913385826772
-perl,588,5110716,8691.69387755102
-postgresql,117,5005087,42778.52136752137
-macos,159,4456991,28031.389937106916
-less,1112,4289232,3857.223021582734
-microsoft sql server,62,4179025,67403.62903225806
-sqlite,156,3900769,25004.92948717949
-json,164,3789314,23105.573170731706
-vim,187,3720314,19894.727272727272
-rails,417,3716285,8911.95443645084
-play,320,3697608,11555.025
-ibm db2,9,3432056,381339.55555555556
-powershell,165,3273967,19842.224242424243
-stack overflow,169,3236625,19151.62721893491
-heap,177,2728062,15412.77966101695
-brackets,74,2544890,34390.40540540541
-mac os x,124,2529672,20400.58064516129
-buffer,247,2347526,9504.153846153846
-junit,68,2223747,32702.16176470588
-ios,29,1999254,68939.79310344828
-stream,321,1961344,6110.105919003116
-github,34,1861451,54748.55882352941
-q,281,1858389,6613.483985765125
-hibernate,162,1826096,11272.197530864198
-prototype,181,1821877,10065.618784530387
-ubuntu,157,1780096,11338.191082802548
-django,169,1772106,10485.834319526628
-notepad++,40,1752463,43811.575
-intellij idea,23,1542967,67085.52173913043
-render,282,1535231,5444.081560283688
-echo,354,1457527,4117.307909604519
-emacs,230,1371559,5963.3
-datatables,16,1345054,84065.875
-resharper,126,1221830,9697.063492063493
-google chrome,47,1155991,24595.55319148936
-hack,200,1142090,5710.45
-mssql,99,1125349,11367.161616161617
-underscore,48,1101170,22941.041666666668
-objective-c,102,1022200,10021.56862745098
-gmail,67,964146,14390.23880597015
-mercurial,90,957372,10637.466666666667
-nunit,104,849913,8172.240384615385
-nix,78,829429,10633.705128205129
-windows server,93,798153,8582.290322580646
-visual basic,85,789935,9293.35294117647
-apache tomcat,8,754351,94293.875
-foundation,165,735500,4457.575757575758
-xcode,85,730126,8589.717647058824
-haskell,103,696801,6765.058252427184
-delphi,181,677438,3742.75138121547
-entity framework,59,670996,11372.813559322034
-fedora,24,669511,27896.291666666668
-apache http server,4,646613,161653.25
-log4j,43,632235,14703.139534883721
-f#,66,579202,8775.787878787878
-spring,159,497698,3130.1761006289307
-actionscript,125,467862,3742.896
-curl,35,430697,12305.628571428571
-linear,84,421317,5015.678571428572
-rubygems,26,408787,15722.576923076924
-virtualbox,25,398666,15946.64
-phpstorm,1,357674,357674.0
-google app engine,16,345520,21595.0
-groovy,54,341471,6323.537037037037
-markdown,49,291740,5953.877551020408
-debian,64,287530,4492.65625
-grails,31,266838,8607.677419354839
-webstorm,1,253314,253314.0
-sublime text,5,253314,50662.8
-crystal,58,251141,4330.017241379311
-atom,37,244699,6613.486486486487
-java ee,26,243299,9357.653846153846
-segment,49,237959,4856.306122448979
-qt,103,229979,2232.8058252427186
-jboss,37,224527,6068.2972972972975
-testng,16,224194,14012.125
-awk,58,220878,3808.2413793103447
-wix,21,216792,10323.42857142857
-slick,32,215136,6723.0
-zoom,33,208746,6325.636363636364
-loopback,14,185669,13262.07142857143
-google maps,38,185365,4878.026315789473
-findbugs,24,176066,7336.083333333333
-common lisp,42,170685,4063.9285714285716
-wordpress,94,170365,1812.3936170212767
-ffmpeg,33,150502,4560.666666666667
-opencv,12,142623,11885.25
-ocaml,34,139982,4117.117647058823
-visual studio code,7,137589,19655.571428571428
-bubble,49,120292,2454.938775510204
-phpunit,24,114345,4764.375
-medium,65,113433,1745.123076923077
-moq,16,113353,7084.5625
-selenium,41,112407,2741.6341463414633
-microsoft outlook,7,112203,16029.0
-memcached,45,109312,2429.1555555555556
-activemq,16,107928,6745.5
-prism,13,107310,8254.615384615385
-tinymce,17,104121,6124.764705882353
-ws,42,103802,2471.4761904761904
-drupal,47,101620,2162.127659574468
-couchdb,14,98201,7014.357142857143
-blogger,11,97322,8847.454545454546
-html5,15,96506,6433.733333333334
-spring mvc,11,93618,8510.727272727272
-react,32,87703,2740.71875
-phpmyadmin,19,83426,4390.8421052631575
-apache maven,2,82381,41190.5
-notion,38,81354,2140.8947368421054
-realm,11,79792,7253.818181818182
-assembly language,27,77661,2876.3333333333335
-joomla!,21,75658,3602.7619047619046
-solr,15,74713,4980.866666666667
-cuda,10,71965,7196.5
-cakephp,30,68724,2290.8
-mootools,28,68413,2443.3214285714284
-hadoop,11,68019,6183.545454545455
-spring security,4,67821,16955.25
-capistrano,20,67678,3383.9
-dojo,42,67391,1604.547619047619
-matlab,22,65025,2955.681818181818
-pylint,2,64400,32200.0
-hbase,5,64022,12804.4
-amazon s3,10,62887,6288.7
-google docs,12,60077,5006.416666666667
-centos,14,58996,4214.0
-microsoft sharepoint,6,55341,9223.5
-zend framework,27,54811,2030.037037037037
-wireshark,28,54622,1950.7857142857142
-rspec,19,52934,2786.0
-erlang,50,52840,1056.8
-swift,4,52202,13050.5
-openssl,29,49677,1713.0
-dyn,4,49262,12315.5
-superset,11,44439,4039.909090909091
-jquery ui,10,42904,4290.4
-metabase,5,42836,8567.2
-flux,1,42245,42245.0
-oracle pl/sql,6,42146,7024.333333333333
-jetty,16,41228,2576.75
-codeigniter,9,41020,4557.777777777777
-pypi,16,40088,2505.5
-google analytics,24,39923,1663.4583333333333
-helm,2,39505,19752.5
-composer,6,39369,6561.5
-jira,24,39097,1629.0416666666667
-unity,7,36185,5169.285714285715
-netbeans ide,7,35837,5119.571428571428
-lua,44,35157,799.0227272727273
-tumblr,1,34124,34124.0
-yaml,30,34113,1137.1
-nginx,17,31877,1875.1176470588234
-scala,33,31269,947.5454545454545
-symfony,13,29292,2253.230769230769
-backbone.js,1,28858,28858.0
-coffeescript,1,28858,28858.0
-spi,5,28770,5754.0
-ipython,9,28523,3169.222222222222
-slim,8,28251,3531.375
-passenger,13,27706,2131.230769230769
-haml,6,26272,4378.666666666667
-qunit,1,25812,25812.0
-ehcache,5,24785,4957.0
-openlayers,1,23567,23567.0
-openstreetmap,2,23567,11783.5
-xunit,37,21534,582.0
-dash,13,21312,1639.3846153846155
-vault,35,21307,608.7714285714286
-sketch,15,17577,1171.8
-gnu sed,2,17429,8714.5
-paypal,10,17067,1706.7
-bootloader,3,16561,5520.333333333333
-hub,7,16470,2352.8571428571427
-pre-commit,18,16004,889.1111111111111
-hsqldb,9,15801,1755.6666666666667
-godaddy,18,15402,855.6666666666666
-zeromq,1,14429,14429.0
-prettier,10,14178,1417.8
-teamcity,24,14109,587.875
-arduino,4,13735,3433.75
-smalltalk,33,13341,404.27272727272725
-numpy,6,12628,2104.6666666666665
-scipy,3,12628,4209.333333333333
-nats,2,11831,5915.5
-sphinx,15,11830,788.6666666666666
-skype,8,11423,1427.875
-apache jmeter,1,10942,10942.0
-slack,8,10930,1366.25
-tornado,1,10116,10116.0
-glassfish,9,10080,1120.0
-clojure,7,9981,1425.857142857143
-jackson,5,9776,1955.2
-smarty,12,9256,771.3333333333334
-sqlalchemy,12,8011,667.5833333333334
-devise,6,7947,1324.5
-nagios,13,7168,551.3846153846154
-spring framework,16,7028,439.25
-homebrew,13,6936,533.5384615384615
-salt,41,6500,158.53658536585365
-redmine,8,6465,808.125
-basecamp,4,6151,1537.75
-eureka,2,5754,2877.0
-prometheus,3,5723,1907.6666666666667
-compass,7,5186,740.8571428571429
-unreal engine,2,4975,2487.5
-stripe,3,4785,1595.0
-hugo,2,4565,2282.5
-watchdog timer,2,4406,2203.0
-bootstrap,23,4006,174.17391304347825
-glsl,2,3801,1900.5
-adobe indesign,2,3642,1821.0
-haxe,8,3375,421.875
-uservoice,5,3229,645.8
-kong,1,3172,3172.0
-mysql workbench,4,3101,775.25
-sass,5,3062,612.4
-blender,8,2992,374.0
-salesforce,1,2798,2798.0
-apex,1,2798,2798.0
-ent,8,2576,322.0
-stylus,4,2485,621.25
-bundler,3,2377,792.3333333333334
-dart,5,2218,443.6
-retrofit,7,2110,301.42857142857144
-autofac,3,1850,616.6666666666666
-presto,2,1556,778.0
-invision,2,1381,690.5
-microsoft sql server management studio,2,1306,653.0
-javafx,7,1087,155.28571428571428
-grunt,8,1079,134.875
-svn (subversion),2,1043,521.5
-postgis,7,986,140.85714285714286
-redux,1,858,858.0
-microsoft iis,1,608,608.0
-sanity,37,569,15.378378378378379
-magento,5,527,105.4
-amazon ec2,5,336,67.2
-github actions,0,0,0
-g suite,0,0,0
-dropbox,4,0,0.0
-laravel,0,0,0
-babel,0,0,0
-aws lambda,0,0,0
-confluence,14,0,0.0
-rabbitmq,0,0,0
-docker compose,0,0,0
-android studio,0,0,0
-kafka,0,0,0
-travis ci,0,0,0
-microsoft azure,0,0,0
-gradle,0,0,0
-kibana,0,0,0
-golang,0,0,0
-android sdk,2,0,0.0
-mailchimp,1,0,0.0
-ansible,0,0,0
-flutter,1,0,0.0
-flask,0,0,0
-grafana,0,0,0
-digitalocean,0,0,0
-amazon cloudfront,0,0,0
-new relic,0,0,0
-github pages,0,0,0
-mariadb,0,0,0
-google cloud platform,0,0,0
-amazon rds,0,0,0
-amazon route 53,0,0,0
-amazon ec2 container service,0,0,0
-kotlin,1,0,0.0
-sentry,0,0,0
-gulp,0,0,0
-socket.io,0,0,0
-terraform,0,0,0
-aws elastic load balancing (elb),0,0,0
-electron,3,0,0.0
-google compute engine,0,0,0
-material design for angular,0,0,0
-amazon cloudwatch,0,0,0
-circleci,0,0,0
-logstash,0,0,0
-twilio,0,0,0
-vagrant,0,0,0
-amazon web services (aws),0,0,0
-sourcetree,1,0,0.0
-c lang,1,0,0.0
-datadog,0,0,0
-shopify,0,0,0
-ionic,1,0,0.0
-hubspot,0,0,0
-amazon ses,0,0,0
-asana,0,0,0
-jest,0,0,0
-twilio sendgrid,0,0,0
-woocommerce,0,0,0
-varnish,1,0,0.0
-zendesk,1,0,0.0
-next.js,0,0,0
-mailgun,0,0,0
-requirejs,0,0,0
-mocha,3,0,0.0
-bower,0,0,0
-mixpanel,0,0,0
-handlebars.js,0,0,0
-intercom,0,0,0
-lodash,0,0,0
-rust,2,0,0.0
-nuget,3,0,0.0
-.net core,4,0,0.0
-modernizr,0,0,0
-apache camel,0,0,0
-tailwind css,0,0,0
-angular,1,0,0.0
-tensorflow,0,0,0
-cassandra,0,0,0
-figma,0,0,0
-amazon dynamodb,0,0,0
-logback,0,0,0
-mandrill,0,0,0
-elixir,0,0,0
-moment.js,0,0,0
-apache spark,0,0,0
-axios,0,0,0
-react router,0,0,0
-material-ui,0,0,0
-chai,1,0,0.0
-jasmine,0,0,0
-r language,1,0,0.0
-addthis,0,0,0
-gatsby,0,0,0
-netlify,0,0,0
-azure devops,0,0,0
-nestjs,0,0,0
-karma,5,0,0.0
-cypress,0,0,0
-dotenv,0,0,0
-fancybox,0,0,0
-amazon sqs,0,0,0
-rxjs,0,0,0
-optimizely,0,0,0
-jupyter,0,0,0
-browserstack,0,0,0
-haproxy,0,0,0
-pytest,1,0,0.0
-cmake,7,0,0.0
-slf4j,1,0,0.0
-apollo,0,0,0
-protobuf,1,0,0.0
-istio,0,0,0
-salesforce sales cloud,0,0,0
-airflow,0,0,0
-microsoft teams,0,0,0
-pingdom,0,0,0
-autoprefixer,0,0,0
-mockito,3,0,0.0
-aws elastic beanstalk,0,0,0
-typekit,0,0,0
-swagger ui,0,0,0
-django rest framework,0,0,0
-grpc,0,0,0
-css-loader,0,0,0
-tslint,0,0,0
-sonarqube,1,0,0.0
-sinonjs,0,0,0
-mongoose,0,0,0
-meteor,0,0,0
-adobe photoshop,2,0,0.0
-d3.js,0,0,0
-nuxt.js,0,0,0
-nodemon,0,0,0
-cocoapods,0,0,0
-pandas,1,0,0.0
-jekyll,0,0,0
-trackjs,0,0,0
-codecov,0,0,0
-styled-components,0,0,0
-google bigquery,0,0,0
-celery,0,0,0
-svelte,0,0,0
-auth0,0,0,0
-yeoman,0,0,0
-google cloud storage,0,0,0
-discord,0,0,0
-adroll,0,0,0
-pytorch,0,0,0
-namecheap,0,0,0
-postcss,0,0,0
-disqus,0,0,0
-acquia,0,0,0
-red hat openshift,0,0,0
-vuetify,0,0,0
-browserify,0,0,0
-alpine linux,0,0,0
-aws cloudformation,0,0,0
-ant design,0,0,0
-rollbar,0,0,0
-amazon redshift,0,0,0
-select2,0,0,0
-jinja,1,0,0.0
-testify,0,0,0
-mustache,0,0,0
-zapier,0,0,0
-protractor,0,0,0
-xamarin,2,0,0.0
-google cloud dns,0,0,0
-crazy egg,0,0,0
-let's encrypt,1,0,0.0
-guava,1,0,0.0
-azure pipelines,0,0,0
-rollup,2,0,0.0
-chart.js,0,0,0
-vuex,0,0,0
-vercel,0,0,0
-consul,0,0,0
-amazon sns,0,0,0
-neo4j,1,0,0.0
-adobe illustrator,1,0,0.0
-tableau,1,0,0.0
-algolia,0,0,0
-ember.js,0,0,0
-amazon api gateway,0,0,0
-amazon vpc,0,0,0
-pug,0,0,0
-spring cloud,0,0,0
-android os,0,0,0
-highcharts,0,0,0
-leaflet,0,0,0
-scikit-learn,0,0,0
-semantic ui,0,0,0
-dns made easy,0,0,0
-squarespace,0,0,0
-json web token,0,0,0
-serilog,0,0,0
-amazon elasticache,0,0,0
-cucumber,0,0,0
-openresty,0,0,0
-chef,2,0,0.0
-microsoft 365,0,0,0
-sequelize,0,0,0
-rancher,0,0,0
-snowflake,6,0,0.0
-litespeed,1,0,0.0
-prisma,0,0,0
-maxcdn,0,0,0
-hipchat,0,0,0
-adobe xd,0,0,0
-terraform registry,0,0,0
-akka,0,0,0
-gunicorn,0,0,0
-phantomjs,0,0,0
-keras,0,0,0
-influxdb,0,0,0
-akamai,1,0,0.0
-gnu bash,2,0,0.0
-marketo,0,0,0
-azure storage,0,0,0
-coveralls,0,0,0
-zoho mail,0,0,0
-enzyme,0,0,0
-puppet labs,0,0,0
-vite,0,0,0
-supertest,0,0,0
-aws iam,0,0,0
-piwik,0,0,0
-matplotlib,1,0,0.0
-traefik,0,0,0
-phoenix framework,0,0,0
-gherkin,0,0,0
-sidekiq,0,0,0
-google kubernetes engine,0,0,0
-create react app,0,0,0
-keycloak,0,0,0
-codeship,0,0,0
-google sheets,0,0,0
-testflight,0,0,0
-airtable,0,0,0
-power bi,0,0,0
-openstack,0,0,0
-fastapi,0,0,0
-strapi,0,0,0
-pusher,0,0,0
-zookeeper,0,0,0
-react redux,0,0,0
-react navigation,0,0,0
-gravity forms,0,0,0
-materialize,1,0,0.0
-jsdom,0,0,0
-stylelint,0,0,0
-quantcast,0,0,0
-pagerduty,0,0,0
-rubocop,0,0,0
-bugsnag,0,0,0
-visual website optimizer,0,0,0
-elk,0,0,0
-hotjar,0,0,0
-mongodb atlas,0,0,0
-jquery mobile,0,0,0
-sinatra,0,0,0
-docker swarm,0,0,0
-crashlytics,0,0,0
-signalr,0,0,0
-yui library,2,0,0.0
-mapbox,0,0,0
-contentful,0,0,0
-plesk,0,0,0
-zeplin,0,0,0
-miro,2,0,0.0
-angular cli,0,0,0
-gitkraken,0,0,0
-puma,0,0,0
-webflow,5,0,0.0
-h2 database,0,0,0
-puppeteer,0,0,0
-jshint,0,0,0
-cloud firestore,0,0,0
-elementor,0,0,0
-amplitude,7,0,0.0
-zabbix,2,0,0.0
-apache cordova,1,0,0.0
-bulma,0,0,0
-amazon aurora,0,0,0
-azure cosmos db,0,0,0
-typeorm,0,0,0
-fastly,0,0,0
-balsamiq,0,0,0
-nativescript,1,0,0.0
-expo,1,0,0.0
-preact,0,0,0
-date-fns,0,0,0
-azure functions,0,0,0
-linode,1,0,0.0
-elm,5,0,0.0
-lerna,0,0,0
-redux-thunk,0,0,0
-insomnia rest client,0,0,0
-amazon rds for postgresql,0,0,0
-amazon cognito,0,0,0
-amazon kinesis,0,0,0
-aws codepipeline,0,0,0
-mobx,0,0,0
-drone.io,0,0,0
-clickup,0,0,0
-ionicons,0,0,0
-material design,0,0,0
-neovim,1,0,0.0
-ethereum,0,0,0
-spring data,0,0,0
-flake8,0,0,0
-three.js,0,0,0
-incapsula,0,0,0
-apache flink,0,0,0
-julia,0,0,0
-splunk,3,0,0.0
-code climate,0,0,0
-koa,0,0,0
-fluentd,0,0,0
-portainer,0,0,0
-java 8,2,0,0.0
-amazon athena,0,0,0
-graylog,0,0,0
-minio,0,0,0
-phonegap,0,0,0
-blazor,0,0,0
-aws cloud9,0,0,0
-looker,0,0,0
-liquibase,4,0,0.0
-cloudinary,0,0,0
-amazon ebs,0,0,0
-microsoft excel,9,0,0.0
-dbeaver,1,0,0.0
-appium,0,0,0
-datagrip,1,0,0.0
-mqtt,0,0,0
-aws glue,0,0,0
-clicky,3,0,0.0
-quasar framework,0,0,0
-fastlane,0,0,0
-amazon emr,0,0,0
-okta,0,0,0
-uikit,2,0,0.0
-aws amplify,0,0,0
-argo,0,0,0
-red hat codeready workspaces,0,0,0
-vmware vsphere,0,0,0
-packer,7,0,0.0
-databricks,0,0,0
-pivotal tracker,0,0,0
-rubymine,0,0,0
-parcel,1,0,0.0
-druid,0,0,0
-jetbrains rider,0,0,0
-google cloud sql,0,0,0
-yii,1,0,0.0
-capybara,0,0,0
-aws fargate,0,0,0
-firebase authentication,0,0,0
-arch linux,1,0,0.0
-github enterprise,0,0,0
-couchbase,0,0,0
-papertrail,0,0,0
-mattermost,0,0,0
-azure sql database,0,0,0
-google meet,0,0,0
-pip,0,0,0
-adobe experience manager,0,0,0
-aws codecommit,0,0,0
-swiftui,0,0,0
-scalatest,0,0,0
-lumen,0,0,0
-polymer,0,0,0
-react storybook,0,0,0
-azure service bus,0,0,0
-netlify cms,0,0,0
-google cloud build,0,0,0
-bamboo,7,0,0.0
-material design lite,0,0,0
-chartbeat,0,0,0
-octokit,0,0,0
-jsdoc,1,0,0.0
-codemirror,2,0,0.0
-braintree,1,0,0.0
-plotly.js,0,0,0
-dataform,0,0,0
-fastify,0,0,0
-azure active directory,0,0,0
-apache nifi,0,0,0
-playwright,0,0,0
-google cloud pub/sub,0,0,0
-guzzle,0,0,0
-pm2,0,0,0
-heroku postgres,0,0,0
-snyk,0,0,0
-formik,0,0,0
-aws codedeploy,0,0,0
-owin,1,0,0.0
-unicorn,1,0,0.0
-tawk.to,0,0,0
-goland,0,0,0
-clickhouse,0,0,0
-google cloud functions,0,0,0
-raspberry pi,0,0,0
-aws codebuild,0,0,0
-apache hive,0,0,0
-clion,0,0,0
-sonatype nexus,1,0,0.0
-hasura,0,0,0
-restsharp,0,0,0
-docker machine,0,0,0
-uglifyjs,1,0,0.0
-rocketchat,0,0,0
-spock framework,0,0,0
-istanbul,0,0,0
-webdriverio,0,0,0
-dbt,0,0,0
-hapi,0,0,0
-redux-saga,0,0,0
-octopus deploy,0,0,0
-ejs,0,0,0
-cloud functions for firebase,0,0,0
-jitsi,0,0,0
-vue cli,0,0,0
-pillow,0,0,0
-hazelcast,0,0,0
-appdynamics,0,0,0
-loki,5,0,0.0
-ngrok,0,0,0
-whatsapp,0,0,0
-mongolab,0,0,0
-kafka streams,0,0,0
-rstudio,1,0,0.0
-dialogflow,0,0,0
-langchain,0,0,0
-facebook ads,0,0,0
-framer,0,0,0
-oauth2,0,0,0
-robot framework,0,0,0
-fabric,3,0,0.0
-react.js boilerplate,0,0,0
-codacy,0,0,0
-onesignal,0,0,0
-sails.js,0,0,0
-passport,2,0,0.0
-apigee,0,0,0
-sauce labs,0,0,0
-webrtc,0,0,0
-azure websites,0,0,0
-flyway,0,0,0
-livereload,0,0,0
-pyspark,0,0,0
-livechat,0,0,0
-redash,0,0,0
-chartio,0,0,0
-clipboard.js,0,0,0
-graphite,0,0,0
-google ads,1,0,0.0
-deno,0,0,0
-envoy,0,0,0
-lottie,0,0,0
-drawio,0,0,0
-jaeger,1,0,0.0
-vuepress,0,0,0
-immutable.js,0,0,0
-windows 10,3,0,0.0
-oh my zsh,1,0,0.0
-bootstrap studio,0,0,0
-1password,0,0,0
-cowboy,3,0,0.0
-kissmetrics,0,0,0
-freshdesk,0,0,0
-zuul,0,0,0
-monday.com,0,0,0
-gitea,0,0,0
-react hot loader,0,0,0
-pardot,0,0,0
-bigcommerce,0,0,0
-uwsgi,0,0,0
-opencensus,0,0,0
-azure kubernetes service,0,0,0
-openai,0,0,0
-iterm2,0,0,0
-hexo,0,0,0
-gin gonic,0,0,0
-dapper,0,0,0
-lambdatest,0,0,0
-bitbucket pipelines,0,0,0
-streamlit,0,0,0
-bitrise,0,0,0
-vue native,0,0,0
-rethinkdb,0,0,0
-esbuild,0,0,0
-angular universal,0,0,0
-jfrog artifactory,0,0,0
-apache mesos,0,0,0
-kubeflow,0,0,0
-prestashop,0,0,0
-rails spring,0,0,0
-dbforge studio for mysql,0,0,0
-pubnub,0,0,0
-arangodb,0,0,0
-supabase,0,0,0
-etcd,0,0,0
-ovh,0,0,0
-mlflow,0,0,0
-i18next,0,0,0
-buddy,9,0,0.0
-rxjava,0,0,0
-nodemailer,0,0,0
-statsd,0,0,0
-sequel pro,0,0,0
-proxmox ve,0,0,0
-amazon elasticsearch service,0,0,0
-azure data factory,0,0,0
-azure app service,0,0,0
-stackdriver,0,0,0
-dropwizard,0,0,0
-statuspage.io,0,0,0
-pgvector,0,0,0
-data studio,3,0,0.0
-google cloud dataflow,0,0,0
-firebase cloud messaging,0,0,0
-linux mint,1,0,0.0
-avro,0,0,0
-dynatrace,0,0,0
-highlight.js,0,0,0
-semrush,0,0,0
-caddy,0,0,0
-purebasic,0,0,0
-xamarin forms,0,0,0
-quarkus,0,0,0
-azure application insights,0,0,0
-netty,0,0,0
-sweetalert,0,0,0
-pipedrive,0,0,0
-google cloud datastore,0,0,0
-launchdarkly,0,0,0
-castle core,0,0,0
-lastpass,0,0,0
-apache freemarker,0,0,0
-ramda,0,0,0
-docusaurus,0,0,0
-phpspec,0,0,0
-adonisjs,0,0,0
-telegram bot api,0,0,0
-concourse,0,0,0
-kendo ui,0,0,0
-airbrake,0,0,0
-red hat enterprise linux (rhel),0,0,0
-polly,0,0,0
-clever cloud,0,0,0
-kali linux,0,0,0
-wercker,0,0,0
-bootstrap vue,0,0,0
-laravel homestead,0,0,0
-uptimerobot,0,0,0
-odoo,0,0,0
-hangfire,0,0,0
-aws cloudtrail,0,0,0
-c3.js,0,0,0
-weebly,0,0,0
-clojurescript,0,0,0
-zulip,0,0,0
-dbforge studio for oracle,0,0,0
-telegraf,0,0,0
-aws step functions,0,0,0
-ifttt,0,0,0
-pulumi,0,0,0
-unbounce,0,0,0
-confluent,0,0,0
-aurelia,0,0,0
-netdata,0,0,0
-loggly,0,0,0
-typeform,0,0,0
-knockout,0,0,0
-dbforge studio for postgresql,0,0,0
-azure databricks,0,0,0
-azure machine learning,0,0,0
-nomad,0,0,0
-fullstory,0,0,0
-phalcon,0,0,0
-postmark,0,0,0
-amazon sagemaker,0,0,0
-semantic ui react,0,0,0
-vert.x,0,0,0
-amazon ecr,0,0,0
-salesforce commerce cloud,0,0,0
-spinnaker,0,0,0
-logrocket,0,0,0
-apiary,0,0,0
-twig,1,0,0.0
-timescaledb,0,0,0
-vue router,0,0,0
-olark,0,0,0
-zopim,0,0,0
-emotion,0,0,0
-capacitor,0,0,0
-gatling,0,0,0
-amazon quicksight,0,0,0
-gitbook,0,0,0
-tower,4,0,0.0
-phpstan,0,0,0
-opsgenie,0,0,0
-splunk cloud,0,0,0
-knex.js,0,0,0
-phabricator,0,0,0
-mongodb compass,0,0,0
-zenhub,0,0,0
-microsoft bot framework,0,0,0
-rackspace cloud servers,0,0,0
-opencart,0,0,0
-chatgpt,0,0,0
-gitlab pages,0,0,0
-imgix,0,0,0
-facebook pixel,0,0,0
-gitter,0,0,0
-talend,2,0,0.0
-amazon lightsail,0,0,0
-customer.io,0,0,0
-testcafe,0,0,0
-paw,1,0,0.0
-hubot,0,0,0
-gocd,0,0,0
-tensorflow.js,0,0,0
-lucidchart,0,0,0
-cockroachdb,0,0,0
-bootsnap,0,0,0
-google cloud run,0,0,0
-discourse,1,0,0.0
-boot2docker,0,0,0
-onedrive,0,0,0
-coreos,0,0,0
-rundeck,0,0,0
-xenforo,0,0,0
-zsh (z shell),0,0,0
-reselect,0,0,0
-hystrix,0,0,0
-google workspace,0,0,0
-apache beam,0,0,0
-nightwatchjs,0,0,0
-doctrine 2,0,0,0
-vscode.dev,0,0,0
-help scout,0,0,0
-spacy,0,0,0
-sendbird,0,0,0
-nexmo,0,0,0
-logentries,0,0,0
-sonarlint,0,0,0
-cloud foundry,0,0,0
-k6,0,0,0
-google cloud bigtable,0,0,0
-bitwarden,0,0,0
-primeng,0,0,0
-thymeleaf,0,0,0
-calendly,0,0,0
-jhipster,0,0,0
-cloud db for mysql,0,0,0
-locust,0,0,0
-node.js,0,0,0
-docker,0,0,0
-npm,1,0,0.0
-typescript,1,0,0.0
-mongodb,0,0,0
-postman,0,0,0
-google drive,0,0,0
-css 3,3,0,0.0
-es6,2,0,0.0
-gitlab,0,0,0
-kubernetes,0,0,0
-redis,0,0,0
-jenkins,3,0,0.0
-angularjs,0,0,0
-vue.js,0,0,0
-cloudflare,0,0,0
-google fonts,0,0,0
-trello,0,0,0
-firebase,0,0,0
-bitbucket,3,0,0.0
-webpack,0,0,0
-font awesome,0,0,0
-google tag manager,0,0,0
-react native,0,0,0
-elasticsearch,0,0,0
-graphql,0,0,0
-expressjs,0,0,0
-eslint,0,0,0
-pycharm,2,0,0.0
-spring boot,0,0,0
-heroku,2,0,0.0
-yarn,0,0,0
-google adsense,0,0,0
-asp.net core,2,0,0.0
-animate.css,0,0,0
-gitlab ci,0,0,0
-serverless,0,0,0
-storybook,0,0,0
-matomo,0,0,0
-amazon eks,0,0,0
-telegram,0,0,0
-angular material,0,0,0
-ghost,13,0,0.0
-anaconda,0,0,0
-bazel,0,0,0
-blockchain,0,0,0
-wp rocket,0,0,0
-laravel forge,0,0,0
-omniauth,0,0,0
-chakra ui,0,0,0
-scrapy,0,0,0
-nextcloud,0,0,0
-mybatis,0,0,0
-docker hub,0,0,0
-zoho crm,0,0,0
-micronaut framework,0,0,0
-apache storm,0,0,0
-aerospike,0,0,0
-feathersjs,0,0,0
-testrail,0,0,0
-gogs,0,0,0
-google search console,0,0,0
-apache traffic server,0,0,0
-recharts,0,0,0
-sumome,0,0,0
-jenkins x,0,0,0
-react-testing-library,0,0,0
-nsq,0,0,0
-reactstrap,0,0,0
-apache zeppelin,0,0,0
-scikit-image,0,0,0
-lighthouse,0,0,0
-android room,0,0,0
-sitefinity,1,0,0.0
-normalize.css,0,0,0
-openvpn,3,0,0.0
-vaadin,1,0,0.0
-salesforce marketing cloud,0,0,0
-torch,3,0,0.0
-sumo logic,0,0,0
-ktor,0,0,0
-arm cortex-m,0,0,0
-arm cortex-a,0,0,0
-stm32,0,0,0
-avr / pic,0,0,0
-risc-v,0,0,0
-nordic nrf,0,0,0
-fpga,6,0,0.0
-freertos,0,0,0
-zephyr,0,0,0
-yocto project,0,0,0
-buildroot,1,0,0.0
-qnx / vxworks,0,0,0
-uc/os (micrium),0,0,0
-bare-metal,2,0,0.0
-uart,2,0,0.0
-i2c,0,0,0
-can bus,0,0,0
-modbus,0,0,0
-ethercat,0,0,0
-ble (bluetooth low energy),0,0,0
-zigbee,0,0,0
-hal (hardware abstraction layer),0,0,0
-device driver,8,0,0.0
-register level programming,0,0,0
-gpio/pwm,0,0,0
-adc/dac,0,0,0
-dma(direct memory access),0,0,0
-verilog/vhdl,0,0,0
-keil mdk / iar workbench,0,0,0
-gnu arm toolchain (gcc),0,0,0
-openocd,0,0,0
-j-link / st-link,0,0,0
-ota (over-the-air),0,0,0
-edge ai (tinyml),0,0,0
-misra c,1,0,0.0
-functional safety (iso 26262),0,0,0
-burp suite,2,0,0.0
-metasploit,2,0,0.0
-zap (owasp),0,0,0
-waf (web application firewall),0,0,0
-sql injection / xss,1,0,0.0
-nmap,8,0,0.0
-ids/ips,1,0,0.0
-ssh / sftp / ftp,0,0,0
-wireguard,0,0,0
-suricata,0,0,0
-snort,3,0,0.0
-oidc,0,0,0
-mfa (multi-factor authentication),0,0,0
-rbac / abac,0,0,0
-falco,1,0,0.0
-trivy,0,0,0
-kms (key management service),0,0,0
-ghidra / ida pro,0,0,0
-john the ripper / hashcat,0,0,0
-"siem (splunk, elk stack)",0,0,0
-godot,0,0,0
-gamemaker,1,0,0.0
-love2d,0,0,0
-monogame,0,0,0
-phaser,0,0,0
-pixijs,0,0,0
-babylon.js,0,0,0
-playcanvas,0,0,0
-cocos2d-x,0,0,0
+tech,mentions,total_views,avg_views_per_mention,top_posts
+c#,1441,67755640,47019.87508674531,2044744|https://stackoverflow.com/questions/29482|How do I cast int to enum in C#? ; 1543877|https://stackoverflow.com/questions/43021|How do you get the index of the current iteration of a foreach loop? ; 1409678|https://stackoverflow.com/questions/12051|Calling the base constructor in C# ; 1330202|https://stackoverflow.com/questions/68578|Multiple cases in switch statement ; 1308690|https://stackoverflow.com/questions/7074|What is the difference between String and string in C#? ; 1285129|https://stackoverflow.com/questions/36932|How can I represent an 'Enum' in Python? ; 1253745|https://stackoverflow.com/questions/40730|What is the best way to give a C# auto-property an initial value? ; 1227900|https://stackoverflow.com/questions/16100|Convert a string to an enum in C# ; 1138519|https://stackoverflow.com/questions/10855|LINQ query on a DataTable ; 1020107|https://stackoverflow.com/questions/78536|Deep cloning objects
+python,423,63425232,149941.44680851063,5441979|https://stackoverflow.com/questions/82831|How do I check whether a file exists without exceptions? ; 4861827|https://stackoverflow.com/questions/53513|How do I check if a list is empty? ; 4697381|https://stackoverflow.com/questions/89228|How do I execute a program or call a system command? ; 3305173|https://stackoverflow.com/questions/38987|How do I merge two dictionaries in a single expression in Python? ; 2499320|https://stackoverflow.com/questions/53162|How can I do a line break (line continuation) in Python (split up a long line of source code)? ; 1696308|https://stackoverflow.com/questions/68645|Class (static) variables and methods ; 1680745|https://stackoverflow.com/questions/81584|What IDE to use for Python? ; 1575698|https://stackoverflow.com/questions/22676|How to download a file over HTTP? ; 1480911|https://stackoverflow.com/questions/67631|How can I import a module dynamically given the full path? ; 1388483|https://stackoverflow.com/questions/36901|What does ** (double star/asterisk) and * (star/asterisk) do for parameters?
+sql,919,61650263,67084.07290533188,"4606449|https://stackoverflow.com/questions/63447|How do I perform an IF...THEN in an SQL SELECT? ; 3749044|https://stackoverflow.com/questions/92082|How to add a column with a default value to an existing table in SQL Server? ; 3387963|https://stackoverflow.com/questions/25969|Insert into ... values ( SELECT ... FROM ... ) ; 2628917|https://stackoverflow.com/questions/38549|What is the difference between ""INNER JOIN"" and ""OUTER JOIN""? ; 2183595|https://stackoverflow.com/questions/60174|How can I prevent SQL injection in PHP? ; 1458332|https://stackoverflow.com/questions/31057|How to insert a line break in a SQL Server VARCHAR/NVARCHAR string ; 1358534|https://stackoverflow.com/questions/18932|How can I remove duplicate rows? ; 1235071|https://stackoverflow.com/questions/82875|How can I list the tables in a SQLite database file that was opened with ATTACH? ; 1216355|https://stackoverflow.com/questions/42648|How to get the identity of an inserted row? ; 1179619|https://stackoverflow.com/questions/87821|SQL: IF clause within WHERE clause"
+java,886,57707728,65132.87584650113,"2927174|https://stackoverflow.com/questions/85190|In detail, how does the 'for each' loop work in Java? ; 2706897|https://stackoverflow.com/questions/40480|Is Java ""pass-by-reference"" or ""pass-by-value""? ; 2250811|https://stackoverflow.com/questions/37335|How to deal with ""java.lang.OutOfMemoryError: Java heap space"" error? ; 1778399|https://stackoverflow.com/questions/109383|Sort a Map<Key, Value> by values ; 1745963|https://stackoverflow.com/questions/40471|What are the differences between a HashMap and a Hashtable in Java? ; 1662183|https://stackoverflow.com/questions/41107|How to generate a random alpha-numeric string ; 1517211|https://stackoverflow.com/questions/28098|PHP equivalent of .NET/Java's toString() ; 1257561|https://stackoverflow.com/questions/34571|How do I test a class that has private methods, fields or inner classes? ; 1190995|https://stackoverflow.com/questions/62929|java.net.SocketException: Connection reset ; 1126387|https://stackoverflow.com/questions/34413|Why am I getting a NoClassDefFoundError in Java?"
+javascript,579,51089364,88237.24352331606,4692898|https://stackoverflow.com/questions/46155|How can I validate an email address in JavaScript? ; 3057327|https://stackoverflow.com/questions/105034|How do I create a GUID / UUID? ; 2940325|https://stackoverflow.com/questions/5223|Length of a JavaScript object ; 1622580|https://stackoverflow.com/questions/111102|How do JavaScript closures work? ; 1590426|https://stackoverflow.com/questions/48239|Getting the ID of the element that fired an event ; 1573844|https://stackoverflow.com/questions/18082|Validate decimal numbers in JavaScript - IsNumeric() ; 1496816|https://stackoverflow.com/questions/27509|Detecting an undefined object property ; 1454822|https://stackoverflow.com/questions/45015|Safely turning a JSON string into an object ; 1450959|https://stackoverflow.com/questions/57803|How to convert decimal to hexadecimal in JavaScript ; 1405202|https://stackoverflow.com/questions/78932|How do I programmatically set the value of a select box element using JavaScript?
+.net,1494,46283410,30979.524765729584,1517211|https://stackoverflow.com/questions/28098|PHP equivalent of .NET/Java's toString() ; 1409678|https://stackoverflow.com/questions/12051|Calling the base constructor in C# ; 1308690|https://stackoverflow.com/questions/7074|What is the difference between String and string in C#? ; 1138519|https://stackoverflow.com/questions/10855|LINQ query on a DataTable ; 1020107|https://stackoverflow.com/questions/78536|Deep cloning objects ; 827598|https://stackoverflow.com/questions/9|How do I calculate someone's age based on a DateTime type birthday? ; 825359|https://stackoverflow.com/questions/289|How do you sort a dictionary by value? ; 797738|https://stackoverflow.com/questions/52797|How do I get the path of the assembly the code is in? ; 744888|https://stackoverflow.com/questions/752|How to create a new object instance from a Type ; 687894|https://stackoverflow.com/questions/37324|What is the syntax for an inner join in LINQ to SQL?
+windows,1046,45139370,43154.27342256214,"5422595|https://stackoverflow.com/questions/48198|How do I find out which process is listening on a TCP or UDP port on Windows? ; 2250811|https://stackoverflow.com/questions/37335|How to deal with ""java.lang.OutOfMemoryError: Java heap space"" error? ; 1575698|https://stackoverflow.com/questions/22676|How to download a file over HTTP? ; 1366622|https://stackoverflow.com/questions/51054|Batch file to delete files older than N days ; 1207337|https://stackoverflow.com/questions/89275|Best C++ IDE or Editor for Windows ; 1193280|https://stackoverflow.com/questions/60034|How can you find and replace text in a file using the Windows command-line environment? ; 1138907|https://stackoverflow.com/questions/22358|How can I develop for iPhone using a Windows development machine? ; 1057519|https://stackoverflow.com/questions/60904|How can I open a cmd window in a specific location? ; 947052|https://stackoverflow.com/questions/76074|How can I delete a service in Windows? ; 696366|https://stackoverflow.com/questions/82726|Convert DOS/Windows line endings to Linux line endings in Vim"
+c++,630,35562842,56448.955555555556,"1651442|https://stackoverflow.com/questions/47981|How to set, clear, and toggle a single bit ; 1245827|https://stackoverflow.com/questions/57483|What are the differences between a pointer variable and a reference variable? ; 1207337|https://stackoverflow.com/questions/89275|Best C++ IDE or Editor for Windows ; 1203408|https://stackoverflow.com/questions/121162|What does the explicit keyword mean? ; 1031427|https://stackoverflow.com/questions/24109|C++ IDE for Linux? ; 909200|https://stackoverflow.com/questions/28002|Regular cast vs. static_cast vs. dynamic_cast ; 903341|https://stackoverflow.com/questions/21593|What is the difference between #include <filename> and #include ""filename""? ; 738302|https://stackoverflow.com/questions/75191|What is an unsigned char? ; 731185|https://stackoverflow.com/questions/106508|What is a smart pointer and when should I use one? ; 722961|https://stackoverflow.com/questions/81870|Is it possible to print a variable's type in standard C++?"
+mysql,226,21043157,93111.31415929203,3387963|https://stackoverflow.com/questions/25969|Insert into ... values ( SELECT ... FROM ... ) ; 2183595|https://stackoverflow.com/questions/60174|How can I prevent SQL injection in PHP? ; 1613023|https://stackoverflow.com/questions/67093|How do I rename a MySQL database (change schema name)? ; 1072263|https://stackoverflow.com/questions/16568|How to select the nth row in a SQL database table? ; 870872|https://stackoverflow.com/questions/4371|How do I retrieve my MySQL username and password? ; 845569|https://stackoverflow.com/questions/39576|Best way to do multi-row insert in Oracle? ; 763419|https://stackoverflow.com/questions/17359|How do I send a file as an email attachment using Linux command line? ; 757141|https://stackoverflow.com/questions/45494|MySQL Error 1093 - Can't specify target table for update in FROM clause ; 713427|https://stackoverflow.com/questions/27983|SQL Group By with an Order By ; 503286|https://stackoverflow.com/questions/25794|Copy/duplicate database without using mysqldump
+git,54,19921085,368908.98148148146,4106435|https://stackoverflow.com/questions/52704|How do I discard unstaged changes in Git? ; 3185902|https://stackoverflow.com/questions/61212|How do I remove local (untracked) files from the current Git working tree? ; 2583544|https://stackoverflow.com/questions/101752|I ran into a merge conflict. How do I abort the merge? ; 1780652|https://stackoverflow.com/questions/67699|How do I clone all remote branches? ; 1547579|https://stackoverflow.com/questions/115983|How do I add an empty directory to a Git repository? ; 1099125|https://stackoverflow.com/questions/107701|How can I Remove .DS_Store files from a Git repository? ; 925767|https://stackoverflow.com/questions/871|Why is Git better than Subversion? ; 856927|https://stackoverflow.com/questions/5473|How can I undo git reset --hard HEAD~1? ; 655544|https://stackoverflow.com/questions/35837|What is the Difference Between Mercurial and Git? ; 561711|https://stackoverflow.com/questions/89332|How do I recover a dropped stash in Git?
+php,451,17213864,38168.21286031042,2183595|https://stackoverflow.com/questions/60174|How can I prevent SQL injection in PHP? ; 1517211|https://stackoverflow.com/questions/28098|PHP equivalent of .NET/Java's toString() ; 1508468|https://stackoverflow.com/questions/64003|How do I use PHP to get the current year? ; 1017344|https://stackoverflow.com/questions/113829|How to convert date to timestamp in PHP? ; 364902|https://stackoverflow.com/questions/46483|htmlentities() vs. htmlspecialchars() ; 357674|https://stackoverflow.com/questions/888|How do you debug PHP scripts? ; 281020|https://stackoverflow.com/questions/45953|php execute a background process ; 279039|https://stackoverflow.com/questions/1408|Make XAMPP / Apache serve file outside of htdocs folder ; 240162|https://stackoverflow.com/questions/115316|How can I consume a WSDL (SOAP) web service in Python? ; 223799|https://stackoverflow.com/questions/879|Are PHP Variables passed by value or by reference?
+shell,106,16555291,156181.99056603774,"4697381|https://stackoverflow.com/questions/89228|How do I execute a program or call a system command? ; 3253951|https://stackoverflow.com/questions/59838|How do I check if a directory exists or not in a Bash shell script? ; 2581562|https://stackoverflow.com/questions/59895|How do I get the directory where a Bash script is located from within the script itself? ; 763419|https://stackoverflow.com/questions/17359|How do I send a file as an email attachment using Linux command line? ; 646565|https://stackoverflow.com/questions/2232|How to call shell commands from Ruby ; 431977|https://stackoverflow.com/questions/90418|Exit Shell Script Based on Process Exit Code ; 389090|https://stackoverflow.com/questions/29142|Getting ssh to execute a command in the background on target machine ; 321492|https://stackoverflow.com/questions/60950|Is there a better Windows Console Window? ; 303626|https://stackoverflow.com/questions/84882|sudo echo ""something"" >> /etc/privilegedFile doesn't work ; 266657|https://stackoverflow.com/questions/52187|Virtual Serial Port for Linux"
+asp.net,784,15828024,20188.80612244898,"1164486|https://stackoverflow.com/questions/81991|A potentially dangerous Request.Form value was detected from the client ; 630955|https://stackoverflow.com/questions/101693|CustomErrors mode=""Off"" ; 468832|https://stackoverflow.com/questions/104601|Response.Redirect to new window ; 377164|https://stackoverflow.com/questions/75123|Remove columns from DataTable in C# ; 367345|https://stackoverflow.com/questions/96029|Get URL of ASP.Net Page in code-behind ; 351759|https://stackoverflow.com/questions/45325|How do you force Visual Studio to regenerate the .designer files for aspx/ascx files? ; 334059|https://stackoverflow.com/questions/10616|Differences between MySQL and SQL Server ; 311462|https://stackoverflow.com/questions/3713|Call ASP.NET function from JavaScript ; 298176|https://stackoverflow.com/questions/46582|Response.Redirect with POST instead of Get? ; 264150|https://stackoverflow.com/questions/57776|How do I ""Add Existing Item"" an entire directory structure in Visual Studio?"
+linux,333,15205858,45663.237237237234,1031427|https://stackoverflow.com/questions/24109|C++ IDE for Linux? ; 763419|https://stackoverflow.com/questions/17359|How do I send a file as an email attachment using Linux command line? ; 696366|https://stackoverflow.com/questions/82726|Convert DOS/Windows line endings to Linux line endings in Vim ; 592927|https://stackoverflow.com/questions/113886|How to recursively download a folder via FTP on Linux ; 586049|https://stackoverflow.com/questions/15816|Changing the resolution of a VNC session in linux ; 574001|https://stackoverflow.com/questions/34588|How do I change the number of open files limit in Linux? ; 479750|https://stackoverflow.com/questions/17965|How to generate a core dump in Linux on a segmentation fault? ; 426567|https://stackoverflow.com/questions/16991|What Ruby IDE do you prefer? ; 406450|https://stackoverflow.com/questions/104055|How to list the contents of a package using YUM? ; 400777|https://stackoverflow.com/questions/40317|Force unmount of NFS-mounted directory
+oracle,152,12528404,82423.71052631579,"3387963|https://stackoverflow.com/questions/25969|Insert into ... values ( SELECT ... FROM ... ) ; 1484608|https://stackoverflow.com/questions/109325|PostgreSQL ""DESCRIBE TABLE"" ; 1072263|https://stackoverflow.com/questions/16568|How to select the nth row in a SQL database table? ; 858547|https://stackoverflow.com/questions/59232|How do I find duplicate values in a table in Oracle? ; 845569|https://stackoverflow.com/questions/39576|Best way to do multi-row insert in Oracle? ; 617225|https://stackoverflow.com/questions/43866|How SID is different from Service name in Oracle tnsnames.ora ; 452463|https://stackoverflow.com/questions/53676|How to resolve ORA-011033: ORACLE initialization or shutdown in progress ; 379249|https://stackoverflow.com/questions/81448|Difference between BYTE and CHAR in column datatypes ; 238802|https://stackoverflow.com/questions/10499|Oracle - What TNS Names file am I using? ; 215193|https://stackoverflow.com/questions/61963|Howto import an oracle dump in an different tablespace"
+xml,360,10868228,30189.522222222222,"1575698|https://stackoverflow.com/questions/22676|How to download a file over HTTP? ; 797738|https://stackoverflow.com/questions/52797|How do I get the path of the assembly the code is in? ; 630955|https://stackoverflow.com/questions/101693|CustomErrors mode=""Off"" ; 502123|https://stackoverflow.com/questions/79126|Create Generic method constraining T to an Enum ; 437168|https://stackoverflow.com/questions/75105|What datatype should be used for storing phone numbers in SQL Server 2005? ; 416323|https://stackoverflow.com/questions/11305|How to parse XML using vba ; 382119|https://stackoverflow.com/questions/8692|How to use XPath in Python? ; 344221|https://stackoverflow.com/questions/15732|How to validate an XML file against an XSD file? ; 276254|https://stackoverflow.com/questions/17106|How to generate sample XML documents from their DTD or XSD? ; 235908|https://stackoverflow.com/questions/103325|What is the correct XPath for choosing attributes that contain ""foo""?"
+visual studio,458,10841796,23672.04366812227,"753991|https://stackoverflow.com/questions/9033|Hidden Features of C#? ; 577809|https://stackoverflow.com/questions/3017|How can we generate getters and setters in Visual Studio? ; 351759|https://stackoverflow.com/questions/45325|How do you force Visual Studio to regenerate the .designer files for aspx/ascx files? ; 309901|https://stackoverflow.com/questions/100543|How do I set specific environment variables when debugging in Visual Studio? ; 264150|https://stackoverflow.com/questions/57776|How do I ""Add Existing Item"" an entire directory structure in Visual Studio? ; 253030|https://stackoverflow.com/questions/4689|Recommended Fonts for Programming? ; 235003|https://stackoverflow.com/questions/52898|What is the use of the square brackets [] in sql statements? ; 232854|https://stackoverflow.com/questions/72298|Should I add the Visual Studio .suo and .user files to source control? ; 203581|https://stackoverflow.com/questions/70013|How to Detect if I'm Compiling Code with a particular Visual Studio version? ; 200908|https://stackoverflow.com/questions/14386|fopen deprecated warning"
+jquery,120,10129900,84415.83333333333,"1590426|https://stackoverflow.com/questions/48239|Getting the ID of the element that fired an event ; 1391256|https://stackoverflow.com/questions/47824|How do you remove all the options of a select box and then add one option and select it with jQuery? ; 964580|https://stackoverflow.com/questions/68485|How to show loading spinner in jQuery? ; 865330|https://stackoverflow.com/questions/31044|Is there an ""exists"" function for jQuery? ; 771985|https://stackoverflow.com/questions/24816|Escaping HTML strings with jQuery ; 502741|https://stackoverflow.com/questions/7034|Graph visualization library in JavaScript ; 486631|https://stackoverflow.com/questions/24849|Execute script after specific delay using JavaScript ; 466406|https://stackoverflow.com/questions/45004|Complex CSS selector for parent of active child ; 328077|https://stackoverflow.com/questions/92720|jQuery/JavaScript to replace broken images ; 220811|https://stackoverflow.com/questions/21294|Dynamically load a JavaScript file"
+google,270,7578478,28068.437037037038,732506|https://stackoverflow.com/questions/66420|How do you launch the JavaScript debugger in Google Chrome? ; 478919|https://stackoverflow.com/questions/83073|Why not use tables for layout in HTML? ; 354408|https://stackoverflow.com/questions/46324|Possible to perform cross-database queries with PostgreSQL? ; 351842|https://stackoverflow.com/questions/110259|Which Python memory profiler is recommended? ; 260258|https://stackoverflow.com/questions/87735|How do you transfer or export SQL Server 2005 data to Excel ; 221420|https://stackoverflow.com/questions/101574|How to open an external file from HTML ; 215430|https://stackoverflow.com/questions/86582|Singleton: How should it be used ; 184568|https://stackoverflow.com/questions/43643|How do I style (css) radio buttons and labels? ; 163451|https://stackoverflow.com/questions/41766|How do I download code using SVN/Tortoise from Google Code? ; 163120|https://stackoverflow.com/questions/59154|Set Google Chrome as the debugging browser in Visual Studio
+ruby,243,7202280,29639.012345679013,"646565|https://stackoverflow.com/questions/2232|How to call shell commands from Ruby ; 519834|https://stackoverflow.com/questions/88311|How to generate a random string in Ruby ; 426567|https://stackoverflow.com/questions/16991|What Ruby IDE do you prefer? ; 402683|https://stackoverflow.com/questions/86653|How to ""pretty"" format JSON output ; 370877|https://stackoverflow.com/questions/63150|What's the best way to build a string of delimited items in Java? ; 361322|https://stackoverflow.com/questions/1669|Learning to write a compiler ; 267382|https://stackoverflow.com/questions/4418|How do I update Ruby Gems from behind a Proxy (ISA-NTLM) ; 245252|https://stackoverflow.com/questions/75759|How to implement Enums in Ruby? ; 240374|https://stackoverflow.com/questions/60033|What is the easiest way to duplicate an activerecord record? ; 160659|https://stackoverflow.com/questions/39567|What is the best way to convert an array to a hash in Ruby"
+eclipse,146,6942358,47550.397260273974,"1031427|https://stackoverflow.com/questions/24109|C++ IDE for Linux? ; 948862|https://stackoverflow.com/questions/73319|How to duplicate a whole line in Vim? ; 440735|https://stackoverflow.com/questions/61320|What are the pros and cons of the SVN plugins for Eclipse, Subclipse and Subversive? ; 426567|https://stackoverflow.com/questions/16991|What Ruby IDE do you prefer? ; 423929|https://stackoverflow.com/questions/29426|Best GUI designer for eclipse? ; 357674|https://stackoverflow.com/questions/888|How do you debug PHP scripts? ; 253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 186107|https://stackoverflow.com/questions/104854|""SetPropertiesRule"" warning message when starting Tomcat from Eclipse ; 179309|https://stackoverflow.com/questions/115971|Indirectly referenced from required .class file ; 174079|https://stackoverflow.com/questions/4430|How to easily consume a web service from PHP"
+firefox,178,5781544,32480.584269662922,892922|https://stackoverflow.com/questions/42068|How do I handle newlines in JSON? ; 495296|https://stackoverflow.com/questions/8371|How do you redirect HTTPS to HTTP? ; 448380|https://stackoverflow.com/questions/69332|Tracking CPU and Memory usage per process ; 347383|https://stackoverflow.com/questions/20088|Is there a way to make Firefox ignore invalid ssl-certificates? ; 221420|https://stackoverflow.com/questions/101574|How to open an external file from HTML ; 218229|https://stackoverflow.com/questions/81180|How to get the file path from HTML input form in Firefox 3 ; 180443|https://stackoverflow.com/questions/3362|Capturing TAB key in text box ; 180205|https://stackoverflow.com/questions/4973|Setting a div's height in HTML with CSS ; 177305|https://stackoverflow.com/questions/164|Embedding Windows Media Player for all browsers ; 148615|https://stackoverflow.com/questions/10877|How can you customize the numbers in an ordered list?
+perl,144,5110716,35491.083333333336,698570|https://stackoverflow.com/questions/53664|How to effectively work with multiple files in Vim ; 434560|https://stackoverflow.com/questions/81346|Most efficient way to increment a Map value in Java ; 376428|https://stackoverflow.com/questions/65865|What's the easiest way to install a missing Perl module? ; 343780|https://stackoverflow.com/questions/38960|How to find out if a file exists in C# / .NET? ; 271620|https://stackoverflow.com/questions/115425|How do I get a list of installed CPAN modules? ; 248371|https://stackoverflow.com/questions/22836|How do I perform a Perl substitution on a string while keeping the original? ; 242614|https://stackoverflow.com/questions/7651|How do I remove duplicate items from an array in Perl? ; 207833|https://stackoverflow.com/questions/84932|How do I get the full path to a Perl script that is executing? ; 183325|https://stackoverflow.com/questions/92438|Stripping non printable characters from a string in python ; 163968|https://stackoverflow.com/questions/12647|How do I tell if a variable has a numeric value in Perl?
+postgresql,43,5005087,116397.37209302325,"1484608|https://stackoverflow.com/questions/109325|PostgreSQL ""DESCRIBE TABLE"" ; 1072263|https://stackoverflow.com/questions/16568|How to select the nth row in a SQL database table? ; 428998|https://stackoverflow.com/questions/43870|How to concatenate strings of a string field in a PostgreSQL 'group by' query? ; 383391|https://stackoverflow.com/questions/935|String literals and escape characters in postgresql ; 354408|https://stackoverflow.com/questions/46324|Possible to perform cross-database queries with PostgreSQL? ; 340195|https://stackoverflow.com/questions/36959|How do you use script variables in psql? ; 228475|https://stackoverflow.com/questions/53428|What are some good Python ORM solutions? ; 194986|https://stackoverflow.com/questions/51019|What does it mean when a PostgreSQL process is ""idle in transaction""? ; 74206|https://stackoverflow.com/questions/27435|MySQL vs PostgreSQL for Web Applications ; 70132|https://stackoverflow.com/questions/92043|Is there a simple tool to convert mysql to postgresql syntax?"
+macos,134,4456991,33261.12686567164,"1099125|https://stackoverflow.com/questions/107701|How can I Remove .DS_Store files from a Git repository? ; 714735|https://stackoverflow.com/questions/3452|SQL Client for Mac OS X that works with MS SQL Server ; 457654|https://stackoverflow.com/questions/81272|How to move the cursor word by word in the OS X Terminal ; 268384|https://stackoverflow.com/questions/104322|How do you install Boost on MacOS? ; 253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 163787|https://stackoverflow.com/questions/97137|How do you run a script on login in *nix? ; 140502|https://stackoverflow.com/questions/87442|Virtual network interface in Mac OS X ; 125783|https://stackoverflow.com/questions/5649|x86 Assembly on a Mac ; 86453|https://stackoverflow.com/questions/13941|Python Sound (""Bell"") ; 55175|https://stackoverflow.com/questions/52874|How do you keep the machine awake?"
+less,144,4289232,29786.333333333332,478919|https://stackoverflow.com/questions/83073|Why not use tables for layout in HTML? ; 317485|https://stackoverflow.com/questions/7551|Best Practices for securing a REST API / web service ; 270044|https://stackoverflow.com/questions/10825|Compare a date string to datetime in SQL Server? ; 252297|https://stackoverflow.com/questions/10635|Why are my PowerShell scripts not running? ; 251486|https://stackoverflow.com/questions/31059|How do you configure an OpenFileDialog to select folders? ; 189703|https://stackoverflow.com/questions/93744|Most common C# bitwise operations on enums ; 180205|https://stackoverflow.com/questions/4973|Setting a div's height in HTML with CSS ; 160959|https://stackoverflow.com/questions/25785|Delete all but the most recent X files in bash ; 140981|https://stackoverflow.com/questions/115369|Do you use source control for your database items? ; 117846|https://stackoverflow.com/questions/7579|Reorganise index vs Rebuild Index in Sql Server Maintenance plan
+microsoft sql server,22,4179025,189955.68181818182,3387963|https://stackoverflow.com/questions/25969|Insert into ... values ( SELECT ... FROM ... ) ; 334059|https://stackoverflow.com/questions/10616|Differences between MySQL and SQL Server ; 117145|https://stackoverflow.com/questions/62999|Microsoft SQL Server 2005 service fails to start ; 93027|https://stackoverflow.com/questions/1610|Can I logically reorder columns in a table? ; 88708|https://stackoverflow.com/questions/20263|Is there a Profiler equivalent for MySql? ; 68121|https://stackoverflow.com/questions/92811|Reverse Engineering for Database Diagramming in Visio with SQL Server 2008 ; 16716|https://stackoverflow.com/questions/4052|How to enable Full-text Indexing in SQL Server 2005 Express? ; 13255|https://stackoverflow.com/questions/31885|Does Visual Studio Server Explorer support custom database providers? ; 13250|https://stackoverflow.com/questions/18194|Best way to learn SQL Server ; 8493|https://stackoverflow.com/questions/42438|What's the best way to detect the presence of SMO?
+sqlite,36,3900769,108354.69444444444,1235071|https://stackoverflow.com/questions/82875|How can I list the tables in a SQLite database file that was opened with ATTACH? ; 1072263|https://stackoverflow.com/questions/16568|How to select the nth row in a SQL database table? ; 364678|https://stackoverflow.com/questions/18671|Quick easy way to migrate SQLite3 to MySQL? ; 315838|https://stackoverflow.com/questions/41233|Java and SQLite ; 264111|https://stackoverflow.com/questions/75675|How to dump the data of some SQLite3 tables? ; 160255|https://stackoverflow.com/questions/3585|Create a new Ruby on Rails application using MySQL instead of SQLite ; 139175|https://stackoverflow.com/questions/26020|What is the best way to connect and use a sqlite database from C# ; 84316|https://stackoverflow.com/questions/61972|JavaScript sqlite ; 28105|https://stackoverflow.com/questions/78801|SQLite3::BusyException ; 26827|https://stackoverflow.com/questions/88259|How do you configure Django for simple development and deployment?
+json,44,3789314,86120.77272727272,"1454822|https://stackoverflow.com/questions/45015|Safely turning a JSON string into an object ; 892922|https://stackoverflow.com/questions/42068|How do I handle newlines in JSON? ; 402683|https://stackoverflow.com/questions/86653|How to ""pretty"" format JSON output ; 317485|https://stackoverflow.com/questions/7551|Best Practices for securing a REST API / web service ; 228475|https://stackoverflow.com/questions/53428|What are some good Python ORM solutions? ; 127671|https://stackoverflow.com/questions/26620|How to set encoding in .getJSON jQuery ; 63756|https://stackoverflow.com/questions/103489|Building an HTML table on the fly using jQuery ; 36900|https://stackoverflow.com/questions/29751|How can I make this code to submit a UTF-8 form textarea with jQuery/Ajax work? ; 29965|https://stackoverflow.com/questions/57689|How do I expose data in a JSON format through a web service using Java? ; 26973|https://stackoverflow.com/questions/79498|Unable to receive JSON from JQuery ajax call"
+vim,44,3720314,84552.59090909091,"948862|https://stackoverflow.com/questions/73319|How to duplicate a whole line in Vim? ; 698570|https://stackoverflow.com/questions/53664|How to effectively work with multiple files in Vim ; 696366|https://stackoverflow.com/questions/82726|Convert DOS/Windows line endings to Linux line endings in Vim ; 253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 151142|https://stackoverflow.com/questions/48933|How do I list loaded plugins in Vim? ; 130816|https://stackoverflow.com/questions/2898|Text Editor For Linux (Besides Vi)? ; 94791|https://stackoverflow.com/questions/69998|Tabs and spaces in vim ; 93401|https://stackoverflow.com/questions/54255|In Vim is there a way to delete without putting text in the register? ; 91518|https://stackoverflow.com/questions/53911|In vim, how do I go back to where I was before a search? ; 87362|https://stackoverflow.com/questions/88399|How do I duplicate a whole line in Emacs?"
+rails,155,3716285,23976.032258064515,"1094097|https://stackoverflow.com/questions/48474|How do I position one image on top of another in HTML? ; 426567|https://stackoverflow.com/questions/16991|What Ruby IDE do you prefer? ; 402683|https://stackoverflow.com/questions/86653|How to ""pretty"" format JSON output ; 160255|https://stackoverflow.com/questions/3585|Create a new Ruby on Rails application using MySQL instead of SQLite ; 159657|https://stackoverflow.com/questions/1644|What good technology podcasts are out there? ; 130501|https://stackoverflow.com/questions/61449|How do I access the host machine from the guest machine? ; 104064|https://stackoverflow.com/questions/42566|Getting the Hostname or IP in Ruby on Rails ; 88832|https://stackoverflow.com/questions/40273|What's the best way to use SOAP with Ruby? ; 67681|https://stackoverflow.com/questions/111031|Comparison between Centralized and Distributed Version Control Systems ; 56537|https://stackoverflow.com/questions/24298|Best Solution For Authentication in Ruby on Rails"
+ibm db2,5,3432056,686411.2,"3387963|https://stackoverflow.com/questions/25969|Insert into ... values ( SELECT ... FROM ... ) ; 23186|https://stackoverflow.com/questions/29370|SQL1159 Initialization error with DB2 .NET Data Provider, reason code 7, tokens 9.5.0.DEF.2, SOFTWARE\IBM\DB2\InstalledCopies ; 9632|https://stackoverflow.com/questions/9783|Oracle XE or SQL Server Express ; 9109|https://stackoverflow.com/questions/696|Connect PHP to IBM i (AS/400) ; 2166|https://stackoverflow.com/questions/24915|BizTalk DB2 adapter connection error"
+powershell,43,3273967,76138.76744186046,1366622|https://stackoverflow.com/questions/51054|Batch file to delete files older than N days ; 321112|https://stackoverflow.com/questions/30686|Get file version in PowerShell ; 252297|https://stackoverflow.com/questions/10635|Why are my PowerShell scripts not running? ; 150756|https://stackoverflow.com/questions/63805|Equivalent of *Nix 'which' command in PowerShell? ; 134235|https://stackoverflow.com/questions/83410|How do I call a SQL Server stored procedure from PowerShell? ; 120479|https://stackoverflow.com/questions/8435|How do you get the icons out of shell32.dll? ; 110907|https://stackoverflow.com/questions/59819|How do I create a custom type in PowerShell for my scripts to use? ; 105232|https://stackoverflow.com/questions/76482|Powershell: Setting Encoding for Get-Content Pipeline ; 79354|https://stackoverflow.com/questions/22732|How do I pass multiple string parameters to a PowerShell script? ; 70889|https://stackoverflow.com/questions/29645|Set up PowerShell Script for Automatic Execution
+stack overflow,46,3236625,70361.41304347826,"1543877|https://stackoverflow.com/questions/43021|How do you get the index of the current iteration of a foreach loop? ; 685030|https://stackoverflow.com/questions/549|The definitive guide to form-based website authentication ; 159657|https://stackoverflow.com/questions/1644|What good technology podcasts are out there? ; 144978|https://stackoverflow.com/questions/26158|How does a ""stack overflow"" occur and how do you prevent it? ; 128956|https://stackoverflow.com/questions/83147|What's wrong with foreign keys? ; 125754|https://stackoverflow.com/questions/43180|What are some resources for getting started in operating system development? ; 54488|https://stackoverflow.com/questions/34125|Which, if any, C++ compilers do tail-recursion optimization? ; 45765|https://stackoverflow.com/questions/25259|How does Stack Overflow generate its SEO-friendly URLs? ; 39110|https://stackoverflow.com/questions/1069|Heap corruption under Win32; how to locate? ; 37522|https://stackoverflow.com/questions/62188|What's the shortest code to cause a stack overflow?"
+brackets,12,2544890,212074.16666666666,"903341|https://stackoverflow.com/questions/21593|What is the difference between #include <filename> and #include ""filename""? ; 753991|https://stackoverflow.com/questions/9033|Hidden Features of C#? ; 253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 235003|https://stackoverflow.com/questions/52898|What is the use of the square brackets [] in sql statements? ; 200516|https://stackoverflow.com/questions/34868|How do you create optional arguments in php? ; 68523|https://stackoverflow.com/questions/40568|Are square brackets permitted in URLs? ; 59770|https://stackoverflow.com/questions/62936|What does the number in parentheses shown after Unix command names in manpages mean? ; 54725|https://stackoverflow.com/questions/12565|What do the different brackets in Ruby mean? ; 10531|https://stackoverflow.com/questions/38409|How do I convert a Ruby string with brackets to an array? ; 3418|https://stackoverflow.com/questions/113992|C++ Binary operators order of precedence"
+mac os x,39,2529672,64863.38461538462,1099125|https://stackoverflow.com/questions/107701|How can I Remove .DS_Store files from a Git repository? ; 714735|https://stackoverflow.com/questions/3452|SQL Client for Mac OS X that works with MS SQL Server ; 146845|https://stackoverflow.com/questions/68372|What is your single most favorite command-line trick using Bash? ; 140502|https://stackoverflow.com/questions/87442|Virtual network interface in Mac OS X ; 72167|https://stackoverflow.com/questions/43321|Worth switching to zsh for casual use? ; 45794|https://stackoverflow.com/questions/39066|Move all windows to a single monitor (with two attached) in Mac OS X? ; 26667|https://stackoverflow.com/questions/38934|How to take screenshot in Mac OS X using Cocoa or C++ ; 25109|https://stackoverflow.com/questions/61747|Installing PDO-drivers for PostgreSQL on Mac (using Zend for eclipse) ; 24784|https://stackoverflow.com/questions/27621|Unix shell file copy flattening folder structure ; 23423|https://stackoverflow.com/questions/37069|Apache - how do I build individual and/or all modules as shared modules
+junit,21,2223747,105892.71428571429,"1257561|https://stackoverflow.com/questions/34571|How do I test a class that has private methods, fields or inner classes? ; 547746|https://stackoverflow.com/questions/65820|Unit Testing C Code ; 110215|https://stackoverflow.com/questions/82949|Before and After Suite execution hook in jUnit 4.x ; 60605|https://stackoverflow.com/questions/61150|Mocking Static Blocks in Java ; 55338|https://stackoverflow.com/questions/90907|Unit testing a Java Servlet ; 40956|https://stackoverflow.com/questions/6658|JUnit vs TestNG ; 28339|https://stackoverflow.com/questions/42102|Using different classloaders for different JUnit tests? ; 26081|https://stackoverflow.com/questions/69063|How to default the source folder for new JUnit tests in Eclipse? ; 25812|https://stackoverflow.com/questions/96066|Automated unit testing with JavaScript ; 14752|https://stackoverflow.com/questions/53532|Unit-testing servlets"
+ios,16,1999254,124953.375,"1138907|https://stackoverflow.com/questions/22358|How can I develop for iPhone using a Windows development machine? ; 306630|https://stackoverflow.com/questions/10848|How to programmatically send SMS on the iPhone? ; 199214|https://stackoverflow.com/questions/40154|How do you beta test an iphone app? ; 110759|https://stackoverflow.com/questions/37464|iPhone App Minus App Store? ; 67593|https://stackoverflow.com/questions/402|iPhone app in landscape mode, 2008 systems ; 51162|https://stackoverflow.com/questions/47941|Invalid iPhone Application Binary ; 38472|https://stackoverflow.com/questions/22469|What's a good machine for iPhone development? ; 37465|https://stackoverflow.com/questions/64420|How can I write an iPhone app entirely in JavaScript without making it just a web app? ; 11635|https://stackoverflow.com/questions/83687|How do I display a substitute password character in a UILabel? ; 9114|https://stackoverflow.com/questions/1505|How do I give my websites an icon for iPhone?"
+github,3,1861451,620483.6666666666,"1780652|https://stackoverflow.com/questions/67699|How do I clone all remote branches? ; 52541|https://stackoverflow.com/questions/36862|How do you organise multiple git repositories, so that all of them are backed up together? ; 28258|https://stackoverflow.com/questions/88476|Trying to load files from github through a firewall is impossibly slow. Any suggestions for workarounds?"
+hibernate,47,1826096,38853.10638297872,"1064042|https://stackoverflow.com/questions/88235|Dealing with ""java.lang.OutOfMemoryError: PermGen space"" error ; 128965|https://stackoverflow.com/questions/84644|Hibernate Query By Example and Projections ; 110652|https://stackoverflow.com/questions/57484|How do you ""OR"" criteria together when using a criteria query with hibernate? ; 74619|https://stackoverflow.com/questions/115692|How to avoid type safety warnings with Hibernate HQL results? ; 73188|https://stackoverflow.com/questions/58561|How to use hibernate criteria to return only one element of an object instead the entire object? ; 46376|https://stackoverflow.com/questions/73366|How do you read JavaDoc? ; 36900|https://stackoverflow.com/questions/29751|How can I make this code to submit a UTF-8 form textarea with jQuery/Ajax work? ; 30830|https://stackoverflow.com/questions/38057|Why @OneToMany does not work with inheritance in Hibernate ; 26679|https://stackoverflow.com/questions/56843|Looking for an HQL builder (Hibernate Query Language) ; 22988|https://stackoverflow.com/questions/67810|How to debug a JSP tomcat service using eclipse?"
+prototype,33,1821877,55208.393939393936,"964580|https://stackoverflow.com/questions/68485|How to show loading spinner in jQuery? ; 220811|https://stackoverflow.com/questions/21294|Dynamically load a JavaScript file ; 209659|https://stackoverflow.com/questions/42125|Warning/error ""function declaration isn't a prototype"" ; 170377|https://stackoverflow.com/questions/7477|How to autosize a textarea using Prototype? ; 41629|https://stackoverflow.com/questions/67045|What advantages does jQuery have over other JavaScript libraries? ; 38837|https://stackoverflow.com/questions/19035|JavaScript Load Order ; 33758|https://stackoverflow.com/questions/15139|Building Standalone Applications in JavaScript ; 19627|https://stackoverflow.com/questions/7990|Printing from a .NET Service ; 14632|https://stackoverflow.com/questions/26098|Overloaded functions in C++ DLL def file ; 13997|https://stackoverflow.com/questions/57034|jQuery and Java applets"
+ubuntu,66,1780096,26971.151515151516,236568|https://stackoverflow.com/questions/35375|Internet Access in Ubuntu on VirtualBox ; 224245|https://stackoverflow.com/questions/7035|How to show a GUI message box from a bash script in linux? ; 172996|https://stackoverflow.com/questions/86550|Good Linux (Ubuntu) SVN client ; 117923|https://stackoverflow.com/questions/22873|Language Books/Tutorials for popular languages ; 102576|https://stackoverflow.com/questions/82530|svn over HTTP proxy ; 83407|https://stackoverflow.com/questions/58841|Precompiled headers with GCC ; 79029|https://stackoverflow.com/questions/38288|How do I add a user in Ubuntu? ; 76572|https://stackoverflow.com/questions/14032|What's a Good Database ERD Tool for Linux? ; 67681|https://stackoverflow.com/questions/111031|Comparison between Centralized and Distributed Version Control Systems ; 55850|https://stackoverflow.com/questions/63950|How to make Emacs terminal colors the same as Emacs GUI colors?
+django,56,1772106,31644.75,455082|https://stackoverflow.com/questions/32404|How do you run a Python script as a service in Windows? ; 228475|https://stackoverflow.com/questions/53428|What are some good Python ORM solutions? ; 139017|https://stackoverflow.com/questions/38601|Using Django time/date widgets in custom form ; 74206|https://stackoverflow.com/questions/27435|MySQL vs PostgreSQL for Web Applications ; 67470|https://stackoverflow.com/questions/21454|Specifying a mySQL ENUM in a Django model ; 67213|https://stackoverflow.com/questions/110378|Change the width of form elements created with ModelForm in Django ; 64400|https://stackoverflow.com/questions/115977|Using Pylint with Django ; 45765|https://stackoverflow.com/questions/25259|How does Stack Overflow generate its SEO-friendly URLs? ; 42175|https://stackoverflow.com/questions/43290|How to generate urls in django ; 40772|https://stackoverflow.com/questions/32044|How can I render a tree structure (recursive) using a django template?
+notepad++,9,1752463,194718.11111111112,1207337|https://stackoverflow.com/questions/89275|Best C++ IDE or Editor for Windows ; 428890|https://stackoverflow.com/questions/10564|How can I set up an editor to work with Git on Windows? ; 39963|https://stackoverflow.com/questions/14155|Windows-based Text Editors ; 37229|https://stackoverflow.com/questions/32494|Visual Studio identical token highlighting ; 20047|https://stackoverflow.com/questions/79210|Best C++ IDE for *nix ; 9233|https://stackoverflow.com/questions/16064|What IDE to use for developing in Ruby on Rails on Windows? ; 7495|https://stackoverflow.com/questions/87934|JavaScript and why capital letters sometimes work and sometimes don't ; 1531|https://stackoverflow.com/questions/71786|Windows IDE / editor for a beginner ; 738|https://stackoverflow.com/questions/37573|Integrating InstantRails with Aptana or any other IDE
+intellij idea,8,1542967,192870.875,"948862|https://stackoverflow.com/questions/73319|How to duplicate a whole line in Vim? ; 321562|https://stackoverflow.com/questions/13751|How can I permanently enable line numbers in IntelliJ? ; 153092|https://stackoverflow.com/questions/39187|How do I install a color theme for IntelliJ IDEA 7.0.x ; 99775|https://stackoverflow.com/questions/33739|JSP debugging in IntelliJ IDEA ; 13065|https://stackoverflow.com/questions/37976|How do I change XML indentation in IntelliJ IDEA? ; 3167|https://stackoverflow.com/questions/64408|How do I get rid of ""Cannot resolve property key"" in fmt:message tags in JSPs in Intellij ; 3050|https://stackoverflow.com/questions/52698|BlackBerry development using IntelliJ IDEA 7.0? ; 394|https://stackoverflow.com/questions/21738|Problems running Swing application with IDEA 8M1"
+emacs,55,1371559,24937.436363636363,253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 175682|https://stackoverflow.com/questions/69934|Set 4 Space Indent in Emacs in Text Mode ; 99506|https://stackoverflow.com/questions/69591|How do I create a regex in Emacs for exactly 3 digits? ; 87362|https://stackoverflow.com/questions/88399|How do I duplicate a whole line in Emacs? ; 81249|https://stackoverflow.com/questions/63421|Using Emacs as an IDE ; 78297|https://stackoverflow.com/questions/64360|How to copy text from Emacs to another application on Linux ; 70131|https://stackoverflow.com/questions/92971|How do I set the size of Emacs' window? ; 67027|https://stackoverflow.com/questions/95631|Open a file with su/sudo inside Emacs ; 65666|https://stackoverflow.com/questions/41300|Emacs in Windows ; 55850|https://stackoverflow.com/questions/63950|How to make Emacs terminal colors the same as Emacs GUI colors?
+datatables,7,1345054,192150.57142857142,1138519|https://stackoverflow.com/questions/10855|LINQ query on a DataTable ; 135245|https://stackoverflow.com/questions/2250|Datatable vs Dataset ; 57442|https://stackoverflow.com/questions/12702|Returning DataTables in WCF/.NET ; 9121|https://stackoverflow.com/questions/6430|How to programmatically iterate datagrid rows? ; 3319|https://stackoverflow.com/questions/20465|.NET - Excel ListObject autosizing on databind ; 1140|https://stackoverflow.com/questions/115836|How would you go about reverse engineering a set of binary data pulled from a device? ; 268|https://stackoverflow.com/questions/36262|How much should one DataSet represent?
+resharper,33,1221830,37025.15151515151,948862|https://stackoverflow.com/questions/73319|How to duplicate a whole line in Vim? ; 87362|https://stackoverflow.com/questions/88399|How do I duplicate a whole line in Emacs? ; 37229|https://stackoverflow.com/questions/32494|Visual Studio identical token highlighting ; 34437|https://stackoverflow.com/questions/97279|Keyboard shortcut to close all tabs but current one in Visual Studio? ; 12781|https://stackoverflow.com/questions/20420|Any ReSharper equivalent for Xcode? ; 11780|https://stackoverflow.com/questions/23737|Do you have any tips to improve ReSharper and/or Visual Studio performance? ; 10957|https://stackoverflow.com/questions/84009|ReSharper sluggishness ; 10122|https://stackoverflow.com/questions/52711|What causes this SqlException: A transport-level error has occurred when receiving results from the server ; 7592|https://stackoverflow.com/questions/101664|Can ReSharper be set to warn if IDisposable not handled correctly? ; 6228|https://stackoverflow.com/questions/69448|How do I keep Resharper Files out of SVN?
+google chrome,23,1155991,50260.47826086957,"732506|https://stackoverflow.com/questions/66420|How do you launch the JavaScript debugger in Google Chrome? ; 163120|https://stackoverflow.com/questions/59154|Set Google Chrome as the debugging browser in Visual Studio ; 102576|https://stackoverflow.com/questions/82530|svn over HTTP proxy ; 34042|https://stackoverflow.com/questions/74986|XBAP Application, can these work in Google Chrome? ; 31710|https://stackoverflow.com/questions/42460|Custom titlebars/chrome in a WinForms app ; 28154|https://stackoverflow.com/questions/81099|Safe feature-based way for detecting Google Chrome with Javascript? ; 12801|https://stackoverflow.com/questions/65926|Is it possible to pass a parameter to XSLT through a URL when using a browser to transform XML? ; 9116|https://stackoverflow.com/questions/40994|Is Google Chrome's V8 engine really that good? ; 8969|https://stackoverflow.com/questions/87911|Tool/framework for automated web app testing in Google Chrome browser? ; 8006|https://stackoverflow.com/questions/97385|How can I open a google chrome control in C#"
+hack,47,1142090,24299.787234042553,575684|https://stackoverflow.com/questions/115703|Storing C++ template function definitions in a .CPP file ; 102013|https://stackoverflow.com/questions/28256|Equation (expression) parser with precedence? ; 98027|https://stackoverflow.com/questions/16828|How do you do a case insensitive search using a pattern modifier using less? ; 43300|https://stackoverflow.com/questions/8496|Shelve in TortoiseSVN? ; 35042|https://stackoverflow.com/questions/39104|Finding a file in a Python module distribution ; 30585|https://stackoverflow.com/questions/41568|Whats the best way to unit test from multiple threads? ; 30159|https://stackoverflow.com/questions/95868|Best web front-end for SVN? ; 24105|https://stackoverflow.com/questions/40873|Searching for phone numbers in mysql ; 22976|https://stackoverflow.com/questions/34664|DesignMode with nested Controls ; 19023|https://stackoverflow.com/questions/101533|Serializing DateTime to time without milliseconds and gmt
+mssql,19,1125349,59228.89473684211,"270044|https://stackoverflow.com/questions/10825|Compare a date string to datetime in SQL Server? ; 241018|https://stackoverflow.com/questions/37275|SQL Query for Logins ; 194678|https://stackoverflow.com/questions/59044|How do I do a simple 'Find and Replace"" in MsSQL? ; 151517|https://stackoverflow.com/questions/8952|Storing a file in a database as opposed to the file system? ; 85197|https://stackoverflow.com/questions/46354|""Invalid column name"" error on SQL statement from OpenQuery results ; 65276|https://stackoverflow.com/questions/79688|Calculating percentile rankings in MS SQL ; 62649|https://stackoverflow.com/questions/70455|Cross-server SQL ; 24633|https://stackoverflow.com/questions/30790|Is there a Way to use Linq to Oracle ; 16036|https://stackoverflow.com/questions/89820|How to reference a custom field in SQL ; 4070|https://stackoverflow.com/questions/57449|Upgrading from .NET 1.1 to .NET 2.0, what to expect?"
+underscore,10,1101170,110117.0,597304|https://stackoverflow.com/questions/70528|Why are Python's 'private' methods not actually private? ; 281438|https://stackoverflow.com/questions/5821|SQL Server Escape an Underscore ; 112560|https://stackoverflow.com/questions/96297|What are some popular naming conventions for Unit Tests? ; 31875|https://stackoverflow.com/questions/40733|Disable WPF label accelerator key (text underscore is missing) ; 28858|https://stackoverflow.com/questions/27242|Where can I learn jQuery? Is it worth it? ; 18650|https://stackoverflow.com/questions/57075|How do I assign a keyboard shortcut to a VBA macro in Outlook 2007? ; 17473|https://stackoverflow.com/questions/37809|How do I generate a Friendly URL in C#? ; 7161|https://stackoverflow.com/questions/25200|C#.NET Winforms: Is it possible to override Label.Autosize? ; 5158|https://stackoverflow.com/questions/9372|How do I prevent IIS7 from dropping my cookies? ; 693|https://stackoverflow.com/questions/59462|Why do all methods in the Google Analytics tracking code start with an underscore?
+objective-c,44,1022200,23231.81818181818,"306630|https://stackoverflow.com/questions/10848|How to programmatically send SMS on the iPhone? ; 126581|https://stackoverflow.com/questions/110332|filtering NSArray into a new NSArray in Objective-C ; 76485|https://stackoverflow.com/questions/33207|What is the best way to unit test Objective-C code? ; 67593|https://stackoverflow.com/questions/402|iPhone app in landscape mode, 2008 systems ; 56970|https://stackoverflow.com/questions/25749|What does the @ symbol represent in objective-c? ; 40542|https://stackoverflow.com/questions/25746|What's the difference between a string constant and a string literal? ; 37465|https://stackoverflow.com/questions/64420|How can I write an iPhone app entirely in JavaScript without making it just a web app? ; 36506|https://stackoverflow.com/questions/6578|Understanding reference counting with Cocoa and Objective-C ; 31153|https://stackoverflow.com/questions/104339|Objective-C switch using objects? ; 24100|https://stackoverflow.com/questions/67640|Other than Xcode, are there any full functioned IDEs for Objective-C?"
+gmail,19,964146,50744.52631578947,"663584|https://stackoverflow.com/questions/32260|Sending email in .NET through Gmail ; 107095|https://stackoverflow.com/questions/61176|Getting mail from GMail into Java application using IMAP ; 99792|https://stackoverflow.com/questions/73580|How do I send an SMTP Message from Java? ; 18222|https://stackoverflow.com/questions/79496|How do I import Facebook friends from another website ; 13531|https://stackoverflow.com/questions/38920|php mail() not working windows 2003, IIS SMTP ; 13341|https://stackoverflow.com/questions/83476|Google Authentication API: How to get the user's gmail address ; 7557|https://stackoverflow.com/questions/19014|Using Lucene to search for email addresses ; 7281|https://stackoverflow.com/questions/90160|Integrating with Google Docs ; 6458|https://stackoverflow.com/questions/16832|Lightweight source control ; 6236|https://stackoverflow.com/questions/92620|Python sockets suddenly timing out?"
+mercurial,20,957372,47868.6,"655544|https://stackoverflow.com/questions/35837|What is the Difference Between Mercurial and Git? ; 118965|https://stackoverflow.com/questions/12865|Mercurial stuck ""waiting for lock"" ; 67681|https://stackoverflow.com/questions/111031|Comparison between Centralized and Distributed Version Control Systems ; 25421|https://stackoverflow.com/questions/34784|Mercurial .hgignore for Visual Studio 2008 projects ; 14905|https://stackoverflow.com/questions/12843|How to combine two projects in Mercurial? ; 13196|https://stackoverflow.com/questions/42980|How to use p4merge as the merge/diff tool for Mercurial? ; 12667|https://stackoverflow.com/questions/19883|Is there a bug/issue tracking system which integrates with Mercurial? ; 11406|https://stackoverflow.com/questions/30903|Good Mercurial repository viewer for Mac ; 6100|https://stackoverflow.com/questions/39746|TortoiseHg in Vista 64-bit not showing the context menu ; 5553|https://stackoverflow.com/questions/70392|Is there a distributed VCS that can manage large files?"
+nunit,29,849913,29307.344827586207,309901|https://stackoverflow.com/questions/100543|How do I set specific environment variables when debugging in Visual Studio? ; 295525|https://stackoverflow.com/questions/93879|HRESULT: 0x80131040: The located assembly's manifest definition does not match the assembly reference ; 57107|https://stackoverflow.com/questions/92869|NUnit vs. Visual Studio 2008's test projects for unit testing ; 41589|https://stackoverflow.com/questions/25343|Is there any way to automate windows forms testing? ; 16913|https://stackoverflow.com/questions/46276|Test Driven Development in PHP ; 13590|https://stackoverflow.com/questions/59128|What GUI should I run with JUnit(similar to NUnit gui) ; 11870|https://stackoverflow.com/questions/81784|C# - Excluding unit tests from the release version of your project ; 11786|https://stackoverflow.com/questions/39003|NUnit - How to test all classes that implement a particular interface ; 11645|https://stackoverflow.com/questions/1760|.NET unit testing packages ; 10933|https://stackoverflow.com/questions/4363|What is the best way to do unit testing for ASP.NET 2.0 web pages?
+nix,19,829429,43654.15789473684,335706|https://stackoverflow.com/questions/92928|time.sleep -- sleeps thread or process? ; 163787|https://stackoverflow.com/questions/97137|How do you run a script on login in *nix? ; 150756|https://stackoverflow.com/questions/63805|Equivalent of *Nix 'which' command in PowerShell? ; 52961|https://stackoverflow.com/questions/60871|How to solve Memory Fragmentation ; 23208|https://stackoverflow.com/questions/29621|Change priority of the current process in C ; 22912|https://stackoverflow.com/questions/33042|How can I measure CppUnit test coverage (on win32 and Unix)? ; 20047|https://stackoverflow.com/questions/79210|Best C++ IDE for *nix ; 17085|https://stackoverflow.com/questions/108327|What Fortran compilers are there? ; 13794|https://stackoverflow.com/questions/14582|Can I make Subversion + TortoiseSVN case-insensitive for Windows? ; 11254|https://stackoverflow.com/questions/29562|How to use Python distutils?
+windows server,38,798153,21004.026315789473,"194678|https://stackoverflow.com/questions/59044|How do I do a simple 'Find and Replace"" in MsSQL? ; 109634|https://stackoverflow.com/questions/18292|What are some good SSH Servers for windows? ; 77292|https://stackoverflow.com/questions/88904|""Error Creating Window Handle"" ; 61555|https://stackoverflow.com/questions/8896|Can I get Memcached running on a Windows (x64) 64bit environment? ; 60403|https://stackoverflow.com/questions/588|Best way to access Exchange using PHP? ; 52961|https://stackoverflow.com/questions/60871|How to solve Memory Fragmentation ; 39384|https://stackoverflow.com/questions/64279|How do you tell IIS 6 to set the .NET version to 2.0 (not 1.1) When New sites are created? ; 23470|https://stackoverflow.com/questions/5061|ASP.NET version of Joomla ; 20402|https://stackoverflow.com/questions/45534|ASPSmartUpload v3.2 ; 18233|https://stackoverflow.com/questions/11359|What is good server performance monitoring software for Windows?"
+visual basic,29,789935,27239.137931034482,145095|https://stackoverflow.com/questions/5759|Equivalent VB keyword for 'break' ; 117923|https://stackoverflow.com/questions/22873|Language Books/Tutorials for popular languages ; 90064|https://stackoverflow.com/questions/104383|Error accessing Project > References window? ; 83250|https://stackoverflow.com/questions/95112|How do I delay code execution in Visual Basic (VB6)? ; 66662|https://stackoverflow.com/questions/28377|Performance difference between IIf() and If ; 46456|https://stackoverflow.com/questions/78924|When is a MailItem not a MailItem? ; 32662|https://stackoverflow.com/questions/97381|Yield in VB.NET ; 30409|https://stackoverflow.com/questions/109931|Multithreading in visual basic 6.0 ; 23293|https://stackoverflow.com/questions/16322|Learning about LINQ ; 21893|https://stackoverflow.com/questions/93932|Out of String Space in Visual Basic 6
+apache tomcat,7,754351,107764.42857142857,605994|https://stackoverflow.com/questions/30632|Difference between the Apache HTTP Server and Apache Tomcat? ; 87984|https://stackoverflow.com/questions/75786|Eclipse - How can I change a 'Project Facet' from Tomcat 6 to Tomcat 5.5? ; 36900|https://stackoverflow.com/questions/29751|How can I make this code to submit a UTF-8 form textarea with jQuery/Ajax work? ; 10385|https://stackoverflow.com/questions/92504|Strong SSL with Tomcat 6 ; 6206|https://stackoverflow.com/questions/102058|How does debug level (0-99) in the Tomcat server.xml affect speed? ; 4691|https://stackoverflow.com/questions/105125|Is there an easy way to get Apache Tomcat to reboot automatically after a deployment? ; 2191|https://stackoverflow.com/questions/70389|What is the Simplest Tomcat/Apache Connector (Windows)?
+xcode,27,730126,27041.703703703704,"253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors ; 125783|https://stackoverflow.com/questions/5649|x86 Assembly on a Mac ; 76485|https://stackoverflow.com/questions/33207|What is the best way to unit test Objective-C code? ; 53559|https://stackoverflow.com/questions/33720|Change templates in Xcode ; 38472|https://stackoverflow.com/questions/22469|What's a good machine for iPhone development? ; 28846|https://stackoverflow.com/questions/46220|iPhone app crashing with NSUnknownKeyException setValue:forUndefinedKey: ; 24100|https://stackoverflow.com/questions/67640|Other than Xcode, are there any full functioned IDEs for Objective-C? ; 20590|https://stackoverflow.com/questions/70313|What is the best way to integrate TFS version control ; 20029|https://stackoverflow.com/questions/95211|How can you generate a Makefile from an Xcode project? ; 18330|https://stackoverflow.com/questions/37299|Xcode equivalent of ' __asm int 3 / DebugBreak() / Halt?"
+haskell,20,696801,34840.05,329399|https://stackoverflow.com/questions/44965|What is a monad? ; 117923|https://stackoverflow.com/questions/22873|Language Books/Tutorials for popular languages ; 67681|https://stackoverflow.com/questions/111031|Comparison between Centralized and Distributed Version Control Systems ; 34309|https://stackoverflow.com/questions/24279|Functional programming and non-functional programming ; 32879|https://stackoverflow.com/questions/44961|What are the primary differences between Haskell and F#? ; 22234|https://stackoverflow.com/questions/16918|Beginners Guide to Haskell? ; 17716|https://stackoverflow.com/questions/16770|Haskell's algebraic data types ; 14781|https://stackoverflow.com/questions/104960|Are there any ORM tools for Haskell? ; 12152|https://stackoverflow.com/questions/38345|Is there an elegant zip to interleave two lists in Perl 5? ; 11463|https://stackoverflow.com/questions/2366|Can anyone explain Monads?
+delphi,58,677438,11679.965517241379,93065|https://stackoverflow.com/questions/58621|How do I hash a string with Delphi? ; 78023|https://stackoverflow.com/questions/113860|How to check if an OLEDB driver is installed on the system? ; 53101|https://stackoverflow.com/questions/41733|Best way to sort an array ; 35284|https://stackoverflow.com/questions/14451|What is the best way to make a Delphi Application completely full screen? ; 31416|https://stackoverflow.com/questions/231|Register Windows program with the mailto protocol programmatically ; 29627|https://stackoverflow.com/questions/59547|What tools exist to convert a Delphi 7 application to C# and the .Net framework? ; 28591|https://stackoverflow.com/questions/18291|Unit testing in Delphi - how are you doing it? ; 27692|https://stackoverflow.com/questions/71766|Class/Static Constants in Delphi ; 24416|https://stackoverflow.com/questions/57124|How to detect true Windows version? ; 23640|https://stackoverflow.com/questions/53806|Reintroducing functions in Delphi
+entity framework,20,670996,33549.8,292932|https://stackoverflow.com/questions/8676|Entity Framework vs LINQ to SQL ; 147117|https://stackoverflow.com/questions/76488|Using MySQL with Entity Framework ; 110874|https://stackoverflow.com/questions/82644|Can you use Microsoft Entity Framework with Oracle? ; 24420|https://stackoverflow.com/questions/18132|ADO.NET Entity Framework vs NHibernate ; 22738|https://stackoverflow.com/questions/62110|ADO.NET Entity Framework tutorials ; 16777|https://stackoverflow.com/questions/12142|Update database schema in Entity Framework ; 15365|https://stackoverflow.com/questions/10524|Expression.Invoke in Entity Framework? ; 12147|https://stackoverflow.com/questions/38647|Performance of Linq to Entities vs ESQL ; 4130|https://stackoverflow.com/questions/83604|WCF DataContracts and underlying data structures ; 4064|https://stackoverflow.com/questions/42826|Where to start with Entity Framework
+fedora,12,669511,55792.583333333336,"406450|https://stackoverflow.com/questions/104055|How to list the contents of a package using YUM? ; 185876|https://stackoverflow.com/questions/34687|Subversion ignoring ""--password"" and ""--username"" options ; 19591|https://stackoverflow.com/questions/33117|Building a custom Linux Live CD ; 16543|https://stackoverflow.com/questions/104363|Why won't my package upgrade with yum? ; 14208|https://stackoverflow.com/questions/32694|""ypcat"" and ""ypmatch username passwd"" don't agree after change on server ; 8359|https://stackoverflow.com/questions/108251|What could be the causes of ""permission denied"" for tty1? ; 7430|https://stackoverflow.com/questions/37551|Multiple threads stuck in native calls (Java) ; 6055|https://stackoverflow.com/questions/85414|How do you port a virtual machine from VMWare to VirtualBox? ; 2047|https://stackoverflow.com/questions/78392|How to install php-gtk in the Acer Aspire One? ; 1451|https://stackoverflow.com/questions/92373|Django + FCGID on Fedora Core 9 -- what am I missing?"
+apache http server,3,646613,215537.66666666666,605994|https://stackoverflow.com/questions/30632|Difference between the Apache HTTP Server and Apache Tomcat? ; 38783|https://stackoverflow.com/questions/66606|What package includes AB the Apache Server Benchmarking Tool in Ubuntu ; 1836|https://stackoverflow.com/questions/22140|Can you compile Apache HTTP Server and redeploy its binaries to a different location?
+log4j,10,632235,63223.5,346295|https://stackoverflow.com/questions/68113|How to create a windows service from java app ; 85189|https://stackoverflow.com/questions/31840|Java Logging vs Log4J ; 74378|https://stackoverflow.com/questions/86878|Why is the root logger collecting all log types regardless the configuration? ; 48799|https://stackoverflow.com/questions/83741|Best way to aggregate multiple log files from several servers ; 36501|https://stackoverflow.com/questions/83918|log4j log file names? ; 20900|https://stackoverflow.com/questions/82109|Should a Log4J logger be declared as transient? ; 5929|https://stackoverflow.com/questions/83117|Logging activities in multithreaded applications ; 5731|https://stackoverflow.com/questions/41407|Parsing a log file with regular expressions ; 5289|https://stackoverflow.com/questions/29505|Deserialize in a different language ; 3224|https://stackoverflow.com/questions/53365|Getting hibernate to log clob parameters
+f#,11,579202,52654.72727272727,502123|https://stackoverflow.com/questions/79126|Create Generic method constraining T to an Enum ; 32879|https://stackoverflow.com/questions/44961|What are the primary differences between Haskell and F#? ; 7736|https://stackoverflow.com/questions/88302|macro support in F# ; 7102|https://stackoverflow.com/questions/8448|F# curried function ; 6912|https://stackoverflow.com/questions/104618|What does -> mean in F#? ; 5584|https://stackoverflow.com/questions/62654|How to define and use static variables in F# class ; 5397|https://stackoverflow.com/questions/40845|How do F# units of measure work? ; 3644|https://stackoverflow.com/questions/107243|Are units of measurement unique to F#? ; 3525|https://stackoverflow.com/questions/24995|Is there a functional language for C++ ecosystem? ; 2258|https://stackoverflow.com/questions/36294|F# language - hints for newbie
+spring,34,497698,14638.176470588236,90768|https://stackoverflow.com/questions/45546|How do I return a 403 Forbidden in Spring MVC? ; 67821|https://stackoverflow.com/questions/84680|How do you authenticate against an Active Directory server using Spring Security? ; 37229|https://stackoverflow.com/questions/32494|Visual Studio identical token highlighting ; 36199|https://stackoverflow.com/questions/68527|Should I use EJB3 or Spring for my business layer? ; 35280|https://stackoverflow.com/questions/25449|How to create a pluginable Java program? ; 29965|https://stackoverflow.com/questions/57689|How do I expose data in a JSON format through a web service using Java? ; 25340|https://stackoverflow.com/questions/61995|Match conditionally upon current node value ; 21891|https://stackoverflow.com/questions/75700|JPA Multiple Transaction Managers ; 17911|https://stackoverflow.com/questions/68746|Good pattern or framework for adding auditing to an existing app? ; 17056|https://stackoverflow.com/questions/106402|Can Spring Parse and Inject Properties Files?
+actionscript,49,467862,9548.204081632653,"40909|https://stackoverflow.com/questions/59083|What is Adobe Flex? Is it just Flash II? ; 36489|https://stackoverflow.com/questions/85065|How do I implement an A* pathfinding algorithm, with movement costs for every programming language? ; 34735|https://stackoverflow.com/questions/40525|Call Functions within Function - Flash Actionscript 2.0 ; 33994|https://stackoverflow.com/questions/3163|Actionscript 3 - Fastest way to parse yyyy-mm-dd hh:mm:ss to a Date object? ; 32700|https://stackoverflow.com/questions/62892|Using Actionscript 3 to connect to a database ; 20951|https://stackoverflow.com/questions/109580|How do I access cookies within Flash? ; 19960|https://stackoverflow.com/questions/69016|Actionscript 3 - Completely removing a child ; 19548|https://stackoverflow.com/questions/115462|Proportional image resize ; 18861|https://stackoverflow.com/questions/64170|Is there good .sol editor for Flash Player 9 Local Shared Objects? Can we build one? ; 13183|https://stackoverflow.com/questions/103945|Flex: Custom Item Renderer For Combobox controls truncates text"
+curl,12,430697,35891.416666666664,"196703|https://stackoverflow.com/questions/28395|Passing $_POST values with cURL ; 117076|https://stackoverflow.com/questions/84007|Curl command line for consuming webServices? ; 40430|https://stackoverflow.com/questions/12348|PHP / cURL on Windows install: ""The specified module could not be found."" ; 35584|https://stackoverflow.com/questions/89989|Is there a curl/wget option that prevents saving files in case of http errors? ; 10050|https://stackoverflow.com/questions/61085|SQLite/PHP read-only? ; 8259|https://stackoverflow.com/questions/2815|How to curl or wget a web page? ; 7176|https://stackoverflow.com/questions/49011|REST how to handle query parameters when put to resource? ; 6942|https://stackoverflow.com/questions/104872|PHP :: Emulate <form method=""post"">, forwarding user to page ; 3614|https://stackoverflow.com/questions/18166|cURL adding whitespace to post content? ; 2464|https://stackoverflow.com/questions/16155|Making one interface overwrite a method it inherits from another interface in PHP"
+rubygems,10,408787,40878.7,267382|https://stackoverflow.com/questions/4418|How do I update Ruby Gems from behind a Proxy (ISA-NTLM) ; 54915|https://stackoverflow.com/questions/43778|sqlite3-ruby gem: Failed to build gem native extension ; 30010|https://stackoverflow.com/questions/28243|cannot install ruby gems - zlib error ; 22621|https://stackoverflow.com/questions/23907|How can I graph the Lines of Code history for git repo? ; 17077|https://stackoverflow.com/questions/24579|WYSIWYG editor gem for Rails? ; 8685|https://stackoverflow.com/questions/13204|Why Doesn't My Cron Job Work Properly? ; 3244|https://stackoverflow.com/questions/41134|How do I install the mysql ruby gem under OS X 10.5.4 ; 2174|https://stackoverflow.com/questions/44973|Can I run rubygems in ironruby? ; 1454|https://stackoverflow.com/questions/103918|Automate a Ruby Gem install that has input ; 1225|https://stackoverflow.com/questions/29382|Rails requires RubyGems >= 0.9.4. Please install RubyGems
+virtualbox,7,398666,56952.28571428572,236568|https://stackoverflow.com/questions/35375|Internet Access in Ubuntu on VirtualBox ; 101367|https://stackoverflow.com/questions/61156|Virtualbox host-guest network setup ; 47594|https://stackoverflow.com/questions/39533|How to identify that you're running under a VM? ; 6055|https://stackoverflow.com/questions/85414|How do you port a virtual machine from VMWare to VirtualBox? ; 5040|https://stackoverflow.com/questions/48135|How can I allow incoming connections to a server inside of VirtualBox? ; 1336|https://stackoverflow.com/questions/46252|Is there a way I can have a VM gain access to my computer? ; 706|https://stackoverflow.com/questions/107552|Whats the best way to get started with server virtualization?
+phpstorm,1,357674,357674.0,357674|https://stackoverflow.com/questions/888|How do you debug PHP scripts?
+google app engine,11,345520,31410.909090909092,118617|https://stackoverflow.com/questions/42512|Deleting a Google App Engine application ; 84265|https://stackoverflow.com/questions/81451|Upload files in Google App Engine ; 30330|https://stackoverflow.com/questions/35948|Django templates and variable attributes ; 28381|https://stackoverflow.com/questions/48458|Project structure for Google App Engine ; 24306|https://stackoverflow.com/questions/103727|How to think in data stores instead of databases? ; 20000|https://stackoverflow.com/questions/101742|How do you access an authenticated Google App Engine service from a (non-web) python client? ; 11931|https://stackoverflow.com/questions/53997|Any good AJAX framework for Google App Engine apps? ; 10668|https://stackoverflow.com/questions/110186|Feedback on using Google App Engine? ; 8868|https://stackoverflow.com/questions/79850|How do you design data models for Bigtable/Datastore (GAE)? ; 4920|https://stackoverflow.com/questions/61894|What's a good way to find relative paths in Google App Engine?
+groovy,14,341471,24390.785714285714,"159657|https://stackoverflow.com/questions/1644|What good technology podcasts are out there? ; 87667|https://stackoverflow.com/questions/18538|shortcut for creating a Map from a List in groovy? ; 17717|https://stackoverflow.com/questions/81830|Rails or Grails? ; 16072|https://stackoverflow.com/questions/49092|Online Interactive Consoles ; 14808|https://stackoverflow.com/questions/47972|What are some advantages of duck-typing vs. static typing? ; 13661|https://stackoverflow.com/questions/100325|Groovy: Correct Syntax for XMLSlurper to find elements with a given attribute ; 9205|https://stackoverflow.com/questions/5087|Learning Ruby on Rails any good for Grails? ; 8034|https://stackoverflow.com/questions/9928|How to setup Groovy + Eclipse + Junit4? ; 5422|https://stackoverflow.com/questions/23169|HTML using Groovy MarkupBuilder, how do I elegantly mix tags and text? ; 4331|https://stackoverflow.com/questions/31465|Stackoverflow Style Notifications in asp.net Ajax"
+markdown,10,291740,29174.0,121243|https://stackoverflow.com/questions/24041|Markdown vs markup - are they related? ; 51465|https://stackoverflow.com/questions/36656|How do I keep whitespace formatting using PHP/HTML? ; 39179|https://stackoverflow.com/questions/18754|How can I convert Markdown documents to HTML en masse? ; 24584|https://stackoverflow.com/questions/59557|HTML to Markdown with Java ; 17946|https://stackoverflow.com/questions/53046|How do you get double-underscores to display in markdown? ; 17866|https://stackoverflow.com/questions/29847|Get last item in a table - SQL ; 9924|https://stackoverflow.com/questions/30928|A WYSIWYG Markdown control for Windows Forms? ; 6252|https://stackoverflow.com/questions/110749|Regular expression to convert mark down to HTML ; 2816|https://stackoverflow.com/questions/32412|What's the best way of cleaning up after a SQL Injection? ; 465|https://stackoverflow.com/questions/42762|How can I get markdown to format this code properly?
+debian,20,287530,14376.5,70131|https://stackoverflow.com/questions/92971|How do I set the size of Emacs' window? ; 53543|https://stackoverflow.com/questions/79490|linux uptime history ; 35297|https://stackoverflow.com/questions/12009|Piping password to smbpasswd ; 32530|https://stackoverflow.com/questions/15171|User script location linux (debian etch) ; 14039|https://stackoverflow.com/questions/97142|Ruby on Rails: no such file to load -- openssl on RedHat Linux Enterprise ; 13251|https://stackoverflow.com/questions/18943|Obscuring network proxy password in plain text files on Linux/UNIX-likes ; 11254|https://stackoverflow.com/questions/29562|How to use Python distutils? ; 10942|https://stackoverflow.com/questions/28716|Which PHP opcode cacher should I use to improve performance? ; 7562|https://stackoverflow.com/questions/3106|How can I create Debian install packages in Windows for a Visual Studio project? ; 7297|https://stackoverflow.com/questions/4164|What is a good barebones CMS or framework?
+grails,9,266838,29648.666666666668,159657|https://stackoverflow.com/questions/1644|What good technology podcasts are out there? ; 30252|https://stackoverflow.com/questions/27846|How do you change the default homepage in a Grails application? ; 24039|https://stackoverflow.com/questions/41018|How do you access two databases in Grails ; 19940|https://stackoverflow.com/questions/75798|Django -vs- Grails -vs-? ; 17717|https://stackoverflow.com/questions/81830|Rails or Grails? ; 9205|https://stackoverflow.com/questions/5087|Learning Ruby on Rails any good for Grails? ; 3136|https://stackoverflow.com/questions/81770|Is anyone developing facebook apps on Grails ; 1609|https://stackoverflow.com/questions/57910|How do I increase the number of default rows per page? ; 1283|https://stackoverflow.com/questions/82599|Best server-side framework for heavy RIA based application?
+webstorm,1,253314,253314.0,253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors
+sublime text,1,253314,253314.0,253314|https://stackoverflow.com/questions/20533|List of macOS text editors and code editors
+atom,9,244699,27188.777777777777,106226|https://stackoverflow.com/questions/20762|How do you remove invalid hexadecimal characters from an XML-based data source prior to constructing an XmlReader or XPathDocument that uses the data? ; 57113|https://stackoverflow.com/questions/17017|How do I parse and convert a DateTime to the RFC 3339 date-time format? ; 44447|https://stackoverflow.com/questions/110674|GCC optimization flags for Intel Atom ; 14960|https://stackoverflow.com/questions/76204|How do I get an attribute value when using XSLT with unknown namespace? ; 8518|https://stackoverflow.com/questions/24734|SelectNodes not working on stackoverflow feed ; 6083|https://stackoverflow.com/questions/12509|Why Are People Still Creating RSS Feeds? ; 3656|https://stackoverflow.com/questions/106534|Adding HTML to my RSS/Atom feed in Rails ; 2517|https://stackoverflow.com/questions/64061|What Feed Reader libraries for Java are best? ; 1179|https://stackoverflow.com/questions/16164|RSS/Atom for professional use
+java ee,12,243299,20274.916666666668,"174785|https://stackoverflow.com/questions/106820|What is Java EE? ; 16055|https://stackoverflow.com/questions/18655|Why do we need entity objects? ; 11733|https://stackoverflow.com/questions/8569|What's your ""best practice"" for the first Java EE Spring project? ; 9697|https://stackoverflow.com/questions/66528|Java EE SqlResultSetMapping Syntax ; 9353|https://stackoverflow.com/questions/75064|Beginning Java EE ; 5382|https://stackoverflow.com/questions/34638|data 'security' with java and hibernate ; 4133|https://stackoverflow.com/questions/5078|Securing a linux webserver for public access ; 3548|https://stackoverflow.com/questions/97402|How do I install PDT 2.0 in Eclipse Ganymede? ; 2941|https://stackoverflow.com/questions/78194|What tools are there for timed batch processes in Java EE? ; 2772|https://stackoverflow.com/questions/29734|Why stateless session beans are single threaded?"
+jboss,17,224527,13207.470588235294,36356|https://stackoverflow.com/questions/85532|Faces Servlet threw exception java.lang.StackOverflowError ; 36199|https://stackoverflow.com/questions/68527|Should I use EJB3 or Spring for my business layer? ; 30830|https://stackoverflow.com/questions/38057|Why @OneToMany does not work with inheritance in Hibernate ; 23689|https://stackoverflow.com/questions/59787|How do you generate and analyze a thread dump from a running JBoss instance? ; 18555|https://stackoverflow.com/questions/106437|EJB3 Transaction Propagation ; 12817|https://stackoverflow.com/questions/48733|How to maintain Hibernate cache consistency running two Java applications? ; 11236|https://stackoverflow.com/questions/30281|How Popular is the Seam Framework ; 10774|https://stackoverflow.com/questions/53562|Enabling Hibernate second-level cache with JPA on JBoss 4.2 ; 10695|https://stackoverflow.com/questions/8318|Resolving Session Fixation in JBoss ; 8518|https://stackoverflow.com/questions/39053|Accessing Datasource from Outside A Web Container (through JNDI)
+testng,6,224194,37365.666666666664,110215|https://stackoverflow.com/questions/82949|Before and After Suite execution hook in jUnit 4.x ; 55338|https://stackoverflow.com/questions/90907|Unit testing a Java Servlet ; 40956|https://stackoverflow.com/questions/6658|JUnit vs TestNG ; 12563|https://stackoverflow.com/questions/9044|Can I specify a class wide group on a TestNG test case? ; 4243|https://stackoverflow.com/questions/88743|Using jmockit expectations with matchers and primitive types ; 879|https://stackoverflow.com/questions/8219|Test Distribution
+awk,9,220878,24542.0,80147|https://stackoverflow.com/questions/6467|Date arithmetic in Unix shell scripts ; 78927|https://stackoverflow.com/questions/21564|Is there a Unix utility to prepend timestamps to stdin? ; 37755|https://stackoverflow.com/questions/107603|Is there still any reason to learn AWK? ; 9012|https://stackoverflow.com/questions/106484|sorting hashes/arrays in awk ; 4567|https://stackoverflow.com/questions/23216|Summary of differences in regular expression syntax for various tools and languages? ; 4044|https://stackoverflow.com/questions/71776|Grabbing every 4th file ; 3140|https://stackoverflow.com/questions/64432|How do I programmatically sanitize ColdFusion cfquery parameters? ; 1687|https://stackoverflow.com/questions/36742|How do I find broken NMEA log sentences with grep? ; 1599|https://stackoverflow.com/questions/6475|Faster way to find duplicates conditioned by time
+wix,6,216792,36132.0,139142|https://stackoverflow.com/questions/114165|How to implement WiX installer upgrade? ; 28770|https://stackoverflow.com/questions/115488|What is the most reliable way to create a custom event log and event source during the installation of a .Net Service ; 21745|https://stackoverflow.com/questions/58538|How do you create an event log source using WiX ; 13149|https://stackoverflow.com/questions/3544|What is the best way to deploy a VB.NET application? ; 9222|https://stackoverflow.com/questions/88078|Can a .msi file install itself (presumably via a Custom Action)? ; 4764|https://stackoverflow.com/questions/3867|Automated release script and Visual Studio Setup projects
+zoom,11,208746,18976.909090909092,57458|https://stackoverflow.com/questions/14378|Using the mouse scrollwheel in GLUT ; 51110|https://stackoverflow.com/questions/17586|Best word wrap algorithm? ; 36456|https://stackoverflow.com/questions/35537|Zoom for a windows form in C# ; 23567|https://stackoverflow.com/questions/7661|Java code for WGS84 to Google map position and back ; 17725|https://stackoverflow.com/questions/86570|Designing a WPF map control ; 5830|https://stackoverflow.com/questions/63408|iPhone app loading ; 4731|https://stackoverflow.com/questions/2804|How should I translate from screen space coordinates to image space coordinates in a WinForms PictureBox? ; 4622|https://stackoverflow.com/questions/16638|Google Maps API - Problems with class GLatLngBounds ; 3480|https://stackoverflow.com/questions/103537|How do I create a zoom effect in OpenGLES on the iPhone? ; 2084|https://stackoverflow.com/questions/27381|Should websites expand on window resize?
+loopback,4,185669,46417.25,140502|https://stackoverflow.com/questions/87442|Virtual network interface in Mac OS X ; 29656|https://stackoverflow.com/questions/46376|Windows packet sniffer that can capture loopback traffic? ; 14638|https://stackoverflow.com/questions/75862|mount rootfs on loopback ; 873|https://stackoverflow.com/questions/65925|Using network services when disconnected in Mac OS X
+google maps,15,185365,12357.666666666666,"38837|https://stackoverflow.com/questions/19035|JavaScript Load Order ; 24690|https://stackoverflow.com/questions/26362|Using ItemizedOverlay and OverlayItem In Android Beta 0.9 ; 23567|https://stackoverflow.com/questions/7661|Java code for WGS84 to Google map position and back ; 23189|https://stackoverflow.com/questions/86604|Google Maps, Z Index and Drop Down Javascript menus ; 15432|https://stackoverflow.com/questions/3437|Options for Google Maps over SSL ; 15031|https://stackoverflow.com/questions/36515|Fixed Legend in Google Maps Mashup ; 11056|https://stackoverflow.com/questions/66649|Google Maps style scrolling anyone? ; 11055|https://stackoverflow.com/questions/2798|Map Routing, a la Google Maps? ; 10989|https://stackoverflow.com/questions/85019|How can you make a web page send to the printer something different than what's in the browser window? ; 4622|https://stackoverflow.com/questions/16638|Google Maps API - Problems with class GLatLngBounds"
+findbugs,8,176066,22008.25,68268|https://stackoverflow.com/questions/103938|ResultSet not closed when connection closed? ; 42369|https://stackoverflow.com/questions/4080|What code analysis tools do you use for your Java projects? ; 36493|https://stackoverflow.com/questions/62276|Java package cycle detection: how do I find the specific classes involved? ; 14312|https://stackoverflow.com/questions/46389|How to export findbugs results from Eclipse findbugs plugin? ; 11256|https://stackoverflow.com/questions/55313|Automatic code quality tool for Ruby? ; 2289|https://stackoverflow.com/questions/95378|Batch source-code aware spell check ; 691|https://stackoverflow.com/questions/88879|Maven Jdepend report contains no data ; 388|https://stackoverflow.com/questions/15399|SQL With A Safety Net
+common lisp,7,170685,24383.571428571428,"117923|https://stackoverflow.com/questions/22873|Language Books/Tutorials for popular languages ; 18891|https://stackoverflow.com/questions/110433|Are there any Common Lisp implementations for .Net? ; 14862|https://stackoverflow.com/questions/110911|What is the closest thing to Slime for Scheme? ; 7736|https://stackoverflow.com/questions/88302|macro support in F# ; 6560|https://stackoverflow.com/questions/108081|Are there any High Level, easy to install GUI libraries for Common Lisp? ; 2615|https://stackoverflow.com/questions/65607|Writing a ++ macro in Common Lisp ; 2098|https://stackoverflow.com/questions/38571|Common lisp idiom - is there a better way?"
+wordpress,30,170365,5678.833333333333,32522|https://stackoverflow.com/questions/81338|How to blog code at wordpress.com ; 22314|https://stackoverflow.com/questions/41027|What's a good bit of JS or JQuery for horizontally scrolling news ticker ; 18834|https://stackoverflow.com/questions/33745|WordPress MediaWiki integration ; 18055|https://stackoverflow.com/questions/22015|OpenID as a Single Sign On option? ; 16507|https://stackoverflow.com/questions/81410|How do you add a JavaScript widget to a Wordpress.com hosted blog? ; 8266|https://stackoverflow.com/questions/55223|How do I implement a HTML cache for a PHP site? ; 7949|https://stackoverflow.com/questions/28196|How to select posts with specific tags/categories in WordPress ; 6577|https://stackoverflow.com/questions/14873|How do I display database query statistics on Wordpress site? ; 5178|https://stackoverflow.com/questions/2639|What are some web-based knowledge-base solutions? ; 3681|https://stackoverflow.com/questions/89504|What's the best way to run Wordpress on the same domain as a Rails application?
+ffmpeg,11,150502,13682.0,83704|https://stackoverflow.com/questions/43890|Crop MP3 to first 30 seconds ; 13711|https://stackoverflow.com/questions/81497|Best he-aac encoder on linux? ; 11714|https://stackoverflow.com/questions/96107|Can the ffmpeg av libs return an accurate PTS? ; 11521|https://stackoverflow.com/questions/70096|How do I programmatically convert mp3 to an itunes-playable aac/m4a file? ; 7387|https://stackoverflow.com/questions/109815|Programmatically determine video file format? ; 7348|https://stackoverflow.com/questions/67536|How to record webcam to flv with smooth playback ; 6051|https://stackoverflow.com/questions/87760|Why do some conversions from wmv to flv with ffmpeg fail? ; 3219|https://stackoverflow.com/questions/75508|Trying to convert bunch of jpegs into a movie ; 2904|https://stackoverflow.com/questions/47883|How Does gcc on Solaris Find Its Libraries? ; 2210|https://stackoverflow.com/questions/67685|How to join webcam FLVs
+opencv,3,142623,47541.0,79494|https://stackoverflow.com/questions/14287|Increasing camera capture resolution in OpenCV ; 61652|https://stackoverflow.com/questions/85569|.Net (dotNet) wrappers for OpenCV? ; 1477|https://stackoverflow.com/questions/32643|Automatic image rotation based on a logo
+ocaml,5,139982,27996.4,117923|https://stackoverflow.com/questions/22873|Language Books/Tutorials for popular languages ; 9022|https://stackoverflow.com/questions/24516|Resolving reduce/reduce conflict in yacc/ocamlyacc ; 5596|https://stackoverflow.com/questions/15187|Writing Emacs extensions in languages other than Lisp ; 4066|https://stackoverflow.com/questions/36260|Dealing with circular dependencies in OCaml ; 3375|https://stackoverflow.com/questions/66819|Best way to represent a parameterized enum in C#?
+visual studio code,1,137589,137589.0,137589|https://stackoverflow.com/questions/2767|Recommended add-ons/plugins for Microsoft Visual Studio
+bubble,5,120292,24058.4,70541|https://stackoverflow.com/questions/58739|Interview questions: WPF Developer ; 15037|https://stackoverflow.com/questions/88326|Does elmah handle caught exceptions as well ; 13721|https://stackoverflow.com/questions/95724|What is the easiest way to convert from asp classic to asp.net? ; 12972|https://stackoverflow.com/questions/12476|Why is my asp.net application throwing ThreadAbortException? ; 8021|https://stackoverflow.com/questions/39371|Database exception handling best practices
+phpunit,7,114345,16335.0,45304|https://stackoverflow.com/questions/10228|Run PHPUnit Tests in Certain Order ; 30221|https://stackoverflow.com/questions/34312|SimpleTest vs PHPunit ; 25606|https://stackoverflow.com/questions/65683|How do I use PHPUnit with Zend Framework? ; 6497|https://stackoverflow.com/questions/110858|In need for a site that explains how to use PHPUnit ; 5051|https://stackoverflow.com/questions/65651|Directory layout for PHPUnit tests? ; 1307|https://stackoverflow.com/questions/58969|Best Way to Unit Test a Website With Multiple User Types with PHPUnit ; 359|https://stackoverflow.com/questions/24941|Where can I find extended HTML reporters for Simpletest?
+medium,17,113433,6672.529411764706,32458|https://stackoverflow.com/questions/92035|Set selected item on a DataGridViewComboboxColumn ; 24846|https://stackoverflow.com/questions/18450|Is Mono ready for prime time? ; 17717|https://stackoverflow.com/questions/81830|Rails or Grails? ; 13036|https://stackoverflow.com/questions/69814|How do you use gnuplot's built-in fonts? ; 5294|https://stackoverflow.com/questions/88618|How do you include a JavaScript file from within a SharePoint WebPart? ; 4633|https://stackoverflow.com/questions/562|How to write to Web.Config in Medium Trust? ; 3543|https://stackoverflow.com/questions/10860|Data Layer Best Practices ; 2464|https://stackoverflow.com/questions/104185|JPA 1 is not good enough ; 2441|https://stackoverflow.com/questions/75947|How can I make Internet Explorer not change the colors in my PNG images ; 1882|https://stackoverflow.com/questions/61622|NHibernate and shared web hosting
+moq,3,113353,37784.333333333336,59907|https://stackoverflow.com/questions/6484|How do you mock a Sealed class? ; 49845|https://stackoverflow.com/questions/32640|Mocking Asp.net-mvc Controller Context ; 3601|https://stackoverflow.com/questions/10098|Best mock framework that can do both WebForms and MVC?
+selenium,6,112407,18734.5,"47983|https://stackoverflow.com/questions/107314|Any suggestions for testing extjs code in a browser, preferably with selenium? ; 38186|https://stackoverflow.com/questions/88269|How do you get selenium to recognize that a page loaded? ; 11955|https://stackoverflow.com/questions/7440|What do you use to Unit-Test your Web UI? ; 7886|https://stackoverflow.com/questions/72016|Windows Forms Test Automation ; 5534|https://stackoverflow.com/questions/92362|Has anyone found a way to run C# Selenium RC tests in parallel? ; 863|https://stackoverflow.com/questions/100216|Start seleniumRC from Fitnesse"
+microsoft outlook,2,112203,56101.5,77934|https://stackoverflow.com/questions/90899|.NET: Get all Outlook calendar items ; 34269|https://stackoverflow.com/questions/103422|Simple way to parse a person's name into its component parts?
+memcached,12,109312,9109.333333333334,"61555|https://stackoverflow.com/questions/8896|Can I get Memcached running on a Windows (x64) 64bit environment? ; 13800|https://stackoverflow.com/questions/36889|Memcache control panel? ; 13489|https://stackoverflow.com/questions/21870|System.Web.Caching vs. Enterprise Library Caching Block ; 4099|https://stackoverflow.com/questions/109480|Caching paginated results, purging on update - how to solve? ; 3819|https://stackoverflow.com/questions/108435|Persistent Binary Tree / Hash table in .Net ; 3019|https://stackoverflow.com/questions/5349|Memcached chunk limit ; 2806|https://stackoverflow.com/questions/23726|What is the best way to setup memcached on CentOS to work with Apache and PHP ; 1537|https://stackoverflow.com/questions/33403|.Net 2.0 - How efficient are Generic Lists? ; 1399|https://stackoverflow.com/questions/103601|What are you using for Distributed Caching in web farms running ASP.NET? ; 1368|https://stackoverflow.com/questions/66952|Tools to test/debug/fix PHP concurrency issues?"
+activemq,7,107928,15418.285714285714,"38837|https://stackoverflow.com/questions/19035|JavaScript Load Order ; 25463|https://stackoverflow.com/questions/37579|Queue alternatives to MSMQ on Windows? ; 18002|https://stackoverflow.com/questions/32851|Multicasting, Messaging, ActiveMQ vs. MSMQ? ; 12426|https://stackoverflow.com/questions/66840|Integration of JavaScript and JMS ; 7065|https://stackoverflow.com/questions/4234|What to use for Messaging with C# ; 4708|https://stackoverflow.com/questions/79482|How do I use transactions with Stomp and ActiveMQ (and Perl)? ; 1427|https://stackoverflow.com/questions/101689|Problem consuming ActiveMQ messages from Flex client"
+tinymce,6,104121,17353.5,60501|https://stackoverflow.com/questions/19604|Best TinyMce editor Image Manager / File upload for Asp.net Mvc ; 31759|https://stackoverflow.com/questions/5482|How to specify javascript to run when ModalPopupExtender is shown ; 5033|https://stackoverflow.com/questions/48782|TinyMCE vs Xinha ; 3550|https://stackoverflow.com/questions/68067|How To Generate A Javascript File From The Server ; 2466|https://stackoverflow.com/questions/23620|What Javascript rich text editor will not break the browser's spellcheck? ; 812|https://stackoverflow.com/questions/50799|What version of TinyMCE will work in Drupal 5 with google chrome?
+drupal,13,101620,7816.923076923077,"28741|https://stackoverflow.com/questions/113702|How do I add a ""last"" class on the last <li> within a Views-generated list? ; 22135|https://stackoverflow.com/questions/61735|Include CSS or Javascript file for specific node in Drupal 6 ; 15034|https://stackoverflow.com/questions/89672|How do you remove the default title and body fields in a CCK generated Drupal content-type? ; 9494|https://stackoverflow.com/questions/35372|How can I change the way my Drupal theme displays the front page ; 7952|https://stackoverflow.com/questions/88566|How do I create a node from a cron job in drupal? ; 7297|https://stackoverflow.com/questions/4164|What is a good barebones CMS or framework? ; 2938|https://stackoverflow.com/questions/63787|What makes Drupal better/different from Joomla ; 2533|https://stackoverflow.com/questions/87210|How do I choose a CMS/Portal solution for a small website(s)? ; 1491|https://stackoverflow.com/questions/102005|Missing label on Drupal 5 CCK single on/off checkbox ; 1451|https://stackoverflow.com/questions/92373|Django + FCGID on Fedora Core 9 -- what am I missing?"
+couchdb,4,98201,24550.25,78889|https://stackoverflow.com/questions/28982|Simple explanation of MapReduce? ; 12885|https://stackoverflow.com/questions/28975|Anyone using CouchDB? ; 5477|https://stackoverflow.com/questions/51027|Database system that is not relational ; 950|https://stackoverflow.com/questions/78217|Managing large user databases for single-signon
+blogger,4,97322,24330.5,95501|https://stackoverflow.com/questions/42182|How to escape < and > inside <pre> tags ; 1045|https://stackoverflow.com/questions/13768|Open ID - What happens when you decide you don't like your existing provider? ; 542|https://stackoverflow.com/questions/31535|Best way to fetch a varying HTML tag ; 234|https://stackoverflow.com/questions/24708|Where do I find information about Blog APIs and how to use them?
+html5,1,96506,96506.0,96506|https://stackoverflow.com/questions/26147|Is it possible to Embed Gecko or Webkit in a Windows Form just like a WebView?
+spring mvc,2,93618,46809.0,90768|https://stackoverflow.com/questions/45546|How do I return a 403 Forbidden in Spring MVC? ; 2850|https://stackoverflow.com/questions/57314|Validation framework for business app built on Spring 2.5
+react,10,87703,8770.3,"34880|https://stackoverflow.com/questions/34401|Send email from Elmah? ; 16479|https://stackoverflow.com/questions/79658|React on global hotkey in a Java program on Windows/Linux/Mac? ; 11519|https://stackoverflow.com/questions/9615|Displaying vector graphics in a browser ; 9705|https://stackoverflow.com/questions/35322|Bypass Forms Authentication auto redirect to login, How to? ; 7273|https://stackoverflow.com/questions/81306|WCF - Faults / Exceptions versus Messages ; 3403|https://stackoverflow.com/questions/47864|Handling HttpRequestValidationException gracefully and ASP.net AJAX compatible? ; 1748|https://stackoverflow.com/questions/38081|How to implement mouse dragging in Visual Basic? ; 1378|https://stackoverflow.com/questions/21652|Do you write exceptions for specific issues or general exceptions? ; 1027|https://stackoverflow.com/questions/2196|Easy way to AJAX WebControls ; 291|https://stackoverflow.com/questions/64518|What's the purpose of the GtkWidget.events property for (like) GtkTreeView widgets?"
+phpmyadmin,4,83426,20856.5,"78854|https://stackoverflow.com/questions/81934|Easy way to export a SQL table without access to the server or phpMyADMIN ; 2864|https://stackoverflow.com/questions/106685|How to get PHPMyAdmin to show MySQL warnings? ; 1075|https://stackoverflow.com/questions/67180|mod_python/MySQL error on INSERT with a lot of data: ""OperationalError: (2006, 'MySQL server has gone away')"" ; 633|https://stackoverflow.com/questions/63399|MySQL statement that returns a SQL statement?"
+apache maven,1,82381,82381.0,82381|https://stackoverflow.com/questions/81260|Easiest way to merge a release into one JAR file
+notion,6,81354,13559.0,"40328|https://stackoverflow.com/questions/33115|Does C# have the notion of private and protected inheritance? ; 14740|https://stackoverflow.com/questions/20386|Memory leaks in .NET ; 13489|https://stackoverflow.com/questions/21870|System.Web.Caching vs. Enterprise Library Caching Block ; 11973|https://stackoverflow.com/questions/27758|Notify Developer of a ""DO NOT USE"" Method ; 439|https://stackoverflow.com/questions/115691|Are there any MVC web frameworks that support multiple request types? ; 385|https://stackoverflow.com/questions/83088|PHP/mySQL - regular recalculation of benchmark values as new users submit their data"
+assembly language,5,77661,15532.2,"39309|https://stackoverflow.com/questions/87771|How can I multiply two 64-bit numbers using x86 assembly language? ; 15896|https://stackoverflow.com/questions/90184|Pseudorandom generator in Assembly Language ; 11693|https://stackoverflow.com/questions/9204|IL level code debugger ; 9310|https://stackoverflow.com/questions/19409|Incrementing from 0 to 100 in assembly language ; 1453|https://stackoverflow.com/questions/92613|What can cause an assembly language program to display ""junk""?"
+joomla!,6,75658,12609.666666666666,42163|https://stackoverflow.com/questions/78905|How do I make a component in Joomla display as an article? ; 23470|https://stackoverflow.com/questions/5061|ASP.NET version of Joomla ; 2938|https://stackoverflow.com/questions/63787|What makes Drupal better/different from Joomla ; 2850|https://stackoverflow.com/questions/63916|Joomla Blog/Wordpress Integration ; 2533|https://stackoverflow.com/questions/87210|How do I choose a CMS/Portal solution for a small website(s)? ; 1704|https://stackoverflow.com/questions/33853|.net multilingual cms
+solr,5,74713,14942.6,29800|https://stackoverflow.com/questions/33956|How to get facet ranges in solr results? ; 15064|https://stackoverflow.com/questions/66922|What are some Search Servers out there? ; 14493|https://stackoverflow.com/questions/15979|WildcardQuery error in Solr ; 11830|https://stackoverflow.com/questions/73527|What's the best option for searching in Ruby on Rails? ; 3526|https://stackoverflow.com/questions/86378|How to best search against a DB with Lucene?
+cuda,5,71965,14393.0,28046|https://stackoverflow.com/questions/79121|CUDA global (as in C) dynamic arrays allocated to device memory ; 20042|https://stackoverflow.com/questions/2027|Pass by reference or pass by value? ; 17510|https://stackoverflow.com/questions/39473|raytracing with CUDA ; 3671|https://stackoverflow.com/questions/55403|Have you successfully used a GPGPU? ; 2696|https://stackoverflow.com/questions/28147|Feasibility of GPU as a CPU?
+cakephp,12,68724,5727.0,"27189|https://stackoverflow.com/questions/54230|CakePHP ACL Database Setup: ARO / ACO structure? ; 9802|https://stackoverflow.com/questions/115665|In CakePHP, how can you determine if a field was changed in an edit action? ; 7264|https://stackoverflow.com/questions/90949|How do I use the TranslateBehavior in CakePHP? ; 5416|https://stackoverflow.com/questions/110232|CakePHP multi-model view ; 5335|https://stackoverflow.com/questions/63881|CakePHP: Action runs twice, for no good reason ; 4031|https://stackoverflow.com/questions/3157|.htaccess directives to *not* redirect certain URLs ; 3051|https://stackoverflow.com/questions/48012|How do the CakePHP and codeigniter frameworks compare to the ASP.NET MVC framework? ; 2972|https://stackoverflow.com/questions/100365|Disable Cakephp's Auto Model ""feature"" ; 1120|https://stackoverflow.com/questions/37785|Can a fixture be changed dynamically between test methods in CakePHP? ; 1041|https://stackoverflow.com/questions/110825|Saving information in ""sub"" model in CakePHP"
+mootools,6,68413,11402.166666666666,41629|https://stackoverflow.com/questions/67045|What advantages does jQuery have over other JavaScript libraries? ; 10678|https://stackoverflow.com/questions/52238|How can I highlight a table row using Prototype? ; 7238|https://stackoverflow.com/questions/96463|How do you get the response from the Request object in MooTools? ; 3990|https://stackoverflow.com/questions/16199|Web App - Dashboard Type GUI - Interface ; 3000|https://stackoverflow.com/questions/9831|Mootools: Drag & Drop problems ; 1878|https://stackoverflow.com/questions/93767|Close mootools Rokbox through Javascript
+hadoop,3,68019,22673.0,44500|https://stackoverflow.com/questions/24179|How does Hive compare to HBase? ; 19522|https://stackoverflow.com/questions/48041|Hbase / Hadoop Query Help ; 3997|https://stackoverflow.com/questions/17721|Experience with Hadoop?
+spring security,1,67821,67821.0,67821|https://stackoverflow.com/questions/84680|How do you authenticate against an Active Directory server using Spring Security?
+capistrano,5,67678,13535.6,25114|https://stackoverflow.com/questions/45783|Automate Deployment for Web Applications? ; 22956|https://stackoverflow.com/questions/18290|How Do You Secure database.yml? ; 15616|https://stackoverflow.com/questions/29168|Deploying a Git subdirectory in Capistrano ; 3837|https://stackoverflow.com/questions/37887|How do you update your web application on the server? ; 155|https://stackoverflow.com/questions/53290|How could I get my SVN-only host to pull from a git repository?
+dojo,10,67391,6739.1,25812|https://stackoverflow.com/questions/96066|Automated unit testing with JavaScript ; 11519|https://stackoverflow.com/questions/9615|Displaying vector graphics in a browser ; 7680|https://stackoverflow.com/questions/108294|GWT or DOJO or something else? ; 5534|https://stackoverflow.com/questions/59734|Coding Dojo with IE and SSL ; 5453|https://stackoverflow.com/questions/15514|Is there anyway to disable the client-side validation for dojo date text box? ; 3695|https://stackoverflow.com/questions/5619|Debugging: IE6 + SSL + AJAX + post form = 404 error ; 3230|https://stackoverflow.com/questions/37141|Event handling in Dojo ; 2716|https://stackoverflow.com/questions/48497|Issue with dojo dijit.form.ValidationTextBox ; 1277|https://stackoverflow.com/questions/90067|Google's hosted dojox.gfx ; 475|https://stackoverflow.com/questions/108593|MalformedInputException while using Shrinksafe with IBM JRE
+matlab,7,65025,9289.285714285714,19847|https://stackoverflow.com/questions/38645|What are some efficient ways to combine two structures in MATLAB? ; 19178|https://stackoverflow.com/questions/95760|How can I generate a list of function dependencies in MATLAB? ; 13300|https://stackoverflow.com/questions/14495|How can I stop MATLAB from returning until after a command-line script completes? ; 8085|https://stackoverflow.com/questions/38239|Practices for programming in a scientific environment? ; 2470|https://stackoverflow.com/questions/5136|Creating a shared library in MATLAB ; 1262|https://stackoverflow.com/questions/43223|Running a Simulink xPC block at a faster rate than the continuous rate ; 883|https://stackoverflow.com/questions/43211|How do I change Simulink xPC target serial comm speed on the fly
+pylint,1,64400,64400.0,64400|https://stackoverflow.com/questions/115977|Using Pylint with Django
+hbase,2,64022,32011.0,44500|https://stackoverflow.com/questions/24179|How does Hive compare to HBase? ; 19522|https://stackoverflow.com/questions/48041|Hbase / Hadoop Query Help
+amazon s3,2,62887,31443.5,52065|https://stackoverflow.com/questions/27267|Delete Amazon S3 buckets? ; 10822|https://stackoverflow.com/questions/31466|Does Amazon S3 download fail sometimes?
+google docs,5,60077,12015.4,45799|https://stackoverflow.com/questions/29810|Is version control (ie. Subversion) applicable in document tracking? ; 7281|https://stackoverflow.com/questions/90160|Integrating with Google Docs ; 4515|https://stackoverflow.com/questions/39772|Encrypt data from users in web applications ; 1906|https://stackoverflow.com/questions/52520|Are off-the-cloud desktop applications dead? ; 576|https://stackoverflow.com/questions/72456|What facets have I missed for creating a 3 person guerilla dev team?
+centos,5,58996,11799.2,22376|https://stackoverflow.com/questions/69568|How do you go about setting up a virtual IP address? ; 19591|https://stackoverflow.com/questions/33117|Building a custom Linux Live CD ; 9109|https://stackoverflow.com/questions/696|Connect PHP to IBM i (AS/400) ; 5114|https://stackoverflow.com/questions/62447|tomcat5 fails to start on CentOS 5 with NoClassDefFoundError exception ; 2806|https://stackoverflow.com/questions/23726|What is the best way to setup memcached on CentOS to work with Apache and PHP
+microsoft sharepoint,1,55341,55341.0,55341|https://stackoverflow.com/questions/89101|What is Microsoft SharePoint?
+zend framework,6,54811,9135.166666666666,"25606|https://stackoverflow.com/questions/65683|How do I use PHPUnit with Zend Framework? ; 9256|https://stackoverflow.com/questions/41010|Smarty integration into the CodeIgniter framework ; 8168|https://stackoverflow.com/questions/34848|Zend Framework: setting a Zend_Form_Element form field to be required, how do I change the validator used to ensure that the element is not blank ; 6497|https://stackoverflow.com/questions/110858|In need for a site that explains how to use PHPUnit ; 4649|https://stackoverflow.com/questions/88918|Zend Framework - ErrorHandler does not seem to be working as expected ; 635|https://stackoverflow.com/questions/55414|ASP.NET MVC versus the Zeitgeist"
+wireshark,4,54622,13655.5,29656|https://stackoverflow.com/questions/46376|Windows packet sniffer that can capture loopback traffic? ; 14487|https://stackoverflow.com/questions/13775|SoapException: Root element is missing occurs when .NET web service called from Flex ; 6609|https://stackoverflow.com/questions/40039|How do I read and write raw ip packets from java on a mac? ; 3870|https://stackoverflow.com/questions/54184|Best tool to monitor network connection bandwidth
+rspec,5,52934,10586.8,14855|https://stackoverflow.com/questions/66770|Why is RSpec so slow under Rails? ; 13192|https://stackoverflow.com/questions/33048|How would you test observers with rSpec in a Ruby on Rails application? ; 12827|https://stackoverflow.com/questions/109976|Why should I use RSpec or shoulda with Rails? ; 11645|https://stackoverflow.com/questions/1760|.NET unit testing packages ; 415|https://stackoverflow.com/questions/82191|What is the best way of speccing plugins with RSpec?
+erlang,9,52840,5871.111111111111,14988|https://stackoverflow.com/questions/114196|How do you URL encode parameters in Erlang? ; 13039|https://stackoverflow.com/questions/2742|Setting up an Erlang development environment ; 5715|https://stackoverflow.com/questions/78826|How to multicast using gen_udp in Erlang? ; 4957|https://stackoverflow.com/questions/89705|Concurrent Prime Generator ; 4306|https://stackoverflow.com/questions/22187|Erlang-style Concurrency for Other Languages ; 3539|https://stackoverflow.com/questions/4287|How Do You Determine The PID of the Parent of a Process ; 3312|https://stackoverflow.com/questions/40423|How would you implement Erlang-like send and receive in C++? ; 2007|https://stackoverflow.com/questions/37381|What's a good way to write a Cocoa front-end to an Erlang application? ; 977|https://stackoverflow.com/questions/62245|Merging records for Mnesia
+swift,1,52202,52202.0,52202|https://stackoverflow.com/questions/25192|Java SWIFT Library
+openssl,7,49677,7096.714285714285,15138|https://stackoverflow.com/questions/17781|What Certificate Authority Software is Available? ; 14039|https://stackoverflow.com/questions/97142|Ruby on Rails: no such file to load -- openssl on RedHat Linux Enterprise ; 8677|https://stackoverflow.com/questions/92456|Using openssl encryption with Java ; 5405|https://stackoverflow.com/questions/16483|Convince Firefox to send an If-Modified-Since header over HTTPS ; 2376|https://stackoverflow.com/questions/76324|Easy expanation of setting up Openssl on Windows ; 2059|https://stackoverflow.com/questions/72237|Getting ASN.1 Issuer strings from PEM files? ; 1983|https://stackoverflow.com/questions/79875|C# utility to create a CA
+dyn,2,49262,24631.0,32156|https://stackoverflow.com/questions/34735|Using a rotary encoder with AVR Micro controller ; 17106|https://stackoverflow.com/questions/3976|Programmatically talking to a Serial Port in OS X or Linux
+superset,1,44439,44439.0,44439|https://stackoverflow.com/questions/22500|What are the major differences between ANSI C and K&R C?
+jquery ui,3,42904,14301.333333333334,28858|https://stackoverflow.com/questions/27242|Where can I learn jQuery? Is it worth it? ; 9568|https://stackoverflow.com/questions/34790|duplicating jQuery datepicker ; 4478|https://stackoverflow.com/questions/45600|A issue with the jquery dialog when using the themeroller css
+metabase,2,42836,21418.0,"39384|https://stackoverflow.com/questions/64279|How do you tell IIS 6 to set the .NET version to 2.0 (not 1.1) When New sites are created? ; 3452|https://stackoverflow.com/questions/29593|What does ServerVariables[""APPL_MD_PATH""] retrieves the metabase path for the Application for the ISAPI DLL mean?"
+oracle pl/sql,5,42146,8429.2,17716|https://stackoverflow.com/questions/82047|Validating XML files against schema in Oracle PL/SQL ; 15893|https://stackoverflow.com/questions/37586|Consuming web services from Oracle PL/SQL ; 6463|https://stackoverflow.com/questions/20081|Best way to encapsulate complex Oracle PL/SQL cursor logic as a view? ; 1530|https://stackoverflow.com/questions/42386|What is the C# equivalent of the Oracle PL/SQL COALESCE function? ; 544|https://stackoverflow.com/questions/73037|What's the best approach to embed RegEx in Oracle or SQL Server 2005 SQL?
+jetty,8,41228,5153.5,"14863|https://stackoverflow.com/questions/103508|Best way of restarting a jetty instance ; 10573|https://stackoverflow.com/questions/115770|In Eclipse, why does ""Build Automatically"" get mysteriously disabled? ; 5768|https://stackoverflow.com/questions/37396|Linux Lightweight Distro and X Windows for Development ; 4310|https://stackoverflow.com/questions/73029|Embedded Jetty serving static content with form authentication ; 2251|https://stackoverflow.com/questions/101880|Why do I get ""java.net.BindException: Only one usage of each socket address"" if netstat says something else? ; 2184|https://stackoverflow.com/questions/75379|How to make embedded servlet engine instantiate servlets eagerly? ; 1021|https://stackoverflow.com/questions/35507|Changing default file structure in a Java Struts App ; 258|https://stackoverflow.com/questions/51157|Can the Weblogic default handler display the list of contexts?"
+codeigniter,4,41020,10255.0,21568|https://stackoverflow.com/questions/46338|Can you access a model from inside another model in CodeIgniter? ; 9256|https://stackoverflow.com/questions/41010|Smarty integration into the CodeIgniter framework ; 7145|https://stackoverflow.com/questions/13293|How can I determine CodeIgniter speed? ; 3051|https://stackoverflow.com/questions/48012|How do the CakePHP and codeigniter frameworks compare to the ASP.NET MVC framework?
+pypi,2,40088,20044.0,"35545|https://stackoverflow.com/questions/115844|Recommended Python publish/subscribe/dispatch module? ; 4543|https://stackoverflow.com/questions/28369|Is ""safe_eval"" really safe?"
+google analytics,5,39923,7984.6,22799|https://stackoverflow.com/questions/58750|How do I get raw logs from Google Analytics? ; 14610|https://stackoverflow.com/questions/15734|Google Analytics Access with C# ; 1557|https://stackoverflow.com/questions/37495|How to track if browser is Silverlight enabled ; 693|https://stackoverflow.com/questions/59462|Why do all methods in the Google Analytics tracking code start with an underscore? ; 264|https://stackoverflow.com/questions/20286|Associating source and search keywords with account creation
+helm,1,39505,39505.0,39505|https://stackoverflow.com/questions/54200|Encrypting appSettings in web.config
+composer,2,39369,19684.5,33476|https://stackoverflow.com/questions/66720|Are there any tools to visualize a RDF graph? (please include a screenshot) ; 5893|https://stackoverflow.com/questions/6926|Beginning Shader Development
+jira,5,39097,7819.4,"18107|https://stackoverflow.com/questions/62542|What is the best free test tracking software? ; 7929|https://stackoverflow.com/questions/84820|Distributed hierarchical clustering ; 5990|https://stackoverflow.com/questions/92490|Running JIRA on a VM ; 5754|https://stackoverflow.com/questions/66912|The <t:message> doesn't display properly when using <t:inputFileUpload> inside <t:PanelTabbedPane> ; 1317|https://stackoverflow.com/questions/15365|Requirements, Specs, and Managing Up in an Agile Environment"
+unity,2,36185,18092.5,30670|https://stackoverflow.com/questions/19746|Views in separate assemblies in ASP.NET MVC ; 5515|https://stackoverflow.com/questions/106956|Is the Unity Framework any good for Inversion of Control?
+netbeans ide,1,35837,35837.0,35837|https://stackoverflow.com/questions/87137|Sequence Diagram Reverse Engineering
+lua,6,35157,5859.5,14345|https://stackoverflow.com/questions/103347|How do you glue Lua to C++ code? ; 11280|https://stackoverflow.com/questions/63784|Implementing scripts in c++ app ; 4624|https://stackoverflow.com/questions/87889|Game Engine Scripting Languages ; 2430|https://stackoverflow.com/questions/6859|Developing addins for World of Warcraft - Getting started? ; 1977|https://stackoverflow.com/questions/79582|Best win32 compiled scripting language? ; 501|https://stackoverflow.com/questions/15349|Which scripting language to support in an existing codebase?
+tumblr,1,34124,34124.0,34124|https://stackoverflow.com/questions/79764|Wildcard Subdomains
+yaml,5,34113,6822.6,20000|https://stackoverflow.com/questions/101742|How do you access an authenticated Google App Engine service from a (non-web) python client? ; 8685|https://stackoverflow.com/questions/13204|Why Doesn't My Cron Job Work Properly? ; 4234|https://stackoverflow.com/questions/15709|Is this valid YAML? ; 913|https://stackoverflow.com/questions/42122|Easy .NET XML Library ; 281|https://stackoverflow.com/questions/41839|What is a good markup language to use for tests?
+nginx,4,31877,7969.25,"24341|https://stackoverflow.com/questions/26025|Cleanest & Fastest server setup for Django ; 3681|https://stackoverflow.com/questions/89504|What's the best way to run Wordpress on the same domain as a Rails application? ; 2252|https://stackoverflow.com/questions/45252|Load Balancing of Process in 1 Server ; 1603|https://stackoverflow.com/questions/97220|Any HTTP proxies with explicit, configurable support for request/response buffering and delayed connections?"
+scala,2,31269,15634.5,27744|https://stackoverflow.com/questions/54010|Returning an element from a List in Scala ; 3525|https://stackoverflow.com/questions/24995|Is there a functional language for C++ ecosystem?
+symfony,4,29292,7323.0,17640|https://stackoverflow.com/questions/61383|Is there a good admin generator for Ruby on Rails? ; 8449|https://stackoverflow.com/questions/34411|How do I generate a friendly URL in Symfony PHP? ; 2195|https://stackoverflow.com/questions/25174|How to prevent session timeout in Symfony 1.0? ; 1008|https://stackoverflow.com/questions/93791|Are there many users of PRADO out there?
+backbone.js,1,28858,28858.0,28858|https://stackoverflow.com/questions/27242|Where can I learn jQuery? Is it worth it?
+coffeescript,1,28858,28858.0,28858|https://stackoverflow.com/questions/27242|Where can I learn jQuery? Is it worth it?
+spi,1,28770,28770.0,28770|https://stackoverflow.com/questions/115488|What is the most reliable way to create a custom event log and event source during the installation of a .Net Service
+ipython,4,28523,7130.75,21993|https://stackoverflow.com/questions/41207|JavaScript interactive shell with completion ; 3880|https://stackoverflow.com/questions/30318|Where can I find a graphical command shell? ; 1857|https://stackoverflow.com/questions/48176|Embedding a remote Python shell in an application ; 793|https://stackoverflow.com/questions/106920|How can I get source and variable values in ruby tracebacks?
+slim,3,28251,9417.0,14241|https://stackoverflow.com/questions/6973|Invalid Resource File ; 12745|https://stackoverflow.com/questions/7719|Capture MouseDown event for .NET TextBox ; 1265|https://stackoverflow.com/questions/16563|How to write regex to return only certain parts of this string?
+passenger,3,27706,9235.333333333334,14950|https://stackoverflow.com/questions/28599|How do I support SSL Client Certificate authentication? ; 12238|https://stackoverflow.com/questions/79474|Setting environment variables for Phusion Passenger applications ; 518|https://stackoverflow.com/questions/87802|Why does Rails cache view files when hosted on VM and codebase on Samba share
+haml,3,26272,8757.333333333334,16044|https://stackoverflow.com/questions/95821|Should I use haml or erb or erubis for potentially high traffic site? ; 7166|https://stackoverflow.com/questions/6326|Haml: how do I set a dynamic class value? ; 3062|https://stackoverflow.com/questions/86018|What is the best method for storing SASS generated CSS in your application and source control?
+qunit,1,25812,25812.0,25812|https://stackoverflow.com/questions/96066|Automated unit testing with JavaScript
+ehcache,2,24785,12392.5,23867|https://stackoverflow.com/questions/92452|Distributed Concurrency Control ; 918|https://stackoverflow.com/questions/59299|Hibernate - maxElementsOnDisk from EHCache to TreeCache
+openlayers,1,23567,23567.0,23567|https://stackoverflow.com/questions/7661|Java code for WGS84 to Google map position and back
+openstreetmap,1,23567,23567.0,23567|https://stackoverflow.com/questions/7661|Java code for WGS84 to Google map position and back
+xunit,4,21534,5383.5,"9362|https://stackoverflow.com/questions/36647|Unit tests in Python ; 8114|https://stackoverflow.com/questions/21137|Adding NUnit to the options for ASP.NET MVC test framework ; 2814|https://stackoverflow.com/questions/13409|Do you have ""Slack"" time? ; 1244|https://stackoverflow.com/questions/70053|Is there a cross-language TDD solution?"
+vault,5,21307,4261.4,"8067|https://stackoverflow.com/questions/35248|Large File Download ; 5263|https://stackoverflow.com/questions/69766|Visual Studio 2005 ERROR: An error occurred generating a bootstrapper: Invalid syntax ; 4353|https://stackoverflow.com/questions/57530|Any tool to migrate repo from Vault to Subversion? ; 1916|https://stackoverflow.com/questions/24528|What are your experiences running SVN on Windows? ; 1708|https://stackoverflow.com/questions/15024|Tools to help a small shop score higher on the ""Joel Test"""
+sketch,3,17577,5859.0,9516|https://stackoverflow.com/questions/62436|DevExpress eXpressApp Framework (XAF) and eXpress Persistent Objects (XPO): how do I speed up the loading time of associations? ; 6463|https://stackoverflow.com/questions/20081|Best way to encapsulate complex Oracle PL/SQL cursor logic as a view? ; 1598|https://stackoverflow.com/questions/106646|Web-page template where content takes full height of view-port if has 1 line minus footer
+gnu sed,1,17429,17429.0,17429|https://stackoverflow.com/questions/67410|Why does sed fail with International characters and how to fix?
+paypal,3,17067,5689.0,10760|https://stackoverflow.com/questions/20245|Process raw HTTP request content ; 6138|https://stackoverflow.com/questions/53070|Examples for coding against the PayPal API in .NET 2.0+? ; 169|https://stackoverflow.com/questions/110431|Advice on mixing legacy ASP site with .NET 2.0
+bootloader,1,16561,16561.0,16561|https://stackoverflow.com/questions/39503|Modifying the MBR of Windows
+pre-commit,4,16004,4001.0,8986|https://stackoverflow.com/questions/72936|can't delete directory under linux due to broken files ; 4296|https://stackoverflow.com/questions/48562|How do I implement a pre-commit hook script in SVN that calls dos2unix to validate checked-in file ; 2054|https://stackoverflow.com/questions/43374|Is there a better way of writing a git pre-commit hook to check any php file in a commit for parse errors? ; 668|https://stackoverflow.com/questions/38664|Can you modify text files when committing to subversion?
+hsqldb,2,15801,7900.5,15191|https://stackoverflow.com/questions/57102|Embedded java databases ; 610|https://stackoverflow.com/questions/106931|Shared File Database Suggestion
+godaddy,6,15402,2567.0,7921|https://stackoverflow.com/questions/18449|Dealing with PHP server and MySQL server in different time zones ; 2223|https://stackoverflow.com/questions/73432|How can I transfer my domains from my existing registrar/hosting service to something like GoDaddy? ; 1626|https://stackoverflow.com/questions/38629|ASP.NET XML ObjectDataSource Wrapper Class Examples ; 1623|https://stackoverflow.com/questions/22278|What's a good way to encapsulate data access with PHP/MySQL? ; 1448|https://stackoverflow.com/questions/65940|Importing Access data into SQL Server using ColdFusion ; 561|https://stackoverflow.com/questions/14828|Issues with DB after publishing via Database Publishing Wizard from MSFT
+zeromq,1,14429,14429.0,14429|https://stackoverflow.com/questions/35490|Spread vs MPI vs zeromq?
+prettier,4,14178,3544.5,"6010|https://stackoverflow.com/questions/3903|Is this a good way to determine OS Architecture? ; 3347|https://stackoverflow.com/questions/31799|Preventing XML Serialization of IEnumerable and ICollection<T> & Inherited Types ; 3213|https://stackoverflow.com/questions/63147|User Interface Controls for Win32 ; 1608|https://stackoverflow.com/questions/37263|Where does ""Change Management"" end and ""Project Failure"" begin?"
+teamcity,4,14109,3527.25,9653|https://stackoverflow.com/questions/535|Continuous Integration System for a Python Codebase ; 3497|https://stackoverflow.com/questions/3143|Using MBUnit in TeamCity ; 576|https://stackoverflow.com/questions/72456|What facets have I missed for creating a 3 person guerilla dev team? ; 383|https://stackoverflow.com/questions/27889|How to get SpecUnit to run within a TeamCity CI build
+arduino,1,13735,13735.0,13735|https://stackoverflow.com/questions/14118|How can I test STDIN without blocking in Perl?
+smalltalk,4,13341,3335.25,"7488|https://stackoverflow.com/questions/17840|How can I learn about parser combinators? ; 3088|https://stackoverflow.com/questions/34155|Looking for examples of ""real"" uses of continuations ; 2236|https://stackoverflow.com/questions/19387|Rich GUI OS X Frameworks? ; 529|https://stackoverflow.com/questions/81491|How can I run VisualWorks under OpenBSD?"
+numpy,2,12628,6314.0,"8085|https://stackoverflow.com/questions/38239|Practices for programming in a scientific environment? ; 4543|https://stackoverflow.com/questions/28369|Is ""safe_eval"" really safe?"
+scipy,2,12628,6314.0,"8085|https://stackoverflow.com/questions/38239|Practices for programming in a scientific environment? ; 4543|https://stackoverflow.com/questions/28369|Is ""safe_eval"" really safe?"
+nats,1,11831,11831.0,11831|https://stackoverflow.com/questions/22340|WCF push to client through firewall?
+sphinx,1,11830,11830.0,11830|https://stackoverflow.com/questions/73527|What's the best option for searching in Ruby on Rails?
+skype,2,11423,5711.5,"10847|https://stackoverflow.com/questions/61635|""Beautifying"" an OS X disk image ; 576|https://stackoverflow.com/questions/72456|What facets have I missed for creating a 3 person guerilla dev team?"
+apache jmeter,1,10942,10942.0,10942|https://stackoverflow.com/questions/28716|Which PHP opcode cacher should I use to improve performance?
+slack,2,10930,5465.0,"8116|https://stackoverflow.com/questions/41397|Asking a Generic Method to Throw Specific Exception Type on FAIL ; 2814|https://stackoverflow.com/questions/13409|Do you have ""Slack"" time?"
+tornado,1,10116,10116.0,10116|https://stackoverflow.com/questions/106453|How do I redirect Tornado / VXWorks shell output?
+glassfish,2,10080,5040.0,9353|https://stackoverflow.com/questions/75064|Beginning Java EE ; 727|https://stackoverflow.com/questions/100211|How to retrieve params from GET HTTP method using javax.ws.rs.* and Glassfish?
+clojure,2,9981,4990.5,7736|https://stackoverflow.com/questions/88302|macro support in F# ; 2245|https://stackoverflow.com/questions/66542|How do I run Oracle plsql procedure from Lisp?
+jackson,1,9776,9776.0,9776|https://stackoverflow.com/questions/227|Create a tag cloud by wrapping array values in h1 through h6 tags based on a mapping array of weights
+smarty,1,9256,9256.0,9256|https://stackoverflow.com/questions/41010|Smarty integration into the CodeIgniter framework
+sqlalchemy,3,8011,2670.3333333333335,3341|https://stackoverflow.com/questions/75829|Best way to access table instances when using SQLAlchemy's declarative syntax ; 2868|https://stackoverflow.com/questions/43368|A python web application framework for tight DB/GUI coupling? ; 1802|https://stackoverflow.com/questions/34916|Scaffolding in pylons
+devise,1,7947,7947.0,7947|https://stackoverflow.com/questions/66885|OpenID support for Ruby on Rails application
+nagios,3,7168,2389.3333333333335,3453|https://stackoverflow.com/questions/121205|JMXQuery connection - authentication failed ; 2517|https://stackoverflow.com/questions/15583|What are the correct stencils for object relational diagramming in visio? ; 1198|https://stackoverflow.com/questions/69230|A snippet to monitor the last INSERT/UPDATE in an Oracle DB from C#?
+spring framework,3,7028,2342.6666666666665,3031|https://stackoverflow.com/questions/6765|Java + SQL Server - a viable solution? ; 2913|https://stackoverflow.com/questions/39639|Aspectj doesn't catch all events in spring framework? ; 1084|https://stackoverflow.com/questions/37912|How do you use WebServiceMessageDrivenBean in Spring-WS?
+homebrew,4,6936,1734.0,2619|https://stackoverflow.com/questions/33222|Compact Framework - Lightweight GUI Framework? ; 2174|https://stackoverflow.com/questions/7209|Alpha blending sprites in Nintendo DS Homebrew ; 1829|https://stackoverflow.com/questions/13607|GUI system development resources? ; 314|https://stackoverflow.com/questions/33233|Integrating a custom gui framework with the VS designer
+redmine,2,6465,3232.5,4353|https://stackoverflow.com/questions/57530|Any tool to migrate repo from Vault to Subversion? ; 2112|https://stackoverflow.com/questions/35494|Is there anyway to run Ruby on Rails applications on a Windows box?
+basecamp,1,6151,6151.0,6151|https://stackoverflow.com/questions/1180|How to make subdomain user accounts in a webapp
+eureka,1,5754,5754.0,5754|https://stackoverflow.com/questions/66912|The <t:message> doesn't display properly when using <t:inputFileUpload> inside <t:PanelTabbedPane>
+prometheus,1,5723,5723.0,5723|https://stackoverflow.com/questions/13589|ASP.net AJAX Drag/Drop?
+compass,2,5186,2593.0,3526|https://stackoverflow.com/questions/86378|How to best search against a DB with Lucene? ; 1660|https://stackoverflow.com/questions/42749|Does the Iphone 1/2 have a compass inside?
+unreal engine,1,4975,4975.0,4975|https://stackoverflow.com/questions/20034|Is Project Darkstar Realistic?
+stripe,1,4785,4785.0,"4785|https://stackoverflow.com/questions/42437|Best way to handle input from a keyboard ""wedge"""
+hugo,1,4565,4565.0,4565|https://stackoverflow.com/questions/68929|How to fix the endless printing loop bug in Nevrona Rave
+watchdog timer,1,4406,4406.0,4406|https://stackoverflow.com/questions/63758|Is it possible to kill a Java Virtual Machine from another Virtual Machine?
+bootstrap,1,4006,4006.0,4006|https://stackoverflow.com/questions/107562|Trying to run faac's bootstrap script but running into errors
+glsl,1,3801,3801.0,3801|https://stackoverflow.com/questions/95222|GLSL major mode for Emacs?
+adobe indesign,2,3642,1821.0,2073|https://stackoverflow.com/questions/103679|What is a javascript hash table implementation that avoids object namespace collisions? ; 1569|https://stackoverflow.com/questions/11574|How can I improve performance when adding InDesign XMLElements via AppleScript?
+haxe,1,3375,3375.0,3375|https://stackoverflow.com/questions/66819|Best way to represent a parameterized enum in C#?
+uservoice,2,3229,1614.5,1900|https://stackoverflow.com/questions/17175|What's your top feature request for Silverlight? ; 1329|https://stackoverflow.com/questions/78523|OpenID Migration
+kong,1,3172,3172.0,3172|https://stackoverflow.com/questions/41273|SQL Server Merge Replication Schedule
+mysql workbench,1,3101,3101.0,"3101|https://stackoverflow.com/questions/34579|MySQL ""Error 1005"" when adding tables"
+sass,1,3062,3062.0,3062|https://stackoverflow.com/questions/86018|What is the best method for storing SASS generated CSS in your application and source control?
+blender,1,2992,2992.0,2992|https://stackoverflow.com/questions/31834|Generating random terrain in Blender3D
+salesforce,1,2798,2798.0,2798|https://stackoverflow.com/questions/103616|Salesforce.com - Why uploading of Apex class is not working?
+apex,1,2798,2798.0,2798|https://stackoverflow.com/questions/103616|Salesforce.com - Why uploading of Apex class is not working?
+stylus,1,2485,2485.0,2485|https://stackoverflow.com/questions/24599|Stylus/tablet input device
+bundler,1,2377,2377.0,2377|https://stackoverflow.com/questions/39194|Do I need a Mac to make a Java application bundle?
+dart,1,2218,2218.0,2218|https://stackoverflow.com/questions/7674|Best practices for building Flash video player
+retrofit,1,2110,2110.0,2110|https://stackoverflow.com/questions/42785|How do you retrofit unit tests into a code base?
+autofac,1,1850,1850.0,1850|https://stackoverflow.com/questions/45202|IoC Container Configuration/Registration
+presto,1,1556,1556.0,1556|https://stackoverflow.com/questions/81972|'Looser' typing in C# by casting down the inheritance tree
+invision,1,1381,1381.0,1381|https://stackoverflow.com/questions/90037|Need Lightweight .NET SMTP implementation (assembly or source)
+microsoft sql server management studio,1,1306,1306.0,"1306|https://stackoverflow.com/questions/104057|SQL Server 2005 - clicking on job->Properties yields ""New Job"" window"
+javafx,1,1087,1087.0,1087|https://stackoverflow.com/questions/59129|What platforms JavaFX is/will be supported on?
+grunt,1,1079,1079.0,1079|https://stackoverflow.com/questions/45475|Postback events from within DataView
+svn (subversion),1,1043,1043.0,1043|https://stackoverflow.com/questions/113791|using dotnetnuke (dnn) with with subversion
+postgis,1,986,986.0,986|https://stackoverflow.com/questions/36182|How expensive is ST_GeomFromText
+redux,1,858,858.0,858|https://stackoverflow.com/questions/96133|REDUX: How to overcome an incompatibility between the ksh on Linux vs. that installed on AIX/Solaris/HPUX?
+microsoft iis,1,608,608.0,608|https://stackoverflow.com/questions/63599|Including files case-sensitively on Windows from PHP
+sanity,2,569,284.5,"393|https://stackoverflow.com/questions/45796|Using IIS6, how can I place files in a sub-folder but have them served as if they were in the root? ; 176|https://stackoverflow.com/questions/64177|Looking for better End-to-End Comms with Flex, .NET and DBMS"
+magento,1,527,527.0,527|https://stackoverflow.com/questions/87468|How might I pass variables through to cached content in PHP?
+amazon ec2,1,336,336.0,"336|https://stackoverflow.com/questions/92638|Self-owning web services, or services that can survive the death of the inventor"
+github actions,0,0,0,
+g suite,0,0,0,
+dropbox,0,0,0,
+laravel,0,0,0,
+babel,0,0,0,
+aws lambda,0,0,0,
+confluence,0,0,0,
+rabbitmq,0,0,0,
+docker compose,0,0,0,
+android studio,0,0,0,
+kafka,0,0,0,
+travis ci,0,0,0,
+microsoft azure,0,0,0,
+gradle,0,0,0,
+kibana,0,0,0,
+golang,0,0,0,
+android sdk,0,0,0,
+mailchimp,0,0,0,
+ansible,0,0,0,
+flutter,0,0,0,
+flask,0,0,0,
+grafana,0,0,0,
+digitalocean,0,0,0,
+amazon cloudfront,0,0,0,
+new relic,0,0,0,
+github pages,0,0,0,
+mariadb,0,0,0,
+google cloud platform,0,0,0,
+amazon rds,0,0,0,
+amazon route 53,0,0,0,
+amazon ec2 container service,0,0,0,
+kotlin,0,0,0,
+sentry,0,0,0,
+gulp,0,0,0,
+socket.io,0,0,0,
+terraform,0,0,0,
+aws elastic load balancing (elb),0,0,0,
+electron,0,0,0,
+google compute engine,0,0,0,
+material design for angular,0,0,0,
+amazon cloudwatch,0,0,0,
+circleci,0,0,0,
+logstash,0,0,0,
+twilio,0,0,0,
+vagrant,0,0,0,
+amazon web services (aws),0,0,0,
+sourcetree,0,0,0,
+c lang,0,0,0,
+datadog,0,0,0,
+shopify,0,0,0,
+ionic,0,0,0,
+hubspot,0,0,0,
+amazon ses,0,0,0,
+asana,0,0,0,
+jest,0,0,0,
+twilio sendgrid,0,0,0,
+woocommerce,0,0,0,
+varnish,0,0,0,
+zendesk,0,0,0,
+next.js,0,0,0,
+mailgun,0,0,0,
+requirejs,0,0,0,
+mocha,0,0,0,
+bower,0,0,0,
+mixpanel,0,0,0,
+handlebars.js,0,0,0,
+intercom,0,0,0,
+lodash,0,0,0,
+rust,0,0,0,
+nuget,0,0,0,
+.net core,0,0,0,
+modernizr,0,0,0,
+apache camel,0,0,0,
+tailwind css,0,0,0,
+angular,0,0,0,
+tensorflow,0,0,0,
+cassandra,0,0,0,
+figma,0,0,0,
+amazon dynamodb,0,0,0,
+logback,0,0,0,
+mandrill,0,0,0,
+elixir,0,0,0,
+moment.js,0,0,0,
+apache spark,0,0,0,
+axios,0,0,0,
+react router,0,0,0,
+material-ui,0,0,0,
+chai,0,0,0,
+jasmine,0,0,0,
+r language,0,0,0,
+addthis,0,0,0,
+gatsby,0,0,0,
+netlify,0,0,0,
+azure devops,0,0,0,
+nestjs,0,0,0,
+karma,0,0,0,
+cypress,0,0,0,
+dotenv,0,0,0,
+fancybox,0,0,0,
+amazon sqs,0,0,0,
+rxjs,0,0,0,
+optimizely,0,0,0,
+jupyter,0,0,0,
+browserstack,0,0,0,
+haproxy,0,0,0,
+pytest,0,0,0,
+cmake,0,0,0,
+slf4j,0,0,0,
+apollo,0,0,0,
+protobuf,0,0,0,
+istio,0,0,0,
+salesforce sales cloud,0,0,0,
+airflow,0,0,0,
+microsoft teams,0,0,0,
+pingdom,0,0,0,
+autoprefixer,0,0,0,
+mockito,0,0,0,
+aws elastic beanstalk,0,0,0,
+typekit,0,0,0,
+swagger ui,0,0,0,
+django rest framework,0,0,0,
+grpc,0,0,0,
+css-loader,0,0,0,
+tslint,0,0,0,
+sonarqube,0,0,0,
+sinonjs,0,0,0,
+mongoose,0,0,0,
+meteor,0,0,0,
+adobe photoshop,0,0,0,
+d3.js,0,0,0,
+nuxt.js,0,0,0,
+nodemon,0,0,0,
+cocoapods,0,0,0,
+pandas,0,0,0,
+jekyll,0,0,0,
+trackjs,0,0,0,
+codecov,0,0,0,
+styled-components,0,0,0,
+google bigquery,0,0,0,
+celery,0,0,0,
+svelte,0,0,0,
+auth0,0,0,0,
+yeoman,0,0,0,
+google cloud storage,0,0,0,
+discord,0,0,0,
+adroll,0,0,0,
+pytorch,0,0,0,
+namecheap,0,0,0,
+postcss,0,0,0,
+disqus,0,0,0,
+acquia,0,0,0,
+red hat openshift,0,0,0,
+vuetify,0,0,0,
+browserify,0,0,0,
+alpine linux,0,0,0,
+aws cloudformation,0,0,0,
+ant design,0,0,0,
+rollbar,0,0,0,
+amazon redshift,0,0,0,
+select2,0,0,0,
+jinja,0,0,0,
+testify,0,0,0,
+mustache,0,0,0,
+zapier,0,0,0,
+protractor,0,0,0,
+xamarin,0,0,0,
+google cloud dns,0,0,0,
+crazy egg,0,0,0,
+let's encrypt,0,0,0,
+guava,0,0,0,
+azure pipelines,0,0,0,
+rollup,0,0,0,
+chart.js,0,0,0,
+vuex,0,0,0,
+vercel,0,0,0,
+consul,0,0,0,
+amazon sns,0,0,0,
+neo4j,0,0,0,
+adobe illustrator,0,0,0,
+tableau,0,0,0,
+algolia,0,0,0,
+ember.js,0,0,0,
+amazon api gateway,0,0,0,
+amazon vpc,0,0,0,
+pug,0,0,0,
+spring cloud,0,0,0,
+android os,0,0,0,
+highcharts,0,0,0,
+leaflet,0,0,0,
+scikit-learn,0,0,0,
+semantic ui,0,0,0,
+dns made easy,0,0,0,
+squarespace,0,0,0,
+json web token,0,0,0,
+serilog,0,0,0,
+amazon elasticache,0,0,0,
+cucumber,0,0,0,
+openresty,0,0,0,
+chef,0,0,0,
+microsoft 365,0,0,0,
+sequelize,0,0,0,
+rancher,0,0,0,
+snowflake,0,0,0,
+litespeed,0,0,0,
+prisma,0,0,0,
+maxcdn,0,0,0,
+hipchat,0,0,0,
+adobe xd,0,0,0,
+terraform registry,0,0,0,
+akka,0,0,0,
+gunicorn,0,0,0,
+phantomjs,0,0,0,
+keras,0,0,0,
+influxdb,0,0,0,
+akamai,0,0,0,
+gnu bash,0,0,0,
+marketo,0,0,0,
+azure storage,0,0,0,
+coveralls,0,0,0,
+zoho mail,0,0,0,
+enzyme,0,0,0,
+puppet labs,0,0,0,
+vite,0,0,0,
+supertest,0,0,0,
+aws iam,0,0,0,
+piwik,0,0,0,
+matplotlib,0,0,0,
+traefik,0,0,0,
+phoenix framework,0,0,0,
+gherkin,0,0,0,
+sidekiq,0,0,0,
+google kubernetes engine,0,0,0,
+create react app,0,0,0,
+keycloak,0,0,0,
+codeship,0,0,0,
+google sheets,0,0,0,
+testflight,0,0,0,
+airtable,0,0,0,
+power bi,0,0,0,
+openstack,0,0,0,
+fastapi,0,0,0,
+strapi,0,0,0,
+pusher,0,0,0,
+zookeeper,0,0,0,
+react redux,0,0,0,
+react navigation,0,0,0,
+gravity forms,0,0,0,
+materialize,0,0,0,
+jsdom,0,0,0,
+stylelint,0,0,0,
+quantcast,0,0,0,
+pagerduty,0,0,0,
+rubocop,0,0,0,
+bugsnag,0,0,0,
+visual website optimizer,0,0,0,
+elk,0,0,0,
+hotjar,0,0,0,
+mongodb atlas,0,0,0,
+jquery mobile,0,0,0,
+sinatra,0,0,0,
+docker swarm,0,0,0,
+crashlytics,0,0,0,
+signalr,0,0,0,
+yui library,0,0,0,
+mapbox,0,0,0,
+contentful,0,0,0,
+plesk,0,0,0,
+zeplin,0,0,0,
+miro,0,0,0,
+angular cli,0,0,0,
+gitkraken,0,0,0,
+puma,0,0,0,
+webflow,0,0,0,
+h2 database,0,0,0,
+puppeteer,0,0,0,
+jshint,0,0,0,
+cloud firestore,0,0,0,
+elementor,0,0,0,
+amplitude,0,0,0,
+zabbix,0,0,0,
+apache cordova,0,0,0,
+bulma,0,0,0,
+amazon aurora,0,0,0,
+azure cosmos db,0,0,0,
+typeorm,0,0,0,
+fastly,0,0,0,
+balsamiq,0,0,0,
+nativescript,0,0,0,
+expo,0,0,0,
+preact,0,0,0,
+date-fns,0,0,0,
+azure functions,0,0,0,
+linode,0,0,0,
+elm,0,0,0,
+lerna,0,0,0,
+redux-thunk,0,0,0,
+insomnia rest client,0,0,0,
+amazon rds for postgresql,0,0,0,
+amazon cognito,0,0,0,
+amazon kinesis,0,0,0,
+aws codepipeline,0,0,0,
+mobx,0,0,0,
+drone.io,0,0,0,
+clickup,0,0,0,
+ionicons,0,0,0,
+material design,0,0,0,
+neovim,0,0,0,
+ethereum,0,0,0,
+spring data,0,0,0,
+flake8,0,0,0,
+three.js,0,0,0,
+incapsula,0,0,0,
+apache flink,0,0,0,
+julia,0,0,0,
+splunk,0,0,0,
+code climate,0,0,0,
+koa,0,0,0,
+fluentd,0,0,0,
+portainer,0,0,0,
+java 8,0,0,0,
+amazon athena,0,0,0,
+graylog,0,0,0,
+minio,0,0,0,
+phonegap,0,0,0,
+blazor,0,0,0,
+aws cloud9,0,0,0,
+looker,0,0,0,
+liquibase,0,0,0,
+cloudinary,0,0,0,
+amazon ebs,0,0,0,
+microsoft excel,0,0,0,
+dbeaver,0,0,0,
+appium,0,0,0,
+datagrip,0,0,0,
+mqtt,0,0,0,
+aws glue,0,0,0,
+clicky,0,0,0,
+quasar framework,0,0,0,
+fastlane,0,0,0,
+amazon emr,0,0,0,
+okta,0,0,0,
+uikit,0,0,0,
+aws amplify,0,0,0,
+argo,0,0,0,
+red hat codeready workspaces,0,0,0,
+vmware vsphere,0,0,0,
+packer,0,0,0,
+databricks,0,0,0,
+pivotal tracker,0,0,0,
+rubymine,0,0,0,
+parcel,0,0,0,
+druid,0,0,0,
+jetbrains rider,0,0,0,
+google cloud sql,0,0,0,
+yii,0,0,0,
+capybara,0,0,0,
+aws fargate,0,0,0,
+firebase authentication,0,0,0,
+arch linux,0,0,0,
+github enterprise,0,0,0,
+couchbase,0,0,0,
+papertrail,0,0,0,
+mattermost,0,0,0,
+azure sql database,0,0,0,
+google meet,0,0,0,
+pip,0,0,0,
+adobe experience manager,0,0,0,
+aws codecommit,0,0,0,
+swiftui,0,0,0,
+scalatest,0,0,0,
+lumen,0,0,0,
+polymer,0,0,0,
+react storybook,0,0,0,
+azure service bus,0,0,0,
+netlify cms,0,0,0,
+google cloud build,0,0,0,
+bamboo,0,0,0,
+material design lite,0,0,0,
+chartbeat,0,0,0,
+octokit,0,0,0,
+jsdoc,0,0,0,
+codemirror,0,0,0,
+braintree,0,0,0,
+plotly.js,0,0,0,
+dataform,0,0,0,
+fastify,0,0,0,
+azure active directory,0,0,0,
+apache nifi,0,0,0,
+playwright,0,0,0,
+google cloud pub/sub,0,0,0,
+guzzle,0,0,0,
+pm2,0,0,0,
+heroku postgres,0,0,0,
+snyk,0,0,0,
+formik,0,0,0,
+aws codedeploy,0,0,0,
+owin,0,0,0,
+unicorn,0,0,0,
+tawk.to,0,0,0,
+goland,0,0,0,
+clickhouse,0,0,0,
+google cloud functions,0,0,0,
+raspberry pi,0,0,0,
+aws codebuild,0,0,0,
+apache hive,0,0,0,
+clion,0,0,0,
+sonatype nexus,0,0,0,
+hasura,0,0,0,
+restsharp,0,0,0,
+docker machine,0,0,0,
+uglifyjs,0,0,0,
+rocketchat,0,0,0,
+spock framework,0,0,0,
+istanbul,0,0,0,
+webdriverio,0,0,0,
+dbt,0,0,0,
+hapi,0,0,0,
+redux-saga,0,0,0,
+octopus deploy,0,0,0,
+ejs,0,0,0,
+cloud functions for firebase,0,0,0,
+jitsi,0,0,0,
+vue cli,0,0,0,
+pillow,0,0,0,
+hazelcast,0,0,0,
+appdynamics,0,0,0,
+loki,0,0,0,
+ngrok,0,0,0,
+whatsapp,0,0,0,
+mongolab,0,0,0,
+kafka streams,0,0,0,
+rstudio,0,0,0,
+dialogflow,0,0,0,
+langchain,0,0,0,
+facebook ads,0,0,0,
+framer,0,0,0,
+oauth2,0,0,0,
+robot framework,0,0,0,
+fabric,0,0,0,
+react.js boilerplate,0,0,0,
+codacy,0,0,0,
+onesignal,0,0,0,
+sails.js,0,0,0,
+passport,0,0,0,
+apigee,0,0,0,
+sauce labs,0,0,0,
+webrtc,0,0,0,
+azure websites,0,0,0,
+flyway,0,0,0,
+livereload,0,0,0,
+pyspark,0,0,0,
+livechat,0,0,0,
+redash,0,0,0,
+chartio,0,0,0,
+clipboard.js,0,0,0,
+graphite,0,0,0,
+google ads,0,0,0,
+deno,0,0,0,
+envoy,0,0,0,
+lottie,0,0,0,
+drawio,0,0,0,
+jaeger,0,0,0,
+vuepress,0,0,0,
+immutable.js,0,0,0,
+windows 10,0,0,0,
+oh my zsh,0,0,0,
+bootstrap studio,0,0,0,
+1password,0,0,0,
+cowboy,0,0,0,
+kissmetrics,0,0,0,
+freshdesk,0,0,0,
+zuul,0,0,0,
+monday.com,0,0,0,
+gitea,0,0,0,
+react hot loader,0,0,0,
+pardot,0,0,0,
+bigcommerce,0,0,0,
+uwsgi,0,0,0,
+opencensus,0,0,0,
+azure kubernetes service,0,0,0,
+openai,0,0,0,
+iterm2,0,0,0,
+hexo,0,0,0,
+gin gonic,0,0,0,
+dapper,0,0,0,
+lambdatest,0,0,0,
+bitbucket pipelines,0,0,0,
+streamlit,0,0,0,
+bitrise,0,0,0,
+vue native,0,0,0,
+rethinkdb,0,0,0,
+esbuild,0,0,0,
+angular universal,0,0,0,
+jfrog artifactory,0,0,0,
+apache mesos,0,0,0,
+kubeflow,0,0,0,
+prestashop,0,0,0,
+rails spring,0,0,0,
+dbforge studio for mysql,0,0,0,
+pubnub,0,0,0,
+arangodb,0,0,0,
+supabase,0,0,0,
+etcd,0,0,0,
+ovh,0,0,0,
+mlflow,0,0,0,
+i18next,0,0,0,
+rxjava,0,0,0,
+nodemailer,0,0,0,
+statsd,0,0,0,
+sequel pro,0,0,0,
+proxmox ve,0,0,0,
+amazon elasticsearch service,0,0,0,
+azure data factory,0,0,0,
+azure app service,0,0,0,
+stackdriver,0,0,0,
+dropwizard,0,0,0,
+statuspage.io,0,0,0,
+pgvector,0,0,0,
+data studio,0,0,0,
+google cloud dataflow,0,0,0,
+firebase cloud messaging,0,0,0,
+linux mint,0,0,0,
+avro,0,0,0,
+dynatrace,0,0,0,
+highlight.js,0,0,0,
+semrush,0,0,0,
+caddy,0,0,0,
+purebasic,0,0,0,
+xamarin forms,0,0,0,
+quarkus,0,0,0,
+azure application insights,0,0,0,
+netty,0,0,0,
+sweetalert,0,0,0,
+pipedrive,0,0,0,
+google cloud datastore,0,0,0,
+launchdarkly,0,0,0,
+castle core,0,0,0,
+lastpass,0,0,0,
+apache freemarker,0,0,0,
+ramda,0,0,0,
+docusaurus,0,0,0,
+phpspec,0,0,0,
+adonisjs,0,0,0,
+telegram bot api,0,0,0,
+concourse,0,0,0,
+kendo ui,0,0,0,
+airbrake,0,0,0,
+red hat enterprise linux (rhel),0,0,0,
+polly,0,0,0,
+clever cloud,0,0,0,
+kali linux,0,0,0,
+wercker,0,0,0,
+bootstrap vue,0,0,0,
+laravel homestead,0,0,0,
+uptimerobot,0,0,0,
+odoo,0,0,0,
+hangfire,0,0,0,
+aws cloudtrail,0,0,0,
+c3.js,0,0,0,
+weebly,0,0,0,
+clojurescript,0,0,0,
+zulip,0,0,0,
+dbforge studio for oracle,0,0,0,
+telegraf,0,0,0,
+aws step functions,0,0,0,
+ifttt,0,0,0,
+pulumi,0,0,0,
+unbounce,0,0,0,
+confluent,0,0,0,
+aurelia,0,0,0,
+netdata,0,0,0,
+loggly,0,0,0,
+typeform,0,0,0,
+knockout,0,0,0,
+dbforge studio for postgresql,0,0,0,
+azure databricks,0,0,0,
+azure machine learning,0,0,0,
+nomad,0,0,0,
+fullstory,0,0,0,
+phalcon,0,0,0,
+postmark,0,0,0,
+amazon sagemaker,0,0,0,
+semantic ui react,0,0,0,
+vert.x,0,0,0,
+amazon ecr,0,0,0,
+salesforce commerce cloud,0,0,0,
+spinnaker,0,0,0,
+logrocket,0,0,0,
+apiary,0,0,0,
+twig,0,0,0,
+timescaledb,0,0,0,
+vue router,0,0,0,
+olark,0,0,0,
+zopim,0,0,0,
+emotion,0,0,0,
+capacitor,0,0,0,
+gatling,0,0,0,
+amazon quicksight,0,0,0,
+gitbook,0,0,0,
+phpstan,0,0,0,
+opsgenie,0,0,0,
+splunk cloud,0,0,0,
+knex.js,0,0,0,
+phabricator,0,0,0,
+mongodb compass,0,0,0,
+zenhub,0,0,0,
+microsoft bot framework,0,0,0,
+rackspace cloud servers,0,0,0,
+opencart,0,0,0,
+chatgpt,0,0,0,
+gitlab pages,0,0,0,
+imgix,0,0,0,
+facebook pixel,0,0,0,
+gitter,0,0,0,
+talend,0,0,0,
+amazon lightsail,0,0,0,
+customer.io,0,0,0,
+testcafe,0,0,0,
+paw,0,0,0,
+hubot,0,0,0,
+gocd,0,0,0,
+tensorflow.js,0,0,0,
+lucidchart,0,0,0,
+cockroachdb,0,0,0,
+bootsnap,0,0,0,
+google cloud run,0,0,0,
+discourse,0,0,0,
+boot2docker,0,0,0,
+onedrive,0,0,0,
+coreos,0,0,0,
+rundeck,0,0,0,
+xenforo,0,0,0,
+zsh (z shell),0,0,0,
+reselect,0,0,0,
+hystrix,0,0,0,
+google workspace,0,0,0,
+apache beam,0,0,0,
+nightwatchjs,0,0,0,
+doctrine 2,0,0,0,
+vscode.dev,0,0,0,
+help scout,0,0,0,
+spacy,0,0,0,
+sendbird,0,0,0,
+nexmo,0,0,0,
+logentries,0,0,0,
+sonarlint,0,0,0,
+cloud foundry,0,0,0,
+k6,0,0,0,
+google cloud bigtable,0,0,0,
+bitwarden,0,0,0,
+primeng,0,0,0,
+thymeleaf,0,0,0,
+calendly,0,0,0,
+jhipster,0,0,0,
+cloud db for mysql,0,0,0,
+locust,0,0,0,
+node.js,0,0,0,
+docker,0,0,0,
+npm,0,0,0,
+typescript,0,0,0,
+mongodb,0,0,0,
+postman,0,0,0,
+google drive,0,0,0,
+css 3,0,0,0,
+es6,0,0,0,
+gitlab,0,0,0,
+kubernetes,0,0,0,
+redis,0,0,0,
+jenkins,0,0,0,
+angularjs,0,0,0,
+vue.js,0,0,0,
+cloudflare,0,0,0,
+google fonts,0,0,0,
+trello,0,0,0,
+firebase,0,0,0,
+bitbucket,0,0,0,
+webpack,0,0,0,
+font awesome,0,0,0,
+google tag manager,0,0,0,
+react native,0,0,0,
+elasticsearch,0,0,0,
+graphql,0,0,0,
+expressjs,0,0,0,
+eslint,0,0,0,
+pycharm,0,0,0,
+spring boot,0,0,0,
+heroku,0,0,0,
+yarn,0,0,0,
+google adsense,0,0,0,
+asp.net core,0,0,0,
+animate.css,0,0,0,
+gitlab ci,0,0,0,
+serverless,0,0,0,
+storybook,0,0,0,
+matomo,0,0,0,
+amazon eks,0,0,0,
+telegram,0,0,0,
+angular material,0,0,0,
+ghost,0,0,0,
+anaconda,0,0,0,
+bazel,0,0,0,
+blockchain,0,0,0,
+wp rocket,0,0,0,
+laravel forge,0,0,0,
+omniauth,0,0,0,
+chakra ui,0,0,0,
+scrapy,0,0,0,
+nextcloud,0,0,0,
+mybatis,0,0,0,
+docker hub,0,0,0,
+zoho crm,0,0,0,
+micronaut framework,0,0,0,
+apache storm,0,0,0,
+aerospike,0,0,0,
+feathersjs,0,0,0,
+testrail,0,0,0,
+gogs,0,0,0,
+google search console,0,0,0,
+apache traffic server,0,0,0,
+recharts,0,0,0,
+sumome,0,0,0,
+jenkins x,0,0,0,
+react-testing-library,0,0,0,
+nsq,0,0,0,
+reactstrap,0,0,0,
+apache zeppelin,0,0,0,
+scikit-image,0,0,0,
+lighthouse,0,0,0,
+android room,0,0,0,
+sitefinity,0,0,0,
+normalize.css,0,0,0,
+openvpn,0,0,0,
+vaadin,0,0,0,
+salesforce marketing cloud,0,0,0,
+torch,0,0,0,
+sumo logic,0,0,0,
+ktor,0,0,0,
+arm cortex-m,0,0,0,
+arm cortex-a,0,0,0,
+stm32,0,0,0,
+avr / pic,0,0,0,
+risc-v,0,0,0,
+nordic nrf,0,0,0,
+fpga,0,0,0,
+freertos,0,0,0,
+zephyr,0,0,0,
+yocto project,0,0,0,
+buildroot,0,0,0,
+qnx / vxworks,0,0,0,
+uc/os (micrium),0,0,0,
+bare-metal,0,0,0,
+uart,0,0,0,
+i2c,0,0,0,
+can bus,0,0,0,
+modbus,0,0,0,
+ethercat,0,0,0,
+ble (bluetooth low energy),0,0,0,
+zigbee,0,0,0,
+hal (hardware abstraction layer),0,0,0,
+device driver,0,0,0,
+register level programming,0,0,0,
+gpio/pwm,0,0,0,
+adc/dac,0,0,0,
+dma(direct memory access),0,0,0,
+verilog/vhdl,0,0,0,
+keil mdk / iar workbench,0,0,0,
+gnu arm toolchain (gcc),0,0,0,
+openocd,0,0,0,
+j-link / st-link,0,0,0,
+ota (over-the-air),0,0,0,
+edge ai (tinyml),0,0,0,
+misra c,0,0,0,
+functional safety (iso 26262),0,0,0,
+burp suite,0,0,0,
+metasploit,0,0,0,
+zap (owasp),0,0,0,
+waf (web application firewall),0,0,0,
+sql injection / xss,0,0,0,
+nmap,0,0,0,
+ids/ips,0,0,0,
+ssh / sftp / ftp,0,0,0,
+wireguard,0,0,0,
+suricata,0,0,0,
+snort,0,0,0,
+oidc,0,0,0,
+mfa (multi-factor authentication),0,0,0,
+rbac / abac,0,0,0,
+falco,0,0,0,
+trivy,0,0,0,
+kms (key management service),0,0,0,
+ghidra / ida pro,0,0,0,
+john the ripper / hashcat,0,0,0,
+"siem (splunk, elk stack)",0,0,0,
+godot,0,0,0,
+gamemaker,0,0,0,
+love2d,0,0,0,
+monogame,0,0,0,
+phaser,0,0,0,
+pixijs,0,0,0,
+babylon.js,0,0,0,
+playcanvas,0,0,0,
+cocos2d-x,0,0,0,
