@@ -19,10 +19,10 @@ class ResumeSerializer(serializers.ModelSerializer):
     - 업로드 시: create() 사용
     """
 
-    # 목록 조회용
+    # 목록 조회용 (read_only)
     resume_id = serializers.IntegerField(source='id', read_only=True)
-    resume_title = serializers.CharField(source='title')
-    resume_url = serializers.CharField(source='url', allow_blank=True, allow_null=True, required=False)
+    resume_title = serializers.CharField(source='title', read_only=True)
+    resume_url = serializers.CharField(source='url', read_only=True, allow_blank=True, allow_null=True)
     created_at = serializers.DateTimeField(format='%Y.%m.%d', read_only=True)
 
     tech_stacks = serializers.SerializerMethodField()
