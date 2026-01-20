@@ -13,13 +13,13 @@ class CorpSerializer(serializers.ModelSerializer):
 
 class CorpDetailSerializer(serializers.ModelSerializer):
     """기업 상세 시리얼라이저"""
-    job_posting_count = serializers.SerializerMethodField()
+    #job_posting_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Corp
         fields = [
             'id', 'name', 'logo_url', 'address',
-            'latitude', 'longitude', 'job_posting_count'
+            'latitude', 'longitude', #'job_posting_count'
         ]
     def get_job_posting_count(self, obj):
         return obj.job_postings.filter(is_deleted=False).count()
@@ -40,7 +40,7 @@ class JobPostingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JobPosting
-        fields = ['id', 'corp', 'url', 'title', 'career', 'created_at']
+        fields = ['id', 'corp', 'url', 'title', 'career', 'expiry_date','created_at']
 
 
 class JobPostingDetailSerializer(serializers.ModelSerializer):
@@ -52,7 +52,8 @@ class JobPostingDetailSerializer(serializers.ModelSerializer):
         model = JobPosting
         fields = [
             'id', 'corp', 'url', 'title', 'description',
-            'stack_count', 'tech_stacks', 'created_at'
+            #'stack_count',
+            'tech_stacks', 'created_at'
         ]
 
 # class CorpBookmarkSerializer(serializers.ModelSerializer):
@@ -66,7 +67,6 @@ class CorpBookmarkListSerializer(serializers.ModelSerializer):
     """
     기업 즐겨찾기 목록 조회 시리얼라이저
     """
-    # 동료분 방식처럼 id를 직관적인 이름으로 매핑합니다.
     corp_bookmark_id = serializers.IntegerField(source='id')
     # 기업 상세 정보를 포함합니다.
     corp = CorpSerializer(read_only=True)
