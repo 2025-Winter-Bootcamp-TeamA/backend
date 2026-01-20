@@ -124,9 +124,10 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'users.User'
 
 # 소셜 로그인 인증 백엔드
+# allauth는 사용하지 않으므로 ModelBackend만 사용
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',  # allauth 미사용
 ]
 
 # Django REST Framework 설정
