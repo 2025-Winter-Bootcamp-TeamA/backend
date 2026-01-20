@@ -40,9 +40,9 @@ def final_perfect_extractor(text, master_list, model="gemma3:12b"):
     """
 
     try:
-        # Ollama 클라이언트 초기화 (환경 변수 OLLAMA_HOST를 사용하거나 기본값 사용)
-        ollama_host = os.getenv('OLLAMA_HOST', 'http://localhost:11434') # 기본 Ollama 주소
-        client = ollama.Client(host=ollama_host)
+        # Ollama 클라이언트 초기화 (환경 변수 OLLAMA_URL을 사용하거나 기본값 사용)
+        ollama_url = os.getenv('OLLAMA_URL', 'http://localhost:11434')
+        client = ollama.Client(host=ollama_url)
         
         response = client.chat(model=model, messages=[{'role': 'user', 'content': prompt}], format='json', options={'temperature': 0})
         

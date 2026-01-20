@@ -154,7 +154,7 @@ class GoogleLoginStartView(APIView):
         operation_description="구글 로그인 페이지로 리다이렉트할 수 있는 URL을 반환합니다.",
     ) 
     def get(self, request):
-        # 환경변수에서 가져오기 (없으면 하드코딩된 값 사용)
+        # 환경변수에서 가져오기
         client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
         redirect_uri = config('GOOGLE_REDIRECT_URI')
         
@@ -163,8 +163,121 @@ class GoogleLoginStartView(APIView):
             "https://accounts.google.com/o/oauth2/v2/auth"
             f"?client_id={client_id}"
             f"&redirect_uri={redirect_uri}"
-            "&response_type=token"    # access_token을 바로 받기 위함
-            "&scope=email%20profile"
+            "&response_type=code"          # code를 받기 위함 (Authorization Code Flow)
+            "&scope=email%20profile%20openid"
+            "&access_type=offline"         # refresh_token도 받기
         )
         
         return Response({"redirectUrl": google_auth_url})
+
+
+class GoogleLoginCallbackView(APIView):
+    """구글 로그인 콜백 처리 (Authorization Code → JWT)"""
+    
+    permission_classes = [AllowAny]
+    
+    @swagger_auto_schema(
+        operation_summary="구글 로그인 콜백",
+        operation_description="Google에서 받은 authorization code를 access_token으로 교환하고 JWT를 발급합니다.",
+        manual_parameters=[
+            openapi.Parameter('code', openapi.IN_QUERY, description="Google authorization code", type=openapi.TYPE_STRING),
+        ]
+    )
+    def get(self, request):
+        """GET 요청으로 code를 받아서 처리"""
+        code = request.GET.get('code')
+        
+        if not code:
+            return Response(
+                {'error': 'authorization code가 필요합니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        try:
+            # 1. code를 access_token으로 교환
+            client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
+            client_secret = config('GOOGLE_OAUTH2_CLIENT_SECRET')
+            redirect_uri = config('GOOGLE_REDIRECT_URI')
+            
+            token_response = requests.post(
+                'https://oauth2.googleapis.com/token',
+                data={
+                    'code': code,
+                    'client_id': client_id,
+                    'client_secret': client_secret,
+                    'redirect_uri': redirect_uri,
+                    'grant_type': 'authorization_code',
+                },
+                timeout=10
+            )
+            token_response.raise_for_status()
+            token_data = token_response.json()
+            access_token = token_data.get('access_token')
+            
+            if not access_token:
+                return Response(
+                    {'error': 'access_token을 가져올 수 없습니다.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            # 2. access_token으로 사용자 정보 조회
+            user_response = requests.get(
+                'https://www.googleapis.com/oauth2/v3/userinfo',
+                headers={'Authorization': f'Bearer {access_token}'},
+                timeout=10
+            )
+            user_response.raise_for_status()
+            user_data = user_response.json()
+            
+            email = user_data.get('email')
+            name = user_data.get('name')
+            
+            if not email:
+                return Response(
+                    {'error': '구글에서 이메일을 가져올 수 없습니다.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+            
+            from .models import User
+            
+            # 3. DB에서 사용자 조회/생성
+            user, created = User.objects.get_or_create(
+                email=email,
+                defaults={
+                    'username': email.split('@')[0],
+                    'name': name or 'Google User',
+                    'is_deleted': False
+                }
+            )
+            
+            if created and name:
+                user.name = name
+                user.save()
+            
+            # 4. JWT 토큰 발급
+            refresh = RefreshToken.for_user(user)
+            
+            # 5. 프론트엔드로 리다이렉트 (토큰을 쿼리 파라미터로 전달)
+            frontend_url = config('FRONTEND_URL')
+            redirect_url = (
+                f"{frontend_url}/auth/callback"
+                f"?access={str(refresh.access_token)}"
+                f"&refresh={str(refresh)}"
+            )
+            
+            from django.shortcuts import redirect
+            return redirect(redirect_url)
+            
+        except requests.RequestException as e:
+            logging.error(f'Google API call failed: {e}')
+            return Response(
+                {'error': 'Google API 호출에 실패했습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        
+        except Exception as e:
+            logging.exception('Unexpected error during Google login callback')
+            return Response(
+                {'error': '로그인 처리 중 오류가 발생했습니다.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
