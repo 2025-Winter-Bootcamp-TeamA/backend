@@ -1,7 +1,6 @@
 import csv
 import re
 import heapq
-from dataclasses import dataclass
 from collections import defaultdict
 from pathlib import Path
 from xml.etree.ElementTree import iterparse
@@ -13,13 +12,20 @@ TOKEN_RE = re.compile(r"[a-z0-9\+\#\.\-]+")
 
 # 노이즈로 튀는 기술명 필터링
 NOISE_TECHS = {
-    "d", "q", "r",
+    "d", "q",
     "make", "simple", "mean", "parse", "render", "echo", "stream", "buffer", "heap",
     "box", "hub", "dash", "flux", "salt", "ent", "tower", "buddy",
     "play", "linear", "segment", "prism", "foundation", "slick", "realm", "crystal",
 }
 
+# 필터링 하면 안되는 기술명
+KNOWN_SHORT_TECHS = {"go", "r", "d3", "qt"}
+
 def is_noise_tech(normalized_tech: str) -> bool:
+
+    if normalized_tech in KNOWN_SHORT_TECHS:
+        return False
+    
     if not normalized_tech:
         return True
 
@@ -185,17 +191,14 @@ class Command(BaseCommand):
             help="How many top posts to keep for --detail-tech (default 10)",
         )
 
-        # 기술 ↔ 포스트 매핑(근거) 별도 CSV로 뽑기
-        parser.add_argument(
-            "--emit-matches",
-            action="store_true",
-            help="If set, write tech↔post matches into a separate CSV (one row per match).",
-        )
-        parser.add_argument(
-            "--matches-out",
-            default="matches.csv",
-            help="Output CSV path for --emit-matches (default matches.csv)",
-        )
+        # detail-tech 결과를 별도 파일로 저장할지/경로 (원하면 지정)
+        parser.add_argument(  
+            "--detail-out",   
+            default="",        
+            help="Optional: output CSV path for --detail-tech results. "
+                 "If empty, auto-generate next to --out (e.g. git_top_posts_10.csv).",
+        )  
+
 
     def handle(self, *args, **options):
         posts_path = Path(options["posts"]).expanduser()
@@ -207,8 +210,8 @@ class Command(BaseCommand):
         with_top_posts = bool(options["with_top_posts"])
         topn = int(options["topn"])
 
-        emit_matches = bool(options["emit_matches"])
-        matches_out_path = Path(options["matches_out"]).expanduser()
+        detail_tech = normalize_tech_name(options.get("detail_tech") or "")
+        detail_out_opt = (options.get("detail_out") or "").strip()           
 
         if not posts_path.exists():
             self.stderr.write(self.style.ERROR(f"Posts file not found: {posts_path}"))
@@ -228,6 +231,11 @@ class Command(BaseCommand):
         if not techs:
             self.stderr.write(self.style.ERROR("No techs loaded from CSV (Name column empty?)."))
             return
+
+        tech_set = set(techs) 
+        if detail_tech and detail_tech not in tech_set: 
+            self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV"))  # ✅
+            return 
         
         single_index, multi_index, tech_tokens_map = build_tech_index(techs)
 
@@ -236,84 +244,61 @@ class Command(BaseCommand):
         total_views = defaultdict(int)    # tech -> 조회수 누적 합
 
         top_posts_by_tech = defaultdict(list)
-
-        mf = None
-        matches_writer = None
-
-        if emit_matches:
-            matches_out_path.parent.mkdir(parents=True, exist_ok=True)
-            mf = matches_out_path.open("w", newline="", encoding="utf-8")
-            matches_writer = csv.DictWriter(
-                mf,
-                fieldnames=["tech", "post_id", "url", "view_count", "title"],
-            )
-            matches_writer.writeheader()
+        detail_heap = []
 
         scanned = 0
 
-        try:  # ✅ 파일 close 보장
-            for post_id, post_type, title, body, tags, view_count in iter_posts(posts_path):
-                scanned += 1
-                if limit and scanned > limit:
-                    break
 
-                if post_type != "1":  # ✅ 질문만 처리
-                    continue
+        for post_id, post_type, title, body, tags, view_count in iter_posts(posts_path):
+            if post_type != "1":
+                continue
 
-                text = normalize_post_text(title, body, tags)
-                post_tokens = TOKEN_RE.findall(text)
-                post_tok_set = set(post_tokens)  # ✅ 성능: 단일 토큰도 set으로
+            scanned += 1
+            if limit and scanned > limit:
+                break
 
-                seen_in_this_post = set()
+            text = normalize_post_text(title, body, tags)
+            post_tokens = TOKEN_RE.findall(text)
+            post_tok_set = set(post_tokens)
 
-                # 1) 단일 토큰 기술
-                for tok in post_tok_set:  # ✅ post_tokens -> post_tok_set
-                    for tech in single_index.get(tok, []):
-                        if tech in seen_in_this_post:
-                            continue
+            seen_in_this_post = set()
+
+            # 1) 단일 토큰 기술
+            for tok in post_tok_set:
+                for tech in single_index.get(tok, []):
+                    if tech in seen_in_this_post:
+                        continue
+                    mention_count[tech] += 1
+                    total_views[tech] += view_count
+                    seen_in_this_post.add(tech)
+
+            # 2) 다중 토큰 기술
+            for tok in post_tok_set:
+                for tech in multi_index.get(tok, []):
+                    if tech in seen_in_this_post:
+                        continue
+                    tech_tokens = tech_tokens_map[tech]
+                    if tokens_match(tech_tokens, post_tokens):
                         mention_count[tech] += 1
                         total_views[tech] += view_count
                         seen_in_this_post.add(tech)
 
-                # 2) 다중 토큰 기술
-                for tok in post_tok_set:  # ✅ set(post_tokens) -> post_tok_set
-                    for tech in multi_index.get(tok, []):
-                        if tech in seen_in_this_post:
-                            continue
-                        tech_tokens = tech_tokens_map[tech]
-                        if tokens_match(tech_tokens, post_tokens):
-                            mention_count[tech] += 1
-                            total_views[tech] += view_count
-                            seen_in_this_post.add(tech)
+            # 3) 특정 기술(detail_tech)의 topN 유지 (조회수 기준)
+            if detail_tech and detail_tech in seen_in_this_post: 
+                heapq.heappush(detail_heap, (view_count, post_id, title)) 
+                if len(detail_heap) > topn:  
+                    heapq.heappop(detail_heap)
 
-                # 3) tech별 topN 유지
-                if with_top_posts and seen_in_this_post:
-                    for tech in seen_in_this_post:
-                        h = top_posts_by_tech[tech]  # ✅ 선언 필요
-                        heapq.heappush(h, (view_count, post_id, title))
-                        if len(h) > topn:
-                            heapq.heappop(h)
+            # 4) tech별 topN 유지
+            if with_top_posts and seen_in_this_post:
+                for tech in seen_in_this_post:
+                    h = top_posts_by_tech[tech]
+                    heapq.heappush(h, (view_count, post_id, title))
+                    if len(h) > topn:
+                        heapq.heappop(h)
 
-                # 4) 매핑(근거) streaming 출력
-                if emit_matches and matches_writer and seen_in_this_post:
-                    url = f"https://stackoverflow.com/questions/{post_id}"
-                    t_clean = normalize_spaces(title).replace("\n", " ").replace("\r", " ")
-                    for tech in seen_in_this_post:
-                        matches_writer.writerow(
-                            {
-                                "tech": tech,
-                                "post_id": post_id,
-                                "url": url,
-                                "view_count": view_count,
-                                "title": t_clean,
-                            }
-                        )
-
-                if progress and scanned % progress == 0:
-                    self.stdout.write(f"scanned={scanned:,}")
-        finally:
-            if mf:
-                mf.close()
+            if progress and scanned % progress == 0:
+                self.stdout.write(f"scanned={scanned:,}")
 
         # 조회수(total_views) 기준 정렬해서 CSV 출력
         rows = []
@@ -338,7 +323,7 @@ class Command(BaseCommand):
                 row["top_posts"] = " ; ".join(parts)
 
             rows.append(row)
-            
+
         rows.sort(key=lambda r: r["total_views"], reverse=True)
 
         out_path.parent.mkdir(parents=True, exist_ok=True)
@@ -351,5 +336,33 @@ class Command(BaseCommand):
             writer = csv.DictWriter(f, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(rows)
+
+        # detail-tech 결과를 별도 CSV로 저장 (조회수 내림차순)
+        if detail_tech: 
+            if detail_out_opt:  
+                detail_out_path = Path(detail_out_opt).expanduser()  
+            else:
+                detail_out_path = out_path.with_name(f"{detail_tech}_top_posts_{topn}.csv")  
+
+            detail_out_path.parent.mkdir(parents=True, exist_ok=True)  
+
+            detail_rows = []  
+            for vc, pid, t in sorted(detail_heap, reverse=True):  
+                detail_rows.append(  
+                    {
+                        "tech": detail_tech,
+                        "post_id": pid,
+                        "url": f"https://stackoverflow.com/questions/{pid}",
+                        "view_count": vc,
+                        "title": normalize_spaces(t).replace("\n", " ").replace("\r", " "),
+                    }
+                )
+
+            with detail_out_path.open("w", newline="", encoding="utf-8") as df:  
+                dw = csv.DictWriter(df, fieldnames=["tech", "post_id", "url", "view_count", "title"])  
+                dw.writeheader()  
+                dw.writerows(detail_rows)  
+
+            self.stdout.write(self.style.SUCCESS(f"Detail saved: {detail_out_path}"))
 
         self.stdout.write(self.style.SUCCESS(f"Done. scanned={scanned:,} output={out_path}"))
