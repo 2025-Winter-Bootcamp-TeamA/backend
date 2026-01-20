@@ -16,6 +16,7 @@ class UserSerializer(serializers.ModelSerializer):
             'username',  # 추가된 아이디 필드
             'email', 
             'name', 
+            'profile_image', #추가된 이미지 
             'is_deleted', # 추가된 삭제 여부 필드
             'created_at', 
             'updated_at'
