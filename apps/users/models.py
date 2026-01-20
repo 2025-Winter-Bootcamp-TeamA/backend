@@ -82,6 +82,12 @@ class User(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = 'email' 
     REQUIRED_FIELDS = ['username', 'name']
 
+    profile_image = models.URLField(
+        max_length=500, 
+        blank=True, 
+        null=True, 
+        verbose_name='프로필 이미지'
+    )
     class Meta:
         db_table = 'user'
         verbose_name = '사용자'
