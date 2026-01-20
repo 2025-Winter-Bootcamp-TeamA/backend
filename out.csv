@@ -1,0 +1,1070 @@
+tech,mentions,total_views,avg_views_per_mention
+c#,2639,67755640,25674.740431981812
+python,1304,63425232,48638.981595092024
+sql,2655,61650263,23220.43804143126
+java,2600,57707728,22195.28
+javascript,1736,51089364,29429.35714285714
+.net,3255,46283410,14219.173579109063
+d,3869,45276929,11702.488756784698
+windows,3019,45139370,14951.762172904935
+c++,1798,35562842,19779.11123470523
+make,5158,31825118,6170.0500193873595
+simple,2547,23939666,9399.162151550845
+mysql,673,21043157,31267.692421991083
+git,294,19921085,67758.7925170068
+php,1305,17213864,13190.700383141762
+shell,431,16555291,38411.34802784223
+asp.net,1445,15828024,10953.64982698962
+linux,937,15205858,16228.236926360725
+oracle,510,12528404,24565.498039215687
+mean,934,11570858,12388.498929336189
+xml,1265,10868228,8591.484584980237
+visual studio,1208,10841796,8974.996688741721
+jquery,434,10129900,23340.78341013825
+box,680,8876769,13054.072058823529
+google,983,7578478,7709.540183112919
+ruby,710,7202280,10144.05633802817
+eclipse,485,6942358,14314.140206185568
+db,821,6397860,7792.764920828258
+firefox,535,5781544,10806.624299065421
+parse,508,5442160,10712.913385826772
+perl,588,5110716,8691.69387755102
+postgresql,117,5005087,42778.52136752137
+macos,159,4456991,28031.389937106916
+less,1112,4289232,3857.223021582734
+microsoft sql server,62,4179025,67403.62903225806
+sqlite,156,3900769,25004.92948717949
+json,164,3789314,23105.573170731706
+vim,187,3720314,19894.727272727272
+rails,417,3716285,8911.95443645084
+play,320,3697608,11555.025
+ibm db2,9,3432056,381339.55555555556
+powershell,165,3273967,19842.224242424243
+stack overflow,169,3236625,19151.62721893491
+heap,177,2728062,15412.77966101695
+brackets,74,2544890,34390.40540540541
+mac os x,124,2529672,20400.58064516129
+buffer,247,2347526,9504.153846153846
+junit,68,2223747,32702.16176470588
+ios,29,1999254,68939.79310344828
+stream,321,1961344,6110.105919003116
+github,34,1861451,54748.55882352941
+q,281,1858389,6613.483985765125
+hibernate,162,1826096,11272.197530864198
+prototype,181,1821877,10065.618784530387
+ubuntu,157,1780096,11338.191082802548
+django,169,1772106,10485.834319526628
+notepad++,40,1752463,43811.575
+intellij idea,23,1542967,67085.52173913043
+render,282,1535231,5444.081560283688
+echo,354,1457527,4117.307909604519
+emacs,230,1371559,5963.3
+datatables,16,1345054,84065.875
+resharper,126,1221830,9697.063492063493
+google chrome,47,1155991,24595.55319148936
+hack,200,1142090,5710.45
+mssql,99,1125349,11367.161616161617
+underscore,48,1101170,22941.041666666668
+objective-c,102,1022200,10021.56862745098
+gmail,67,964146,14390.23880597015
+mercurial,90,957372,10637.466666666667
+nunit,104,849913,8172.240384615385
+nix,78,829429,10633.705128205129
+windows server,93,798153,8582.290322580646
+visual basic,85,789935,9293.35294117647
+apache tomcat,8,754351,94293.875
+foundation,165,735500,4457.575757575758
+xcode,85,730126,8589.717647058824
+haskell,103,696801,6765.058252427184
+delphi,181,677438,3742.75138121547
+entity framework,59,670996,11372.813559322034
+fedora,24,669511,27896.291666666668
+apache http server,4,646613,161653.25
+log4j,43,632235,14703.139534883721
+f#,66,579202,8775.787878787878
+spring,159,497698,3130.1761006289307
+actionscript,125,467862,3742.896
+curl,35,430697,12305.628571428571
+linear,84,421317,5015.678571428572
+rubygems,26,408787,15722.576923076924
+virtualbox,25,398666,15946.64
+phpstorm,1,357674,357674.0
+google app engine,16,345520,21595.0
+groovy,54,341471,6323.537037037037
+markdown,49,291740,5953.877551020408
+debian,64,287530,4492.65625
+grails,31,266838,8607.677419354839
+webstorm,1,253314,253314.0
+sublime text,5,253314,50662.8
+crystal,58,251141,4330.017241379311
+atom,37,244699,6613.486486486487
+java ee,26,243299,9357.653846153846
+segment,49,237959,4856.306122448979
+qt,103,229979,2232.8058252427186
+jboss,37,224527,6068.2972972972975
+testng,16,224194,14012.125
+awk,58,220878,3808.2413793103447
+wix,21,216792,10323.42857142857
+slick,32,215136,6723.0
+zoom,33,208746,6325.636363636364
+loopback,14,185669,13262.07142857143
+google maps,38,185365,4878.026315789473
+findbugs,24,176066,7336.083333333333
+common lisp,42,170685,4063.9285714285716
+wordpress,94,170365,1812.3936170212767
+ffmpeg,33,150502,4560.666666666667
+opencv,12,142623,11885.25
+ocaml,34,139982,4117.117647058823
+visual studio code,7,137589,19655.571428571428
+bubble,49,120292,2454.938775510204
+phpunit,24,114345,4764.375
+medium,65,113433,1745.123076923077
+moq,16,113353,7084.5625
+selenium,41,112407,2741.6341463414633
+microsoft outlook,7,112203,16029.0
+memcached,45,109312,2429.1555555555556
+activemq,16,107928,6745.5
+prism,13,107310,8254.615384615385
+tinymce,17,104121,6124.764705882353
+ws,42,103802,2471.4761904761904
+drupal,47,101620,2162.127659574468
+couchdb,14,98201,7014.357142857143
+blogger,11,97322,8847.454545454546
+html5,15,96506,6433.733333333334
+spring mvc,11,93618,8510.727272727272
+react,32,87703,2740.71875
+phpmyadmin,19,83426,4390.8421052631575
+apache maven,2,82381,41190.5
+notion,38,81354,2140.8947368421054
+realm,11,79792,7253.818181818182
+assembly language,27,77661,2876.3333333333335
+joomla!,21,75658,3602.7619047619046
+solr,15,74713,4980.866666666667
+cuda,10,71965,7196.5
+cakephp,30,68724,2290.8
+mootools,28,68413,2443.3214285714284
+hadoop,11,68019,6183.545454545455
+spring security,4,67821,16955.25
+capistrano,20,67678,3383.9
+dojo,42,67391,1604.547619047619
+matlab,22,65025,2955.681818181818
+pylint,2,64400,32200.0
+hbase,5,64022,12804.4
+amazon s3,10,62887,6288.7
+google docs,12,60077,5006.416666666667
+centos,14,58996,4214.0
+microsoft sharepoint,6,55341,9223.5
+zend framework,27,54811,2030.037037037037
+wireshark,28,54622,1950.7857142857142
+rspec,19,52934,2786.0
+erlang,50,52840,1056.8
+swift,4,52202,13050.5
+openssl,29,49677,1713.0
+dyn,4,49262,12315.5
+superset,11,44439,4039.909090909091
+jquery ui,10,42904,4290.4
+metabase,5,42836,8567.2
+flux,1,42245,42245.0
+oracle pl/sql,6,42146,7024.333333333333
+jetty,16,41228,2576.75
+codeigniter,9,41020,4557.777777777777
+pypi,16,40088,2505.5
+google analytics,24,39923,1663.4583333333333
+helm,2,39505,19752.5
+composer,6,39369,6561.5
+jira,24,39097,1629.0416666666667
+unity,7,36185,5169.285714285715
+netbeans ide,7,35837,5119.571428571428
+lua,44,35157,799.0227272727273
+tumblr,1,34124,34124.0
+yaml,30,34113,1137.1
+nginx,17,31877,1875.1176470588234
+scala,33,31269,947.5454545454545
+symfony,13,29292,2253.230769230769
+backbone.js,1,28858,28858.0
+coffeescript,1,28858,28858.0
+spi,5,28770,5754.0
+ipython,9,28523,3169.222222222222
+slim,8,28251,3531.375
+passenger,13,27706,2131.230769230769
+haml,6,26272,4378.666666666667
+qunit,1,25812,25812.0
+ehcache,5,24785,4957.0
+openlayers,1,23567,23567.0
+openstreetmap,2,23567,11783.5
+xunit,37,21534,582.0
+dash,13,21312,1639.3846153846155
+vault,35,21307,608.7714285714286
+sketch,15,17577,1171.8
+gnu sed,2,17429,8714.5
+paypal,10,17067,1706.7
+bootloader,3,16561,5520.333333333333
+hub,7,16470,2352.8571428571427
+pre-commit,18,16004,889.1111111111111
+hsqldb,9,15801,1755.6666666666667
+godaddy,18,15402,855.6666666666666
+zeromq,1,14429,14429.0
+prettier,10,14178,1417.8
+teamcity,24,14109,587.875
+arduino,4,13735,3433.75
+smalltalk,33,13341,404.27272727272725
+numpy,6,12628,2104.6666666666665
+scipy,3,12628,4209.333333333333
+nats,2,11831,5915.5
+sphinx,15,11830,788.6666666666666
+skype,8,11423,1427.875
+apache jmeter,1,10942,10942.0
+slack,8,10930,1366.25
+tornado,1,10116,10116.0
+glassfish,9,10080,1120.0
+clojure,7,9981,1425.857142857143
+jackson,5,9776,1955.2
+smarty,12,9256,771.3333333333334
+sqlalchemy,12,8011,667.5833333333334
+devise,6,7947,1324.5
+nagios,13,7168,551.3846153846154
+spring framework,16,7028,439.25
+homebrew,13,6936,533.5384615384615
+salt,41,6500,158.53658536585365
+redmine,8,6465,808.125
+basecamp,4,6151,1537.75
+eureka,2,5754,2877.0
+prometheus,3,5723,1907.6666666666667
+compass,7,5186,740.8571428571429
+unreal engine,2,4975,2487.5
+stripe,3,4785,1595.0
+hugo,2,4565,2282.5
+watchdog timer,2,4406,2203.0
+bootstrap,23,4006,174.17391304347825
+glsl,2,3801,1900.5
+adobe indesign,2,3642,1821.0
+haxe,8,3375,421.875
+uservoice,5,3229,645.8
+kong,1,3172,3172.0
+mysql workbench,4,3101,775.25
+sass,5,3062,612.4
+blender,8,2992,374.0
+salesforce,1,2798,2798.0
+apex,1,2798,2798.0
+ent,8,2576,322.0
+stylus,4,2485,621.25
+bundler,3,2377,792.3333333333334
+dart,5,2218,443.6
+retrofit,7,2110,301.42857142857144
+autofac,3,1850,616.6666666666666
+presto,2,1556,778.0
+invision,2,1381,690.5
+microsoft sql server management studio,2,1306,653.0
+javafx,7,1087,155.28571428571428
+grunt,8,1079,134.875
+svn (subversion),2,1043,521.5
+postgis,7,986,140.85714285714286
+redux,1,858,858.0
+microsoft iis,1,608,608.0
+sanity,37,569,15.378378378378379
+magento,5,527,105.4
+amazon ec2,5,336,67.2
+github actions,0,0,0
+g suite,0,0,0
+dropbox,4,0,0.0
+laravel,0,0,0
+babel,0,0,0
+aws lambda,0,0,0
+confluence,14,0,0.0
+rabbitmq,0,0,0
+docker compose,0,0,0
+android studio,0,0,0
+kafka,0,0,0
+travis ci,0,0,0
+microsoft azure,0,0,0
+gradle,0,0,0
+kibana,0,0,0
+golang,0,0,0
+android sdk,2,0,0.0
+mailchimp,1,0,0.0
+ansible,0,0,0
+flutter,1,0,0.0
+flask,0,0,0
+grafana,0,0,0
+digitalocean,0,0,0
+amazon cloudfront,0,0,0
+new relic,0,0,0
+github pages,0,0,0
+mariadb,0,0,0
+google cloud platform,0,0,0
+amazon rds,0,0,0
+amazon route 53,0,0,0
+amazon ec2 container service,0,0,0
+kotlin,1,0,0.0
+sentry,0,0,0
+gulp,0,0,0
+socket.io,0,0,0
+terraform,0,0,0
+aws elastic load balancing (elb),0,0,0
+electron,3,0,0.0
+google compute engine,0,0,0
+material design for angular,0,0,0
+amazon cloudwatch,0,0,0
+circleci,0,0,0
+logstash,0,0,0
+twilio,0,0,0
+vagrant,0,0,0
+amazon web services (aws),0,0,0
+sourcetree,1,0,0.0
+c lang,1,0,0.0
+datadog,0,0,0
+shopify,0,0,0
+ionic,1,0,0.0
+hubspot,0,0,0
+amazon ses,0,0,0
+asana,0,0,0
+jest,0,0,0
+twilio sendgrid,0,0,0
+woocommerce,0,0,0
+varnish,1,0,0.0
+zendesk,1,0,0.0
+next.js,0,0,0
+mailgun,0,0,0
+requirejs,0,0,0
+mocha,3,0,0.0
+bower,0,0,0
+mixpanel,0,0,0
+handlebars.js,0,0,0
+intercom,0,0,0
+lodash,0,0,0
+rust,2,0,0.0
+nuget,3,0,0.0
+.net core,4,0,0.0
+modernizr,0,0,0
+apache camel,0,0,0
+tailwind css,0,0,0
+angular,1,0,0.0
+tensorflow,0,0,0
+cassandra,0,0,0
+figma,0,0,0
+amazon dynamodb,0,0,0
+logback,0,0,0
+mandrill,0,0,0
+elixir,0,0,0
+moment.js,0,0,0
+apache spark,0,0,0
+axios,0,0,0
+react router,0,0,0
+material-ui,0,0,0
+chai,1,0,0.0
+jasmine,0,0,0
+r language,1,0,0.0
+addthis,0,0,0
+gatsby,0,0,0
+netlify,0,0,0
+azure devops,0,0,0
+nestjs,0,0,0
+karma,5,0,0.0
+cypress,0,0,0
+dotenv,0,0,0
+fancybox,0,0,0
+amazon sqs,0,0,0
+rxjs,0,0,0
+optimizely,0,0,0
+jupyter,0,0,0
+browserstack,0,0,0
+haproxy,0,0,0
+pytest,1,0,0.0
+cmake,7,0,0.0
+slf4j,1,0,0.0
+apollo,0,0,0
+protobuf,1,0,0.0
+istio,0,0,0
+salesforce sales cloud,0,0,0
+airflow,0,0,0
+microsoft teams,0,0,0
+pingdom,0,0,0
+autoprefixer,0,0,0
+mockito,3,0,0.0
+aws elastic beanstalk,0,0,0
+typekit,0,0,0
+swagger ui,0,0,0
+django rest framework,0,0,0
+grpc,0,0,0
+css-loader,0,0,0
+tslint,0,0,0
+sonarqube,1,0,0.0
+sinonjs,0,0,0
+mongoose,0,0,0
+meteor,0,0,0
+adobe photoshop,2,0,0.0
+d3.js,0,0,0
+nuxt.js,0,0,0
+nodemon,0,0,0
+cocoapods,0,0,0
+pandas,1,0,0.0
+jekyll,0,0,0
+trackjs,0,0,0
+codecov,0,0,0
+styled-components,0,0,0
+google bigquery,0,0,0
+celery,0,0,0
+svelte,0,0,0
+auth0,0,0,0
+yeoman,0,0,0
+google cloud storage,0,0,0
+discord,0,0,0
+adroll,0,0,0
+pytorch,0,0,0
+namecheap,0,0,0
+postcss,0,0,0
+disqus,0,0,0
+acquia,0,0,0
+red hat openshift,0,0,0
+vuetify,0,0,0
+browserify,0,0,0
+alpine linux,0,0,0
+aws cloudformation,0,0,0
+ant design,0,0,0
+rollbar,0,0,0
+amazon redshift,0,0,0
+select2,0,0,0
+jinja,1,0,0.0
+testify,0,0,0
+mustache,0,0,0
+zapier,0,0,0
+protractor,0,0,0
+xamarin,2,0,0.0
+google cloud dns,0,0,0
+crazy egg,0,0,0
+let's encrypt,1,0,0.0
+guava,1,0,0.0
+azure pipelines,0,0,0
+rollup,2,0,0.0
+chart.js,0,0,0
+vuex,0,0,0
+vercel,0,0,0
+consul,0,0,0
+amazon sns,0,0,0
+neo4j,1,0,0.0
+adobe illustrator,1,0,0.0
+tableau,1,0,0.0
+algolia,0,0,0
+ember.js,0,0,0
+amazon api gateway,0,0,0
+amazon vpc,0,0,0
+pug,0,0,0
+spring cloud,0,0,0
+android os,0,0,0
+highcharts,0,0,0
+leaflet,0,0,0
+scikit-learn,0,0,0
+semantic ui,0,0,0
+dns made easy,0,0,0
+squarespace,0,0,0
+json web token,0,0,0
+serilog,0,0,0
+amazon elasticache,0,0,0
+cucumber,0,0,0
+openresty,0,0,0
+chef,2,0,0.0
+microsoft 365,0,0,0
+sequelize,0,0,0
+rancher,0,0,0
+snowflake,6,0,0.0
+litespeed,1,0,0.0
+prisma,0,0,0
+maxcdn,0,0,0
+hipchat,0,0,0
+adobe xd,0,0,0
+terraform registry,0,0,0
+akka,0,0,0
+gunicorn,0,0,0
+phantomjs,0,0,0
+keras,0,0,0
+influxdb,0,0,0
+akamai,1,0,0.0
+gnu bash,2,0,0.0
+marketo,0,0,0
+azure storage,0,0,0
+coveralls,0,0,0
+zoho mail,0,0,0
+enzyme,0,0,0
+puppet labs,0,0,0
+vite,0,0,0
+supertest,0,0,0
+aws iam,0,0,0
+piwik,0,0,0
+matplotlib,1,0,0.0
+traefik,0,0,0
+phoenix framework,0,0,0
+gherkin,0,0,0
+sidekiq,0,0,0
+google kubernetes engine,0,0,0
+create react app,0,0,0
+keycloak,0,0,0
+codeship,0,0,0
+google sheets,0,0,0
+testflight,0,0,0
+airtable,0,0,0
+power bi,0,0,0
+openstack,0,0,0
+fastapi,0,0,0
+strapi,0,0,0
+pusher,0,0,0
+zookeeper,0,0,0
+react redux,0,0,0
+react navigation,0,0,0
+gravity forms,0,0,0
+materialize,1,0,0.0
+jsdom,0,0,0
+stylelint,0,0,0
+quantcast,0,0,0
+pagerduty,0,0,0
+rubocop,0,0,0
+bugsnag,0,0,0
+visual website optimizer,0,0,0
+elk,0,0,0
+hotjar,0,0,0
+mongodb atlas,0,0,0
+jquery mobile,0,0,0
+sinatra,0,0,0
+docker swarm,0,0,0
+crashlytics,0,0,0
+signalr,0,0,0
+yui library,2,0,0.0
+mapbox,0,0,0
+contentful,0,0,0
+plesk,0,0,0
+zeplin,0,0,0
+miro,2,0,0.0
+angular cli,0,0,0
+gitkraken,0,0,0
+puma,0,0,0
+webflow,5,0,0.0
+h2 database,0,0,0
+puppeteer,0,0,0
+jshint,0,0,0
+cloud firestore,0,0,0
+elementor,0,0,0
+amplitude,7,0,0.0
+zabbix,2,0,0.0
+apache cordova,1,0,0.0
+bulma,0,0,0
+amazon aurora,0,0,0
+azure cosmos db,0,0,0
+typeorm,0,0,0
+fastly,0,0,0
+balsamiq,0,0,0
+nativescript,1,0,0.0
+expo,1,0,0.0
+preact,0,0,0
+date-fns,0,0,0
+azure functions,0,0,0
+linode,1,0,0.0
+elm,5,0,0.0
+lerna,0,0,0
+redux-thunk,0,0,0
+insomnia rest client,0,0,0
+amazon rds for postgresql,0,0,0
+amazon cognito,0,0,0
+amazon kinesis,0,0,0
+aws codepipeline,0,0,0
+mobx,0,0,0
+drone.io,0,0,0
+clickup,0,0,0
+ionicons,0,0,0
+material design,0,0,0
+neovim,1,0,0.0
+ethereum,0,0,0
+spring data,0,0,0
+flake8,0,0,0
+three.js,0,0,0
+incapsula,0,0,0
+apache flink,0,0,0
+julia,0,0,0
+splunk,3,0,0.0
+code climate,0,0,0
+koa,0,0,0
+fluentd,0,0,0
+portainer,0,0,0
+java 8,2,0,0.0
+amazon athena,0,0,0
+graylog,0,0,0
+minio,0,0,0
+phonegap,0,0,0
+blazor,0,0,0
+aws cloud9,0,0,0
+looker,0,0,0
+liquibase,4,0,0.0
+cloudinary,0,0,0
+amazon ebs,0,0,0
+microsoft excel,9,0,0.0
+dbeaver,1,0,0.0
+appium,0,0,0
+datagrip,1,0,0.0
+mqtt,0,0,0
+aws glue,0,0,0
+clicky,3,0,0.0
+quasar framework,0,0,0
+fastlane,0,0,0
+amazon emr,0,0,0
+okta,0,0,0
+uikit,2,0,0.0
+aws amplify,0,0,0
+argo,0,0,0
+red hat codeready workspaces,0,0,0
+vmware vsphere,0,0,0
+packer,7,0,0.0
+databricks,0,0,0
+pivotal tracker,0,0,0
+rubymine,0,0,0
+parcel,1,0,0.0
+druid,0,0,0
+jetbrains rider,0,0,0
+google cloud sql,0,0,0
+yii,1,0,0.0
+capybara,0,0,0
+aws fargate,0,0,0
+firebase authentication,0,0,0
+arch linux,1,0,0.0
+github enterprise,0,0,0
+couchbase,0,0,0
+papertrail,0,0,0
+mattermost,0,0,0
+azure sql database,0,0,0
+google meet,0,0,0
+pip,0,0,0
+adobe experience manager,0,0,0
+aws codecommit,0,0,0
+swiftui,0,0,0
+scalatest,0,0,0
+lumen,0,0,0
+polymer,0,0,0
+react storybook,0,0,0
+azure service bus,0,0,0
+netlify cms,0,0,0
+google cloud build,0,0,0
+bamboo,7,0,0.0
+material design lite,0,0,0
+chartbeat,0,0,0
+octokit,0,0,0
+jsdoc,1,0,0.0
+codemirror,2,0,0.0
+braintree,1,0,0.0
+plotly.js,0,0,0
+dataform,0,0,0
+fastify,0,0,0
+azure active directory,0,0,0
+apache nifi,0,0,0
+playwright,0,0,0
+google cloud pub/sub,0,0,0
+guzzle,0,0,0
+pm2,0,0,0
+heroku postgres,0,0,0
+snyk,0,0,0
+formik,0,0,0
+aws codedeploy,0,0,0
+owin,1,0,0.0
+unicorn,1,0,0.0
+tawk.to,0,0,0
+goland,0,0,0
+clickhouse,0,0,0
+google cloud functions,0,0,0
+raspberry pi,0,0,0
+aws codebuild,0,0,0
+apache hive,0,0,0
+clion,0,0,0
+sonatype nexus,1,0,0.0
+hasura,0,0,0
+restsharp,0,0,0
+docker machine,0,0,0
+uglifyjs,1,0,0.0
+rocketchat,0,0,0
+spock framework,0,0,0
+istanbul,0,0,0
+webdriverio,0,0,0
+dbt,0,0,0
+hapi,0,0,0
+redux-saga,0,0,0
+octopus deploy,0,0,0
+ejs,0,0,0
+cloud functions for firebase,0,0,0
+jitsi,0,0,0
+vue cli,0,0,0
+pillow,0,0,0
+hazelcast,0,0,0
+appdynamics,0,0,0
+loki,5,0,0.0
+ngrok,0,0,0
+whatsapp,0,0,0
+mongolab,0,0,0
+kafka streams,0,0,0
+rstudio,1,0,0.0
+dialogflow,0,0,0
+langchain,0,0,0
+facebook ads,0,0,0
+framer,0,0,0
+oauth2,0,0,0
+robot framework,0,0,0
+fabric,3,0,0.0
+react.js boilerplate,0,0,0
+codacy,0,0,0
+onesignal,0,0,0
+sails.js,0,0,0
+passport,2,0,0.0
+apigee,0,0,0
+sauce labs,0,0,0
+webrtc,0,0,0
+azure websites,0,0,0
+flyway,0,0,0
+livereload,0,0,0
+pyspark,0,0,0
+livechat,0,0,0
+redash,0,0,0
+chartio,0,0,0
+clipboard.js,0,0,0
+graphite,0,0,0
+google ads,1,0,0.0
+deno,0,0,0
+envoy,0,0,0
+lottie,0,0,0
+drawio,0,0,0
+jaeger,1,0,0.0
+vuepress,0,0,0
+immutable.js,0,0,0
+windows 10,3,0,0.0
+oh my zsh,1,0,0.0
+bootstrap studio,0,0,0
+1password,0,0,0
+cowboy,3,0,0.0
+kissmetrics,0,0,0
+freshdesk,0,0,0
+zuul,0,0,0
+monday.com,0,0,0
+gitea,0,0,0
+react hot loader,0,0,0
+pardot,0,0,0
+bigcommerce,0,0,0
+uwsgi,0,0,0
+opencensus,0,0,0
+azure kubernetes service,0,0,0
+openai,0,0,0
+iterm2,0,0,0
+hexo,0,0,0
+gin gonic,0,0,0
+dapper,0,0,0
+lambdatest,0,0,0
+bitbucket pipelines,0,0,0
+streamlit,0,0,0
+bitrise,0,0,0
+vue native,0,0,0
+rethinkdb,0,0,0
+esbuild,0,0,0
+angular universal,0,0,0
+jfrog artifactory,0,0,0
+apache mesos,0,0,0
+kubeflow,0,0,0
+prestashop,0,0,0
+rails spring,0,0,0
+dbforge studio for mysql,0,0,0
+pubnub,0,0,0
+arangodb,0,0,0
+supabase,0,0,0
+etcd,0,0,0
+ovh,0,0,0
+mlflow,0,0,0
+i18next,0,0,0
+buddy,9,0,0.0
+rxjava,0,0,0
+nodemailer,0,0,0
+statsd,0,0,0
+sequel pro,0,0,0
+proxmox ve,0,0,0
+amazon elasticsearch service,0,0,0
+azure data factory,0,0,0
+azure app service,0,0,0
+stackdriver,0,0,0
+dropwizard,0,0,0
+statuspage.io,0,0,0
+pgvector,0,0,0
+data studio,3,0,0.0
+google cloud dataflow,0,0,0
+firebase cloud messaging,0,0,0
+linux mint,1,0,0.0
+avro,0,0,0
+dynatrace,0,0,0
+highlight.js,0,0,0
+semrush,0,0,0
+caddy,0,0,0
+purebasic,0,0,0
+xamarin forms,0,0,0
+quarkus,0,0,0
+azure application insights,0,0,0
+netty,0,0,0
+sweetalert,0,0,0
+pipedrive,0,0,0
+google cloud datastore,0,0,0
+launchdarkly,0,0,0
+castle core,0,0,0
+lastpass,0,0,0
+apache freemarker,0,0,0
+ramda,0,0,0
+docusaurus,0,0,0
+phpspec,0,0,0
+adonisjs,0,0,0
+telegram bot api,0,0,0
+concourse,0,0,0
+kendo ui,0,0,0
+airbrake,0,0,0
+red hat enterprise linux (rhel),0,0,0
+polly,0,0,0
+clever cloud,0,0,0
+kali linux,0,0,0
+wercker,0,0,0
+bootstrap vue,0,0,0
+laravel homestead,0,0,0
+uptimerobot,0,0,0
+odoo,0,0,0
+hangfire,0,0,0
+aws cloudtrail,0,0,0
+c3.js,0,0,0
+weebly,0,0,0
+clojurescript,0,0,0
+zulip,0,0,0
+dbforge studio for oracle,0,0,0
+telegraf,0,0,0
+aws step functions,0,0,0
+ifttt,0,0,0
+pulumi,0,0,0
+unbounce,0,0,0
+confluent,0,0,0
+aurelia,0,0,0
+netdata,0,0,0
+loggly,0,0,0
+typeform,0,0,0
+knockout,0,0,0
+dbforge studio for postgresql,0,0,0
+azure databricks,0,0,0
+azure machine learning,0,0,0
+nomad,0,0,0
+fullstory,0,0,0
+phalcon,0,0,0
+postmark,0,0,0
+amazon sagemaker,0,0,0
+semantic ui react,0,0,0
+vert.x,0,0,0
+amazon ecr,0,0,0
+salesforce commerce cloud,0,0,0
+spinnaker,0,0,0
+logrocket,0,0,0
+apiary,0,0,0
+twig,1,0,0.0
+timescaledb,0,0,0
+vue router,0,0,0
+olark,0,0,0
+zopim,0,0,0
+emotion,0,0,0
+capacitor,0,0,0
+gatling,0,0,0
+amazon quicksight,0,0,0
+gitbook,0,0,0
+tower,4,0,0.0
+phpstan,0,0,0
+opsgenie,0,0,0
+splunk cloud,0,0,0
+knex.js,0,0,0
+phabricator,0,0,0
+mongodb compass,0,0,0
+zenhub,0,0,0
+microsoft bot framework,0,0,0
+rackspace cloud servers,0,0,0
+opencart,0,0,0
+chatgpt,0,0,0
+gitlab pages,0,0,0
+imgix,0,0,0
+facebook pixel,0,0,0
+gitter,0,0,0
+talend,2,0,0.0
+amazon lightsail,0,0,0
+customer.io,0,0,0
+testcafe,0,0,0
+paw,1,0,0.0
+hubot,0,0,0
+gocd,0,0,0
+tensorflow.js,0,0,0
+lucidchart,0,0,0
+cockroachdb,0,0,0
+bootsnap,0,0,0
+google cloud run,0,0,0
+discourse,1,0,0.0
+boot2docker,0,0,0
+onedrive,0,0,0
+coreos,0,0,0
+rundeck,0,0,0
+xenforo,0,0,0
+zsh (z shell),0,0,0
+reselect,0,0,0
+hystrix,0,0,0
+google workspace,0,0,0
+apache beam,0,0,0
+nightwatchjs,0,0,0
+doctrine 2,0,0,0
+vscode.dev,0,0,0
+help scout,0,0,0
+spacy,0,0,0
+sendbird,0,0,0
+nexmo,0,0,0
+logentries,0,0,0
+sonarlint,0,0,0
+cloud foundry,0,0,0
+k6,0,0,0
+google cloud bigtable,0,0,0
+bitwarden,0,0,0
+primeng,0,0,0
+thymeleaf,0,0,0
+calendly,0,0,0
+jhipster,0,0,0
+cloud db for mysql,0,0,0
+locust,0,0,0
+node.js,0,0,0
+docker,0,0,0
+npm,1,0,0.0
+typescript,1,0,0.0
+mongodb,0,0,0
+postman,0,0,0
+google drive,0,0,0
+css 3,3,0,0.0
+es6,2,0,0.0
+gitlab,0,0,0
+kubernetes,0,0,0
+redis,0,0,0
+jenkins,3,0,0.0
+angularjs,0,0,0
+vue.js,0,0,0
+cloudflare,0,0,0
+google fonts,0,0,0
+trello,0,0,0
+firebase,0,0,0
+bitbucket,3,0,0.0
+webpack,0,0,0
+font awesome,0,0,0
+google tag manager,0,0,0
+react native,0,0,0
+elasticsearch,0,0,0
+graphql,0,0,0
+expressjs,0,0,0
+eslint,0,0,0
+pycharm,2,0,0.0
+spring boot,0,0,0
+heroku,2,0,0.0
+yarn,0,0,0
+google adsense,0,0,0
+asp.net core,2,0,0.0
+animate.css,0,0,0
+gitlab ci,0,0,0
+serverless,0,0,0
+storybook,0,0,0
+matomo,0,0,0
+amazon eks,0,0,0
+telegram,0,0,0
+angular material,0,0,0
+ghost,13,0,0.0
+anaconda,0,0,0
+bazel,0,0,0
+blockchain,0,0,0
+wp rocket,0,0,0
+laravel forge,0,0,0
+omniauth,0,0,0
+chakra ui,0,0,0
+scrapy,0,0,0
+nextcloud,0,0,0
+mybatis,0,0,0
+docker hub,0,0,0
+zoho crm,0,0,0
+micronaut framework,0,0,0
+apache storm,0,0,0
+aerospike,0,0,0
+feathersjs,0,0,0
+testrail,0,0,0
+gogs,0,0,0
+google search console,0,0,0
+apache traffic server,0,0,0
+recharts,0,0,0
+sumome,0,0,0
+jenkins x,0,0,0
+react-testing-library,0,0,0
+nsq,0,0,0
+reactstrap,0,0,0
+apache zeppelin,0,0,0
+scikit-image,0,0,0
+lighthouse,0,0,0
+android room,0,0,0
+sitefinity,1,0,0.0
+normalize.css,0,0,0
+openvpn,3,0,0.0
+vaadin,1,0,0.0
+salesforce marketing cloud,0,0,0
+torch,3,0,0.0
+sumo logic,0,0,0
+ktor,0,0,0
+arm cortex-m,0,0,0
+arm cortex-a,0,0,0
+stm32,0,0,0
+avr / pic,0,0,0
+risc-v,0,0,0
+nordic nrf,0,0,0
+fpga,6,0,0.0
+freertos,0,0,0
+zephyr,0,0,0
+yocto project,0,0,0
+buildroot,1,0,0.0
+qnx / vxworks,0,0,0
+uc/os (micrium),0,0,0
+bare-metal,2,0,0.0
+uart,2,0,0.0
+i2c,0,0,0
+can bus,0,0,0
+modbus,0,0,0
+ethercat,0,0,0
+ble (bluetooth low energy),0,0,0
+zigbee,0,0,0
+hal (hardware abstraction layer),0,0,0
+device driver,8,0,0.0
+register level programming,0,0,0
+gpio/pwm,0,0,0
+adc/dac,0,0,0
+dma(direct memory access),0,0,0
+verilog/vhdl,0,0,0
+keil mdk / iar workbench,0,0,0
+gnu arm toolchain (gcc),0,0,0
+openocd,0,0,0
+j-link / st-link,0,0,0
+ota (over-the-air),0,0,0
+edge ai (tinyml),0,0,0
+misra c,1,0,0.0
+functional safety (iso 26262),0,0,0
+burp suite,2,0,0.0
+metasploit,2,0,0.0
+zap (owasp),0,0,0
+waf (web application firewall),0,0,0
+sql injection / xss,1,0,0.0
+nmap,8,0,0.0
+ids/ips,1,0,0.0
+ssh / sftp / ftp,0,0,0
+wireguard,0,0,0
+suricata,0,0,0
+snort,3,0,0.0
+oidc,0,0,0
+mfa (multi-factor authentication),0,0,0
+rbac / abac,0,0,0
+falco,1,0,0.0
+trivy,0,0,0
+kms (key management service),0,0,0
+ghidra / ida pro,0,0,0
+john the ripper / hashcat,0,0,0
+"siem (splunk, elk stack)",0,0,0
+godot,0,0,0
+gamemaker,1,0,0.0
+love2d,0,0,0
+monogame,0,0,0
+phaser,0,0,0
+pixijs,0,0,0
+babylon.js,0,0,0
+playcanvas,0,0,0
+cocos2d-x,0,0,0
