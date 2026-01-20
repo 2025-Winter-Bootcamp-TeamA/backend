@@ -1,0 +1,576 @@
+name,description,image,link
+.NET,Microsoft 개발 플랫폼,https://img.stackshare.io/service/1014/IoPy1dce_400x400.png,http://www.microsoft.com/net
+1Password,비밀번호 관리자,https://img.stackshare.io/service/7122/default_4c08dc440c2a2140adb7dc1a9e79086991a1c2d2.png,https://1password.com/developers
+Acquia,Drupal 클라우드,https://img.stackshare.io/service/8246/uXDAUlXc_400x400.jpg,https://www.acquia.com
+ActionScript,Flash 프로그래밍 언어,https://img.stackshare.io/service/2329/8ei_UuLc_400x400.png,http://www.adobe.com/devnet/actionscript.html
+ActiveMQ,오픈소스 메시지 브로커,https://img.stackshare.io/service/1062/default_08edb6f82e2c79424efc1e297ab096e50acd8e0b.jpg,http://activemq.apache.org
+AdonisJS,Node.js MVC 프레임워크,https://img.stackshare.io/service/6439/AlIKY7xr_400x400.jpg,https://adonisjs.com
+AdRoll,리타게팅 플랫폼,https://img.stackshare.io/service/149/default_82da11a786eef101424725a9ebdf71ae769f59b2.jpg,http://www.adroll.com
+Aerospike,NoSQL 데이터베이스,https://img.stackshare.io/service/2123/KhRG5ia4_400x400.jpg,http://www.aerospike.com
+Airbrake,에러 및 성능 모니터링,https://img.stackshare.io/service/194/default_2e86c2914d7024c92debaced975586491c2fb0f1.jpg,https://airbrake.io
+Airflow,워크플로우 관리 플랫폼,https://img.stackshare.io/service/3130/airflow.png,http://airbnb.io/projects/airflow
+Airtable,클라우드 협업 서비스,https://img.stackshare.io/service/1512/logo.png,https://airtable.com
+Akamai,CDN 및 클라우드 서비스,https://img.stackshare.io/service/12/default_05272bd47547a7580e6086fe0d4d1c7f6626b349.png,http://www.akamai.com
+Akka,액터 기반 동시성 툴킷,https://img.stackshare.io/service/1773/default_134640e2b486908944f19eb15610a87a7c1b70d8.png,http://akka.io
+Algolia,검색 API 플랫폼,https://img.stackshare.io/service/589/default_452afb716f8f4b904f267638e5c6b9172f9fa06d.png,https://www.algolia.com
+Alpine Linux,보안 중심 경량 Linux,https://img.stackshare.io/service/6429/alpine_linux.png,https://www.alpinelinux.org
+Amazon API Gateway,API 생성 및 관리 서비스,https://img.stackshare.io/service/3299/aws-api-gateway.png,http://aws.amazon.com/api-gateway
+Amazon Athena,서버리스 대화형 쿼리 서비스,https://img.stackshare.io/service/6091/amazon-athena.png,https://aws.amazon.com/athena
+Amazon Aurora,MySQL/PostgreSQL 호환 클라우드 데이터베이스,https://img.stackshare.io/service/1924/default_437b69de1bb8ef0ec297028e3caf75d539536eed.png,http://aws.amazon.com/rds/aurora
+Amazon CloudFront,AWS CDN,https://img.stackshare.io/service/13/amazon-cloudfront.png,http://aws.amazon.com/cloudfront
+Amazon CloudWatch,AWS 모니터링 서비스,https://img.stackshare.io/service/401/amazon-cloudwatch.png,http://aws.amazon.com/cloudwatch
+Amazon Cognito,사용자 인증 및 권한 부여,https://img.stackshare.io/service/1093/16ffae8c667bdbc6a4969f6f02090652.png,https://aws.amazon.com/cognito
+Amazon DynamoDB,AWS의 완전 관리형 NoSQL 데이터베이스,https://img.stackshare.io/service/389/amazon-dynamodb.png,http://aws.amazon.com/dynamodb
+Amazon EBS,AWS 블록 스토리지,https://img.stackshare.io/service/231/amazon-ebs.png,http://aws.amazon.com/ebs
+Amazon EC2,AWS 가상 서버 인스턴스,https://img.stackshare.io/service/18/amazon-ec2.png,http://aws.amazon.com/ec2
+Amazon ECR,AWS 컨테이너 레지스트리,https://img.stackshare.io/service/9251/default_646bca6126ebc8024fdd8921ec54a8a1ba3c510c.png,https://aws.amazon.com/ecr
+Amazon EKS,AWS 관리형 Kubernetes,https://img.stackshare.io/service/7991/amazon-eks.png,https://aws.amazon.com/eks
+Amazon ElastiCache,AWS 인메모리 캐싱 서비스,https://img.stackshare.io/service/392/amazon-elasticache.png,http://aws.amazon.com/elasticache
+Amazon EMR,AWS 빅데이터 플랫폼,https://img.stackshare.io/service/385/amazon-emr.png,http://aws.amazon.com/elasticmapreduce
+Amazon Kinesis,실시간 스트리밍 데이터 처리,https://img.stackshare.io/service/433/default_6bea44ee4da746fbb7c9070a7ffac9b764d1ed79.png,http://aws.amazon.com/kinesis
+Amazon LightSail,간단한 가상 서버,https://img.stackshare.io/service/6094/amazon-lightsail.png,https://amazonlightsail.com
+Amazon Quicksight,AWS 비즈니스 인텔리전스 서비스,https://img.stackshare.io/service/6040/default_62842e23af488fc2d044ef26c5a32ae577261b56.png,https://aws.amazon.com/quicksight
+Amazon RDS,AWS 관리형 관계형 데이터베이스 서비스,https://img.stackshare.io/service/232/amazon-rds.png,http://aws.amazon.com/rds
+Amazon Redshift,AWS 데이터 웨어하우스,https://img.stackshare.io/service/386/amazon-redshift.png,http://aws.amazon.com/redshift
+Amazon Route 53,AWS DNS 서비스,https://img.stackshare.io/service/38/amazon-route-53.png,http://aws.amazon.com/route53
+Amazon S3,AWS 객체 스토리지,https://img.stackshare.io/service/25/amazon-s3.png,http://aws.amazon.com/s3
+Amazon SageMaker,AWS 머신러닝 플랫폼 및 데이터 관리,https://img.stackshare.io/service/7967/amazon-sagemaker.jpg,https://aws.amazon.com/sagemaker
+Amazon SES,AWS 이메일 서비스,https://img.stackshare.io/service/17/amazon-ses.png,http://aws.amazon.com/ses
+Amazon SNS,AWS 알림 서비스,https://img.stackshare.io/service/396/amazon-sns.png,http://aws.amazon.com/sns
+Amazon SQS,AWS 메시지 큐 서비스,https://img.stackshare.io/service/395/amazon-sqs.png,http://aws.amazon.com/sqs
+Amazon VPC,AWS 가상 사설 클라우드,https://img.stackshare.io/service/388/amazon-vpc.png,http://aws.amazon.com/vpc
+Anaconda,데이터 과학 플랫폼,https://img.stackshare.io/service/4168/default_e178e145a73f964f6c6b903800bc0a1152f4be27.jpg,https://www.anaconda.com
+Android OS,Google 모바일 운영체제,https://img.stackshare.io/service/9586/ZvmtaSXW_400x400.jpg,https://www.android.com
+Android Room,Android 로컬 데이터베이스 라이브러리,https://img.stackshare.io/service/9379/default_1260099b6d4bb9f2e689ef62460fa4655cc59c10.png,https://developer.android.com/training/data-storage/room
+Android SDK,Android 애플리케이션 개발 킷,https://img.stackshare.io/service/1010/m8jf0po4imu8t5eemjdd.png,http://developer.android.com
+Android Studio,Android 공식 IDE,https://img.stackshare.io/service/1447/AyreX9yf.jpeg,https://developer.android.com/sdk/installing/studio.html
+Angular,TypeScript 기반 웹 애플리케이션 프레임워크,https://img.stackshare.io/service/3745/cb8U-gL6_400x400.jpg,https://angular.io
+Animate.css,CSS 애니메이션 라이브러리,https://img.stackshare.io/service/9195/default_5aa00f79c6648507ba5f6c66c130a832332e5adc.png,https://animate.style
+Ansible,IT 자동화 도구,https://img.stackshare.io/service/663/ElOjna20.png,http://www.ansible.com
+Ant Design,엔터프라이즈급 UI 디자인 시스템,https://img.stackshare.io/service/6112/12101536.png,https://ant.design
+Apache Beam,통합 배치 및 스트리밍 모델,https://img.stackshare.io/service/5286/FILKflMC_400x400.png,http://beam.incubator.apache.org
+Apache Camel,통합 프레임워크,https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg,https://camel.apache.org
+Apache Cordova,하이브리드 모바일 앱 프레임워크,https://img.stackshare.io/service/1716/cordova_256.png,http://cordova.apache.org
+Apache Flink,스트림 처리 프레임워크,https://img.stackshare.io/service/2968/kQB_QIB_.png,https://flink.apache.org
+Apache FreeMarker,Java 템플릿 엔진,https://img.stackshare.io/service/4456/ymCgaIO0_400x400.jpg,http://freemarker.incubator.apache.org/index.html
+Apache Hive,데이터 웨어하우스 인프라,https://img.stackshare.io/service/1911/27eb4217dfd5cb2d579cb56bbcc7b290_400x400.jpeg,https://hive.apache.org
+Apache HTTP Server,오픈소스 웹 서버,https://img.stackshare.io/service/1051/default_9e444e0d6cc9f4f55f1b86979900673af4de46aa.png,https://httpd.apache.org
+Apache JMeter,부하 테스트 도구,https://img.stackshare.io/service/5839/8mAJQD05_400x400.jpg,http://jmeter.apache.org
+Apache Maven,Java 빌드 및 의존성 관리 도구,https://img.stackshare.io/package_manager/977/default_9833f2ef0bbc2a946b4cc5e9307264033361076b.png,http://maven.apache.org
+Apache Mesos,클러스터 관리자,https://img.stackshare.io/service/914/d64b637225a3e671799940d5fe13c76b.png,http://mesos.apache.org
+Apache NiFi,데이터 흐름 자동화,https://img.stackshare.io/service/8447/qpL7Veso_400x400.jpg,https://nifi.apache.org
+Apache Spark,빅데이터 처리 엔진,https://img.stackshare.io/service/2220/ca72c4715da998b0bf5d1c857958bed3.png,https://spark.apache.org
+Apache Storm,실시간 계산 시스템,https://img.stackshare.io/service/1595/WC8j4Gr3.png,https://storm.apache.org
+Apache Tomcat,Java 서블릿 컨테이너,https://img.stackshare.io/service/1187/tomcat.png,http://tomcat.apache.org
+Apache Traffic Server,캐싱 프록시 서버,https://img.stackshare.io/service/6131/d2e0cf243d2a576d95fd70b82ddc79dc_400x400.png,http://trafficserver.apache.org
+Apache Zeppelin,Apache Zeppelin 개발 도구 및 기술,https://img.stackshare.io/service/3659/NukVX4E1_400x400.png,https://zeppelin.incubator.apache.org
+Apex,Salesforce 프로그래밍 언어,https://img.stackshare.io/service/4301/10543471.png,https://github.com/apex/apex
+Apiary,API 디자인 및 문서화,https://img.stackshare.io/service/272/7b176017eab2903a23d914460b6dd600.jpeg,http://apiary.io
+Apigee,API 관리 플랫폼,https://img.stackshare.io/service/4215/6f72b788786c25b956aac477099a23ed_400x400.png,https://apigee.com
+Apollo,GraphQL 플랫폼,https://img.stackshare.io/service/5508/CyUH653y.png,https://www.apollographql.com
+AppDynamics,애플리케이션 성능 관리,https://img.stackshare.io/service/105/C0eOfY-7.png,https://www.appdynamics.com
+Appium,모바일 앱 자동화 테스팅,https://img.stackshare.io/service/2855/0KVJyYNC_400x400.jpg,http://appium.io
+ArangoDB,다중 모델 NoSQL 데이터베이스,https://img.stackshare.io/service/1440/iFN2XAaA.png,https://www.arangodb.com
+Arch Linux,경량 유연한 Linux,https://img.stackshare.io/service/2635/arch_linux.png,https://www.archlinux.org
+Arduino,오픈소스 전자 플랫폼,https://img.stackshare.io/service/3195/9d19310763171b0d958d23a18b3d7e1c.png,http://www.arduino.cc
+Argo,Kubernetes 네이티브 워크플로우,https://img.stackshare.io/service/9840/PqKLmP_S_400x400.jpg,https://argoproj.github.io
+ASP.NET,Microsoft의 웹 애플리케이션 프레임워크,https://img.stackshare.io/service/6755/2c45151a4a11d3a3c8e71bb34dd069d6_400x400.png,https://www.asp.net
+Assembly Language,기계어에 가까운 저수준 프로그래밍 언어,https://img.stackshare.io/service/4934/default_71f18bbdc61fb88cefb66415bb55dc6f1e60e5ec.png,https://en.wikipedia.org/wiki/Assembly_language
+Atom,GitHub의 해커블 텍스트 에디터,https://img.stackshare.io/service/648/default_92414794b88a328cecc4ae62413ea91ea0593726.png,http://atom.io
+Aurelia,JavaScript 클라이언트 프레임워크,https://img.stackshare.io/service/2975/9808864.png,http://aurelia.io
+Auth0,인증 및 권한 부여 플랫폼,https://img.stackshare.io/service/601/5Nm3jtVh.jpeg,https://auth0.com
+Autoprefixer,CSS 자동 벤더 프리픽스,https://img.stackshare.io/service/2202/72d087642cfce6fef6f2dabec5bf49e8_400x400.png,https://github.com/postcss/autoprefixer
+AWS Amplify,풀스택 애플리케이션 개발 플랫폼,https://img.stackshare.io/no-img-open-source.png,https://github.com/aws/aws-amplify
+AWS CloudFormation,인프라 템플릿,https://img.stackshare.io/service/411/aws-cloudformation.png,http://aws.amazon.com/cloudformation
+AWS CloudTrail,AWS API 활동 로깅,https://img.stackshare.io/service/415/aws-cloudtrail.png,http://aws.amazon.com/cloudtrail
+AWS CodeBuild,관리형 빌드 서비스,https://img.stackshare.io/service/6086/aws-codebuild.png,https://aws.amazon.com/codebuild
+AWS CodeCommit,AWS Git 저장소,https://img.stackshare.io/service/3298/aws-codecommit.png,https://aws.amazon.com/codecommit
+AWS CodeDeploy,자동화된 배포 서비스,https://img.stackshare.io/service/1888/aws-codedeploy.png,http://aws.amazon.com/codedeploy
+AWS CodePipeline,CI/CD 파이프라인 서비스,https://img.stackshare.io/service/3297/aws-codepipeline.png,https://aws.amazon.com/codepipeline
+AWS Elastic Beanstalk,애플리케이션 배포 및 관리 서비스,https://img.stackshare.io/service/210/aws-elastic-beanstalk.png,http://aws.amazon.com/elasticbeanstalk
+AWS Elastic Load Balancing (ELB),AWS 로드 밸런서,https://img.stackshare.io/service/2587/aws-elastic-load-balancing.png,http://aws.amazon.com/elasticloadbalancing
+AWS Glue,AWS 데이터 통합 서비스,https://img.stackshare.io/service/8906/AWS-Glue_4x.png,https://aws.amazon.com/glue
+AWS Lambda,서버리스 컴퓨팅 서비스,https://img.stackshare.io/service/1909/aws-lambda.png,http://aws.amazon.com/lambda
+AWS Step Functions,서버리스 워크플로우 오케스트레이션,https://img.stackshare.io/service/6089/SWF-e64610d24b6e458c257f1105d8aa926f4a524182.png,https://aws.amazon.com/step-functions
+Azure Active Directory,Azure ID 및 액세스 관리,https://img.stackshare.io/service/6346/icon.png,https://azure.microsoft.com/en-us/services/active-directory
+Azure App Service,Azure 웹 앱 호스팅,https://img.stackshare.io/service/5544/azure-app-service.png,https://azure.microsoft.com/en-us/services/app-service
+Azure Application Insights,Azure 애플리케이션 모니터링,https://img.stackshare.io/service/6336/default_b24de6c7b9f34963f320f2d61efaf87dcbb7327a.png,https://docs.microsoft.com/en-us/azure/azure-monitor/app/app-insights-overview
+Azure Cosmos DB,Azure의 전역 분산 데이터베이스,https://img.stackshare.io/service/1369/nquiptD9.png,https://azure.microsoft.com/en-us/services/cosmos-db
+Azure Data Factory,Azure 데이터 통합 서비스,https://img.stackshare.io/service/6356/sni_tf5H_400x400.jpg,https://azure.microsoft.com/en-us/services/data-factory
+Azure Databricks,Azure 분석 플랫폼,https://img.stackshare.io/service/10345/ADB.png,https://azure.microsoft.com/en-us/services/databricks
+Azure DevOps,개발자 서비스,https://img.stackshare.io/service/4313/XNKktHjN_400x400.png,https://visualstudio.microsoft.com/team-services
+Azure Functions,Azure 서버리스 함수,https://img.stackshare.io/service/4851/default_1c86e0d45d685cb73aa9a39a658159f6199de49d.png,https://azure.microsoft.com/en-us/services/functions
+Azure Kubernetes Service,Azure 관리형 Kubernetes,https://img.stackshare.io/service/9133/Azure-Container-Service_COLOR-300x300.png,https://azure.microsoft.com/en-us/services/kubernetes-service
+Azure Machine Learning,Azure ML 플랫폼,https://img.stackshare.io/service/1221/azure-machine-learning.png,http://azure.microsoft.com/en-us/services/machine-learning
+Azure Pipelines,CI/CD 서비스,https://img.stackshare.io/service/10164/528389819366_e7a0672f0480b3e98d21_512.png,https://azure.microsoft.com/ko-kr/services/devops/pipelines
+Azure Service Bus,Azure 메시징 서비스,https://img.stackshare.io/service/3980/Azure-Service-Bus.png,https://azure.microsoft.com/en-us/services/service-bus
+Azure SQL Database,Azure 관리형 SQL 데이터베이스,https://img.stackshare.io/service/3433/OJB_wH-7_400x400.jpg,http://azure.microsoft.com/en-us/services/sql-database
+Azure Storage,Azure 클라우드 스토리지,https://img.stackshare.io/service/2099/azureStorage.png,http://azure.microsoft.com/en-us/services/storage
+Azure Websites,Azure 웹 사이트 호스팅 서비스,https://img.stackshare.io/service/2100/W9gT7hZo.png,http://azure.microsoft.com/en-us/services/websites
+Babel,JavaScript 트랜스파일러,https://img.stackshare.io/service/2739/-1wfGjNw.png,http://babeljs.io
+Babylon.js,웹 3D 엔진,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW5BbCkIrbydNms3teZaN4TpEWE39_vRgqZw&s,https://www.babylonjs.com/
+Backbone.js,JavaScript MVC 프레임워크,https://img.stackshare.io/service/1017/Screen_Shot_2012-04-28_at_8.52.15_PM.png,http://backbonejs.org
+Bamboo,Atlassian CI 서버,https://img.stackshare.io/service/1729/bamboo.png,https://www.atlassian.com/software/bamboo
+Bazel,빌드 및 테스트 도구,https://img.stackshare.io/service/2697/default_85ab1999fe6310acaeece180990057d2e9ebfb3a.jpg,http://bazel.io
+Bitbucket,Atlassian의 Git 저장소 호스팅 서비스,https://img.stackshare.io/service/28/35O2KIRX_400x400.jpg,https://bitbucket.org
+Bitbucket Pipelines,Bitbucket CI/CD,https://img.stackshare.io/service/7452/35O2KIRX_400x400.jpg,https://bitbucket.org/product/features/pipelines
+Bitrise,모바일 CI/CD,https://img.stackshare.io/service/2686/wFlFGsF3_400x400.jpg,http://bitrise.io
+bitwarden,오픈소스 비밀번호 관리자,https://img.stackshare.io/service/5853/Wkb7Syl9_400x400.jpg,https://bitwarden.com
+Blazor,.NET 웹 프레임워크,https://img.stackshare.io/service/8436/BrandBlazor_nohalo_1000x.png,https://github.com/aspnet/Blazor
+Blender,3D 제작 소프트웨어,https://img.stackshare.io/service/4008/default_6881268b7b648c93220623333752e32de98d7953.jpg,https://www.blender.org
+Blockchain,분산 원장 기술,https://img.stackshare.io/service/10608/default_2e4e6445d2b6326eb7c7748f17ae5109a99121fc.png,https://www.blockchain.com
+boot2docker,경량 Docker 환경,https://img.stackshare.io/service/773/6394678.png,http://boot2docker.github.io
+Bootloader,부트로더,,https://source.android.com/docs/core/architecture/bootloader?hl=ko
+Bootsnap,Ruby/Rails 부팅 최적화,https://img.stackshare.io/no-img-open-source.png,https://github.com/shopify/bootsnap
+Bootstrap,인기있는 CSS 프레임워크,https://img.stackshare.io/service/1101/C9QJ7V3X.png,http://getbootstrap.com
+Bugsnag,에러 모니터링 플랫폼,https://img.stackshare.io/service/150/square-logo-small-midnight.png,https://www.bugsnag.com
+Buildroot,임베디드 Linux 빌드 시스템,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSBe66vzN5flzCZHGn6QAs9QHy-LdtU5QQ0LQ&s,https://buildroot.org/docs.html
+Burp Suite,웹 보안 테스팅 도구,https://ptdts.co.id/assets/img/product/Burpsuite/Burpsuite-logo.jpg,https://portswigger.net/burp
+C lang,시스템 프로그래밍을 위한 저수준 언어,https://img.stackshare.io/no-img-open-source.png,http://en.wikipedia.org/wiki/C_(programming_language)
+C#,Microsoft가 개발한 객체지향 프로그래밍 언어,https://img.stackshare.io/service/1015/1200px-C_Sharp_wordmark.svg.png,http://csharp.net
+C++,C의 확장으로 객체지향을 지원하는 언어,https://img.stackshare.io/service/1049/cplusplus.png,http://www.cplusplus.com
+C3.js,D3 기반 재사용 가능한 차트 라이브러리,https://img.stackshare.io/no-img-open-source.png,http://c3js.org
+Capybara,Ruby 웹 애플리케이션 테스트 프레임워크,https://img.stackshare.io/service/2595/capybara.png,http://jnicklas.github.io/capybara
+Cassandra,분산형 NoSQL 데이터베이스,https://img.stackshare.io/service/1032/cassandra_small.png,http://cassandra.apache.org
+Celery,Python 비동기 작업 큐,https://img.stackshare.io/service/1075/celery.png,http://www.celeryproject.org
+Chart.js,간단한 차트 라이브러리,https://img.stackshare.io/service/3866/_GD1-XrU_400x400.jpg,http://www.chartjs.org
+Chartbeat,실시간 분석 도구,https://img.stackshare.io/service/111/ytX4f5ny_400x400.jpg,http://chartbeat.com
+Chartio,클라우드 BI 플랫폼,https://img.stackshare.io/service/9/TtrFaQ3j_400x400.png,https://chartio.com
+CircleCI,CI/CD 플랫폼,https://img.stackshare.io/service/190/CvqrSSFs_400x400.jpg,https://circleci.com
+Clicky,실시간 웹 분석,https://img.stackshare.io/service/65/clicky.gif,http://getclicky.com
+CloudFlare,DNS 및 보안 서비스,https://img.stackshare.io/service/15/twitter-profile-400x400.png,http://www.cloudflare.com
+Cobol,비즈니스 프로그래밍 언어,,
+CockroachDB,분산 SQL 데이터베이스,https://img.stackshare.io/service/7260/default_e971350de38efca4ebed24e8682c82703629a4e3.png,https://www.cockroachlabs.com
+CocoaPods,iOS 의존성 관리자,https://img.stackshare.io/service/2426/e1cbdef9d4b11484049a033886578e54_400x400.png,https://cocoapods.org
+Cocos2d-x,크로스 플랫폼 게임 프레임워크,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4l31QKbbC_KhhxVT-nczFpEyYaaRZWNUdpw&s,https://www.cocos.com/en/cocos2d-x
+Codacy,자동화된 코드 리뷰,https://img.stackshare.io/service/866/default_3252d282a3e0bdac472b0eb745cd8d415480559c.jpg,https://www.codacy.com
+Code Climate,코드 품질 분석 플랫폼,https://img.stackshare.io/service/305/KFgYaUkK.png,https://codeclimate.com
+Codecov,코드 커버리지 도구,https://img.stackshare.io/service/2673/Codecov_Mark_Circle_Pink.png,https://codecov.io
+CodeIgniter,PHP 프레임워크,https://img.stackshare.io/service/1195/ci_logo.png,http://ellislab.com/codeigniter
+CodeMirror,브라우저 코드 에디터,https://img.stackshare.io/service/2490/E_fCaAi6.png,http://codemirror.net
+Codeship,CI/CD 플랫폼,https://img.stackshare.io/service/224/avatar_codeship_colour.png,https://codeship.com
+Concourse,CI 시스템,https://img.stackshare.io/service/4949/jnsjSQcw_400x400.jpg,https://concourse-ci.org
+Contentful,Headless CMS,https://img.stackshare.io/service/672/default_622e25ec0417ac85db5b66ca399528b101ba284f.png,https://www.contentful.com
+Cordova,"Apache Cordova, 하이브리드 모바일 앱 플랫폼",,
+Couchbase,분산 NoSQL 클라우드 데이터베이스,https://img.stackshare.io/service/1089/KMIbGY8C.png,http://www.couchbase.com
+CouchDB,문서 지향 NoSQL 데이터베이스,https://img.stackshare.io/service/1042/default_86434292d1c55e5f3a3256ca2bc6e2ea62eaca83.jpg,http://couchdb.apache.org
+Cowboy,Erlang HTTP 서버,https://img.stackshare.io/service/2738/1166740.png,https://github.com/ninenines/cowboy
+Cpanel,웹 호스팅 제어판,,
+Crashlytics,모바일 앱 크래시 리포팅,https://img.stackshare.io/service/264/Q3LJPRGx.png,http://crashlytics.com
+Crazy Egg,히트맵 및 A/B 테스팅,https://img.stackshare.io/service/66/crazyegg_logo_avatar.png,http://www.crazyegg.com
+CSS 3,최신 CSS 표준,https://img.stackshare.io/service/6727/css.png,https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3
+css-loader,Webpack CSS 로더,https://img.stackshare.io/service/8074/default_d2b16fd6997fb2e164de645a34f9b8d5a880d999.png,https://github.com/webpack-contrib/css-loader
+Cucumber,BDD 테스팅 프레임워크,https://img.stackshare.io/service/2544/jasVAxyJ.png,https://cukes.info
+CUDA,NVIDIA GPU 병렬 컴퓨팅 플랫폼,https://img.stackshare.io/service/2836/LUOWehvo_400x400.jpeg,http://www.nvidia.com/object/cuda_home_new.html
+cURL,URL 전송 도구,https://img.stackshare.io/service/6552/curl-logo.png,http://curl.haxx.se
+Cypress,프론트엔드 E2E 테스팅 도구,https://img.stackshare.io/service/9231/default_66c5c1a197dcd0232e41e4ab6299d119b4e165b3.png,https://www.cypress.io
+D,C++의 대안으로 설계된 시스템 프로그래밍 언어,https://img.stackshare.io/service/3117/d-5.png,http://dlang.org
+D3.js,데이터 시각화 라이브러리,https://img.stackshare.io/service/1491/HgKolWB5_400x400.jpg,http://d3js.org
+Dart,Flutter 프레임워크를 위한 언어,https://img.stackshare.io/service/1646/Twitter-02.png,https://www.dartlang.org
+Dash,API 문서 브라우저,https://img.stackshare.io/service/2405/HB_dh5cX.png,http://kapeli.com/dash
+Databricks,통합 분석 플랫폼,https://img.stackshare.io/service/9655/H9_HWdcr_400x400.jpg,https://databricks.com
+Datadog,모니터링 및 분석 플랫폼,https://img.stackshare.io/service/669/default_34b3b9b42d07c33ac47ecdff75dd6f4f82aa70ee.jpg,https://www.datadoghq.com/lpg
+Dataform,데이터 모델링 플랫폼,https://img.stackshare.io/service/11236/Group_22__3_.png,https://dataform.co
+DBeaver,유니버설 데이터베이스 도구,https://img.stackshare.io/service/3107/D0pB_eET_400x400.jpg,http://dbeaver.jkiss.org
+Deno,Deno 개발 도구 및 기술,https://img.stackshare.io/service/10504/R7KWwsyG_400x400.png,https://deno.land
+Device Driver,하드웨어 제어 소프트웨어,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ99qD-tmMMKJnXzPGCq9G0K0-oo3VACuhmvQ&s,https://learn.microsoft.com/ko-kr/windows-hardware/drivers/usbcon/usb-driver-development-guide
+Django,Python 기반 고수준 웹 프레임워크,https://img.stackshare.io/service/994/4aGjtNQv.png,https://www.djangoproject.com
+Django REST framework,Django REST framework 개발 도구 및 기술,https://img.stackshare.io/service/1630/New_Project__67_.png,http://www.django-rest-framework.org
+Docker,컨테이너 기반 가상화 플랫폼,https://img.stackshare.io/service/586/n4u37v9t_400x400.png,https://www.docker.com
+Docker Hub,Docker 이미지 레지스트리,https://img.stackshare.io/service/3613/3SqWkwQA_400x400.png,https://hub.docker.com
+Docker Swarm,Docker 클러스터링,https://img.stackshare.io/service/3177/preview.png,https://github.com/docker/swarm
+Drone.io,컨테이너 네이티브 CI,https://img.stackshare.io/service/668/R_wMcCqN_400x400.png,https://drone.io
+Dropwizard,Java RESTful 웹 서비스 프레임워크,https://img.stackshare.io/service/2210/KGguccbW.png,http://dropwizard.io
+Druid,실시간 분석 데이터베이스,https://img.stackshare.io/service/3922/F65UpOhT.png,http://druid.io
+Echo,Go 언어 고성능 웹 프레임워크,https://img.stackshare.io/service/4996/9P0MlumU_400x400.jpg,https://echo.labstack.com
+Edge AI (TinyML),엣지 디바이스 머신러닝,https://edge-ai-tech.eu/wp-content/uploads/2023/01/KDT-JU-EdgeAI_Logo_Transparent.png,https://docs.openedgeplatform.intel.com/dev/ai-libraries.html
+Elasticsearch,검색 및 분석 엔진,https://img.stackshare.io/service/841/Image_2019-05-20_at_4.58.04_PM.png,https://www.elastic.co/products/elasticsearch
+Elementor,WordPress 페이지 빌더,https://img.stackshare.io/service/9785/default_dbe74a5428e4fcf710778a6d102676be30e60b76.png,https://elementor.com
+ELK,"Elasticsearch, Logstash, Kibana 스택",https://img.stackshare.io/service/1883/EmPbn9P0_400x400.png,http://elasticsearch.org
+Ember.js,생산성 높은 JavaScript 프레임워크,https://img.stackshare.io/service/1018/3s1seyc0csl75btyw1vl.png,http://emberjs.com
+ent,Go 엔티티 프레임워크,https://img.stackshare.io/service/21146/default_3b393819f74c4cb10f98fa9e683fa28cf6cc85f5.png,https://entgo.io
+Erlang,동시성과 분산 처리에 강한 함수형 언어,https://img.stackshare.io/service/1004/cbdf77412da183e43d41c0c0f9a7005a.jpeg,http://www.erlang.org
+ESLint,JavaScript 린팅 도구,https://img.stackshare.io/service/3337/Q4L7Jncy.jpg,http://eslint.org
+ExpressJS,Node.js 웹 애플리케이션 프레임워크,https://img.stackshare.io/service/1163/hashtag.png,http://expressjs.com
+F#,.NET 플랫폼의 함수형 프로그래밍 언어,https://img.stackshare.io/service/2155/yRNL7yTW.png,http://fsharp.org
+Fabric,Fabric 개발 도구 및 기술,https://img.stackshare.io/service/662/79c2d43ca09b8321909833f37a500799.png,http://fabfile.org
+Falco,클라우드 네이티브 런타임 보안,https://img1.daumcdn.net/thumb/R800x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdna%2FebVdhH%2FbtsOdEomRiq%2FAAAAAAAAAAAAAAAAAAAAAHPtHP9wBcO6iIsrJYrgRy4KGkZUQvHeCLpdVkRtylU3%2Fimg.png%3Fcredential%3DyqXZFxpELC7KVnFOS48ylbz2pIh7yKj8%26expires%3D1769871599%26allow_ip%3D%26allow_referer%3D%26signature%3D4zv20DP7eXMKyRCuvT5IAZaeWLI%253D,https://falco.org/
+FastAPI,Python 비동기 웹 프레임워크,https://img.stackshare.io/service/25014/default_f6ff39141b468e832d1bc59fc98a060df604d44d.png,https://fastapi.tiangolo.com
+FeathersJS,실시간 애플리케이션을 위한 Node.js 프레임워크,https://img.stackshare.io/service/3448/5321853.png,http://feathersjs.com
+FFMPEG,멀티미디어 처리 프레임워크,https://img.stackshare.io/service/4784/ugIX8eBN_normal.png,https://www.ffmpeg.org
+FindBugs,Java 버그 패턴 탐지기,https://img.stackshare.io/service/2662/kWjFjx3K_400x400.jpg,http://findbugs.sourceforge.net
+Firebase,Firebase 개발 도구 및 기술,https://img.stackshare.io/service/116/cZLxNFZS.jpg,https://firebase.google.com
+Firebase Authentication,Firebase 인증 서비스,https://img.stackshare.io/service/9155/unnamed.jpg,https://firebase.google.com/docs/auth
+Flask,Python 마이크로 웹 프레임워크,https://img.stackshare.io/service/1001/default_6d109315b60108628b7cd3e159b84645c31ef0e2.png,http://flask.pocoo.org
+Fluentd,로그 수집 및 전송 도구,https://img.stackshare.io/service/4365/default_57243b6b4e5e35e73530f825a9fe28013e30812d.jpg,http://www.fluentd.org
+Flutter,Google의 크로스 플랫폼 UI 프레임워크,https://img.stackshare.io/service/7180/flutter-mark-square-100.png,https://flutter.io
+Foundation,반응형 프론트엔드 프레임워크,https://img.stackshare.io/service/1105/ocLJW3ku_400x400.jpg,https://get.foundation
+FreeRTOS,실시간 운영체제,https://upload.wikimedia.org/wikipedia/commons/4/4e/Logo_freeRTOS.png,https://www.freertos.org/
+GameMaker,2D 게임 개발 도구,https://img.notionusercontent.com/s3/prod-files-secure/0352cd16-a8d3-81e0-b220-00039cc98d51/fcfff2d3-3459-4e62-9c63-478a6117aa1e/스크린샷_2026-01-18_오전_1.12.30.png/size/w=2000?exp=1768752793&sig=fexebSTcIqrPvIBpLOvgKGgTKYMWb-JapniuFaM0-AQ&id=2eb2cd16-a8d3-804b-a6a5-c01d37f6a051&table=block&userId=232f9ae6-a9ce-4dd1-b3f9-4d9f5eb269a9,https://gamemaker.io/en
+Gatling,부하 테스트 도구,https://img.stackshare.io/service/3265/default_aa76f76c481c5252dd863cc8ae232f8bf86ec3b2.png,https://gatling.io
+Gatsby,React 기반 정적 사이트 생성기,https://img.stackshare.io/service/5472/default_189db484e0770a6101c6a70f0ef0172bc0f8de37.png,https://www.gatsbyjs.org
+Gherkin,BDD 테스트 시나리오 언어,https://img.stackshare.io/service/2460/default_aff27c02548fadb1b7e6f85a2b0da1c5dca5cc08.png,https://cucumber.io/docs/gherkin/reference
+Ghidra / IDA Pro,리버스 엔지니어링 도구,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-1LnY9w9sZxBbi-dno8nZTnYA0YnNjqqEYQ&s,https://github.com/NationalSecurityAgency/ghidra
+Ghost,Node.js 기반 블로그 플랫폼,https://img.stackshare.io/service/1228/XRKixLnT_400x400.png,https://ghost.org
+Gin Gonic,Go 언어 웹 프레임워크,https://img.stackshare.io/service/4221/7894478.png,https://gin-gonic.com
+Git,분산 버전 관리 시스템,https://img.stackshare.io/service/1046/git.png,http://git-scm.com
+GitHub,Git 기반 코드 호스팅 및 협업 플랫폼,https://img.stackshare.io/service/27/default_869c34d29acc794d60ecdd5d2b5bfc042a80a4ec.jpg,https://github.com
+GitHub Actions,GitHub에서 제공하는 CI/CD 워크플로우 자동화 도구,https://img.stackshare.io/service/11563/actions.png,https://github.com/features/actions
+GlassFish,Java EE 애플리케이션 서버,https://img.stackshare.io/service/3628/515GX-Cc_400x400.jpg,https://glassfish.java.net
+GLSL,OpenGL 셰이딩 언어,https://img.stackshare.io/service/6548/default_a66025fbe8f221c489bdaac3a99d84e5f138cbbd.png,https://www.khronos.org/opengl/wiki/Core_Language_(GLSL)
+GoCD,오픈소스 CI/CD,https://img.stackshare.io/service/2349/Z5QiBr7k_400x400.jpg,http://www.gocd.org
+GoDaddy,도메인 및 호스팅,https://img.stackshare.io/service/42/default_fe6434a2b381cb644610fabe7e72af9a2c57e571.jpg,http://www.godaddy.com
+Godot,오픈소스 게임 엔진,https://dl.flathub.org/media/org/godotengine/GodotSharp/af2144b3c87340ae312187ff465d4740/icons/128x128@2/org.godotengine.GodotSharp.png,https://docs.godotengine.org/en/stable/
+Gogs,경량 자체 호스팅 Git,https://img.stackshare.io/service/1365/ZSXhTUMn_400x400.jpg,http://gogs.io
+Golang,Google이 개발한 컴파일 언어,https://img.stackshare.io/service/1005/O6AczwfV_400x400.png,http://golang.org
+Google Cloud Bigtable,Google Cloud NoSQL 빅데이터 데이터베이스,https://img.stackshare.io/service/2977/Cloud-Bigtable.png,https://cloud.google.com/bigtable
+Google Cloud Build,Google Cloud CI/CD 서비스,https://img.stackshare.io/service/9309/PoHJY3K8_400x400.jpg,https://cloud.google.com/cloud-build
+Google Cloud Dataflow,Google Cloud 데이터 처리 서비스,https://img.stackshare.io/service/5253/google-cloud-dataflow.png,https://cloud.google.com/dataflow
+Google Cloud Datastore,Google Cloud NoSQL 데이터베이스,https://img.stackshare.io/service/2754/google_cloud_datastore.png,https://cloud.google.com/datastore
+Google Cloud DNS,Google Cloud DNS 서비스,https://img.stackshare.io/service/696/s01TMTGn.png,https://cloud.google.com/products/cloud-dns
+Google Cloud Platform,Google의 클라우드 컴퓨팅 서비스,https://img.stackshare.io/service/4240/1a61e4pu_400x400.jpg,https://cloud.google.com
+Google Cloud Pub/Sub,Google Cloud 메시징 서비스,https://img.stackshare.io/service/6253/pubsub.png,https://cloud.google.com/pubsub
+Google Cloud Run,Google Cloud 컨테이너 실행 서비스,https://img.stackshare.io/service/10762/google-cloud-run-logo.png,https://cloud.google.com/run
+Google Cloud SQL,Google Cloud 관리형 관계형 데이터베이스,https://img.stackshare.io/service/619/Cloud_SQL.png,https://cloud.google.com/products/cloud-sql
+Google Cloud Storage,Google 객체 스토리지,https://img.stackshare.io/service/694/Cloud_Storage.png,https://cloud.google.com/products/cloud-storage
+Google Compute Engine,Google Cloud 가상 머신,https://img.stackshare.io/service/518/s01TMTGn.png,https://cloud.google.com/products/compute-engine
+Google Kubernetes Engine,Google Cloud 관리형 Kubernetes,https://img.stackshare.io/service/1587/s01TMTGn.png,https://cloud.google.com/kubernetes-engine
+Gradle,빌드 자동화 도구,https://img.stackshare.io/service/975/gradlephant-social-black-bg.png,https://www.gradle.org
+Grafana,메트릭 시각화 및 대시보드,https://img.stackshare.io/service/2645/default_8f9d552b144493679449b16c79647da5787e808b.jpg,http://grafana.org
+Grails,Groovy 기반 웹 프레임워크,https://img.stackshare.io/service/998/ZpegWh99_400x400.jpg,https://grails.org
+Graphite,메트릭 저장 및 시각화,https://img.stackshare.io/service/1050/graphite.png,https://graphiteapp.org
+GraphQL,API 쿼리 언어,https://img.stackshare.io/service/3820/12972006.png,http://graphql.org
+Graylog,로그 관리 플랫폼,https://img.stackshare.io/service/4392/_HU28D42.png,https://www.graylog.org
+Groovy,JVM에서 실행되는 동적 언어,https://img.stackshare.io/service/997/default_7ff5fcd857f42ad25149f659693d8930bffddf14.png,https://groovy-lang.org
+gRPC,고성능 RPC 프레임워크,https://img.stackshare.io/service/4670/default_d811b0ac72205af84aca21f967594338580be913.png,https://grpc.io
+Grunt,JavaScript 태스크 러너,https://img.stackshare.io/service/845/falgg2jybmhgk16y62lr.png,http://gruntjs.com
+Gunicorn,Python WSGI HTTP 서버,https://img.stackshare.io/service/1091/gunicorn.png,http://gunicorn.org
+H2 Database,Java로 작성된 임베디드 데이터베이스,https://img.stackshare.io/service/3105/h2-logo_square_400x400.png,http://www.h2database.com
+Hack,Facebook이 개발한 PHP 대체 언어,https://img.stackshare.io/service/1208/download.png,http://hacklang.org
+Hadoop,분산 데이터 처리 프레임워크,https://img.stackshare.io/service/1044/elephant_rgb_sq.png,http://hadoop.apache.org
+HAL (Hardware Abstraction Layer),하드웨어 추상화 계층,https://www.shutterstock.com/image-illustration/hal-hardware-abstraction-layer-acronym-260nw-2618288311.jpg,https://source.android.com/docs/core/architecture/hal?hl=ko
+HAML,HTML 추상화 마크업,https://img.stackshare.io/service/1169/Picture_2.png,http://haml.info
+hapi,Node.js 프레임워크,https://img.stackshare.io/service/1166/AC_RK5Ra_400x400.png,http://hapijs.com
+HAProxy,고성능 로드 밸런서,https://img.stackshare.io/service/1179/preview.png,http://www.haproxy.org
+Haskell,순수 함수형 프로그래밍 언어,https://img.stackshare.io/service/1069/oCgm29k9.png,http://www.haskell.org
+Hasura,즉시 GraphQL API,https://img.stackshare.io/service/6590/default_c7e859a8bb0f760439df4171d4439c5ef861dc66.png,https://hasura.io
+Haxe,크로스 플랫폼 툴킷,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRKmZ3WCQQVIK2mjovTlFYKbdf1bZJE6r0E4sBGEc__ig&s,https://haxe.org/
+Hazelcast,인메모리 데이터 그리드,https://img.stackshare.io/service/2024/default_000f7e56d4be68acfa58a6ea8bd40e65a10e04ff.jpg,http://hazelcast.org
+HBase,Hadoop 기반 분산 NoSQL 데이터베이스,https://img.stackshare.io/service/1043/HBase-Twitter3.png,http://hbase.apache.org
+Heap,자동 이벤트 추적 분석,https://img.stackshare.io/service/588/i5NnxX2V_400x400.jpg,https://heap.io
+Heroku,클라우드 애플리케이션 플랫폼,https://img.stackshare.io/service/133/3wgIDj3j.png,https://www.heroku.com
+Heroku Postgres,Heroku PostgreSQL,https://img.stackshare.io/service/2516/original.png,https://www.heroku.com/postgres
+Hexo,Node.js 블로그 프레임워크,https://img.stackshare.io/service/1154/mQZOTo9f.png,http://hexo.io
+Hibernate,Java ORM 프레임워크,https://img.stackshare.io/service/1756/1uNl_IZX.png,http://hibernate.org
+HSQLDB,Java 기반 관계형 데이터베이스,https://img.stackshare.io/service/6958/yQ4763oZ_400x400.jpg,http://hsqldb.org
+HTML5,최신 HTML 표준,https://img.stackshare.io/service/2538/kEpgHiC9.png,http://www.w3.org/TR/html5
+Hubot,Hubot 개발 도구 및 기술,https://img.stackshare.io/service/1519/default_1c0aeb79ae252c37ecb2d079b5ffa8d90d64fb28.png,https://hubot.github.com
+Hugo,Go 기반 정적 사이트 생성기,https://img.stackshare.io/service/1158/default_2e4f7c34f249c9c44d4c0b776018014c06692d03.jpg,https://gohugo.io
+Hystrix,지연 및 장애 허용 라이브러리,https://img.stackshare.io/service/1758/cde558e9b4a1f07ff99f90d637c38388.png,https://github.com/Netflix/Hystrix
+imgix,이미지 최적화 서비스,https://img.stackshare.io/service/273/default_ad68bba53328058d113f6a08de866fdeeafab59a.jpg,https://www.imgix.com
+Incapsula,웹 애플리케이션 보안,https://img.stackshare.io/service/16/pmMygGUP.jpg,http://www.incapsula.com
+InfluxDB,시계열 데이터베이스,https://img.stackshare.io/service/1396/fc3a45a16c93d59408e04097e8bef1e8.png,http://influxdb.com
+Ionic,하이브리드 모바일 앱 프레임워크,https://img.stackshare.io/service/876/bYMCvtHD_400x400.jpg,http://ionicframework.com
+iOS,Apple 모바일 운영체제,https://img.stackshare.io/service/2886/ios-logo.png,https://www.apple.com/lae/ios/ios-12
+Jackson,JSON 프로세서,https://ucarecdn.com/d8ec839d-4d66-4c08-8297-9e2be82f6b75/,https://github.com/FasterXML/jackson
+Jaeger,분산 추적 시스템,https://img.stackshare.io/service/8123/28545596.png,https://github.com/jaegertracing/jaeger
+Jasmine,JavaScript BDD 테스팅 프레임워크,https://img.stackshare.io/service/831/7c0b595409af531b9cdeb07f8c513e8b.png,http://jasmine.github.io
+Java,객체지향 프로그래밍 언어로 JVM에서 실행,https://img.stackshare.io/service/995/K85ZWV2F.png,https://www.java.com
+JavaScript,웹 개발의 핵심 프로그래밍 언어,https://img.stackshare.io/service/1209/javascript.jpeg,https://developer.mozilla.org/en-US/docs/Web/JavaScript
+Jenkins,오픈소스 자동화 서버,https://img.stackshare.io/service/670/jenkins.png,http://jenkins-ci.org
+Jenkins X,Kubernetes용 CI/CD,https://img.stackshare.io/service/8884/5Lk6ASPJ_400x400.jpg,http://jenkins-x.io
+Jest,JavaScript 테스팅 프레임워크,https://img.stackshare.io/service/830/jest.png,http://facebook.github.io/jest
+Jetty,Java 웹 서버 및 서블릿 컨테이너,https://img.stackshare.io/service/1084/default_392a491b5c8bff92ffa39468611ad8f9c0ff1939.png,http://www.eclipse.org/jetty
+JHipster,풀스택 개발 플랫폼,https://img.stackshare.io/service/5353/jb8Xhawb_400x400.jpg,https://jhipster.github.io
+Jira,프로젝트 관리 및 이슈 추적,https://img.stackshare.io/service/154/default_53605d3093005bd7853e04a258c0d4746e803e29.jpg,https://www.atlassian.com/software/jira
+jQuery,빠르고 작은 JavaScript 라이브러리,https://img.stackshare.io/service/1021/lxEKmMnB_400x400.jpg,http://jquery.com
+JSON,JavaScript Object Notation,https://img.stackshare.io/service/2880/1024px-JSON_vector_logo.svg.png,http://www.json.org
+JSON Web Token,"JWT, 안전한 정보 전송 표준",https://img.stackshare.io/service/6417/jwt-icon.png,http://jwt.io
+Julia,고성능 과학 컴퓨팅 언어,https://img.stackshare.io/package_manager/3914/default_a30825f60d1159a8bca0d7d45c4988f63eeb2b0f.png,http://pkg.julialang.org
+JUnit,Java 단위 테스트 프레임워크,https://img.stackshare.io/service/2020/874086.png,http://junit.org
+Jupyter,인터랙티브 컴퓨팅 환경,https://img.stackshare.io/service/4190/fGBUdNf__400x400.jpg,http://jupyter.org
+k6,현대적인 부하 테스트 도구,https://img.stackshare.io/service/7146/k6.jpeg,https://k6.io
+Kafka,분산 스트리밍 플랫폼,https://img.stackshare.io/service/1063/kazUJooF_400x400.jpg,http://kafka.apache.org
+Karma,JavaScript 테스트 러너,https://img.stackshare.io/service/1420/TidYGd6a.png,http://karma-runner.github.io
+Keil MDK / IAR Workbench,임베디드 개발 환경,,replace_here
+Kendo UI,JavaScript UI 컴포넌트,https://img.stackshare.io/service/2636/4TVgtx9B.png,http://www.telerik.com/kendo-ui
+Keras,고수준 신경망 API,https://img.stackshare.io/service/5601/keras.png,https://keras.io
+Kibana,Elasticsearch 시각화 도구,https://img.stackshare.io/service/1722/Image_2019-05-20_at_4.53.31_PM.png,https://www.elastic.co/kibana
+Koa,차세대 웹 프레임워크,https://img.stackshare.io/service/1726/5055057.png,http://koajs.com
+Kong,API 게이트웨이,https://ucarecdn.com/3cf09daa-4e1e-404e-a612-f8a91c661db2/,https://konghq.com
+Kotlin,JVM에서 실행되는 현대적인 프로그래밍 언어,https://img.stackshare.io/service/3750/pCfEzr6L.png,https://kotlinlang.org
+Ktor,Kotlin 비동기 프레임워크,https://img.stackshare.io/service/11590/ktor.png,https://ktor.io
+Kubeflow,Kubernetes 기반 ML 툴킷,https://img.stackshare.io/service/8052/EE9PAsVm_400x400.jpg,https://www.kubeflow.org
+Kubernetes,컨테이너 오케스트레이션,https://img.stackshare.io/service/1885/21_d3cvM.png,http://kubernetes.io
+Labview,그래픽 프로그래밍 환경,,
+LambdaTest,클라우드 크로스 브라우저 테스팅,https://img.stackshare.io/service/8646/gwBrmxMV_400x400.jpg,https://www.testmu.ai
+LangChain,LLM 애플리케이션 개발 프레임워크,https://img.stackshare.io/service/48790/default_5b6c6b73f1ff3775c85d2a1ba954cb87e30cbf13.jpg,https://github.com/hwchase17/langchain
+Laravel,PHP 웹 프레임워크,https://img.stackshare.io/service/992/AcA2LnWL_400x400.jpg,http://laravel.com
+Let's Encrypt,무료 SSL 인증서,https://img.stackshare.io/service/4225/lSuJvwXU_400x400.jpg,https://letsencrypt.org
+Lighthouse,웹 성능 측정 도구,https://img.stackshare.io/service/183/lighthouse_fluid_icon.png,http://lighthouseapp.com
+Linear,이슈 추적 도구,https://img.stackshare.io/service/12513/MF6whgy1_400x400.png,https://linear.app
+Linux,오픈소스 운영체제,https://img.stackshare.io/service/10483/linux.png,https://www.kernel.org
+LiteSpeed,고성능 웹 서버,https://img.stackshare.io/service/2873/9lxca5AK_400x400.jpg,http://www.litespeedtech.com/products/litespeed-web-server/overview
+Locust,Python 기반 부하 테스트 도구,https://img.stackshare.io/service/3301/locust-logo-orignal.png,http://locust.io
+Log4j,Java 로깅 유틸리티,https://img.stackshare.io/service/2804/Coralogix-log4j-integration.jpg,https://logging.apache.org/log4j/2.x
+Logback,Java 로깅 프레임워크,https://img.stackshare.io/service/2923/05518ecaa42841e834421e9d6987b04f_400x400.png,https://logback.qos.ch
+Logentries,로그 관리 및 분석,https://img.stackshare.io/service/200/mNYt_Nwl.png,https://logentries.com
+Loggly,로그 관리 서비스,https://img.stackshare.io/service/83/default_642fc255afad78948f04d7acefa8e11440014888.png,http://loggly.com
+LogRocket,프론트엔드 모니터링,https://img.stackshare.io/service/6063/logo_bg.png,https://logrocket.com
+Logstash,로그 수집 및 처리 파이프라인,https://img.stackshare.io/service/1683/preview.png,http://logstash.net
+Loki,로그 집계 시스템,https://img.stackshare.io/service/10079/loki.png,https://github.com/grafana/loki
+LoopBack,Node.js API 프레임워크,https://img.stackshare.io/service/2727/default_634685dfedc4df3d35d7eaa25d9d4cdd0be4c7b9.jpg,https://loopback.io
+Lottie,애니메이션 라이브러리,https://img.stackshare.io/service/6445/lottie.png,http://airbnb.design/lottie
+Love2D,2D 게임 프레임워크,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTN9WG5lQXSvoBvVFNVWAKn_cCXR8ddEMx3GQ&s,https://love2d.org/
+Lua,경량 임베디드 스크립팅 언어,https://img.stackshare.io/service/2118/128px-Lua-Logo.svg.png,http://www.lua.org
+Lumen,Laravel 마이크로 프레임워크,https://img.stackshare.io/service/2820/lumen.png,http://lumen.laravel.com
+macOS,Apple 데스크톱 운영체제,https://img.stackshare.io/service/5560/macos.png,http://www.apple.com/macos
+MariaDB,MySQL 포크 오픈소스 데이터베이스,https://img.stackshare.io/service/1615/mariadb-logo-400x400.png,https://mariadb.com
+Materialize,CSS 프레임워크,https://img.stackshare.io/service/2015/GN559Lfb.png,http://dogfalo.github.io/materialize/index.html
+MATLAB,수치 계산 언어,https://img.stackshare.io/service/1214/h5g3etjnacmazg8oq17z.jpeg,http://www.mathworks.com/products/matlab
+Memcached,분산 메모리 캐싱,https://img.stackshare.io/service/1040/hDNnpa4a_400x400.jpg,http://memcached.org
+Mercurial,분산 버전 관리,https://img.stackshare.io/service/1047/mercurial.png,https://www.mercurial-scm.org
+Metabase,오픈소스 BI 도구,https://img.stackshare.io/service/3860/4unoiuHt_400x400.jpg,http://www.metabase.com
+Metasploit,침투 테스트 프레임워크,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQveOHt8rUeXuPHV3s_GD9y4pzLPJ9DXXaAvA&s,https://docs.metasploit.com/
+Meteor,풀스택 JavaScript 플랫폼,https://img.stackshare.io/package_manager/1162/default_564ea7edc5b8ccdc8b186cb429da33275b74dca2.png,https://atmospherejs.com
+MFA (Multi-Factor Authentication),다중 인증,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTmCLKrnHZajowFPnIbZvpksZFRVhYUAFLW3Q&s,https://aws.amazon.com/ko/what-is/mfa/
+Micronaut Framework,JVM 마이크로서비스 프레임워크,https://img.stackshare.io/service/10065/YY4et2-e_400x400.jpg,http://micronaut.io
+Microsoft Azure,Microsoft의 클라우드 컴퓨팅 플랫폼,https://img.stackshare.io/service/213/default_88defae415fcb9cd0ac5d36c1ed27e74133c6287.jpg,https://azure.microsoft.com/en-us
+Microsoft Bot Framework,봇 빌딩 프레임워크,https://img.stackshare.io/service/4901/g_LAHGXB_400x400.jpg,https://dev.botframework.com
+Microsoft SQL Server,Microsoft의 관계형 데이터베이스 관리 시스템,https://img.stackshare.io/service/1027/sql_server.png,http://microsoft.com/sqlserver
+MISRA C,임베디드 C 코딩 표준,https://misra.org.uk/app/uploads/2023/03/Misra-C-25.jpg,https://scitools.com/misra?googlead=misra&gad_source=1&gad_campaignid=18932175558&gbraid=0AAAAAD_vmEtoTIPjf77ugg7oOlpIpmhEz&gclid=Cj0KCQiAprLLBhCMARIsAEDhdPd_xYfFkFF_rehhnsN5GksA6lrPNU6ZqGKus7h9wwNV7EmtJR8FLbYaAk88EALw_wcB
+Mocha,JavaScript 테스트 프레임워크,https://img.stackshare.io/service/832/mocha.png,http://mochajs.org
+Mockito,Java 모킹 프레임워크,https://img.stackshare.io/service/2021/4y634TJm_400x400.jpg,https://site.mockito.org
+MongoDB,문서 지향 NoSQL 데이터베이스,https://img.stackshare.io/service/1030/leaf-360x360.png,http://www.mongodb.com
+MonoGame,크로스 플랫폼 게임 프레임워크,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJBJOB2H5f3o33bZi7gezdKH7iDWYI-TO-WA&s,https://monogame.net/
+MooTools,JavaScript 프레임워크,https://img.stackshare.io/service/5991/mootools.twitter_400x400.png,https://mootools.net
+MyBatis,Java 퍼시스턴스 프레임워크,https://img.stackshare.io/service/5582/1483254.png,http://www.mybatis.org/mybatis-3
+MySQL,오픈소스 관계형 데이터베이스,https://img.stackshare.io/service/1025/logo-mysql-170x170.png,http://www.mysql.com
+N8N,워크플로우 자동화,,
+NativeScript,네이티브 모바일 앱 개발 프레임워크,https://img.stackshare.io/service/2605/_fBe-iYT.jpeg,https://www.nativescript.org
+Neo4j,그래프 데이터베이스,https://img.stackshare.io/service/1482/FbkjM42a.png,http://www.neo4j.com
+NestJS,TypeScript 기반 Node.js 프레임워크,https://img.stackshare.io/service/8747/4zsOyxko_400x400.jpg,https://nestjs.com/
+Netdata,실시간 성능 모니터링,https://img.stackshare.io/service/5766/default_041dc1823b117aa375e2976df130a74145238058.png,https://www.netdata.cloud
+Netty,비동기 이벤트 기반 네트워크,https://img.stackshare.io/service/3278/netty_icon_256px.png,http://netty.io
+New Relic,애플리케이션 성능 모니터링(APM),https://img.stackshare.io/service/103/default_193410db3a7e419c7b436961bf41d733c7346b59.png,http://newrelic.com
+Nexmo,통신 API (Vonage),https://img.stackshare.io/service/318/-eqwAwiC.png,https://www.nexmo.com
+Next.js,React 기반 서버 사이드 렌더링 프레임워크,https://img.stackshare.io/service/5936/nextjs.png,https://nextjs.org
+Nextcloud,자체 호스팅 클라우드,https://img.stackshare.io/service/7679/DMp2TQox_400x400.jpg,https://nextcloud.com
+NGINX,고성능 웹 서버 및 리버스 프록시,https://img.stackshare.io/service/1052/YMxUfyWf.png,http://nginx.org
+ngrok,로컬 서버 공개 도구,https://img.stackshare.io/service/1309/default_64cb55c1a8367f51e710697a54340fc497cfe6a1.png,https://ngrok.com
+Nightwatchjs,Node.js E2E 테스팅 프레임워크,https://img.stackshare.io/service/4125/Ihf7jKaE.png,http://nightwatchjs.org
+Node.js,Node.js JavaScript 라이브러리/프레임워크,https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png,https://nodejs.org/ko
+npm,Node.js 패키지 관리자,https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png,https://www.npmjs.com
+NuGet,.NET 패키지 관리자,https://img.stackshare.io/service/2637/6I3oEOP4_400x400.jpg,https://www.nuget.org
+NumPy,수치 계산 라이브러리,https://img.stackshare.io/service/2179/default_332f874a2edb2686f578aa6389313efcea1eec41.png,http://www.numpy.org
+NUnit,.NET 테스팅 프레임워크,https://img.stackshare.io/service/2371/jZ6MYx5Y_400x400.png,http://www.nunit.org
+Nuxt.js,Vue.js 기반 서버 사이드 렌더링 프레임워크,https://img.stackshare.io/service/7304/23360933.png,https://nuxtjs.org
+OAuth2,인증 프로토콜,https://img.stackshare.io/service/4507/oauth2-logo.png,https://oauth.net/2
+Objective-C,Apple 플랫폼의 레거시 프로그래밍 언어,https://img.stackshare.io/service/1008/xcode.png,https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html
+OmniAuth,Ruby 인증 프레임워크,https://img.stackshare.io/service/1433/omniauth.png,https://github.com/intridea/omniauth
+OpenAI,AI 연구 및 API 제공,https://img.stackshare.io/service/48786/default_8b1119bcbb159cebebc2f6cfc9cd2e359b169d22.jpg,https://openai.com
+OpenCensus,분산 추적 및 메트릭 수집,https://img.stackshare.io/service/10794/EpBd2Xrw_400x400.jpg,https://opencensus.io
+Openfaas,서버리스 함수 프레임워크,,
+OpenResty,Nginx 기반 웹 플랫폼,https://img.stackshare.io/service/3118/default_194f546e1cde32e6a4a347f1d3198e62b5592f43.png,http://openresty.org
+OpenSSL,암호화 라이브러리,https://img.stackshare.io/service/3091/default_7c83f36835d14a6195ab6da19789cfcf79f027a0.png,https://www.openssl.org
+OpenStack,OpenStack 개발 도구 및 기술,https://img.stackshare.io/service/770/default_36e10c5d2a92f1635eac3695354ae8c4d7d5df11.jpg,https://www.openstack.org
+OpenVPN,VPN 소프트웨어,https://ucarecdn.com/01a270e0-e967-40df-b725-62598712622a/,https://openvpn.net
+Oracle,엔터프라이즈급 관계형 데이터베이스,https://img.stackshare.io/service/1026/jT-HJYJg.png,http://www.oracle.com/us/products/database/overview/index.html
+PagerDuty,인시던트 관리 플랫폼,https://img.stackshare.io/service/107/GtwgsQj5_400x400.jpg,http://www.pagerduty.com
+Pandas,데이터 분석 라이브러리,https://img.stackshare.io/service/2180/1284191.png,http://pandas.pydata.org
+Papertrail,클라우드 로그 관리,https://img.stackshare.io/service/82/default_3accd6f46a6878fc4663003d9758e6d75bca9dd3.png,https://www.papertrail.com
+Pascal,구조적 프로그래밍 언어,,
+Passenger,애플리케이션 서버,https://img.stackshare.io/service/1054/icon.png,https://www.phusionpassenger.com
+Passport,Node.js 인증 미들웨어,https://ucarecdn.com/8f3cac0e-b146-4f0f-878c-680a6671d804/,http://passportjs.org
+Paw,macOS API 테스팅 도구,https://img.stackshare.io/service/2032/YApveawR.png,https://paw.cloud
+Perl,텍스트 처리에 강한 스크립팅 언어,https://img.stackshare.io/service/1048/perl.png,http://www.perl.org
+pgvector,PostgreSQL 벡터 유사도 검색 확장,https://img.stackshare.io/service/109221/default_b888cdf5617d936aa6aacf130911906955508639.png,https://github.com/pgvector/pgvector
+Phabricator,소프트웨어 개발 플랫폼,https://img.stackshare.io/service/751/VE_3ve2I.png,http://phabricator.org
+Phalcon,C 확장 PHP 프레임워크,https://img.stackshare.io/service/1199/9f91cac523f3b75ea7a484fb0bfdd1f8.png,http://phalconphp.com/en
+PhantomJS,헤드리스 WebKit,https://img.stackshare.io/service/1832/phantomjs.png,https://phantomjs.org
+Phaser,HTML5 게임 프레임워크,https://upload.wikimedia.org/wikipedia/commons/e/e7/Phaser_Logo.png,https://phaser.io/
+Phoenix Framework,Elixir 웹 프레임워크,https://img.stackshare.io/service/3262/-s9uoLIN.png,http://www.phoenixframework.org
+PhoneGap,하이브리드 모바일 앱 개발 플랫폼,https://img.stackshare.io/service/777/NgaEDjHt.jpg,http://phonegap.com
+PHP,서버 사이드 스크립팅 언어,https://img.stackshare.io/service/991/hwUcGZ41_400x400.jpg,http://www.php.net
+phpMyAdmin,MySQL 웹 관리,https://img.stackshare.io/service/2102/3pl3dljQ_400x400.png,https://www.phpmyadmin.net
+PhpSpec,PHP SpecBDD 프레임워크,https://img.stackshare.io/service/3502/6b9dfb07681dee602dbdf75d9393f07c_400x400.png,http://www.phpspec.net/en/latest
+PHPStan,PHP 정적 분석 도구,https://img.stackshare.io/service/8333/phpst.png,https://github.com/phpstan/phpstan
+PHPUnit,PHP 단위 테스트 프레임워크,https://img.stackshare.io/service/1616/1_WsEnddd5Y4EgEHsT054kUQ.jpeg,https://phpunit.de
+pip,Python 패키지 설치 도구,https://img.stackshare.io/service/5559/-RIWgodF_400x400.jpg,https://pypi.org/project/pip
+PixiJS,2D WebGL 렌더러,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6TZVVYL6X_0mo3iGkJp7plbbzaeOWdxnGsA&s,https://pixijs.com/
+Play,Scala/Java 웹 프레임워크,https://img.stackshare.io/service/1013/HqN22PuY.png,http://www.playframework.com
+PlayCanvas,WebGL 게임 엔진,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTrHVZQheOy2TNhf_RWRWvGmglUw53eA5SISA&s,https://playcanvas.com/
+Plesk,웹 호스팅 플랫폼,https://img.stackshare.io/service/1663/x65RF1Rg_400x400.png,https://www.plesk.com
+Plotly.js,차트 및 그래프 라이브러리,https://img.stackshare.io/service/2385/default_86d9af5b442d21446483d9bae3af24a4cee7d792.png,https://plot.ly/javascript
+PM2,Node.js 프로세스 관리자,https://img.stackshare.io/service/2237/757747.png,https://github.com/Unitech/pm2
+Portainer,컨테이너 관리 UI,https://img.stackshare.io/service/5926/default_527bb25deb193777b18200fb5c25b82418df885d.jpg,https://www.portainer.io
+PostGIS,PostgreSQL 공간 확장,https://img.stackshare.io/service/2519/foo.png,http://postgis.net
+PostgreSQL,고급 오픈소스 관계형 데이터베이스,https://img.stackshare.io/service/1028/ASOhU5xJ.png,http://www.postgresql.org
+Postman,API 테스팅 도구,https://img.stackshare.io/service/1336/xWMRvm_5_400x400.png,https://www.getpostman.com
+Postmark,트랜잭션 이메일 서비스,https://img.stackshare.io/service/45/default_e14042211227a4ae0040d034737714ba677b5a57.jpg,http://postmarkapp.com
+PowerShell,Windows 자동화 프레임워크,https://img.stackshare.io/service/3681/powershell-logo.png,https://docs.microsoft.com/en-us/powershell
+Presto,분산 SQL 쿼리 엔진,https://img.stackshare.io/service/2606/default_9c42299fc673a12eed0ad20cb7f5c1fd4ef5c80f.png,https://prestodb.io
+Prism,Prism 개발 도구 및 기술,https://img.stackshare.io/service/10010/Screen_Shot_2012-07-31_at_21.57.03__400x400.png,https://prismjs.com
+Prometheus,오픈소스 모니터링 시스템,https://img.stackshare.io/service/2501/default_3cf1b307194b26782be5cb209d30360580ae5b3c.png,http://prometheus.io
+Protobuf,프로토콜 버퍼,https://img.stackshare.io/service/4393/ma2jqJKH_400x400.png,https://developers.google.com/protocol-buffers
+Prototype,JavaScript 프레임워크,https://img.stackshare.io/service/3597/o_bigger_400x400.png,http://prototypejs.org
+Protractor,Angular E2E 테스팅 프레임워크,https://img.stackshare.io/service/1754/protractor-logo1.png,http://angular.github.io/protractor
+Proxmox VE,오픈소스 가상화 관리,https://img.stackshare.io/service/4493/0.png,https://www.proxmox.com/en/proxmox-ve
+PubNub,실시간 통신 플랫폼,https://img.stackshare.io/service/349/A2EP-NOS.png,http://www.pubnub.com
+Pug,Node.js 템플릿 엔진,https://img.stackshare.io/service/1175/pug.png,https://pugjs.org
+Puma,Ruby 웹 서버,https://img.stackshare.io/service/1055/favicon.png,http://puma.io
+PureBasic,BASIC 프로그래밍 언어,https://img.stackshare.io/service/10734/New_Project__2_.jpg,https://www.purebasic.com
+Pusher,실시간 API,https://img.stackshare.io/service/115/preview.png,http://pusher.com
+pytest,Python 테스팅 프레임워크,https://img.stackshare.io/service/4586/Lu99Qe0Z_400x400.png,http://pytest.org/latest
+Python,다목적 고급 프로그래밍 언어,https://img.stackshare.io/service/993/pUBY5pVj.png,https://www.python.org
+PyTorch,딥러닝 프레임워크,https://img.stackshare.io/service/8171/YYpjkbVn_400x400.jpg,http://pytorch.org
+Q,Q 개발 도구 및 기술,https://img.stackshare.io/service/4697/default_2d5a1d7c5eb520cdeb7db120e767345004a1d0d4.png,https://github.com/kriskowal/q
+QNX / VxWorks,실시간 운영체제,https://docs.conan.io/en/1.66/_images/conan-vxworks_logo.png,https://www.windriver.com/products/embedded/vxworks
+Qt,크로스 플랫폼 애플리케이션 프레임워크,https://img.stackshare.io/service/2449/qt-icon.png,http://www.qt.io
+Quarkus,Kubernetes 최적화 Java 프레임워크,https://img.stackshare.io/service/11117/Wtda2djF_400x400.png,https://quarkus.io
+Quasar Framework,Vue.js 기반 프레임워크,https://img.stackshare.io/service/11161/default_a64f61390e79c5008cd18e890d338259463f9af8.png,https://quasar.dev
+QUnit,JavaScript 단위 테스트 프레임워크,https://img.stackshare.io/service/1421/b706f022230831a3d391db504a139e21.png,http://qunitjs.com
+R Language,통계 분석 및 데이터 시각화 언어,https://img.stackshare.io/service/1213/r-logo.png,http://www.r-project.org
+RabbitMQ,오픈소스 메시지 브로커,https://img.stackshare.io/service/1061/default_df93e9a30d27519161b39d8c1d5c223c1642d187.jpg,http://www.rabbitmq.com
+Racket,Lisp 계열 언어,,
+Rackspace Cloud Servers,Rackspace 클라우드 서버,https://img.stackshare.io/service/19/0226f9ef1173d90417e5113e25e0cc17.png,http://www.rackspace.com/cloud/public/servers
+Rails,"Ruby on Rails, Ruby 기반 웹 프레임워크",https://img.stackshare.io/service/990/x57_Lorv.png,http://rubyonrails.org
+Rancher,컨테이너 관리 플랫폼,https://img.stackshare.io/service/2552/rancher.png,http://rancher.com
+Raspberry Pi,소형 컴퓨터,https://img.stackshare.io/service/5174/LcSgue9p_400x400.png,http://www.raspberrypi.org
+React,UI 구축을 위한 JavaScript 라이브러리,https://img.stackshare.io/service/1020/OYIaJ1KK.png,https://reactjs.org
+React Native,크로스 플랫폼 모바일 앱 프레임워크,https://img.stackshare.io/service/2699/KoK6gHzp.jpg,http://facebook.github.io
+Realm,모바일 데이터베이스,https://img.stackshare.io/service/1140/realm_logo_200_x_200.png,http://realm.io
+Recharts,React 차트 라이브러리,https://img.stackshare.io/service/5608/13690587.png,http://recharts.org
+Redash,데이터 시각화 도구,https://img.stackshare.io/service/3033/NdQYl6cB_400x400.png,https://redash.io
+Redis,인메모리 키-값 데이터 저장소,https://img.stackshare.io/service/1031/default_cbce472cd134adc6688572f999e9122b9657d4ba.png,http://redis.io
+Redux,JavaScript 상태 관리 라이브러리,https://img.stackshare.io/service/4074/13142323.png,https://redux.js.org
+redux-thunk,Redux 비동기 미들웨어,https://img.stackshare.io/service/5448/13142323.png,https://github.com/gaearon/redux-thunk
+RethinkDB,실시간 애플리케이션을 위한 NoSQL 데이터베이스,https://img.stackshare.io/service/531/Sp0fIxul_400x400.jpg,http://www.rethinkdb.com
+Retrofit,Android HTTP 클라이언트,https://img.stackshare.io/service/2856/retrofit-logo.png,http://square.github.io/retrofit
+Robot Framework,키워드 기반 테스트 자동화,https://img.stackshare.io/service/4092/QdWJdB_g_400x400.jpg,http://robotframework.org
+RocketChat,오픈소스 커뮤니케이션 플랫폼,https://img.stackshare.io/service/3124/14EIApTi_400x400.jpg,https://rocket.chat
+Rollbar,실시간 에러 추적,https://img.stackshare.io/service/328/default_3147629185038a15dd41907749544023633da1ea.png,https://rollbar.com
+RSpec,Ruby BDD 테스팅 프레임워크,https://img.stackshare.io/service/2539/logo.png,https://rspec.info
+RStudio,R 통합 개발 환경,https://img.stackshare.io/service/2382/YYMiHBTH_400x400.png,http://www.rstudio.com
+Ruby,간결하고 읽기 쉬운 동적 프로그래밍 언어,https://img.stackshare.io/service/989/ruby.png,https://www.ruby-lang.org
+Rust,안전성과 성능을 중시하는 시스템 프로그래밍 언어,https://img.stackshare.io/service/1070/v7txhrjp9pdqrkdtxxp0.png,http://www.rust-lang.org
+RxJava,반응형 확장 Java,https://img.stackshare.io/service/2190/6407041.png,https://github.com/ReactiveX/RxJava
+Sails.js,Node.js MVC 프레임워크,https://img.stackshare.io/service/1165/3bf33a82d4b1624f6b94da4d9fe1eaeb.png,http://sailsjs.com
+Salt,인프라 관리 소프트웨어,https://img.stackshare.io/service/664/-lag2uPT.png,http://www.saltstack.com/community
+Sanity,구조화된 콘텐츠 플랫폼,https://img.stackshare.io/service/7890/default_d27dfdf7a8694b3065e33c299df346a99299f4d2.png,https://www.sanity.io/
+Sass,CSS 전처리기,https://img.stackshare.io/service/1171/jCR2zNJV.png,http://sass-lang.com
+Sauce Labs,클라우드 테스팅 플랫폼,https://img.stackshare.io/service/207/preview.jpeg,https://saucelabs.com
+Scala,함수형 및 객체지향 프로그래밍을 결합한 JVM 언어,https://img.stackshare.io/service/1012/scala.png,http://www.scala-lang.org
+ScalaTest,Scala 테스팅 프레임워크,https://img.stackshare.io/service/4371/frame_apngframe0.png,http://www.scalatest.org
+scikit-image,이미지 처리 라이브러리,https://img.stackshare.io/service/1294/897180.png,http://scikit-image.org
+scikit-learn,Python 머신러닝 라이브러리,https://img.stackshare.io/service/2657/scikit-learn-logo.png,http://scikit-learn.org/stable
+SciPy,과학 컴퓨팅 라이브러리,https://img.stackshare.io/service/3303/scipyshiny_small.png,http://www.scipy.org
+Scrapy,Python 웹 크롤링 프레임워크,https://img.stackshare.io/service/3116/LJ_Gsz28_400x400.png,http://scrapy.org
+Selenium,웹 브라우저 자동화 도구,https://img.stackshare.io/service/1517/sbUizSli_400x400.jpg,http://www.seleniumhq.org
+Semantic UI,사용자 인터페이스 프레임워크,https://img.stackshare.io/service/1106/semantic-ui.png,http://semantic-ui.com
+Sentry,에러 추적 및 모니터링,https://img.stackshare.io/service/191/default_9262326592c97828a2a4299dec085a3674dd05f4.png,https://sentry.io/welcome
+Sequel Pro,macOS MySQL 클라이언트,https://img.stackshare.io/service/2523/3ab6a1576435ff6c20e3f2694965bbf8.png,http://sequelpro.com
+Sequelize,Node.js ORM,https://img.stackshare.io/service/3211/3591786.png,https://sequelize.org
+Serverless,서버리스 프레임워크,https://img.stackshare.io/service/5095/serverless-logo.png,https://www.serverless.com/
+"SIEM (Splunk, ELK Stack)",보안 정보 및 이벤트 관리,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2YwEuNEfwjTuKQYiP1WLoixaOC__k8jqFbQ&s,https://www.splunk.com/ko_kr
+Sinatra,Ruby 마이크로 웹 프레임워크,https://img.stackshare.io/service/999/logo.png,http://www.sinatrarb.com
+Slim,PHP 마이크로 프레임워크,https://img.stackshare.io/service/1206/GDHlxO_z_400x400.jpg,http://www.slimframework.com
+Smalltalk,객체지향 프로그래밍 언어,https://img.stackshare.io/service/2624/no-img-open-source.png,http://en.wikipedia.org/wiki/Smalltalk
+Smarty,PHP 템플릿 엔진,https://img.stackshare.io/service/3693/smarty.png,http://www.smarty.net
+Snort,네트워크 침입 탐지 시스템,https://www.rapid7.com/cdn/assets/bltae99b55e97ffb716/683de1003a1c5afc7f4ba89e/thumb-snort.jpg,https://www.snort.org/
+Snowflake,클라우드 데이터 웨어하우스,https://img.stackshare.io/service/5889/default_768181e102486f7411fe5f997dac1328d057c2cf.png,https://www.snowflake.net
+Snyk,개발자 보안 플랫폼,https://img.stackshare.io/service/5326/6p1SNAJu.jpg,https://snyk.io
+Socket.IO,실시간 양방향 통신 라이브러리,https://img.stackshare.io/service/1161/vI0ZZlhZ_400x400.png,http://socket.io
+Solr,엔터프라이즈 검색 플랫폼,https://img.stackshare.io/service/1596/al3IkKF8.png,https://solr.apache.org
+SonarQube,코드 품질 분석 플랫폼,https://img.stackshare.io/service/2638/zIVhxKyn_400x400.png,http://www.sonarqube.org
+Spinnaker,멀티 클라우드 CD 플랫폼,https://img.stackshare.io/service/7674/7634182.png,https://www.spinnaker.io
+Splunk,로그 분석 및 모니터링 플랫폼,https://img.stackshare.io/service/1732/default_3ee4c34e118179464e491133fc4ac4f16e46771f.jpg,http://www.splunk.com
+Spock Framework,Groovy 테스팅 프레임워크,https://img.stackshare.io/service/5548/UB74SoK2_400x400.png,http://spockframework.org
+Spring,Java 애플리케이션 프레임워크,https://img.stackshare.io/service/996/unnamed.jpg,http://spring.io
+Spring Boot,Spring 기반 마이크로서비스,https://img.stackshare.io/service/2927/nPzvMuo2_400x400.png,https://spring.io/projects/spring-boot
+Spring Security,인증 및 권한 프레임워크,https://img.stackshare.io/service/6656/com.castsoftware.springsecurity.png,https://spring.io/projects/spring-security
+SQL,구조화 쿼리 언어,https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png,https://en.wikipedia.org/wiki/SQL
+Stackdriver,Google Cloud 모니터링,https://img.stackshare.io/service/734/lHYLxJV3_400x400.jpg,https://cloud.google.com/stackdriver
+StatsD,메트릭 집계 데몬,https://img.stackshare.io/service/932/default_b8c7d49298132d46fbef113905bcba1896158113.png,https://github.com/etsy/statsd
+StatusPage.io,상태 페이지 서비스,https://img.stackshare.io/service/279/sp-logo-blue-white-background.jpg,https://betterstack.com/status-page?utm_medium=c&utm_campaign=adwords15273603349&utm_source=adwords&utm_content=766768852277&utm_term=status+page&gad_source=1&gad_campaignid=15273603349&gbraid=0AAAAAoQQaXpY9_6bMNgkUwcuER_lvuOzT&gclid=EAIaIQobChMIicSEvfOIkgMVvnsPAh2OICAnEAAYASABEgLT9_D_BwE
+Streamlit,ML/데이터 앱 프레임워크,https://img.stackshare.io/service/11393/default_67e251b5860795095fe91618cf3ef8d09257469a.png,https://streamlit.io
+Stylus,CSS 전처리기,https://img.stackshare.io/service/1172/stylus.png,http://stylus-lang.com
+Sumo Logic,로그 관리 및 분석,https://img.stackshare.io/service/370/default_e067d8482359b704f1577f7712967ff5218c784d.png,https://www.sumologic.com
+SumoMe,웹사이트 트래픽 도구,https://img.stackshare.io/service/2933/B2Mmrgli_normal.png,https://sumome.com
+Supabase,오픈소스 Firebase 대안,https://img.stackshare.io/service/12323/Z_q3YLKR_400x400.jpg,https://supabase.com
+Superset,데이터 탐색 플랫폼,https://img.stackshare.io/service/4908/superset2.png,http://airbnb.io/projects/superset
+SuperTest,Node.js HTTP 테스팅,https://img.stackshare.io/no-img-open-source.png,https://www.npmjs.com/package/supertest
+Suricata,네트워크 보안 모니터링,https://velog.velcdn.com/images/kimkh1474/post/7a0712c8-3bca-443a-9784-fa72cbeabcb1/image.png,https://suricata.io/
+Svelte,컴파일 타임에 최적화하는 프론트엔드 프레임워크,https://img.stackshare.io/service/6113/7exmJEg4_400x400.png,https://svelte.technology
+Swagger UI,API 문서화 도구,https://img.stackshare.io/service/3417/pIea9Ji0.png,https://swagger.io/tools/swagger-ui
+Swift,Apple 플랫폼 개발을 위한 프로그래밍 언어,https://img.stackshare.io/service/1009/tuHsaI2U.png,https://developer.apple.com/swift
+SwiftUI,Swift 기반 UI 프레임워크,https://img.stackshare.io/service/11099/swiftui.png,https://developer.apple.com/xcode/swiftui
+Symfony,PHP 프레임워크,https://img.stackshare.io/service/1197/logosf_positif_03_icon.png,http://symfony.com
+Systemverilog,하드웨어 검증 언어,,
+Tableau,데이터 시각화 소프트웨어,https://img.stackshare.io/service/2584/ZadESXl4_400x400.jpg,http://www.tableau.com
+Tailwind CSS,유틸리티 우선 CSS 프레임워크,https://img.stackshare.io/service/8158/default_660b7c41c3ba489cb581eec89c04655404258c19.png,https://tailwindcss.com
+Talend,데이터 통합 플랫폼,https://img.stackshare.io/service/5299/default_054407c8b57eece3f06e710c93687b8806325d12.jpg,https://www.talend.com
+Tcl,스크립팅 언어,,
+TensorFlow,오픈소스 머신러닝 프레임워크,https://img.stackshare.io/service/4717/FtFnqC38_400x400.png,https://www.tensorflow.org
+Terraform,인프라 코드화 도구,https://img.stackshare.io/service/1276/default_2316907c4199f912e2ed79cbdb99025c9e5e2665.png,https://www.terraform.io
+TestCafe,Node.js E2E 테스팅,https://img.stackshare.io/service/7532/W2FwS-Ry_400x400.jpg,https://devexpress.github.io/testcafe
+TestFlight,iOS 베타 테스팅 플랫폼,https://img.stackshare.io/service/95/oGea5QYO.png,https://www.testflightapp.com
+Testify,Go 테스팅 toolkit,https://img.stackshare.io/service/8695/stretchr.png,https://github.com/stretchr/testify
+TestNG,Java 테스팅 프레임워크,https://img.stackshare.io/service/8900/no-img-open-source.png,http://testng.org/doc
+three.js,3D 그래픽 라이브러리,https://img.stackshare.io/service/5883/preview.png,https://threejs.org
+Thymeleaf,Java 템플릿 엔진,https://img.stackshare.io/service/2670/1ll27Cbc_400x400.jpg,http://www.thymeleaf.org
+TimescaleDB,PostgreSQL 기반 시계열 데이터베이스,https://img.stackshare.io/service/6765/20190510_Timescale_Logo_Tiger.png,http://www.timescale.com
+Torch,과학 컴퓨팅 프레임워크,https://img.stackshare.io/service/4475/hpYQzO_U_400x400.png,http://torch.ch
+Tornado,Python 비동기 웹 프레임워크,https://img.stackshare.io/service/1002/tornado.png,http://www.tornadoweb.org
+Traefik,클라우드 네이티브 엣지 라우터,https://img.stackshare.io/service/5126/default_0a34be001ec8247c641508aa468564fb386bc50c.png,https://traefik.io
+Travis CI,CI 서비스,https://img.stackshare.io/service/460/Lu6cGu0z_400x400.png,http://travis-ci.com
+Trivy,컨테이너 취약점 스캐너,https://all4chip.com/data/editor/2109/287c295a2aebb1a79dafc4759f55e755_1630968799_5628.png,https://trivy.dev/docs/latest/guide/
+TSLint,TypeScript 린팅 도구 (deprecated),https://img.stackshare.io/service/5561/303157.png,https://github.com/palantir/tslint
+Tumblr,마이크로블로깅 플랫폼,https://img.stackshare.io/service/252/default_d1a9675611f2f796799e053201f5e9630e3a6548.jpg,https://www.tumblr.com
+Twig,PHP 템플릿 엔진,https://img.stackshare.io/service/1642/default_3debd3a9a6d757c011130c7a9626e7c3bd8be945.png,https://twig.symfony.com
+Twilio,클라우드 통신,https://img.stackshare.io/service/130/VrwpNfjh_400x400.png,http://www.twilio.com
+TypeScript,JavaScript의 상위 집합으로 정적 타입을 추가한 언어,https://img.stackshare.io/service/1612/bynNY5dJ.jpg,http://www.typescriptlang.org
+Ubuntu,Linux 배포판,https://img.stackshare.io/service/3511/cof_orange_hex.jpg,http://www.ubuntu.com
+UIkIt,프론트엔드 프레임워크,https://img.stackshare.io/service/1107/2247444e82685c05034fc296fc331472.png,http://www.getuikit.com
+Unbounce,랜딩 페이지 빌더,https://img.stackshare.io/service/78/GEI0oMKZ.png,http://unbounce.com
+Unicorn,Ruby HTTP 서버,https://img.stackshare.io/service/1053/unicorn.png,http://unicorn.bogomips.org
+Unity,게임 엔진,https://img.stackshare.io/service/2084/CGKUrcD9_400x400.jpg,http://unity3d.com
+Unreal Engine,3D 게임 엔진,https://img.stackshare.io/service/2990/6DO-xqph_400x400.jpg,https://www.unrealengine.com/en-US
+UptimeRobot,웹사이트 가동 시간 모니터링,https://img.stackshare.io/service/1617/XIw15nT6_400x400.jpg,https://uptimerobot.com
+UserVoice,고객 피드백 소프트웨어,https://img.stackshare.io/service/122/twitter_avatar_UserVoice.png,http://www.uservoice.com
+Vaadin,Java 웹 앱 플랫폼,https://img.stackshare.io/service/2971/UuHV6j99_400x400.jpg,http://vaadin.com
+Vagrant,가상 개발 환경 도구,https://img.stackshare.io/service/768/150px-Vagrant.png,http://www.vagrantup.com
+Varnish,HTTP 가속기,https://img.stackshare.io/service/1073/default_7811fe80d774e75973d4f3880e5903125f0bec3b.jpg,https://www.varnish-cache.org
+Vault,시크릿 관리 도구,https://img.stackshare.io/service/2905/vault.png,https://www.vaultproject.io
+Vercel,프론트엔드 클라우드 플랫폼,https://img.stackshare.io/service/7618/bHjpwZem_400x400.png,https://vercel.com
+Vert.x,JVM 기반 반응형 애플리케이션 툴킷,https://img.stackshare.io/service/3279/q9FQ_NSR_400x400.jpg,http://vertx.io
+Vim,고급 텍스트 에디터,https://img.stackshare.io/service/644/vim_logo.png,http://www.vim.org
+VirtualBox,오픈소스 가상화 소프트웨어,https://img.stackshare.io/service/774/vbox_94px.png,https://www.virtualbox.org
+Visual Basic,Microsoft 프로그래밍 언어,https://img.stackshare.io/service/1016/10ffe9eda0de4670955cc9bdfa78fe9b.png,http://msdn.microsoft.com/en-us/library/2x7h1hfk.aspx
+Visual Studio,Microsoft 통합 개발 환경,https://img.stackshare.io/service/1451/SR2hUhQN.png,http://msdn.microsoft.com/en-us/vstudio/aa718325.aspx
+Visual Studio Code,Microsoft의 오픈소스 코드 에디터,https://img.stackshare.io/service/4202/Visual_Studio_Code_logo.png,https://code.visualstudio.com
+Visual Website Optimizer,A/B 테스팅 도구,https://img.stackshare.io/service/62/SvqQZhMt.jpeg,http://visualwebsiteoptimizer.com
+Vite,차세대 프론트엔드 빌드 도구,https://img.stackshare.io/service/21547/default_1aeac791cde11ff66cc0b20dcc6144eeb185c905.png,https://vitejs.dev
+VMware vSphere,가상화 플랫폼,https://img.stackshare.io/service/775/DfXQ4S9P_400x400.jpg,http://www.vmware.com/products/vsphere
+Vue Native,Vue.js 기반 모바일 프레임워크,https://img.stackshare.io/service/9117/logo.png,https://vue-native.io
+Vue.js,진보적인 JavaScript 프레임워크,https://img.stackshare.io/service/3837/paeckCWC.png,http://vuejs.org
+VuePress,Vue 기반 정적 사이트 생성기,https://img.stackshare.io/service/8863/paeckCWC.png,https://vuepress.vuejs.org
+Vulkan,그래픽 및 컴퓨팅 API,,
+Webpack,JavaScript 모듈 번들러,https://img.stackshare.io/service/1682/IMG_4636.PNG,http://webpack.js.org
+wercker,컨테이너 CI/CD,https://img.stackshare.io/service/897/S67KcxKE.png,http://wercker.com
+Windows,Microsoft 운영체제,https://img.stackshare.io/service/2881/U54M_YbJ_400x400.jpg,https://www.microsoft.com/en-us/windows
+WireGuard,VPN 프로토콜,https://cdn.sanity.io/images/zo1bnlq1/production/e7ab3cc3c01529f028b6dc1e09749b12d52bf3e0-1554x1552.png?w=1554&auto=format,https://www.wireguard.com/
+Wireshark,네트워크 프로토콜 분석기,https://velog.velcdn.com/images/chobowhack05/post/7b400767-eede-4fcf-9bb6-54dc333de5e3/image.png,https://www.wireshark.org/
+Wix,웹사이트 빌더,https://img.stackshare.io/service/4656/tvOXJHAG_400x400.png,http://www.wix.com
+ws,Node.js WebSocket 라이브러리,https://img.stackshare.io/service/11381/no-img-open-source.png,https://github.com/websockets/ws
+Xamarin,크로스 플랫폼 모바일 개발 프레임워크,https://img.stackshare.io/service/211/RDXWoY7W.png,http://xamarin.com
+Xamarin Forms,Xamarin UI 프레임워크,https://img.stackshare.io/service/2459/RDXWoY7W_400x400.png,http://developer.xamarin.com/guides/cross-platform/xamarin-forms
+xUnit,.NET 단위 테스트 프레임워크,https://img.stackshare.io/service/3077/ca5a327feb49ddfe1f4b11548907e5a1_400x400.png,http://xunit.github.io
+YAML,데이터 직렬화 언어,https://img.stackshare.io/service/1744/yaml.png,http://www.yaml.org
+Yarn,JavaScript 패키지 관리자,https://img.stackshare.io/service/5848/44mC-kJ3.jpg,https://yarnpkg.com
+Yii,PHP 프레임워크,https://img.stackshare.io/service/1200/logo-body2.png,http://www.yiiframework.com
+ZAP (OWASP),웹 앱 보안 스캐너,https://miro.medium.com/1*ehhGqaKCKVnOw3Nlu1ajmA.png,https://www.zaproxy.org/docs/
+Zapier,자동화 플랫폼,https://img.stackshare.io/service/286/0bd8e9aaccec949490082ad22c7ee60f.png,https://zapier.com
+Zend Framework,PHP 프레임워크,https://img.stackshare.io/service/1198/zend-logo.png,http://framework.zend.com
+ZenHub,GitHub 프로젝트 관리,https://img.stackshare.io/service/1589/default_88cf6fde12ec92c4a2d746a06304bf54c134ba61.jpg,https://www.zenhub.com
+Zephyr,RTOS 프로젝트,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeXJn_zUafm82JM8HnmjKXvDTXiDfKfBDUcA&s,https://github.com/zephyrproject-rtos/zephyr
