@@ -261,3 +261,65 @@ class TechBookmark(models.Model):
         verbose_name = '기술 즐겨찾기'
         verbose_name_plural = '기술 즐겨찾기 목록'
         unique_together = ['user', 'tech_stack']
+
+
+class TechStackRelationship(models.Model):
+    """
+    기술 스택 간 관계 모델
+    ERD: tech_stack_relationship 테이블
+    """
+    RELATIONSHIP_TYPES = [
+        ('synergy_with', '시너지 관계'),
+        ('required_infra', '필수 인프라'),
+        ('alternative', '대체 기술'),
+        ('parent', '부모 기술'),
+        ('child', '자식 기술'),
+    ]
+    
+    from_tech_stack = models.ForeignKey(
+        TechStack,
+        on_delete=models.CASCADE,
+        related_name='outgoing_relationships',
+        verbose_name='출발 기술 스택'
+    )
+    to_tech_stack = models.ForeignKey(
+        TechStack,
+        on_delete=models.CASCADE,
+        related_name='incoming_relationships',
+        verbose_name='도착 기술 스택'
+    )
+    relationship_type = models.CharField(
+        max_length=50,
+        choices=RELATIONSHIP_TYPES,
+        verbose_name='관계 유형'
+    )
+    weight = models.FloatField(
+        default=1.0,
+        help_text='관계의 강도 (0.0 ~ 1.0)',
+        verbose_name='관계 강도'
+    )
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+        verbose_name='등록일자'
+    )
+    updated_at = models.DateTimeField(
+        auto_now=True,
+        verbose_name='수정일자'
+    )
+    is_deleted = models.BooleanField(
+        default=False,
+        verbose_name='삭제 여부'
+    )
+
+    class Meta:
+        db_table = 'tech_stack_relationship'
+        verbose_name = '기술 스택 관계'
+        verbose_name_plural = '기술 스택 관계 목록'
+        unique_together = ['from_tech_stack', 'to_tech_stack', 'relationship_type']
+        indexes = [
+            models.Index(fields=['from_tech_stack', 'relationship_type']),
+            models.Index(fields=['to_tech_stack', 'relationship_type']),
+        ]
+
+    def __str__(self):
+        return f"{self.from_tech_stack.name} -> {self.to_tech_stack.name} ({self.get_relationship_type_display()})"
