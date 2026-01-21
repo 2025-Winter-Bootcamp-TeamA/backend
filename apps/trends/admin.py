@@ -14,8 +14,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(TechStack)
 class TechStackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_categories', 'created_at', 'is_deleted']
+    list_display = ['name', 'get_categories', 'article_stack_count', 'created_at', 'is_deleted']
     search_fields = ['name']
+    ordering = ('-article_stack_count',) 
     def get_categories(self, obj):
         categories = obj.category_relations.all()
         return ", ".join([rel.category.name for rel in categories])
