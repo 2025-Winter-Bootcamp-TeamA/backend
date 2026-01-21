@@ -30,8 +30,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 # 디버그 도구
 INSTALLED_APPS += [
-    'debug_toolbar',  
-    'django_celery_beat',  # 크롤링 작업을 위해 추가
+    'debug_toolbar',
 ]
 
 MIDDLEWARE += [
