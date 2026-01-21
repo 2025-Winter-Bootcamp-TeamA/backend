@@ -321,7 +321,8 @@ class ResumeMatchCreateAPIView(APIView):
             if not resume_text or not resume_text.strip():
                 return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-            ollama_host = 'http://host.docker.internal:11434' if os.path.exists('/.dockerenv') else config('OLLAMA_URL', default='http://localhost:11434')
+            #ollama_host = 'http://host.docker.internal:11434' if os.path.exists('/.dockerenv') else config('OLLAMA_URL', default='http://localhost:11434')
+            ollama_host = settings.OLLAMA_URL
             parser = ResumeParserSystem(host=ollama_host)
             structured_data = parser.parse(resume_text)
 
