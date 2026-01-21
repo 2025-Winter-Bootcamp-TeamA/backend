@@ -38,8 +38,8 @@ urlpatterns = [
     path('api/v1/interviews/', include('apps.interviews.urls')),
     
     # 인증 (백엔드 OAuth Flow)
-    #path('api/v1/auth/google/start/', user_views.GoogleLoginStartView.as_view(), name='google_start'),
-    #path('api/v1/auth/google/callback/', user_views.GoogleLoginCallbackView.as_view(), name='google_callback'),
+    path('api/v1/auth/google/start/', user_views.GoogleLoginStartView.as_view(), name='google_start'),
+    path('api/v1/auth/google/callback/', user_views.GoogleLoginCallbackView.as_view(), name='google_callback'),
 
     # API 문서
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),

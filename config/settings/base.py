@@ -31,12 +31,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    # # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
-    # 'allauth',
-    # 'allauth.account',
-    # 'allauth.socialaccount',
-    # 'allauth.socialaccount.providers.google',
-    #'django_celery_beat',
+    # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
 
     'django_celery_beat',  # 크롤링 작업을 위해 추가
 
@@ -63,7 +62,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'allauth.account.middleware.AccountMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -130,7 +129,7 @@ AUTH_USER_MODEL = 'users.User'
 # allauth는 사용하지 않으므로 ModelBackend만 사용
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    # 'allauth.account.auth_backends.AuthenticationBackend',  # allauth 미사용
+    'allauth.account.auth_backends.AuthenticationBackend',  # allauth 미사용
 ]
 
 # Django REST Framework 설정

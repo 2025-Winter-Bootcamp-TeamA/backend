@@ -6,14 +6,22 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('trends', '0005_techstackrelationship'),
+        # [핵심] 두 갈래로 나뉘었던 0005번 파일들을 여기서 모두 부모로 지정합니다.
+        ('trends', '0005_techstackrelationship'), 
+        ('trends', '0005_article_view_count'),
     ]
 
     operations = [
+        # 1. Article 모델에서 더 이상 안 쓰는 stack_count 제거
+        migrations.RemoveField(
+            model_name='article',
+            name='stack_count',
+        ),
+        # 2. TechStack 모델에 새로운 카운트 필드들 추가
         migrations.AddField(
             model_name='techstack',
             name='article_stack_count',
-            field=models.IntegerField(default=0, verbose_name='게시글 스택 언급량'),
+            field=models.BigIntegerField(default=0, verbose_name='게시글 스택 언급량'),
         ),
         migrations.AddField(
             model_name='techstack',

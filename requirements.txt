@@ -24,6 +24,7 @@ drf-yasg==1.21.7
 djangorestframework-simplejwt==5.3.1
 PyJWT==2.8.0
 dj-rest-auth==5.0.2
+django-allauth==0.61.0
 
 # AI/ML
 openai==1.12.0
