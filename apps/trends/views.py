@@ -2,7 +2,7 @@
 트렌드 뷰
 """
 
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -77,8 +77,10 @@ class TechStackListView(generics.ListAPIView):
     permission_classes = [AllowAny]
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
-    filter_backends = [DjangoFilterBackend]
+    # 이름만 부분 일치 검색 + exact 필터 병행
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name']
+    search_fields = ['name']  # 기술 스택 이름만 검색 가능
 
 
 class TechStackDetailView(generics.RetrieveAPIView):
