@@ -5,10 +5,12 @@ from collections import defaultdict
 from pathlib import Path
 from xml.etree.ElementTree import iterparse
 
+from django.db.models import F
 from django.core.management.base import BaseCommand
 from django.db import transaction
 
 from apps.trends.models import TechStack, Article, ArticleStack
+
 
 # 토큰 추출용
 TOKEN_RE = re.compile(r"[a-z0-9\+\#\.\-]+")
@@ -200,7 +202,7 @@ class Command(BaseCommand):
             default="",        
             help="Optional: output CSV path for --detail-tech results. "
                  "If empty, auto-generate next to --out (e.g. git_top_posts_10.csv).",
-        )  
+        )
 
         # DB 에 게시글, 게시글-기술스택 저장 옵션
         parser.add_argument(
@@ -280,7 +282,7 @@ class Command(BaseCommand):
         # 결과 집계용
         mention_count = defaultdict(int)  # tech -> 언급된 게시글 수
         total_views = defaultdict(int)    # tech -> 조회수 누적 합
-
+        tech_mentions_by_id = defaultdict(int)
         top_posts_by_tech = defaultdict(list)
         detail_heap = []
 
@@ -337,7 +339,7 @@ class Command(BaseCommand):
                     if len(h) > topn:
                         heapq.heappop(h)
 
-            # 5) DB 저장: Article / ArticleStack 적재
+            # 5) DB 저장: Article, ArticleStack, TechStack(article_stack_count) 적재
             if save_db and seen_in_this_post:
                 url = f"https://stackoverflow.com/questions/{post_id}"
 
@@ -345,43 +347,46 @@ class Command(BaseCommand):
                     url=url,
                     defaults={
                         "source": "stackoverflow",
-                        "stack_count": 0,
                         "view_count": view_count
                     },
                 )
 
-                # ✅ 이미 존재하는 글이면 view_count 최신값으로 갱신
+                # 이미 존재하는 글이면 view_count 최신값으로 갱신
                 if not created and article.view_count != view_count:
                     article.view_count = view_count
                     article.save(update_fields=["view_count", "updated_at"])  
 
-                # 관계 버퍼에 쌓고 배치로 bulk_create
-                for tech in seen_in_this_post:
-                    ts = db_tech_map.get(tech)
-                    if not ts:
-                        continue
-                    rel_buffer.append(
-                        ArticleStack(
+                # 새로 생긴 ArticleStack 관계만 tech_count +1
+                created_tech_ids = []
+                
+                with transaction.atomic():
+                    for tech in seen_in_this_post:
+                        ts = db_tech_map.get(tech)
+                        if not ts:
+                            continue
+
+                        rel, rel_created = ArticleStack.objects.get_or_create(
                             article=article,
                             tech_stack=ts,
-                            count=1,
+                            defaults={"count": 1},
                         )
-                    )
 
-                # 일정량 쌓이면 bulk insert
-                if len(rel_buffer) >= db_batch:
-                    with transaction.atomic():  
-                        ArticleStack.objects.bulk_create(rel_buffer, batch_size=db_batch,  ignore_conflicts=True)  
-                    rel_buffer.clear()  
+                        if rel_created:
+                            created_tech_ids.append(ts.id)
+                        else:
+                            # 이미 관계가 있으면 count만 최신화
+                            if rel.count != 1:
+                                rel.count = 1
+                                rel.save(update_fields=["count", "updated_at"])
+
+                    if created_tech_ids:
+                        TechStack.objects.filter(id__in=created_tech_ids).update(
+                            article_stack_count = F("article_stack_count") + 1
+                        )
 
             if progress and scanned % progress == 0:
                 self.stdout.write(f"scanned={scanned:,}")
 
-        # 남은 관계 버퍼 flush
-        if save_db and rel_buffer: 
-            with transaction.atomic(): 
-                ArticleStack.objects.bulk_create(rel_buffer, batch_size=db_batch, ignore_conflicts=True) 
-            rel_buffer.clear() 
 
         # 조회수(total_views) 기준 정렬해서 CSV 출력
         rows = []
