@@ -5,11 +5,15 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from apps.jobs.models import JobPosting
 from apps.trends.models import TechStack
-from .models import Resume, ResumeMatching, ResumeStack
-from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer
+from .models import Resume, ResumeMatching, ResumeStack, WorkExperience, ProjectExperience
+from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer, WorkExperienceSerializer, ProjectExperienceSerializer
 from .utils import analyze_resume
 from django.db import transaction
 from decouple import config
+import os
+from scripts.pdf_text_extractor import extract_text_from_pdf_url
+from scripts.module_resume_extractor import ResumeParserSystem
+
 
 class ResumeListCreateView(generics.ListCreateAPIView):
     """이력서 목록 조회 및 생성(PDF 업로드)"""
@@ -201,4 +205,52 @@ class ResumeRestoreView(APIView):
             'resume_title': resume.title,
             'restored_matchings': restored_count
         }, status=status.HTTP_200_OK)
-    
+
+
+class ResumeMatchCreateAPIView(APIView):
+    """이력서 분석 및 직무/프로젝트 경험 추출"""
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, resume_id):
+        try:
+            resume = Resume.objects.get(pk=resume_id, user=request.user, is_deleted=False)
+        except Resume.DoesNotExist:
+            return Response({'error': '이력서를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+        if not resume.url:
+            return Response({'error': '이력서 URL이 없습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            resume_text = extract_text_from_pdf_url(resume.url)
+            if not resume_text or not resume_text.strip():
+                return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+
+            ollama_host = 'http://host.docker.internal:11434' if os.path.exists('/.dockerenv') else config('OLLAMA_URL', default='http://localhost:11434')
+            parser = ResumeParserSystem(host=ollama_host)
+            structured_data = parser.parse(resume_text)
+
+            with transaction.atomic():
+                WorkExperience.objects.filter(resume=resume).delete()
+                ProjectExperience.objects.filter(resume=resume).delete()
+
+                if 'work_experience' in structured_data and structured_data['work_experience']:
+                    for exp in structured_data['work_experience']:
+                        WorkExperience.objects.create(
+                            resume=resume,
+                            organization=exp.get('organization') or '',
+                            details=exp.get('details') or ''
+                        )
+
+                if 'project_experience' in structured_data and structured_data['project_experience']:
+                    for exp in structured_data['project_experience']:
+                        ProjectExperience.objects.create(
+                            resume=resume,
+                            project_name=exp.get('name') or '',  # Changed from 'project_name' to 'name'
+                            context=exp.get('context') or '',
+                            details=exp.get('details') or ''
+                        )
+
+            return Response({'message': '분석 완료'}, status=status.HTTP_201_CREATED)
+
+        except Exception as e:
+            return Response({'error': f'분석 중 오류 발생: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Resume, ResumeStack, ResumeMatching
+from .models import Resume, ResumeStack, ResumeMatching, WorkExperience, ProjectExperience
 
 @admin.register(Resume)
 class ResumeAdmin(admin.ModelAdmin):
@@ -16,3 +16,13 @@ class ResumeStackAdmin(admin.ModelAdmin):
 class ResumeMatchingAdmin(admin.ModelAdmin):
     list_display = ['id', 'resume', 'job_posting', 'score', 'created_at']
     list_filter = ['is_deleted', 'created_at']
+
+@admin.register(WorkExperience)
+class WorkExperienceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'resume', 'organization', 'details']
+    search_fields = ['organization', 'details']
+
+@admin.register(ProjectExperience)
+class ProjectExperienceAdmin(admin.ModelAdmin):
+    list_display = ['id', 'resume', 'project_name', 'context', 'details']
+    search_fields = ['project_name', 'context', 'details']
