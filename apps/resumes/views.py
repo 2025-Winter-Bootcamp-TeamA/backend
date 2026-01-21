@@ -5,7 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
 from apps.jobs.models import JobPosting
 from apps.trends.models import TechStack
-from .models import Resume, ResumeMatching, ResumeStack, WorkExperience, ProjectExperience
+from .models import Resume, ResumeMatching, ResumeStack, WorkExperience, ProjectExperience, ResumeExtractedStack
 from .serializers import ResumeSerializer, ResumeDetailSerializer, ResumeMatchingSerializer, WorkExperienceSerializer, ProjectExperienceSerializer
 from .utils import analyze_resume
 from django.db import transaction
@@ -232,6 +232,7 @@ class ResumeMatchCreateAPIView(APIView):
             with transaction.atomic():
                 WorkExperience.objects.filter(resume=resume).delete()
                 ProjectExperience.objects.filter(resume=resume).delete()
+                ResumeExtractedStack.objects.filter(resume=resume).delete() # Delete existing extracted stack
 
                 if 'work_experience' in structured_data and structured_data['work_experience']:
                     for exp in structured_data['work_experience']:
@@ -245,10 +246,36 @@ class ResumeMatchCreateAPIView(APIView):
                     for exp in structured_data['project_experience']:
                         ProjectExperience.objects.create(
                             resume=resume,
-                            project_name=exp.get('name') or '',  # Changed from 'project_name' to 'name'
+                            project_name=exp.get('name') or '',
                             context=exp.get('context') or '',
                             details=exp.get('details') or ''
                         )
+
+                # Extract and combine technical tools, methodologies, and others
+                all_technical_tools = set()
+                methodologies = []
+                others = []
+
+                if 'project_experience' in structured_data and structured_data.get('project_experience'):
+                    for exp in structured_data['project_experience']:
+                        if 'tools' in exp and isinstance(exp['tools'], list):
+                            all_technical_tools.update(tool for tool in exp['tools'] if isinstance(tool, str))
+
+                if 'key_capabilities' in structured_data and structured_data.get('key_capabilities'):
+                    key_capabilities = structured_data['key_capabilities']
+                    if 'technical_tools' in key_capabilities and isinstance(key_capabilities['technical_tools'], list):
+                        all_technical_tools.update(tool for tool in key_capabilities['technical_tools'] if isinstance(tool, str))
+                    if 'methodologies' in key_capabilities and isinstance(key_capabilities['methodologies'], list):
+                        methodologies = [m for m in key_capabilities['methodologies'] if isinstance(m, str)]
+                    if 'others' in key_capabilities and isinstance(key_capabilities['others'], list):
+                        others = [o for o in key_capabilities['others'] if isinstance(o, str)]
+
+                ResumeExtractedStack.objects.create(
+                    resume=resume,
+                    technical_tools=list(all_technical_tools),
+                    methodologies=methodologies,
+                    others=others
+                )
 
             return Response({'message': '분석 완료'}, status=status.HTTP_201_CREATED)
 
