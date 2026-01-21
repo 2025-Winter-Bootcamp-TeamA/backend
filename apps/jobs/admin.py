@@ -82,12 +82,12 @@ class JobPostingAdmin(admin.ModelAdmin):
     list_display = ['corp', 'title', 'created_at','expiry_date','career','posting_number']
     list_filter = ['corp', 'created_at']
     search_fields = ['title', 'corp__name']
-
-
+    
 @admin.register(JobPostingStack)
 class JobPostingStackAdmin(admin.ModelAdmin):
     list_display = ['job_posting', 'tech_stack', 'created_at']
     list_filter = ['tech_stack']
+    search_fields = ['tech_stack__name']
 
 
 @admin.register(CorpBookmark)
