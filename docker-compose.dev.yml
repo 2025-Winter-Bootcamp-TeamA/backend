@@ -49,7 +49,7 @@ services:
       RABBITMQ_DEFAULT_PASS: 2025
       TZ: Asia/Seoul
     ports:
-      - "6672:5672"    # AMQP 포트  #5672=>6672로 바꿈 로컬에 5672가 쓰고있어서
+      - "5672:5672"    # AMQP 포트  
       - "15672:15672"  # 관리 콘솔
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
@@ -104,7 +104,7 @@ services:
     networks:
       - teamA-network
 
-  # Celery Beat (스케줄러)
+  # Celery Beat (스케줄러) #주기적으로 크롤링 하기 위함
   celery-beat:
     build:
       context: .
