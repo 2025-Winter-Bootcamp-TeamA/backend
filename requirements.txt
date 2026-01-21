@@ -10,6 +10,7 @@ django-redis==5.4.0
 
 # Celery 비동기 작업
 celery==5.3.6
+django-celery-beat==2.6.0   #클롤링을 위한 Celery 스케줄러 추가 
 flower==2.0.1
 
 # 환경변수 관리
