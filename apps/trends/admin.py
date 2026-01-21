@@ -3,9 +3,7 @@
 """
 
 from django.contrib import admin
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, ArticleStack
-
+from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship, ArticleStack
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
