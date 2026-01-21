@@ -2,7 +2,7 @@ import os
 from rest_framework import serializers
 from django.core.files.storage import default_storage
 from apps.trends.serializers import TechStackSerializer
-from .models import Resume, ResumeStack, ResumeMatching
+from .models import Resume, ResumeStack, ResumeMatching, WorkExperience, ProjectExperience
 
 class ResumeStackSerializer(serializers.ModelSerializer):
     """이력서 기술 스택 시리얼라이저"""
@@ -96,3 +96,14 @@ class ResumeMatchingSerializer(serializers.ModelSerializer):
             'score', 'feedback', 'question', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
+
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        fields = ['organization', 'details']
+
+class ProjectExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectExperience
+        fields = ['project_name', 'context', 'details']
