@@ -24,7 +24,7 @@ services:
     networks:
       - teamA-network
 
-  # Redis 캐시 및 Celery 결과 저장소
+  # Redis 캐시 및 Celery 결과 저장소 포스트그레 DB에서 캐시로 사용
   redis:
     image: redis:7-alpine
     container_name: redis
@@ -40,7 +40,7 @@ services:
     networks:
       - teamA-network
 
-  # RabbitMQ 메시지 브로커
+  # RabbitMQ 메시지 브로커 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
@@ -49,7 +49,7 @@ services:
       RABBITMQ_DEFAULT_PASS: 2025
       TZ: Asia/Seoul
     ports:
-      - "5672:5672"    # AMQP 포트
+      - "6672:5672"    # AMQP 포트  #5672=>6672로 바꿈 로컬에 5672가 쓰고있어서
       - "15672:15672"  # 관리 콘솔
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
@@ -110,7 +110,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: celery-beat
-    command: celery -A config beat -l info
+    #command: celery -A config beat -l info
+    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
     volumes:
       - .:/app
     env_file:
