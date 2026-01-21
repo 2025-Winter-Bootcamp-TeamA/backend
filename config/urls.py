@@ -31,7 +31,7 @@ urlpatterns = [
 
     # API 엔드포인트
     #path('api/v1/users/', include('apps.users.urls')),
-    path('api/v1/', include('apps.users.urls')),
+    path('api/v1/users', include('apps.users.urls')),
     path('api/v1/trends/', include('apps.trends.urls')),
     path('api/v1/jobs/', include('apps.jobs.urls')),
     path('api/v1/resumes/', include('apps.resumes.urls')),
