@@ -11,7 +11,7 @@ class TechStackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TechStack
-        fields = ['id', 'name', 'description', 'logo', 'docs_url', 'created_at']
+        fields = ['id', 'name', 'description', 'logo', 'docs_url','job_stack_count', 'article_stack_count', 'created_at']
 
 
 class CategorySerializer(serializers.ModelSerializer):
