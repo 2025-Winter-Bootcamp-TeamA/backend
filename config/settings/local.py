@@ -47,20 +47,3 @@ INTERNAL_IPS = [
 REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] += [
     'rest_framework.renderers.BrowsableAPIRenderer',
 ]
-
-# # 1. Celery 브로커 및 결과 저장소 설정 (로컬 도커 전용)
-# # base.py의 RabbitMQ 설정을 무시하고 로컬 Redis를 사용하도록 강제합니다.
-# CELERY_BROKER_URL = 'redis://redis:6379/0'
-# CELERY_RESULT_BACKEND = 'redis://redis:6379/0'
-
-# # 2. 캐시 설정 (로컬 도커 전용)
-# # 외부 AWS 주소 접속을 차단하고 로컬 Redis 컨테이너를 바라보게 합니다.
-# CACHES = {
-#     'default': {
-#         'BACKEND': 'django_redis.cache.RedisCache',
-#         'LOCATION': 'redis://redis:6379/0',
-#         'OPTIONS': {
-#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-#         }
-#     }
-# }
