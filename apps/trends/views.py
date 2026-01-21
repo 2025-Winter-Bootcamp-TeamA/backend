@@ -2,7 +2,7 @@
 트렌드 뷰
 """
 
-from rest_framework import generics, status
+from rest_framework import generics, status, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -73,12 +73,29 @@ class CategoryTechStackListView(generics.ListAPIView):
 
 
 class TechStackListView(generics.ListAPIView):
-    """기술 스택 목록"""
+    """
+    기술 스택 목록 조회 API
+    - GET /tech-stacks: 기술 스택 목록 조회 (검색 및 필터링 지원)
+    """
     permission_classes = [AllowAny]
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
-    filter_backends = [DjangoFilterBackend]
+    # 이름만 부분 일치 검색 + exact 필터 병행
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name']
+    search_fields = ['name']  # 기술 스택 이름만 검색 가능
+
+    @swagger_auto_schema(
+        operation_summary='기술 스택 목록 조회',
+        operation_description='기술 스택 목록을 조회합니다. '
+                              '검색 파라미터(search)를 사용하여 기술 스택 이름으로 부분 일치 검색이 가능합니다. '
+                              '필터 파라미터(name)를 사용하여 정확한 이름으로 필터링할 수 있습니다.',
+        responses={
+            200: TechStackSerializer(many=True),
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class TechStackDetailView(generics.RetrieveAPIView):

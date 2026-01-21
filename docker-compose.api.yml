@@ -33,9 +33,9 @@ services:
       - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./letsencrypt:/etc/letsencrypt:ro  # SSL 인증서 폴더 연결 (로컬 letsencrypt 디렉토리)
       - static_volume:/app/staticfiles:ro
       - media_volume:/app/media:ro
-      - /etc/letsencrypt:/etc/letsencrypt:ro #SSL 인증서 폴더 연결
     depends_on:
       - backend
     networks:

@@ -5,7 +5,12 @@ from collections import defaultdict
 from pathlib import Path
 from xml.etree.ElementTree import iterparse
 
+from django.db.models import F
 from django.core.management.base import BaseCommand
+from django.db import transaction
+
+from apps.trends.models import TechStack, Article, ArticleStack
+
 
 # 토큰 추출용
 TOKEN_RE = re.compile(r"[a-z0-9\+\#\.\-]+")
@@ -197,7 +202,22 @@ class Command(BaseCommand):
             default="",        
             help="Optional: output CSV path for --detail-tech results. "
                  "If empty, auto-generate next to --out (e.g. git_top_posts_10.csv).",
-        )  
+        )
+
+        # DB 에 게시글, 게시글-기술스택 저장 옵션
+        parser.add_argument(
+            "--save-db",
+            action="store_true",
+            help="If set, save Article and ArticleStack into DB.",
+        )
+
+        # DB 적재 배치 크기(ArticleStack bulk)
+        parser.add_argument(
+            "--db-batch",
+            type=int,
+            default=2000,
+            help="Bulk insert batch size for ArticleStack when --save-db is set.",
+        )
 
 
     def handle(self, *args, **options):
@@ -212,6 +232,9 @@ class Command(BaseCommand):
 
         detail_tech = normalize_tech_name(options.get("detail_tech") or "")
         detail_out_opt = (options.get("detail_out") or "").strip()           
+
+        save_db = bool(options.get("save_db")) 
+        db_batch = int(options.get("db_batch"))
 
         if not posts_path.exists():
             self.stderr.write(self.style.ERROR(f"Posts file not found: {posts_path}"))
@@ -232,7 +255,24 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR("No techs loaded from CSV (Name column empty?)."))
             return
 
+        # DB TechStack를 '소문자 normalize'해서 매핑 생성 (대소문자 그대로인 DB와 매칭하기 위함)
+        db_tech_map = {}
+        if save_db:
+            qs = TechStack.objects.filter(is_deleted=False).only("id", "name")
+            db_tech_map = {normalize_tech_name(t.name): t for t in qs}
+
+            if not db_tech_map:
+                self.stderr.write(self.style.ERROR("TechStack table is empty. Seed TechStack first."))
+                return
+
+            # CSV 기술 중 DB에 실제 존재하는 기술만 분석 대상으로 유지
+            techs = [t for t in techs if t in db_tech_map]
+            if not techs:
+                self.stderr.write(self.style.ERROR("No CSV techs matched TechStack(name) in DB after normalization."))
+                return
+
         tech_set = set(techs) 
+
         if detail_tech and detail_tech not in tech_set: 
             self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV"))  # ✅
             return 
@@ -242,12 +282,14 @@ class Command(BaseCommand):
         # 결과 집계용
         mention_count = defaultdict(int)  # tech -> 언급된 게시글 수
         total_views = defaultdict(int)    # tech -> 조회수 누적 합
-
+        tech_mentions_by_id = defaultdict(int)
         top_posts_by_tech = defaultdict(list)
         detail_heap = []
 
         scanned = 0
 
+        # ArticleStack bulk insert 버퍼
+        rel_buffer = [] 
 
         for post_id, post_type, title, body, tags, view_count in iter_posts(posts_path):
             if post_type != "1":
@@ -297,8 +339,54 @@ class Command(BaseCommand):
                     if len(h) > topn:
                         heapq.heappop(h)
 
+            # 5) DB 저장: Article, ArticleStack, TechStack(article_stack_count) 적재
+            if save_db and seen_in_this_post:
+                url = f"https://stackoverflow.com/questions/{post_id}"
+
+                article, created = Article.objects.get_or_create( 
+                    url=url,
+                    defaults={
+                        "source": "stackoverflow",
+                        "view_count": view_count
+                    },
+                )
+
+                # 이미 존재하는 글이면 view_count 최신값으로 갱신
+                if not created and article.view_count != view_count:
+                    article.view_count = view_count
+                    article.save(update_fields=["view_count", "updated_at"])  
+
+                # 새로 생긴 ArticleStack 관계만 tech_count +1
+                created_tech_ids = []
+                
+                with transaction.atomic():
+                    for tech in seen_in_this_post:
+                        ts = db_tech_map.get(tech)
+                        if not ts:
+                            continue
+
+                        rel, rel_created = ArticleStack.objects.get_or_create(
+                            article=article,
+                            tech_stack=ts,
+                            defaults={"count": 1},
+                        )
+
+                        if rel_created:
+                            created_tech_ids.append(ts.id)
+                        else:
+                            # 이미 관계가 있으면 count만 최신화
+                            if rel.count != 1:
+                                rel.count = 1
+                                rel.save(update_fields=["count", "updated_at"])
+
+                    if created_tech_ids:
+                        TechStack.objects.filter(id__in=created_tech_ids).update(
+                            article_stack_count = F("article_stack_count") + 1
+                        )
+
             if progress and scanned % progress == 0:
                 self.stdout.write(f"scanned={scanned:,}")
+
 
         # 조회수(total_views) 기준 정렬해서 CSV 출력
         rows = []
