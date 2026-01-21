@@ -165,7 +165,7 @@ class Command(BaseCommand):
                                 else:
                                     self.stdout.write(self.style.WARNING(f"   [Skip] 신규 기술 발견: {skill_name}"))
                                                                             
-                                total_collected += 1
+                            total_collected += 1
                         if total_collected % 10 == 0:
                             self.stdout.write(f"[PROGRESS] {total_collected}개 공고 처리 완료...")
 
