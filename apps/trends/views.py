@@ -117,7 +117,7 @@ class TechStackListView(generics.ListAPIView):
     # 이름만 부분 일치 검색 + exact 필터 병행
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name']
-    search_fields = ['name']  # 기술 스택 이름만 검색 가능
+    search_fields = ['name']  # 기술 스택 이름으로 부분 일치 검색 가능 (icontains 자동 적용)
 
     @swagger_auto_schema(
         operation_summary='기술 스택 목록 조회',
