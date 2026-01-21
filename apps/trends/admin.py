@@ -3,9 +3,7 @@
 """
 
 from django.contrib import admin
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, ArticleStack
-
+from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship, ArticleStack
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -42,51 +40,6 @@ class ArticleAdmin(admin.ModelAdmin):
 class TechBookmarkAdmin(admin.ModelAdmin):
     list_display = ['user', 'tech_stack', 'created_at']
     list_filter = []
-
-
-@admin.register(TechStackRelationship)
-class TechStackRelationshipAdmin(admin.ModelAdmin):
-    """기술 스택 관계 관리"""
-    list_display = [
-        'id',
-        'from_tech_stack',
-        'to_tech_stack',
-        'get_relationship_type_display',
-        'weight',
-        'is_deleted',
-        'created_at'
-    ]
-    list_filter = [
-        'relationship_type',
-        'is_deleted',
-        'created_at'
-    ]
-    search_fields = [
-        'from_tech_stack__name',
-        'to_tech_stack__name'
-    ]
-    ordering = ['-created_at', 'from_tech_stack__name']
-    readonly_fields = ['created_at', 'updated_at']
-    
-    fieldsets = (
-        ('기본 정보', {
-            'fields': ('from_tech_stack', 'to_tech_stack', 'relationship_type')
-        }),
-        ('관계 상세', {
-            'fields': ('weight', 'is_deleted')
-        }),
-        ('시스템 정보', {
-            'fields': ('created_at', 'updated_at'),
-            'classes': ('collapse',)
-        }),
-    )
-    
-    def get_queryset(self, request):
-        """관계 조회 시 기술 스택 정보를 미리 가져오기"""
-        return super().get_queryset(request).select_related(
-            'from_tech_stack',
-            'to_tech_stack'
-        )
 
 
 @admin.register(TechStackRelationship)
