@@ -3,8 +3,7 @@
 """
 
 from django.contrib import admin
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship
-
+from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship, ArticleStack
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -14,8 +13,9 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(TechStack)
 class TechStackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_categories', 'created_at', 'is_deleted']
+    list_display = ['name', 'get_categories', 'article_stack_count', 'created_at', 'is_deleted']
     search_fields = ['name']
+    ordering = ('-article_stack_count',) 
     def get_categories(self, obj):
         categories = obj.category_relations.all()
         return ", ".join([rel.category.name for rel in categories])
@@ -32,7 +32,7 @@ class TechTrendAdmin(admin.ModelAdmin):
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):
-    list_display = ['id', 'source', 'stack_count', 'created_at']
+    list_display = ['id', 'view_count', 'source', 'url', 'created_at']
     list_filter = ['source']
 
 
@@ -85,3 +85,9 @@ class TechStackRelationshipAdmin(admin.ModelAdmin):
             'from_tech_stack',
             'to_tech_stack'
         )
+
+@admin.register(ArticleStack) 
+class ArticleStackAdmin(admin.ModelAdmin): 
+    list_display = ['article', 'tech_stack', 'count', 'created_at', 'is_deleted'] 
+    list_filter = ['tech_stack'] 
+    search_fields = ['article__url', 'tech_stack__name'] 
