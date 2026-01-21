@@ -270,3 +270,5 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
 }
 
+# OLLAMA 설정
+OLLAMA_URL = config('OLLAMA_URL')
