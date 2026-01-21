@@ -70,7 +70,6 @@ class Command(BaseCommand):
                     if tech_name in TECH_TO_CATEGORIES:
                         cat_names = TECH_TO_CATEGORIES[tech_name]
                         tech_with_categories += 1
-                        
                         for cat_name in cat_names:
                             if cat_name in all_categories:
                                 CategoryTech.objects.create(

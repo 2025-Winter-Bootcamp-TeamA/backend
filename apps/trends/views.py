@@ -14,7 +14,8 @@ from .serializers import (
     TechStackSerializer, CategorySerializer,
     TechTrendSerializer, TechStackByCategorySerializer,
     TechBookmarkListSerializer, TechBookmarkCreateSerializer,
-    TechBookmarkCreateResponseSerializer
+    TechBookmarkCreateResponseSerializer,
+    TechStackWithRelationsSerializer
 )
 
 from apps.jobs.models import JobPosting
@@ -171,3 +172,28 @@ class TechBookmarkDeleteAPIView(APIView):
         bookmark = get_object_or_404(TechBookmark, id=tech_bookmark_id, user=request.user)
         bookmark.delete()
         return Response({'message': '즐겨찾기가 해제 되었습니다.'}, status=status.HTTP_200_OK)
+
+
+class TechStackRelationsView(generics.RetrieveAPIView):
+    """
+    기술 스택의 관련 기술 스택 조회 API
+    - GET /tech-stacks/{tech_stack_id}/relations: 특정 기술 스택과 관련된 모든 기술 스택 조회
+    """
+    permission_classes = [AllowAny]
+    queryset = TechStack.objects.filter(is_deleted=False)
+    serializer_class = TechStackWithRelationsSerializer
+    lookup_field = 'id'
+
+    @swagger_auto_schema(
+        operation_summary='기술 스택 관계 조회',
+        operation_description='특정 기술 스택과 관련된 모든 기술 스택을 관계 유형별로 조회합니다. '
+                              '시너지 관계, 필수 인프라, 대체 기술, 부모/자식 기술 등을 포함합니다.',
+        responses={
+            200: TechStackWithRelationsSerializer,
+            404: '기술 스택을 찾을 수 없음'
+        }
+    )
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        return Response(serializer.data, status=status.HTTP_200_OK)
