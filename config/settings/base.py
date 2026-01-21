@@ -31,11 +31,11 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
-    # 소셜 로그인
-    'allauth',
-    'allauth.account',
-    'allauth.socialaccount',
-    'allauth.socialaccount.providers.google',
+    # # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 
     # AWS S3 연동을 위한 라이브러리
     'storages',
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'allauth.account.middleware.AccountMiddleware',
+    #'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -124,9 +124,10 @@ SITE_ID = 1
 AUTH_USER_MODEL = 'users.User'
 
 # 소셜 로그인 인증 백엔드
+# allauth는 사용하지 않으므로 ModelBackend만 사용
 AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
-    'allauth.account.auth_backends.AuthenticationBackend',
+    # 'allauth.account.auth_backends.AuthenticationBackend',  # allauth 미사용
 ]
 
 # Django REST Framework 설정
@@ -237,9 +238,6 @@ AWS_S3_REGION_NAME = config('AWS_S3_REGION_NAME')
 if AWS_STORAGE_BUCKET_NAME:
     # 파일 덮어쓰기 방지 (같은 이름의 파일이 올라오면 이름 뒤에 난수 생성)
     AWS_S3_FILE_OVERWRITE = False
-    
-    # 새로 업로드되는 파일을 공개적으로 읽을 수 있도록 설정 (중요!)
-    AWS_DEFAULT_ACL = 'public-read'
     
     # 이미지를 누구나 볼 수 있게 서명 기능 끄기 (공개 버킷이므로)
     AWS_QUERYSTRING_AUTH = False 

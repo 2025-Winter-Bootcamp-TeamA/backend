@@ -167,6 +167,7 @@ class JobPostingStack(models.Model):
 
     class Meta:
         db_table = 'job_posting_stack'
+        unique_together = (('job_posting', 'tech_stack'),)
         verbose_name = '채용 공고-기술 연결'
         verbose_name_plural = '채용 공고-기술 연결 목록'
 
