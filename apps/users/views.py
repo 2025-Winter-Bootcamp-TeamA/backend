@@ -14,6 +14,7 @@ from drf_yasg.utils import swagger_auto_schema # Swagger 설정을 위한 데코
 from drf_yasg import openapi # 상세한 파라미터 설정을 위한 모듈
 import logging
 from django.shortcuts import get_object_or_404
+from django.conf import settings
 from .models import User  
 """ class SignupView(generics.CreateAPIView):
     permission_classes = [AllowAny]
@@ -157,13 +158,25 @@ class GoogleLoginStartView(APIView):
     def get(self, request):
         # 환경변수에서 가져오기
         client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
-        redirect_uri = config('GOOGLE_REDIRECT_URI')
+        
+        # redirect_uri를 동적으로 생성 (실제 백엔드 경로와 일치하도록)
+        # 로컬 환경에서는 localhost, 프로덕션에서는 환경변수 사용
+        if settings.DEBUG:
+            base_url = 'http://localhost:8000'
+        else:
+            base_url = config('BACKEND_URL', default='https://api.devroad.cloud')
+        
+        redirect_uri = f"{base_url}/api/v1/users/auth/google/callback/"
+        
+        # URL 인코딩
+        from urllib.parse import quote
+        redirect_uri_encoded = quote(redirect_uri, safe='')
         
         # 구글 로그인 페이지 URL 생성
         google_auth_url = (
             "https://accounts.google.com/o/oauth2/v2/auth"
             f"?client_id={client_id}"
-            f"&redirect_uri={redirect_uri}"
+            f"&redirect_uri={redirect_uri_encoded}"
             "&response_type=code"          # code를 받기 위함 (Authorization Code Flow)
             "&scope=email%20profile%20openid"
             "&access_type=offline"         # refresh_token도 받기
@@ -198,7 +211,14 @@ class GoogleLoginCallbackView(APIView):
             # 1. code를 access_token으로 교환
             client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
             client_secret = config('GOOGLE_OAUTH2_CLIENT_SECRET')
-            redirect_uri = config('GOOGLE_REDIRECT_URI')
+            
+            # redirect_uri를 동적으로 생성 (실제 백엔드 경로와 일치하도록)
+            if settings.DEBUG:
+                base_url = 'http://localhost:8000'
+            else:
+                base_url = config('BACKEND_URL', default='https://api.devroad.cloud')
+            
+            redirect_uri = f"{base_url}/api/v1/users/auth/google/callback/"
             
             token_response = requests.post(
                 'https://oauth2.googleapis.com/token',
@@ -274,7 +294,12 @@ class GoogleLoginCallbackView(APIView):
             refresh = RefreshToken.for_user(user)
             
             # 5. 프론트엔드로 리다이렉트 (토큰을 쿼리 파라미터로 전달)
-            frontend_url = config('FRONTEND_URL')
+            # 로컬 환경(DEBUG=True)에서는 localhost:3000, 프로덕션에서는 환경변수 사용
+            if settings.DEBUG:
+                frontend_url = 'http://localhost:3000'
+            else:
+                frontend_url = config('FRONTEND_URL')
+            
             redirect_url = (
                 f"{frontend_url}/auth/callback"
                 f"?access={str(refresh.access_token)}"
