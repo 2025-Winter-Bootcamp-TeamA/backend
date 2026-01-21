@@ -33,7 +33,7 @@ urlpatterns = [
     #path('api/v1/users/', include('apps.users.urls')),
     path('api/v1/', include('apps.users.urls')),
     path('api/v1/trends/', include('apps.trends.urls')),
-    path('api/v1/', include('apps.jobs.urls')),
+    path('api/v1/jobs/', include('apps.jobs.urls')),
     path('api/v1/resumes/', include('apps.resumes.urls')),
     path('api/v1/interviews/', include('apps.interviews.urls')),
     
