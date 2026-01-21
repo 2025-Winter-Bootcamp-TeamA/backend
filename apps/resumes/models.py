@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import JSONField
 from django.conf import settings
 from apps.trends.models import TechStack
 from apps.jobs.models import JobPosting
@@ -45,3 +46,39 @@ class ResumeMatching(models.Model):
         db_table = 'resume_matching'
         verbose_name = '이력서 매칭'
         verbose_name_plural = '이력서 매칭 목록'
+
+
+class WorkExperience(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='work_experiences', verbose_name='이력서')
+    organization = models.CharField(max_length=256, verbose_name='회사명')
+    details = models.TextField(verbose_name='업무 설명')
+
+    class Meta:
+        db_table = 'work_experience'
+        verbose_name = '직무 경험'
+        verbose_name_plural = '직무 경험 목록'
+
+
+class ProjectExperience(models.Model):
+    resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='project_experiences', verbose_name='이력서')
+    project_name = models.CharField(max_length=256, verbose_name='프로젝트명')
+    context = models.TextField(verbose_name='프로젝트 요약')
+    details = models.TextField(verbose_name='프로젝트 설명')
+
+    class Meta:
+        db_table = 'project_experience'
+        verbose_name = '프로젝트 경험'
+        verbose_name_plural = '프로젝트 경험 목록'
+
+
+class ResumeExtractedStack(models.Model):
+    """이력서에서 추출된 기술, 방법론, 기타 정보 저장 모델"""
+    resume = models.OneToOneField(Resume, on_delete=models.CASCADE, related_name='extracted_stack', verbose_name='이력서')
+    technical_tools = models.JSONField(default=list, verbose_name='기술 스택')
+    methodologies = models.JSONField(default=list, verbose_name='방법론')
+    others = models.JSONField(default=list, verbose_name='기타')
+
+    class Meta:
+        db_table = 'resume_extracted_stack'
+        verbose_name = '이력서 추출 스택'
+        verbose_name_plural = '이력서 추출 스택 목록'

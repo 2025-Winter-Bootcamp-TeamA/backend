@@ -2,7 +2,7 @@ import os
 from rest_framework import serializers
 from django.core.files.storage import default_storage
 from apps.trends.serializers import TechStackSerializer
-from .models import Resume, ResumeStack, ResumeMatching
+from .models import Resume, ResumeStack, ResumeMatching, WorkExperience, ProjectExperience
 
 class ResumeStackSerializer(serializers.ModelSerializer):
     """이력서 기술 스택 시리얼라이저"""
@@ -19,10 +19,10 @@ class ResumeSerializer(serializers.ModelSerializer):
     - 업로드 시: create() 사용
     """
 
-    # 목록 조회용
+    # 목록 조회용 (read_only)
     resume_id = serializers.IntegerField(source='id', read_only=True)
-    resume_title = serializers.CharField(source='title')
-    resume_url = serializers.CharField(source='url', allow_blank=True, allow_null=True, required=False)
+    resume_title = serializers.CharField(source='title', read_only=True)
+    resume_url = serializers.CharField(source='url', read_only=True, allow_blank=True, allow_null=True)
     created_at = serializers.DateTimeField(format='%Y.%m.%d', read_only=True)
 
     tech_stacks = serializers.SerializerMethodField()
@@ -96,3 +96,14 @@ class ResumeMatchingSerializer(serializers.ModelSerializer):
             'score', 'feedback', 'question', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
+
+
+class WorkExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WorkExperience
+        fields = ['organization', 'details']
+
+class ProjectExperienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProjectExperience
+        fields = ['project_name', 'context', 'details']
