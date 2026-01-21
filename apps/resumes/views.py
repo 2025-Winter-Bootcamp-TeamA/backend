@@ -115,26 +115,122 @@ class ResumeAnalyzeView(APIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
+import json
+import google.generativeai as genai
+from django.conf import settings
+
 class ResumeMatchingView(APIView):
-    """이력서와 채용 공고 매칭"""
+    """이력서와 채용 공고 매칭 (Gemini Pro)"""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, job_posting_id):
         try:
             resume = Resume.objects.get(pk=pk, user=request.user, is_deleted=False)
             job_posting = JobPosting.objects.get(pk=job_posting_id, is_deleted=False)
+        except (Resume.DoesNotExist, JobPosting.DoesNotExist):
+            return Response({'error': '이력서 또는 채용 공고를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+
+        # Gemini API 설정
+        if not settings.GOOGLE_GEMINI_API_KEY:
+            return Response({'error': 'GOOGLE_GEMINI_API_KEY가 설정되지 않았습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        
+        try:
+            genai.configure(api_key=settings.GOOGLE_GEMINI_API_KEY)
+
+            # 프롬프트에 사용할 데이터 준비
+            job_description = job_posting.description
             
-            # 더미 매칭 데이터 생성
-            matching = ResumeMatching.objects.create(
+            work_experiences = WorkExperience.objects.filter(resume=resume)
+            project_experiences = ProjectExperience.objects.filter(resume=resume)
+            try:
+                extracted_stack = ResumeExtractedStack.objects.get(resume=resume)
+                stacks_info = f"보유 기술: {', '.join(extracted_stack.technical_tools)}\n방법론: {', '.join(extracted_stack.methodologies)}\n기타: {', '.join(extracted_stack.others)}"
+            except ResumeExtractedStack.DoesNotExist:
+                stacks_info = "추출된 기술 스택 정보가 없습니다."
+
+            work_exp_str = "\n".join([f"- {w.organization}: {w.details}" for w in work_experiences])
+            proj_exp_str = "\n".join([f"- {p.project_name}: {p.context}\n  {p.details}" for p in project_experiences])
+
+            # Gemini에 전달할 프롬프트 구성 (한국어)
+            prompt = f"""
+                        # Role
+                        당신은 세계적인 빅테크 기업의 시니어 기술 면접관이자 아키텍트입니다. 
+                        주어진 채용 공고(JD)의 요구사항과 지원자의 기술 스택/경험을 대조하여, '기술적 진실성'과 '경험의 깊이'를 날카롭게 파고드는 면접 질문을 생성하십시오.
+
+                        # Context
+                        지원자의 연차, 학력, 수상 경력과 같은 정적 정보는 무시합니다. 오직 '기술적 역량'과 '프로젝트 수행 능력'에만 집중하십시오. 지원자가 사용한 기술들 사이의 관계(예: 왜 이 DB를 선택했는지, 특정 라이브러리를 사용한 이유가 무엇인지)를 심층 분석해야 합니다.
+
+                        # Input Data
+                        1. 채용 공고 (JD): {job_description}
+                        2. 지원자 직무 경험: {work_exp_str}
+                        3. 지원자 프로젝트 경험: {proj_exp_str}
+                        4. 보유 기술 스택: {stacks_info}
+
+                        # Analysis Task
+                        1. [역량 대조]: JD에서 요구하는 핵심 기술과 지원자가 보유한 기술의 '숙련도'를 추론하십시오. 단순히 키워드가 일치하는지가 아니라, 실제 프로젝트에서 어떤 '맥락'으로 사용되었는지 분석합니다.
+                        2. [강점과 약점]: 기술적 적합성이 높은 부분(Positive)과, 기술적 깊이가 검증되지 않았거나 JD 대비 부족한 부분(Negative)을 도출하십시오.
+                        3. [보완할 점]: JD와의 기술적 간극을 메우기 위해, 지원자가 추가로 학습하거나 경험해야 할 기술/개념을 제안하십시오.
+                        4. [가변적 질문 생성]: 다음 3가지 유형을 섞어 5~7개의 질문을 생성하십시오.
+                        - Deep Dive: 지원자가 사용한 특정 기술의 내부 동작 원리나 최적화 경험 질문
+                        - Trade-off: 왜 다른 대안(A) 대신 이 기술(B)을 선택했는지에 대한 논리적 근거 질문
+                        - Scenario-based: JD의 기술 환경에서 발생할 수 있는 가상의 기술적 난관을 제시하고 해결 방법 질문
+
+                        # Output Format (Strict JSON)
+                        반드시 아래 JSON 형식을 유지하며, 모든 답변은 한국어로 작성하십시오.
+
+                        {{
+                            "feedback": {{
+                                "positive": "제한된 형식 없이, 지원자의 기술적 강점과 프로젝트의 성숙도를 엔지니어링 관점에서 자유롭게 서술하십시오.",
+                                "negative": "JD와의 기술적 간극, 잠재적 리스크, 기술적 깊이가 우려되는 지점을 날카로운 비평 형태로 자유롭게 서술하십시오."
+                                "enhancements": "지원자가 보완해야 할 기술적 역량이나 개념을 구체적으로 제안하십시오."
+                            }},
+                            "questions": [
+                            "질문 1 (기술의 본질과 원리 파악)",
+                            "질문 2 (의사결정 과정 및 기술 선택의 이유)",
+                            "질문 3 (성능 최적화 또는 트러블슈팅 경험)",
+                            "질문 4 (JD 환경에 특화된 가상 시나리오 대응)",
+                            "질문 5 (기술 스택 간의 상호작용 및 아키텍처 이해도)"
+                            ]
+                        }}
+            """
+
+            # Gemini API 호출
+            model = genai.GenerativeModel('gemini-3-flash-preview')
+            response = model.generate_content(prompt)
+            
+            response_text = ''.join(part.text for part in response.parts)
+            cleaned_response_text = response_text.strip().replace('```json', '').replace('```', '')
+            
+            print("--- Gemini API Response for JSON Parsing ---")
+            print(f"Response to be parsed: '{cleaned_response_text}'")
+            print("------------------------------------------")
+
+            response_json = json.loads(cleaned_response_text)
+            
+            feedback_json = response_json.get("feedback", {})
+            positive_feedback = feedback_json.get("positive", "긍정적 피드백을 생성하지 못했습니다.")
+            negative_feedback = feedback_json.get("negative", "부정적 피드백을 생성하지 못했습니다.")
+            enhancements_feedback = feedback_json.get("enhancements", "보완할 점 피드백을 생성하지 못했습니다.")
+            questions = response_json.get("questions", [])
+            question_str = "\n".join([f"- {q}" for q in questions])
+
+            # 결과 저장 (update_or_create 사용)
+            matching, created = ResumeMatching.objects.update_or_create(
                 resume=resume,
                 job_posting=job_posting,
-                score=0.00,
-                feedback='분석 로직 대기 중입니다.',
-                question='준비 중인 질문입니다.'
+                defaults={
+                    'positive_feedback': positive_feedback,
+                    'negative_feedback': negative_feedback,
+                    'enhancements_feedback': enhancements_feedback,
+                    'question': question_str,
+                }
             )
-            return Response(ResumeMatchingSerializer(matching).data, status=status.HTTP_201_CREATED)
-        except (Resume.DoesNotExist, JobPosting.DoesNotExist):
-            return Response({'error': '데이터를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
+            
+            serializer = ResumeMatchingSerializer(matching)
+            return Response(serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
+
+        except Exception as e:
+            return Response({'error': f'매칭 데이터 생성 중 오류 발생: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ResumeMatchingListView(generics.ListAPIView):
