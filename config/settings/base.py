@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     # 'allauth.socialaccount.providers.google',
     'django_celery_beat',
 
+    'django_celery_beat',  # 크롤링 작업을 위해 추가
+
     # AWS S3 연동을 위한 라이브러리
     'storages',
 
@@ -255,6 +257,7 @@ if AWS_STORAGE_BUCKET_NAME:
 
 # AI API 키 설정
 GOOGLE_API_KEY = config('GOOGLE_API_KEY', default='')
+GOOGLE_GEMINI_API_KEY = config('GOOGLE_GEMINI_API_KEY', default='')
 OPENAI_API_KEY = config('OPENAI_API_KEY', default='')
 
 # Swagger (drf-yasg) 설정
@@ -270,3 +273,5 @@ SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
 }
 
+# OLLAMA 설정
+OLLAMA_URL = config('OLLAMA_URL')

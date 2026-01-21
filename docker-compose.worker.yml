@@ -44,7 +44,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: celery-beat
-    command: celery -A config beat -l warning
+    command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler #크롤링을 위해 수정
     env_file:
       - .env
     environment:
