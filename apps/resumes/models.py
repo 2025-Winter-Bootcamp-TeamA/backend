@@ -36,8 +36,9 @@ class ResumeStack(models.Model):
 class ResumeMatching(models.Model):
     job_posting = models.ForeignKey(JobPosting, on_delete=models.CASCADE, related_name='resume_matchings', verbose_name='채용 공고')
     resume = models.ForeignKey(Resume, on_delete=models.CASCADE, related_name='job_matchings', verbose_name='이력서')
-    score = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='매칭률')
-    feedback = models.TextField(blank=True, null=True, verbose_name='분석 내용')
+    positive_feedback = models.TextField(blank=True, null=True, verbose_name='긍정적 분석')
+    negative_feedback = models.TextField(blank=True, null=True, verbose_name='부정적 분석')
+    enhancements_feedback = models.TextField(blank=True, null=True, verbose_name='보완할 점 분석')
     question = models.TextField(blank=True, null=True, verbose_name='면접 질문')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록일자')
     is_deleted = models.BooleanField(default=False, verbose_name='삭제 여부')
@@ -46,6 +47,7 @@ class ResumeMatching(models.Model):
         db_table = 'resume_matching'
         verbose_name = '이력서 매칭'
         verbose_name_plural = '이력서 매칭 목록'
+        unique_together = ['job_posting', 'resume']
 
 
 class WorkExperience(models.Model):
