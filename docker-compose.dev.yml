@@ -110,14 +110,22 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: celery-beat
-    #command: celery -A config beat -l info
-    command: celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler
+    command: >
+      sh -c "python manage.py migrate &&
+             celery -A config beat -l info --scheduler django_celery_beat.schedulers:DatabaseScheduler"
     volumes:
       - .:/app
     env_file:
       - .env
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     depends_on:
-      - celery
+      postgres:
+        condition: service_healthy
+      backend:
+        condition: service_started
+      celery:
+        condition: service_started
     networks:
       - teamA-network
 

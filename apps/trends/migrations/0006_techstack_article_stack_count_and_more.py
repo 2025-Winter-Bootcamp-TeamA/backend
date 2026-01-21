@@ -10,14 +10,10 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='techstack',
-            name='article_stack_count',
-            field=models.IntegerField(default=0, verbose_name='게시글 스택 언급량'),
-        ),
+        # article_stack_count는 0006_remove_article_stack_count_and_more.py에서 이미 추가됨
         migrations.AddField(
             model_name='techstack',
             name='job_stack_count',
-            field=models.IntegerField(default=0, verbose_name='채용공고 스택 언급량'),
+            field=models.BigIntegerField(default=0, verbose_name='채용공고 스택 언급량'),
         ),
     ]
