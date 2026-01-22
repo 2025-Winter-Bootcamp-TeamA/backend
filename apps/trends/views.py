@@ -9,18 +9,21 @@ from rest_framework.permissions import IsAuthenticated, AllowAny
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from .models import TechStack, Category, TechTrend, TechBookmark
+from .models import Article
+from rest_framework import generics, filters
+from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from .serializers import (
     TechStackSerializer, CategorySerializer,
     TechTrendSerializer, TechStackByCategorySerializer,
     TechBookmarkListSerializer, TechBookmarkCreateSerializer,
     TechBookmarkCreateResponseSerializer,
-    TechStackWithRelationsSerializer
+    TechStackWithRelationsSerializer,
+    ArticleSerializer
 )
 
 from apps.jobs.models import JobPosting
-from apps.jobs.serializers import JobPostingSerializer 
-from apps.trends.models import Category
+from apps.jobs.serializers import JobPostingSerializer
 
 class CategoryJobPostingListView(generics.ListAPIView):
     """
@@ -48,6 +51,37 @@ class CategoryJobPostingListView(generics.ListAPIView):
             tech_stacks__tech_stack__in=stacks_in_category, # 여기에 __tech_stack을 추가했습니다!
             is_deleted=False
         ).distinct().order_by('-id')
+    
+
+class CategoryArticleListView(generics.ListAPIView):
+    """
+    특정 카테고리에 포함된 기술 스택을 가진 게시글 목록 조회
+    """
+    permission_classes = [AllowAny]
+    serializer_class = ArticleSerializer
+    filter_backends = [filters.OrderingFilter]
+    ordering_fields = ['created_at', 'view_count', 'id'] # 허용할 정렬 필드
+    ordering = ['-id'] # 기본: 최신순
+
+    def get_queryset(self):
+        category_id = self.kwargs['category_id']
+
+        # 1. 카테고리 존재 확인
+        get_object_or_404(Category, id=category_id, is_deleted=False)
+
+        # 2. 카테고리에 속한 기술스택들
+        stacks_in_category = TechStack.objects.filter(
+            category_relations__category_id = category_id,
+            is_deleted = False
+        )
+
+        # 3. 그 기술스택을 가진 게시글 조회
+        return Article.objects.filter(
+            tech_stacks__tech_stack__in=stacks_in_category,
+            is_deleted = False
+        ).distinct()
+        
+
 
 class CategoryTechStackListView(generics.ListAPIView):
     """카테고리별 기술 스택 목록"""
@@ -73,14 +107,29 @@ class CategoryTechStackListView(generics.ListAPIView):
 
 
 class TechStackListView(generics.ListAPIView):
-    """기술 스택 목록"""
+    """
+    기술 스택 목록 조회 API
+    - GET /tech-stacks: 기술 스택 목록 조회 (검색 및 필터링 지원)
+    """
     permission_classes = [AllowAny]
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
     # 이름만 부분 일치 검색 + exact 필터 병행
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_fields = ['name']
-    search_fields = ['name']  # 기술 스택 이름만 검색 가능
+    search_fields = ['name']  # 기술 스택 이름으로 부분 일치 검색 가능 (icontains 자동 적용)
+
+    @swagger_auto_schema(
+        operation_summary='기술 스택 목록 조회',
+        operation_description='기술 스택 목록을 조회합니다. '
+                              '검색 파라미터(search)를 사용하여 기술 스택 이름으로 부분 일치 검색이 가능합니다. '
+                              '필터 파라미터(name)를 사용하여 정확한 이름으로 필터링할 수 있습니다.',
+        responses={
+            200: TechStackSerializer(many=True),
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        return super().list(request, *args, **kwargs)
 
 
 class TechStackDetailView(generics.RetrieveAPIView):
