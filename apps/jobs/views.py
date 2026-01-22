@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import filters
+from .filters import JobPostingFilter # 채용지도 필터링 임포트
 
 from .models import Corp, JobPosting, CorpBookmark
 from .serializers import (
@@ -91,46 +92,98 @@ class CorpDetailView(generics.RetrieveAPIView):
                 status=status.HTTP_404_NOT_FOUND
             )
 
-
 class JobPostingListView(generics.ListAPIView):
     """
-    특정 기업의 채용 공고 목록 조회 View
+    채용 공고 목록 조회 및 필터링 View
     """
     permission_classes = [AllowAny]
     serializer_class = JobPostingSerializer
+    
+    # 필터 설정은 클래스 변수로 잘 유지하셨습니다.
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = JobPostingFilter
 
     def get_queryset(self):
-        # URL 설정(urls.py)에서 정의한 변수명 'corp_id'를 가져와야 함 ('pk'가 아님)
+        # 1. 기본 쿼리셋: 삭제되지 않은 공고와 기업 정보를 미리 가져옴 (성능 최적화)
+        queryset = JobPosting.objects.select_related('corp').filter(
+            is_deleted=False,
+            corp__is_deleted=False
+        ).order_by('-created_at')
+
+        # 2. 특정 기업의 공고만 조회하는 경우 (URL에 corp_id가 있을 때)
         corp_id = self.kwargs.get('corp_id')
+        if corp_id:
+            return queryset.filter(corp_id=corp_id)
         
-        # 해당 기업이 실제로 존재하는지(삭제되지 않았는지) 확인
-        # get_object_or_404를 사용하지 않는 이유: 리스트 조회에서 상위 리소스가 없을 때 빈 리스트가 아닌 404를 명시적으로 주기 위함
-        return JobPosting.objects.filter(
-            corp_id=corp_id,
-            corp__is_deleted=False, # 기업이 삭제된 경우 공고도 조회되지 않아야 함
-            is_deleted=False
-        )
-    
+        # 3. 전체 공고를 조회하며 필터링하는 경우 (지도 화면 등)
+        return queryset
+
     @swagger_auto_schema(
-        operation_summary="채용 공고 조회",
-        operation_description="기업 ID를 기반으로 해당 기업이 올린 모든 채용 공고를 조회합니다.",
+        operation_summary="채용 공고 조회 및 필터링",
+        operation_description="전체 공고 필터링(시/도, 경력 등) 또는 특정 기업의 공고를 조회합니다.",
         responses={
             200: JobPostingSerializer(many=True),
             404: "해당 ID의 기업을 찾을 수 없습니다."
         }
     )
     def list(self, request, *args, **kwargs):
-        # urls.py의 변수명인 corp_id 사용
         corp_id = self.kwargs.get('corp_id')
 
-        # 기업 존재 여부 검증 (DB 최적화: exists() 사용)
-        if not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
+        # 기업 ID가 들어왔을 때만 기업 존재 여부 체크
+        if corp_id and not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
             return Response(
                 {"message": "해당 ID의 기업을 찾을 수 없습니다."},
                 status=status.HTTP_404_NOT_FOUND
             )
             
         return super().list(request, *args, **kwargs)
+# class JobPostingListView(generics.ListAPIView):
+#     """
+#     특정 기업의 채용 공고 목록 조회 View
+#     """
+#     # 최적화를 위해 select_related를 사용하여 기업 정보를 한 번에 가져옵니다.
+#     queryset = JobPosting.objects.select_related('corp').all().order_by('-created_at')
+#     serializer_class = JobPostingSerializer
+    
+#     # 필터 백엔드 설정
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_class = JobPostingFilter
+
+#     permission_classes = [AllowAny]
+#     serializer_class = JobPostingSerializer
+
+#     def get_queryset(self):
+#         # URL 설정(urls.py)에서 정의한 변수명 'corp_id'를 가져와야 함 ('pk'가 아님)
+#         corp_id = self.kwargs.get('corp_id')
+        
+#         # 해당 기업이 실제로 존재하는지(삭제되지 않았는지) 확인
+#         # get_object_or_404를 사용하지 않는 이유: 리스트 조회에서 상위 리소스가 없을 때 빈 리스트가 아닌 404를 명시적으로 주기 위함
+#         return JobPosting.objects.filter(
+#             corp_id=corp_id,
+#             corp__is_deleted=False, # 기업이 삭제된 경우 공고도 조회되지 않아야 함
+#             is_deleted=False
+#         )
+    
+#     @swagger_auto_schema(
+#         operation_summary="채용 공고 조회",
+#         operation_description="기업 ID를 기반으로 해당 기업이 올린 모든 채용 공고를 조회합니다.",
+#         responses={
+#             200: JobPostingSerializer(many=True),
+#             404: "해당 ID의 기업을 찾을 수 없습니다."
+#         }
+#     )
+#     def list(self, request, *args, **kwargs):
+#         # urls.py의 변수명인 corp_id 사용
+#         corp_id = self.kwargs.get('corp_id')
+
+#         # 기업 존재 여부 검증 (DB 최적화: exists() 사용)
+#         if not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
+#             return Response(
+#                 {"message": "해당 ID의 기업을 찾을 수 없습니다."},
+#                 status=status.HTTP_404_NOT_FOUND
+#             )
+            
+#         return super().list(request, *args, **kwargs)
 
 
 class JobPostingDetailView(generics.RetrieveAPIView):
