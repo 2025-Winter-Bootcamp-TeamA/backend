@@ -37,7 +37,62 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
     def get_queryset(self):
         if getattr(self, 'swagger_fake_view', False):
             return Resume.objects.none()
-        return Resume.objects.filter(user=self.request.user, is_deleted=False)
+        return Resume.objects.filter(
+            user=self.request.user, 
+            is_deleted=False
+        ).prefetch_related(
+            'work_experiences',
+            'project_experiences',
+            'tech_stacks__tech_stack'
+        )
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        
+        # DB에 저장된 work_experiences와 project_experiences 데이터 가져오기
+        work_experiences = WorkExperience.objects.filter(resume=instance)
+        project_experiences = ProjectExperience.objects.filter(resume=instance)
+        
+        # 텍스트로 포맷팅
+        formatted_text_parts = []
+        
+        # 직무 경험 추가
+        if work_experiences.exists():
+            formatted_text_parts.append('직무 경험:\n')
+            for exp in work_experiences:
+                formatted_text_parts.append(f"{exp.organization}: {exp.details}\n")
+            formatted_text_parts.append('\n')
+        
+        # 프로젝트 경험 추가
+        if project_experiences.exists():
+            formatted_text_parts.append('프로젝트 경험:\n')
+            for exp in project_experiences:
+                formatted_text_parts.append(f"{exp.project_name}\n{exp.context}\n{exp.details}\n\n")
+        
+        # 합쳐진 텍스트 생성
+        extracted_text = ''.join(formatted_text_parts).strip() if formatted_text_parts else None
+        
+        # DB 데이터가 없으면 원본 PDF에서 추출 시도
+        if not extracted_text and instance.url:
+            try:
+                resume_text = extract_text_from_pdf_url(instance.url)
+                if resume_text and resume_text.strip():
+                    extracted_text = resume_text
+            except Exception as e:
+                # 텍스트 추출 실패해도 에러 없이 진행
+                pass
+        
+        # 인스턴스에 추출된 텍스트를 임시로 저장 (serializer에서 사용)
+        instance._extracted_text = extracted_text
+        
+        serializer = self.get_serializer(instance)
+        data = serializer.data
+        
+        # serializer에서 None이면 직접 설정
+        if extracted_text and not data.get('extracted_text'):
+            data['extracted_text'] = extracted_text
+        
+        return Response(data)
 
     def perform_destroy(self, instance):
         # 삭제 시 관련된 분석 데이터도 함께 Soft Delete

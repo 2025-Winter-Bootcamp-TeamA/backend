@@ -77,11 +77,17 @@ class ResumeDetailSerializer(serializers.ModelSerializer):
     resume_url = serializers.CharField(source='url', read_only=True)
     created_at = serializers.DateTimeField(format='%Y-%m-%dT%H:%M:%S', read_only=True)
     tech_stacks = ResumeStackSerializer(many=True, read_only=True)
+    extracted_text = serializers.SerializerMethodField()
 
     class Meta:
         model = Resume
-        fields = ['resume_id', 'resume_title', 'resume_url', 'tech_stacks', 'created_at', 'updated_at']
+        fields = ['resume_id', 'resume_title', 'resume_url', 'tech_stacks', 'extracted_text', 'created_at', 'updated_at']
         read_only_fields = ['id', 'url', 'created_at', 'updated_at']
+
+    def get_extracted_text(self, obj):
+        # retrieve 메서드에서 이미 추가되므로 여기서는 None 반환
+        # 실제 값은 views.py의 retrieve 메서드에서 설정됨
+        return getattr(obj, '_extracted_text', None)
 
 
 class ResumeMatchingSerializer(serializers.ModelSerializer):

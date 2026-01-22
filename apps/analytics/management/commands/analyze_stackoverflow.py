@@ -104,27 +104,34 @@ def load_techs_from_csv(csv_path: Path) -> list[str]:
 # xml 스트리밍 파싱
 def iter_posts(posts_xml_path: Path):
     context = iterparse(posts_xml_path, events=("end",))
-    for _, elem in context:
-        if elem.tag != "row":
-            continue
+    try:
+        for _, elem in context:
+            if elem.tag != "row":
+                continue
 
-        a = elem.attrib
-        post_id = a.get("Id") or ""
-        post_type = a.get("PostTypeId") or "" # 1=Question, 2=Answer
-        title = a.get("Title") or ""
-        body = a.get("Body") or ""
-        tags = a.get("Tags") or ""
-        view_count_raw = a.get("ViewCount") or "0"
+            a = elem.attrib
+            post_id = a.get("Id") or ""
+            post_type = a.get("PostTypeId") or "" # 1=Question, 2=Answer
+            title = a.get("Title") or ""
+            body = a.get("Body") or ""
+            tags = a.get("Tags") or ""
+            view_count_raw = a.get("ViewCount") or "0"
 
-        try:
-            view_count = int(view_count_raw)
-        except ValueError:
-            view_count = 0
+            try:
+                view_count = int(view_count_raw)
+            except ValueError:
+                view_count = 0
 
-        # 대용량 메모리 방지
-        elem.clear()
+            # 대용량 메모리 방지
+            elem.clear()
 
-        yield post_id, post_type, title, body, tags, view_count
+            yield post_id, post_type, title, body, tags, view_count
+    except Exception as e:
+        # XML 파싱 에러 발생 시 경고만 출력하고 이미 처리된 데이터는 반환됨
+        import sys
+        print(f"Warning: XML parsing error occurred (file may be incomplete): {e}", file=sys.stderr)
+        print("Processed data up to the error point will be used.", file=sys.stderr)
+        # 제너레이터이므로 예외 발생 시 자동으로 종료됨
 
 
 # "react native" 처럼 여러 단어 기술이 문장에 붙어서 나왔는지 확인

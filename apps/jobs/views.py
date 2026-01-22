@@ -28,47 +28,33 @@ class CorpListView(generics.ListAPIView):
     
     @swagger_auto_schema(
         operation_summary="기업 검색 (목록 조회)",
-        operation_description="기업 이름(corp_name)을 필터링하여 검색합니다. 2글자 미만은 400, 결과 없음은 404를 반환합니다.",
+        operation_description="기업 이름(corp_name)을 필터링하여 부분 일치 검색을 수행합니다. 검색어가 없으면 전체 목록을 반환합니다.",
         manual_parameters=[
             openapi.Parameter(
                 'corp_name', openapi.IN_QUERY, 
-                description="검색할 기업 이름", 
+                description="검색할 기업 이름 (부분 일치)", 
                 type=openapi.TYPE_STRING
             )
         ],
         responses={
             200: CorpSerializer(many=True),
-            400: "최소 2글자 이상 입력 필요",
-            404: "검색 결과 없음"
         }
     )
     def get(self, request, *args, **kwargs):
         # 쿼리 파라미터 추출
         corp_name = request.query_params.get('corp_name')
-        
-        # 검색어 유효성 검사: 검색어가 존재하나 2글자 미만인 경우 400 Bad Request 반환
-        if corp_name and len(corp_name) < 2:
-            return Response(
-                {"error_code": "INVALID_PARAMETER", "message": "최소 2글자 이상 입력해주세요."},
-                status=status.HTTP_400_BAD_REQUEST
-            )
 
         # 검색 로직: 상위 클래스의 get 호출 전 필터링 적용
         # self.get_queryset()을 호출하여 인스턴스 변수가 아닌 메서드 체이닝으로 처리하는 것이 안전함
         queryset = self.get_queryset()
-        if corp_name:
-            queryset = queryset.filter(name__icontains=corp_name)
+        if corp_name and corp_name.strip():
+            # 부분 일치 검색 (대소문자 구분 없음)
+            queryset = queryset.filter(name__icontains=corp_name.strip())
         
         # 필터링된 쿼리셋으로 시리얼라이징 수행
         serializer = self.get_serializer(queryset, many=True)
         
-        # 검색 결과가 없는 경우 404 Not Found 반환 (요구사항 반영)
-        if corp_name and not serializer.data:
-            return Response(
-                {"message": "해당 이름의 기업을 찾을 수 없습니다."},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
+        # 검색 결과가 없어도 빈 배열 반환 (404 대신 200)
         return Response(serializer.data)
 
 
