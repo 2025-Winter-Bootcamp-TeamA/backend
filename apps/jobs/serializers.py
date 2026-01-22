@@ -10,7 +10,7 @@ class CorpSerializer(serializers.ModelSerializer):
     class Meta:
         model = Corp
         fields = ['id', 'name', 'logo_url', 'address',
-                  #'latitude', 'longitude', 'region_city', 'region_district'
+                  'latitude', 'longitude', 'region_city', 'region_district'
         ]
 
 class CorpDetailSerializer(serializers.ModelSerializer):
