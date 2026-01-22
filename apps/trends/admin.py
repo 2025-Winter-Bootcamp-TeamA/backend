@@ -88,6 +88,10 @@ class TechStackRelationshipAdmin(admin.ModelAdmin):
 
 @admin.register(ArticleStack) 
 class ArticleStackAdmin(admin.ModelAdmin): 
+<<<<<<< HEAD
     list_display = ['article', 'tech_stack', 'count', 'created_at', 'is_deleted'] 
+=======
+    list_display = ['article', 'tech_stack', 'created_at', 'is_deleted'] 
+>>>>>>> origin/jb
     list_filter = ['tech_stack'] 
     search_fields = ['article__url', 'tech_stack__name'] 

@@ -82,11 +82,20 @@ def load_techs_from_csv(csv_path: Path) -> list[str]:
     with csv_path.open("r", encoding="utf-8") as f:
         reader = csv.DictReader(f)
         fields = reader.fieldnames or []
+<<<<<<< HEAD
         if "Name" not in fields:
             raise ValueError(f"CSV must contain a 'Name' column. Found: {fields}")
         
         for row in reader:
             tech = normalize_tech_name(row.get("Name") or "")
+=======
+        col = "Name" if "Name" in fields else ("name" if "name" in fields else None)
+        if not col:
+            raise ValueError(f"CSV must contain a 'Name' column. Found: {fields}")
+        
+        for row in reader:
+            tech = normalize_tech_name(row.get(col) or "")
+>>>>>>> origin/jb
             if tech:
                 techs.append(tech)
 
@@ -281,7 +290,11 @@ class Command(BaseCommand):
         tech_set = set(techs) 
 
         if detail_tech and detail_tech not in tech_set: 
+<<<<<<< HEAD
             self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV"))  # ✅
+=======
+            self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV")) 
+>>>>>>> origin/jb
             return 
         
         single_index, multi_index, tech_tokens_map = build_tech_index(techs)
@@ -295,8 +308,13 @@ class Command(BaseCommand):
 
         scanned = 0
 
+<<<<<<< HEAD
         # ArticleStack bulk insert 버퍼
         rel_buffer = [] 
+=======
+        # # ArticleStack bulk insert 버퍼
+        # rel_buffer = [] 
+>>>>>>> origin/jb
 
         for post_id, post_type, title, body, tags, view_count in iter_posts(posts_path):
             if post_type != "1":
@@ -375,16 +393,22 @@ class Command(BaseCommand):
                         rel, rel_created = ArticleStack.objects.get_or_create(
                             article=article,
                             tech_stack=ts,
+<<<<<<< HEAD
                             defaults={"count": 1},
+=======
+>>>>>>> origin/jb
                         )
 
                         if rel_created:
                             created_tech_ids.append(ts.id)
+<<<<<<< HEAD
                         else:
                             # 이미 관계가 있으면 count만 최신화
                             if rel.count != 1:
                                 rel.count = 1
                                 rel.save(update_fields=["count", "updated_at"])
+=======
+>>>>>>> origin/jb
 
                     if created_tech_ids:
                         TechStack.objects.filter(id__in=created_tech_ids).update(

@@ -5,8 +5,11 @@ from django.db import transaction
 from apps.jobs.models import Corp, JobPosting, JobPostingStack
 from apps.trends.models import TechStack
 from fuzzywuzzy import process  # 문자열 유사도 매칭을 위해 필수
+<<<<<<< HEAD
 import requests
 import os
+=======
+>>>>>>> origin/jb
 
 class Command(BaseCommand):
     help = '원티드 IT 개발 직군 공고 수집 (경력 추출 및 Fuzzy 기술 매칭 포함)'
@@ -18,6 +21,7 @@ class Command(BaseCommand):
             default=1000, 
             help='수집할 공고의 최대 개수 (0 입력 시 전체 수집, 기본값: 1000)'
         )
+<<<<<<< HEAD
     # [추가됨] 카카오 좌표 -> 주소 변환 함수
     def get_region_from_kakao(self, lat, lng, api_key):
         url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json"
@@ -65,6 +69,10 @@ class Command(BaseCommand):
         if not KAKAO_REST_API_KEY:
             self.stdout.write(self.style.ERROR("[FATAL] KAKAO_REST_API_KEY가 환경 변수에 설정되지 않았습니다."))
             return
+=======
+
+    def handle(self, *args, **options):
+>>>>>>> origin/jb
         target_count = options['count']
         base_url = "https://www.wanted.co.kr/api/v4/jobs"
         
@@ -124,6 +132,7 @@ class Command(BaseCommand):
                         annual_from = job_detail.get('annual_from', 0)
                         annual_to = job_detail.get('annual_to', 0)
                         is_newbie = job_detail.get('is_newbie', False)
+<<<<<<< HEAD
                         employment_type = job_detail.get('employment_type', '') # 인턴 여부 확인
 
                         if employment_type == 'intern':
@@ -206,6 +215,24 @@ class Command(BaseCommand):
                         #         self.stdout.write(self.style.WARNING("   -> 실패: API 응답 없음"))
 
 
+=======
+
+                        if is_newbie and annual_to == 0:
+                            career_str = "신입"
+                        elif is_newbie and annual_to > 0:
+                            career_str = f"신입 ~ {annual_to}년"
+                        elif annual_from > 0 and annual_to > 0:
+                            career_str = f"{annual_from}년차" if annual_from == annual_to else f"{annual_from} ~ {annual_to}년"
+                        elif annual_from > 0:
+                            career_str = f"{annual_from}년 이상"
+                        else:
+                            career_str = "경력 무관"
+
+                        # 2. 주소 및 본문
+                        address_info = job_detail.get('address') or {}
+                        geo_location = (address_info.get('geo_location') or {}).get('n_location') or {}
+                        
+>>>>>>> origin/jb
                         detail_content = job_detail.get('detail') or {}
                         full_description = (
                             f"## 주요업무\n{detail_content.get('main_tasks', '')}\n\n"
@@ -223,10 +250,15 @@ class Command(BaseCommand):
                                 defaults={
                                     'logo_url': logo_thumb,
                                     'address': address_info.get('full_location'),
+<<<<<<< HEAD
                                     'region_city': city_name,        # 파싱한 시/도 저장
                                     'region_district': district_name, # 파싱한 구/군 저장
                                     'latitude': lat,
                                     'longitude': lng,
+=======
+                                    'latitude': geo_location.get('lat'),
+                                    'longitude': geo_location.get('lng'),
+>>>>>>> origin/jb
                                     'is_deleted': False
                                 }
                             )
@@ -241,8 +273,11 @@ class Command(BaseCommand):
                                     'description': full_description,
                                     'expiry_date': job_detail.get('due_time'),
                                     'career': career_str, 
+<<<<<<< HEAD
                                     'min_career': min_val, # 정제된 최소 경력 저장
                                     'max_career': max_val, # 정제된 최대 경력 저장
+=======
+>>>>>>> origin/jb
                                     #'stack_count': 0,  # [핵심] DB의 NOT NULL 제약조건 통과를 위해 0 할당
                                     'is_deleted': False 
                                 }
@@ -287,8 +322,12 @@ class Command(BaseCommand):
                             self.stdout.write(f"[PROGRESS] {total_collected}개 공고 처리 완료...")
 
                     except Exception as inner_e:
+<<<<<<< HEAD
                         #self.stdout.write(self.style.ERROR(f"[ERROR] ID:{wanted_job_id} 처리 실패: {str(inner_e)}"))
                         print("유니크 설정으로 인해 중복 스킵!")
+=======
+                        self.stdout.write(self.style.ERROR(f"[ERROR] ID:{wanted_job_id} 처리 실패: {str(inner_e)}"))
+>>>>>>> origin/jb
                         continue
                 
                 offset += limit
