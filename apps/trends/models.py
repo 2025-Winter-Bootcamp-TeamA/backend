@@ -224,10 +224,6 @@ class ArticleStack(models.Model):
         related_name='articles',
         verbose_name='기술 스택'
     )
-    count = models.IntegerField(
-        default=0,
-        verbose_name='게시글 스택 언급량'
-    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='등록일자'
