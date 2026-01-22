@@ -21,7 +21,9 @@ class JobPostingFilter(django_filters.FilterSet):
 
     def filter_search(self, queryset, name, value):
         # 제목 혹은 상세 설명에서 검색어를 찾습니다.
-        return queryset.filter(title__icontains=value) | queryset.filter(description__icontains=value)
+        # OR 조건: 제목 또는 설명에 검색어가 포함된 경우
+        from django.db.models import Q
+        return queryset.filter(Q(title__icontains=value) | Q(description__icontains=value))
 
     def filter_by_career(self, queryset, name, value):
         # 공고의 최소 경력보다는 크거나 같고, 최대 경력보다는 작거나 같은 범위를 필터링합니다.

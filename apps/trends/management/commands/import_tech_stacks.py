@@ -34,14 +34,6 @@ class Command(BaseCommand):
                 updated_count = 0
                 
                 for row in reader:
-<<<<<<< HEAD
-                    stack_name = row.get('name', '').strip()
-                    description = row.get('description', '').strip()
-                    image_url = row.get('image', '').strip()
-                    link_url = row.get('link', '').strip()
-
-                    if not stack_name:
-=======
                     # CSV 헤더가 'Name' (대문자)이므로 대소문자 구분 없이 찾기
                     stack_name = (row.get('Name') or row.get('name') or '').strip()
                     description = (row.get('description') or '').strip()
@@ -50,7 +42,6 @@ class Command(BaseCommand):
 
                     if not stack_name:
                         self.stdout.write(self.style.WARNING(f'  > 빈 이름 건너뛰기: {row}'))
->>>>>>> origin/jb
                         continue
 
                     self.stdout.write(f"처리 중: {stack_name}...")

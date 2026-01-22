@@ -22,7 +22,8 @@ urlpatterns = [
     #path('<int:corp_id>/bookmark/', views.CorpBookmarkToggleView.as_view(), name='corp_bookmark_toggle'),
 
     # 채용 공고
-    path('corps/<int:corp_id>/job-postings/', views.JobPostingListView.as_view(), name='job_posting_list'), #채용공고 조회
+    path('job-postings/', views.JobPostingListView.as_view(), name='job_posting_list_all'), #전체 채용공고 조회 (필터링 가능)
+    path('corps/<int:corp_id>/job-postings/', views.JobPostingListView.as_view(), name='job_posting_list'), #특정 기업의 채용공고 조회
     #path('<int:pk>/', views.JobPostingDetailView.as_view(), name='job_posting_detail'),
     path('by-tech/<int:tech_stack_id>/', views.JobPostingByTechView.as_view(), name='job_posting_by_tech'),
 ]

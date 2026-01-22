@@ -1,15 +1,11 @@
 import requests
 import time
+import os
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from apps.jobs.models import Corp, JobPosting, JobPostingStack
 from apps.trends.models import TechStack
 from fuzzywuzzy import process  # 문자열 유사도 매칭을 위해 필수
-<<<<<<< HEAD
-import requests
-import os
-=======
->>>>>>> origin/jb
 
 class Command(BaseCommand):
     help = '원티드 IT 개발 직군 공고 수집 (경력 추출 및 Fuzzy 기술 매칭 포함)'
@@ -21,7 +17,7 @@ class Command(BaseCommand):
             default=1000, 
             help='수집할 공고의 최대 개수 (0 입력 시 전체 수집, 기본값: 1000)'
         )
-<<<<<<< HEAD
+    
     # [추가됨] 카카오 좌표 -> 주소 변환 함수
     def get_region_from_kakao(self, lat, lng, api_key):
         url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json"
@@ -29,13 +25,7 @@ class Command(BaseCommand):
         params = {"x": lng, "y": lat} # x:경도, y:위도
 
         try:
-            # # 1. 요청 전 파라미터 확인
-            # print(f"\n[DEBUG] 요청 좌표 - lat: {lat}, lng: {lng}")
-            
             response = requests.get(url, headers=headers, params=params, timeout=3)
-            
-            # # 2. 상태 코드 및 응답 본문 확인
-            # print(f"[DEBUG] 상태 코드: {response.status_code}")
             
             if response.status_code != 200:
                 print(f"[DEBUG] 에러 메시지: {response.text}") 
@@ -43,9 +33,6 @@ class Command(BaseCommand):
 
             data = response.json()
             documents = data.get('documents', [])
-
-            # # 3. 결과 개수 확인
-            # print(f"[DEBUG] 검색된 행정구역 개수: {len(documents)}")
 
             for doc in documents:
                 if doc['region_type'] == 'H':
@@ -69,10 +56,7 @@ class Command(BaseCommand):
         if not KAKAO_REST_API_KEY:
             self.stdout.write(self.style.ERROR("[FATAL] KAKAO_REST_API_KEY가 환경 변수에 설정되지 않았습니다."))
             return
-=======
-
-    def handle(self, *args, **options):
->>>>>>> origin/jb
+        
         target_count = options['count']
         base_url = "https://www.wanted.co.kr/api/v4/jobs"
         
@@ -132,7 +116,6 @@ class Command(BaseCommand):
                         annual_from = job_detail.get('annual_from', 0)
                         annual_to = job_detail.get('annual_to', 0)
                         is_newbie = job_detail.get('is_newbie', False)
-<<<<<<< HEAD
                         employment_type = job_detail.get('employment_type', '') # 인턴 여부 확인
 
                         if employment_type == 'intern':
@@ -153,6 +136,7 @@ class Command(BaseCommand):
                             min_val = 0
                             max_val = 100
                             career_str = "경력 무관"
+                        
                         # [최적화 핵심] 1. DB에 이미 존재하는 기업인지 먼저 확인
                         # 이름으로 기업 검색
                         existing_corp = Corp.objects.filter(name=corp_name).first()
@@ -168,7 +152,6 @@ class Command(BaseCommand):
                             lat = existing_corp.latitude
                             lng = existing_corp.longitude
                             use_api = False # API 호출 스킵
-                            # self.stdout.write(f"   [Skip API] DB 캐시 사용: {corp_name}")
                         # 3. DB에 없거나 정보가 부족할 때만 -> 주소 파싱 및 API 로직 실행
                         if use_api:
                             address_info = job_detail.get('address') or {}
@@ -189,50 +172,8 @@ class Command(BaseCommand):
                                 if region_data:
                                     city_name = region_data['city'][:2]
                                     district_name = region_data['district']
-                                    self.stdout.write(self.style.SUCCESS(f"   [API 호출] 신규 주소 변환: {city_name} {district_name}"))            
-                        # # 2. 주소 및 본문
-                        # address_info = job_detail.get('address') or {}
-                        # geo_location = (address_info.get('geo_location') or {}).get('n_location') or {}
-                        # location_inner = (address_info.get('geo_location') or {}).get('location') or {}
+                                    self.stdout.write(self.style.SUCCESS(f"   [API 호출] 신규 주소 변환: {city_name} {district_name}"))
 
-                        # # API마다 구조가 조금씩 다를 수 있어 안전하게 추출
-                        # lat = location_inner.get('lat') or geo_location.get('lat')
-                        # lng = location_inner.get('lng') or geo_location.get('lng')
-
-                        # # 1차 주소 문자열 파싱 (시/도, 구/군 분리)
-                        # city_name = address_info.get('location', "")
-                        # district_name = address_info.get('district', "")
-                        # # 2차 시도: 구/군 정보가 비어있고 좌표가 있으면 카카오 API 호출
-                        # if not district_name and lat and lng:
-                        #     self.stdout.write(f"   [API 호출] 지역 정보 누락 -> 카카오 좌표 변환 시도...")
-                        #     region_data = self.get_region_from_kakao(lat, lng, KAKAO_REST_API_KEY)
-                            
-                        #     if region_data:
-                        #         city_name = region_data['city'][:2] # "서울특별시" -> "서울"
-                        #         district_name = region_data['district'] # "강서구"
-                        #         self.stdout.write(self.style.SUCCESS(f"   -> 성공: {city_name} {district_name}"))
-                        #     else:
-                        #         self.stdout.write(self.style.WARNING("   -> 실패: API 응답 없음"))
-
-
-=======
-
-                        if is_newbie and annual_to == 0:
-                            career_str = "신입"
-                        elif is_newbie and annual_to > 0:
-                            career_str = f"신입 ~ {annual_to}년"
-                        elif annual_from > 0 and annual_to > 0:
-                            career_str = f"{annual_from}년차" if annual_from == annual_to else f"{annual_from} ~ {annual_to}년"
-                        elif annual_from > 0:
-                            career_str = f"{annual_from}년 이상"
-                        else:
-                            career_str = "경력 무관"
-
-                        # 2. 주소 및 본문
-                        address_info = job_detail.get('address') or {}
-                        geo_location = (address_info.get('geo_location') or {}).get('n_location') or {}
-                        
->>>>>>> origin/jb
                         detail_content = job_detail.get('detail') or {}
                         full_description = (
                             f"## 주요업무\n{detail_content.get('main_tasks', '')}\n\n"
@@ -250,20 +191,15 @@ class Command(BaseCommand):
                                 defaults={
                                     'logo_url': logo_thumb,
                                     'address': address_info.get('full_location'),
-<<<<<<< HEAD
                                     'region_city': city_name,        # 파싱한 시/도 저장
                                     'region_district': district_name, # 파싱한 구/군 저장
                                     'latitude': lat,
                                     'longitude': lng,
-=======
-                                    'latitude': geo_location.get('lat'),
-                                    'longitude': geo_location.get('lng'),
->>>>>>> origin/jb
                                     'is_deleted': False
                                 }
                             )
 
-                            # 2. 공고 정보 저장 (stack_count 강제 할당으로 에러 방지)
+                            # 2. 공고 정보 저장
                             job_obj, _ = JobPosting.objects.update_or_create(
                                 posting_number=wanted_job_id,
                                 defaults={
@@ -273,12 +209,8 @@ class Command(BaseCommand):
                                     'description': full_description,
                                     'expiry_date': job_detail.get('due_time'),
                                     'career': career_str, 
-<<<<<<< HEAD
                                     'min_career': min_val, # 정제된 최소 경력 저장
                                     'max_career': max_val, # 정제된 최대 경력 저장
-=======
->>>>>>> origin/jb
-                                    #'stack_count': 0,  # [핵심] DB의 NOT NULL 제약조건 통과를 위해 0 할당
                                     'is_deleted': False 
                                 }
                             )
@@ -300,20 +232,11 @@ class Command(BaseCommand):
                                     target_name = match[0]
                                     ts = TechStack.objects.get(name=target_name)
                                     
-                                    # # 2. 언급량(Count) 계산
-                                    # # 본문에서 해당 기술명이 몇 번 등장하는지 계산 (최소 1번은 태그에 있었으므로 1 보장)
-                                    # mention_count = description_lower.count(target_name.lower())
-                                    # if mention_count == 0:
-                                    #     mention_count = 1  # 태그에는 있지만 본문 설명에는 직접 언급되지 않은 경우
-                                    
                                     # 3. 데이터 저장
                                     JobPostingStack.objects.create(
                                         job_posting=job_obj, 
-                                        tech_stack=ts, 
-                                        #job_stack_count=mention_count  # 계산된 언급량 반영
+                                        tech_stack=ts
                                     )
-                                    
-                                    # self.stdout.write(f"   [Matched] {target_name} ({mention_count}회 언급)")
                                 else:
                                     self.stdout.write(self.style.WARNING(f"   [Skip] 신규 기술 발견: {skill_name}"))
                                                                             
@@ -322,12 +245,8 @@ class Command(BaseCommand):
                             self.stdout.write(f"[PROGRESS] {total_collected}개 공고 처리 완료...")
 
                     except Exception as inner_e:
-<<<<<<< HEAD
                         #self.stdout.write(self.style.ERROR(f"[ERROR] ID:{wanted_job_id} 처리 실패: {str(inner_e)}"))
                         print("유니크 설정으로 인해 중복 스킵!")
-=======
-                        self.stdout.write(self.style.ERROR(f"[ERROR] ID:{wanted_job_id} 처리 실패: {str(inner_e)}"))
->>>>>>> origin/jb
                         continue
                 
                 offset += limit

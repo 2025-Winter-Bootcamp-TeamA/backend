@@ -34,12 +34,8 @@ class Command(BaseCommand):
             with open(source_csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
                 for row in reader:
-<<<<<<< HEAD
-                    tech_name = row.get('name', '').strip()
-=======
                     # CSV 헤더가 'Name' (대문자)이므로 대소문자 구분 없이 찾기
                     tech_name = (row.get('Name') or row.get('name') or '').strip()
->>>>>>> origin/jb
                     if tech_name:
                         tech_names_from_csv.append(tech_name)
 
