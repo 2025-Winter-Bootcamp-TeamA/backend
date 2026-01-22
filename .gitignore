@@ -105,3 +105,12 @@ out.csv
 *_top_posts_*.csv
 Posts_sample.xml
 Posts.xml
+
+# 대용량 데이터 파일
+tech_stacks*.csv
+tech_stacks*.json
+tech_*.json
+tech_*.csv
+tech_stacks_relationships.json
+tech_stacks_merged_final.csv
+git_top_posts_10.csv

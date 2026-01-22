@@ -56,25 +56,35 @@ class LoginSerializer(serializers.Serializer):
         password = data.get('password')
         
         if not email or not password:
-            raise serializers.ValidationError('이메일과 비밀번호를 모두 입력해주세요.')
+            raise serializers.ValidationError({
+                'error': '이메일과 비밀번호를 모두 입력해주세요.'
+            })
         
         try:
             # 커스텀 User 모델에서 email로 사용자 조회
             user = User.objects.get(email=email)
         except User.DoesNotExist:
-            raise serializers.ValidationError('이메일 또는 비밀번호가 올바르지 않습니다.')
+            raise serializers.ValidationError({
+                'error': '이메일 또는 비밀번호가 올바르지 않습니다.'
+            })
         
         # 비밀번호 확인
         if not user.check_password(password):
-            raise serializers.ValidationError('이메일 또는 비밀번호가 올바르지 않습니다.')
+            raise serializers.ValidationError({
+                'error': '이메일 또는 비밀번호가 올바르지 않습니다.'
+            })
         
         # 계정 활성화 확인
         if not user.is_active:
-            raise serializers.ValidationError('비활성화된 계정입니다.')
+            raise serializers.ValidationError({
+                'error': '비활성화된 계정입니다.'
+            })
         
         # 삭제된 계정 확인
         if user.is_deleted:
-            raise serializers.ValidationError('삭제된 계정입니다.')
+            raise serializers.ValidationError({
+                'error': '삭제된 계정입니다.'
+            })
         
         data['user'] = user
         return data

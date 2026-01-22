@@ -101,3 +101,24 @@ temp/
 # 기타
 node_modules/
 npm-debug.log
+
+# 대용량 데이터 파일 (Docker 빌드 컨텍스트에서 제외)
+Posts.xml
+Posts_sample.xml
+*.xml
+out.csv
+git_top_posts_10.csv
+*_top_posts_*.csv
+tech_stacks*.csv
+tech_stacks*.json
+tech_*.json
+tech_*.csv
+tech_stacks_relationships.json
+tech_stacks_merged_final.csv
+names.txt
+
+# 추가 대용량 파일/디렉토리
+기술 스택 ai 정리/
+*.csv
+*.json
+*.xml
