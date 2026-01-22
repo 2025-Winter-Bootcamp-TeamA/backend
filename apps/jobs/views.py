@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import filters
+from .filters import JobPostingFilter # 채용지도 필터링 임포트
 
 from .models import Corp, JobPosting, CorpBookmark
 from .serializers import (
@@ -15,6 +16,15 @@ from .serializers import (
     CorpBookmarkListSerializer, CorpBookmarkCreateSerializer,
     CorpBookmarkCreateResponseSerializer
 )
+
+class JobPostingListView(generics.ListAPIView):
+    # 최적화를 위해 select_related를 사용하여 기업 정보를 한 번에 가져옵니다.
+    queryset = JobPosting.objects.select_related('corp').all().order_by('-created_at')
+    serializer_class = JobPostingSerializer
+    
+    # 필터 백엔드 설정
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = JobPostingFilter
 
 class CorpListView(generics.ListAPIView):
     """

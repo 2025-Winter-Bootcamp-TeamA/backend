@@ -9,7 +9,9 @@ class CorpSerializer(serializers.ModelSerializer):
     """기업 시리얼라이저"""
     class Meta:
         model = Corp
-        fields = ['id', 'name', 'logo_url', 'address']
+        fields = ['id', 'name', 'logo_url', 'address',
+                  'latitude', 'longitude', 'region_city', 'region_district'
+        ]
 
 class CorpDetailSerializer(serializers.ModelSerializer):
     """기업 상세 시리얼라이저"""
@@ -40,7 +42,8 @@ class JobPostingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JobPosting
-        fields = ['id', 'corp', 'url', 'title', 'career', 'expiry_date','created_at']
+        fields = ['id', 'corp', 'url', 'title', 'career', 
+                'min_career', 'max_career','expiry_date','created_at']
 
 
 class JobPostingDetailSerializer(serializers.ModelSerializer):

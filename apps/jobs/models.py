@@ -28,6 +28,10 @@ class Corp(models.Model):
         null=True,
         verbose_name='기업 주소'
     )
+    # 필터링을 위한 전용 필드 (추가)
+    region_city = models.CharField(max_length=50, blank=True, null=True, verbose_name='시/도') 
+    region_district = models.CharField(max_length=50, blank=True, null=True, verbose_name='구/군')
+    
     latitude = models.DecimalField(
         max_digits=9,
         decimal_places=6,
@@ -101,6 +105,10 @@ class JobPosting(models.Model):
         null=True,
         verbose_name='경력'
     )
+    #추가
+    min_career = models.IntegerField(default=0, verbose_name='최소 경력(년)')
+    max_career = models.IntegerField(default=0, verbose_name='최대 경력(년)')
+    
     posting_number = models.BigIntegerField(
         blank=True,
         null=True,

@@ -89,10 +89,30 @@ class Command(BaseCommand):
                         else:
                             career_str = "경력 무관"
 
+                        # [추가] 필터링용 숫자 데이터 정제
+                        save_min_career = annual_from
+                        # max가 0 또는 null로 오면을 큰 수(99)저장하거나 0으로 저장 후 로직 처리
+                        save_max_career = annual_to if annual_to > 0 else 99 
+
+                        if is_newbie:
+                            save_min_career = 0 # 신입 가능이면 최소 경력은 0
+
                         # 2. 주소 및 본문
                         address_info = job_detail.get('address') or {}
                         geo_location = (address_info.get('geo_location') or {}).get('n_location') or {}
                         
+                        # 주소 문자열 파싱 (시/도, 구/군 분리)
+                        full_location = address_info.get('full_location', "")
+                        city_name = ""
+                        district_name = ""
+
+                        if full_location:
+                            parts = full_location.split()
+                            if len(parts) >= 1:
+                                city_name = parts[0] # 예: "서울"
+                            if len(parts) >= 2:
+                                district_name = parts[1] # 예: "강남구"
+
                         detail_content = job_detail.get('detail') or {}
                         full_description = (
                             f"## 주요업무\n{detail_content.get('main_tasks', '')}\n\n"
@@ -110,6 +130,8 @@ class Command(BaseCommand):
                                 defaults={
                                     'logo_url': logo_thumb,
                                     'address': address_info.get('full_location'),
+                                    'region_city': city_name,        # 파싱한 시/도 저장
+                                    'region_district': district_name, # 파싱한 구/군 저장
                                     'latitude': geo_location.get('lat'),
                                     'longitude': geo_location.get('lng'),
                                     'is_deleted': False
@@ -126,6 +148,8 @@ class Command(BaseCommand):
                                     'description': full_description,
                                     'expiry_date': job_detail.get('due_time'),
                                     'career': career_str, 
+                                    'min_career': min_val, # 정제된 최소 경력 저장
+                                    'max_career': max_val, # 정제된 최대 경력 저장
                                     #'stack_count': 0,  # [핵심] DB의 NOT NULL 제약조건 통과를 위해 0 할당
                                     'is_deleted': False 
                                 }
