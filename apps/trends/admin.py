@@ -3,9 +3,7 @@
 """
 
 from django.contrib import admin
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship
-from .models import Category, TechStack, TechTrend, Article, TechBookmark, ArticleStack
-
+from .models import Category, TechStack, TechTrend, Article, TechBookmark, TechStackRelationship, ArticleStack
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
@@ -15,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(TechStack)
 class TechStackAdmin(admin.ModelAdmin):
-    list_display = ['name', 'get_categories', 'article_stack_count', 'created_at', 'is_deleted']
+    list_display = ['name', 'get_categories', 'article_stack_count','job_stack_count', 'created_at', 'is_deleted']
     search_fields = ['name']
     ordering = ('-article_stack_count',) 
     def get_categories(self, obj):

@@ -14,7 +14,7 @@ class ResumeStackAdmin(admin.ModelAdmin):
 
 @admin.register(ResumeMatching)
 class ResumeMatchingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'resume', 'job_posting', 'score', 'created_at']
+    list_display = ['id', 'resume', 'job_posting', 'positive_feedback', 'negative_feedback', 'enhancements_feedback', 'question', 'created_at']
     list_filter = ['is_deleted', 'created_at']
 
 @admin.register(WorkExperience)

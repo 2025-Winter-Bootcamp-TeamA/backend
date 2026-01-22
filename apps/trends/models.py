@@ -61,10 +61,14 @@ class TechStack(models.Model):
         blank=True,
         null=True,
         verbose_name='문서 URL'
-    )
+    ) 
     article_stack_count = models.BigIntegerField(
         default=0,
         verbose_name='게시글 스택 언급량'
+    )
+    job_stack_count = models.BigIntegerField(
+        default=0,
+        verbose_name='채용공고 스택 언급량'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

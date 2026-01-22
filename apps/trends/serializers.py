@@ -3,7 +3,7 @@
 """
 
 from rest_framework import serializers
-from .models import TechStack, Category, TechTrend, TechBookmark, TechStackRelationship
+from .models import TechStack, Category, TechTrend, TechBookmark, TechStackRelationship, Article
 
 
 class TechStackSerializer(serializers.ModelSerializer):
@@ -11,7 +11,7 @@ class TechStackSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TechStack
-        fields = ['id', 'name', 'description', 'logo', 'docs_url', 'created_at']
+        fields = ['id', 'name', 'description', 'logo', 'docs_url','job_stack_count', 'article_stack_count', 'created_at']
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -188,3 +188,10 @@ class TechStackWithRelationsSerializer(serializers.ModelSerializer):
             'child': '자식 기술',
         }
         return displays.get(rel_type, rel_type)
+    
+
+class ArticleSerializer(serializers.ModelSerializer):
+    """커뮤니티 게시글(Article) 목록 시리얼라이저"""
+    class Meta:
+        model = Article
+        fields = ['id', 'url', 'source', 'view_count', 'created_at']
