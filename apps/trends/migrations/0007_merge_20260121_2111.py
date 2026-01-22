@@ -7,7 +7,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         ('trends', '0005_techstackrelationship'),
-        ('trends', '0006_remove_article_stack_count_and_more'),
+        ('trends', '0006_techstack_article_stack_count_and_more'),
     ]
 
     operations = [
