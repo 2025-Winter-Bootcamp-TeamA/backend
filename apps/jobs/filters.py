@@ -2,8 +2,6 @@
 
 import django_filters
 from .models import JobPosting
-import django_filters
-from .models import JobPosting
 
 class JobPostingFilter(django_filters.FilterSet):
     # 1. 기업 필터 (새로 추가됨)
