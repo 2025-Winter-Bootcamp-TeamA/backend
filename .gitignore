@@ -103,5 +103,4 @@ tech_stack_extraction_log.jsonl
 # 스택 오버 플로우 결과 파일
 out.csv
 *_top_posts_*.csv
-Posts_sample.xml
 Posts.xml
