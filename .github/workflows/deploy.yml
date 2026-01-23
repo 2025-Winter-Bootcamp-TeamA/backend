@@ -28,6 +28,7 @@ jobs:
             cd backend
             
             # 2. 최신 코드 받기
+            git fetch origin
             git pull origin main
             
             # 3. 환경 변수 파일 생성 (.env.production)
@@ -85,6 +86,7 @@ jobs:
             fi
             cd backend
             
+            git fetch origin
             git pull origin main
             
             # 환경 변수 파일 생성 (.env.production)

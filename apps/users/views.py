@@ -20,6 +20,28 @@ class SignupView(generics.CreateAPIView):
     """일반 회원가입"""
     permission_classes = [AllowAny]
     serializer_class = SignupSerializer
+    
+    @swagger_auto_schema(
+        operation_summary="회원가입",
+        operation_description="이메일, 사용자명, 이름, 비밀번호를 입력하여 새 계정을 생성합니다.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'email': openapi.Schema(type=openapi.TYPE_STRING, description='이메일 주소'),
+                'username': openapi.Schema(type=openapi.TYPE_STRING, description='사용자명'),
+                'name': openapi.Schema(type=openapi.TYPE_STRING, description='이름'),
+                'password': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호 (최소 8자)'),
+                'password_confirm': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호 확인'),
+            },
+            required=['email', 'username', 'name', 'password', 'password_confirm']
+        ),
+        responses={
+            201: UserSerializer(),
+            400: "입력 데이터 오류",
+        }
+    )
+    def post(self, request, *args, **kwargs):
+        return super().post(request, *args, **kwargs)
 
 
 class LoginView(APIView):
