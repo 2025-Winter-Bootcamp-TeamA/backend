@@ -111,71 +111,6 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
             ).update(is_deleted=True)
         
 
-
-class ResumeAnalyzeView(APIView):
-    """이력서 분석 (AI 기반) - Ollama Gemma3:12b 모델 사용"""
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, pk):
-        """
-        S3에서 PDF를 다운로드하고, 텍스트를 추출한 후, 
-        Ollama Gemma3:12b로 기술 스택을 추출하여 저장합니다.
-        """
-        try:
-            # 1. 이력서 조회
-            resume = Resume.objects.get(pk=pk, user=request.user, is_deleted=False)
-            
-            if not resume.url:
-                return Response(
-                    {"error": "이력서 파일이 업로드되지 않았습니다."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            
-            # 2. Ollama URL 설정 (환경변수 또는 기본값)
-            ollama_url = config('OLLAMA_URL', default='http://localhost:11434')
-            
-            # 3. 이력서 분석 (S3 다운로드 → PDF 텍스트 추출 → Ollama 분석)
-            try:
-                resume_text, tech_stack_names = analyze_resume(resume.url, ollama_url)
-            except Exception as e:
-                return Response(
-                    {"error": f"이력서 분석 실패: {str(e)}"},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
-            
-            # 4. 기존 기술 스택 삭제 후 새로 저장
-            with transaction.atomic():
-                # 기존 기술 스택 삭제
-                ResumeStack.objects.filter(resume=resume).delete()
-                
-                # 새로운 기술 스택 저장
-                created_count = 0
-                for tech_name in tech_stack_names:
-                    try:
-                        tech_stack = TechStack.objects.get(name__iexact=tech_name)
-                        ResumeStack.objects.create(
-                            resume=resume,
-                            tech_stack=tech_stack
-                        )
-                        created_count += 1
-                    except TechStack.DoesNotExist:
-                        continue
-            
-            return Response({
-                "message": "이력서 분석이 완료되었습니다.",
-                "resume_id": resume.id,
-                "resume_title": resume.title,
-                "extracted_tech_count": created_count,
-                "tech_stacks": tech_stack_names
-            }, status=status.HTTP_200_OK)
-            
-        except Resume.DoesNotExist:
-            return Response(
-                {"error": "이력서를 찾을 수 없습니다."},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-
 class ResumeMatchingView(APIView):
     """이력서와 채용 공고 매칭 (Gemini Pro) - JSON 파싱 강화 버전"""
     permission_classes = [IsAuthenticated]
@@ -370,7 +305,7 @@ class ResumeRestoreView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class ResumeMatchCreateAPIView(APIView):
+class ResumeAnalyzeView(APIView):
     """이력서 분석 및 직무/프로젝트 경험 추출"""
     permission_classes = [IsAuthenticated]
 
@@ -388,7 +323,8 @@ class ResumeMatchCreateAPIView(APIView):
             if not resume_text or not resume_text.strip():
                 return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-            ollama_host = '[http://host.docker.internal:11434](http://host.docker.internal:11434)' if os.path.exists('/.dockerenv') else config('OLLAMA_URL', default='http://localhost:11434')
+            ollama_host= 'http://host.docker.internal:11434'
+
             #ollama_host = settings.OLLAMA_URL
             parser = ResumeParserSystem(host=ollama_host)
             structured_data = parser.parse(resume_text)
