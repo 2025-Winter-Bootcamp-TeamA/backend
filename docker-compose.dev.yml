@@ -75,7 +75,9 @@ services:
     ports:
       - "8000:8000"
     env_file:
-      - .env
+      - .env.local
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     depends_on:
       postgres:
         condition: service_healthy
@@ -96,7 +98,9 @@ services:
     volumes:
       - .:/app  # 개발환경: 코드 변경 시 실시간 반영
     env_file:
-      - .env
+      - .env.local
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
     depends_on:
       - backend
       - rabbitmq
@@ -114,7 +118,7 @@ services:
     volumes:
       - .:/app
     env_file:
-      - .env
+      - .env.local
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.local
     depends_on:

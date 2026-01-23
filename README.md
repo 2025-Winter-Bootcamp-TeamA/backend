@@ -41,14 +41,49 @@ sudo usermod -aG docker $USER
 
 ---
 
+## 환경변수 설정
+
+프로젝트는 환경별로 다른 환경변수 파일을 사용합니다:
+
+### 환경변수 파일 구조
+
+| 파일 | 용도 | Docker Compose |
+|------|------|----------------|
+| `.env.local` | 로컬 개발 환경 (Docker) | `docker-compose.dev.yml` |
+| `.env.production` | AWS 프로덕션 배포 | `docker-compose.api.yml`, `docker-compose.worker.yml` |
+
+### 로컬 개발 환경 (.env.local)
+
+```env
+DB_NAME=teamA_db
+DB_USER=teamA
+DB_PASSWORD=2025
+DB_HOST=postgres          # Docker 컨테이너명
+REDIS_URL=redis://redis:6379/0
+RABBITMQ_HOST=rabbitmq
+```
+
+### 프로덕션 환경 (.env.production)
+
+```env
+DB_HOST=team-a-postgresql.cpwiee8wqgfh.ap-northeast-2.rds.amazonaws.com
+REDIS_URL=redis://team-a-redis-ro.gj2pqg.ng.0001.apn2.cache.amazonaws.com:6379/0
+# AWS RDS, ElastiCache 등 실제 서비스 주소 사용
+```
+
+> **주의**: `.env.local`과 `.env.production` 파일은 민감한 정보를 포함하므로 Git에 커밋되지 않습니다.
+
+---
+
 ## 빠른 시작
 
 ### 개발환경 실행
 
 ```bash
-# 1. 환경변수 설정
-cp .env.example .env
-# .env 파일을 열어 실제 값 입력
+# 1. 환경변수 파일 확인
+# - 로컬 개발: .env.local (이미 설정되어 있음)
+# - 프로덕션: .env.production (AWS 배포용)
+# 필요시 .env.local 파일을 열어 값 수정
 
 # 2. 전체 서비스 실행
 docker compose -f docker-compose.dev.yml up -d
@@ -116,6 +151,9 @@ docker compose -f docker-compose.dev.yml up -d postgres redis rabbitmq
 ### 4. Django 서버 실행
 
 ```bash
+# 환경변수 설정 (로컬 개발)
+export DJANGO_SETTINGS_MODULE=config.settings.local
+
 # 마이그레이션
 python manage.py migrate
 

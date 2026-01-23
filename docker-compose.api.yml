@@ -15,10 +15,10 @@ services:
       - static_volume:/app/staticfiles
       - media_volume:/app/media
     env_file:
-      - .env
+      - .env.production
     environment:
       # [중요] RabbitMQ가 다른 서버에 있으므로 IP를 직접 적어야 함!
-      - RABBITMQ_HOST=${WORKER_SERVER_IP} 
+      - RABBITMQ_HOST=${WORKER_SERVER_IP}
       - DJANGO_SETTINGS_MODULE=config.settings.production
     networks:
       - teamA-network

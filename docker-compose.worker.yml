@@ -28,7 +28,7 @@ services:
     container_name: celery
     command: celery -A config worker -l warning
     env_file:
-      - .env
+      - .env.production
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
@@ -46,7 +46,7 @@ services:
     container_name: celery-beat
     command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler #크롤링을 위해 수정
     env_file:
-      - .env
+      - .env.production
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
