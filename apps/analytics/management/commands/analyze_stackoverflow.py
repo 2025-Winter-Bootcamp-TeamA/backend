@@ -4,6 +4,7 @@ import heapq
 from collections import defaultdict
 from pathlib import Path
 from xml.etree.ElementTree import iterparse
+from datetime import datetime, timedelta, timezone
 
 from django.db.models import F
 from django.core.management.base import BaseCommand
@@ -26,14 +27,12 @@ NOISE_TECHS = {
 # 필터링 하면 안되는 기술명
 KNOWN_SHORT_TECHS = {"go", "r", "d3", "qt"}
 
-def is_noise_tech(normalized_tech: str) -> bool:
 
+def is_noise_tech(normalized_tech: str) -> bool:
     if normalized_tech in KNOWN_SHORT_TECHS:
         return False
-    
     if not normalized_tech:
         return True
-
     if normalized_tech in NOISE_TECHS:
         return True
 
@@ -46,13 +45,13 @@ def is_noise_tech(normalized_tech: str) -> bool:
         t = toks[0]
         if t.isalpha() and len(t) <= 2:
             return True
-
     return False
 
 
 # 기술명 표준화 (공백 정리, 소문자화)
 def normalize_spaces(s: str) -> str:
     return " ".join((s or "").split())
+
 
 def normalize_tech_name(name: str) -> str:
     return normalize_spaces(name).lower()
@@ -68,14 +67,14 @@ def normalize_tags(tags: str) -> str:
     return normalize_spaces(t.replace("><", "> <").replace("<", " ").replace(">", " "))
 
 
-# xml 게시글 표준화
+# xml 게시글 텍스트 표준화
 def normalize_post_text(title: str, body: str, tags: str) -> str:
     tags_clean = normalize_tags(tags)
     text = f"{title or ''} {body or ''} {tags_clean}"
     return normalize_spaces(text).lower()
 
 
-# teck_stacks_source.csv 로드
+# tech_stacks_source.csv 로드
 def load_techs_from_csv(csv_path: Path) -> list[str]:
     """Name 컬럼만 읽어서 기술 목록 생성"""
     techs: list[str] = []
@@ -85,13 +84,13 @@ def load_techs_from_csv(csv_path: Path) -> list[str]:
         col = "Name" if "Name" in fields else ("name" if "name" in fields else None)
         if not col:
             raise ValueError(f"CSV must contain a 'Name' column. Found: {fields}")
-        
+
         for row in reader:
             tech = normalize_tech_name(row.get(col) or "")
             if tech:
                 techs.append(tech)
 
-    # 중복 제거
+    # 중복 제거 (순서 유지)
     seen = set()
     uniq = []
     for t in techs:
@@ -101,7 +100,20 @@ def load_techs_from_csv(csv_path: Path) -> list[str]:
     return uniq
 
 
-# xml 스트리밍 파싱
+# CreationDate -> datetime(UTC)
+def parse_creation_dt(s: str) -> datetime | None:
+    if not s:
+        return None
+    try:
+        dt = datetime.fromisoformat(s)
+        if dt.tzinfo is None:
+            return dt.replace(tzinfo=timezone.utc)
+        return dt.astimezone(timezone.utc)
+    except ValueError:
+        return None
+
+
+# XML 스트리밍 파싱
 def iter_posts(posts_xml_path: Path):
     context = iterparse(posts_xml_path, events=("end",))
     try:
@@ -111,57 +123,53 @@ def iter_posts(posts_xml_path: Path):
 
             a = elem.attrib
             post_id = a.get("Id") or ""
-            post_type = a.get("PostTypeId") or "" # 1=Question, 2=Answer
+            post_type = a.get("PostTypeId") or ""  # 1=Question, 2=Answer
             title = a.get("Title") or ""
             body = a.get("Body") or ""
             tags = a.get("Tags") or ""
             view_count_raw = a.get("ViewCount") or "0"
+            created_raw = a.get("CreationDate") or ""
 
             try:
                 view_count = int(view_count_raw)
             except ValueError:
                 view_count = 0
 
-            # 대용량 메모리 방지
+            created_at = parse_creation_dt(created_raw)
+
+            # 메모리 방지
             elem.clear()
 
-            yield post_id, post_type, title, body, tags, view_count
+            yield post_id, post_type, title, body, tags, view_count, created_at
     except Exception as e:
-        # XML 파싱 에러 발생 시 경고만 출력하고 이미 처리된 데이터는 반환됨
         import sys
         print(f"Warning: XML parsing error occurred (file may be incomplete): {e}", file=sys.stderr)
         print("Processed data up to the error point will be used.", file=sys.stderr)
-        # 제너레이터이므로 예외 발생 시 자동으로 종료됨
 
 
-# "react native" 처럼 여러 단어 기술이 문장에 붙어서 나왔는지 확인
+# "react native" 같이 여러 단어 기술이 연속으로 등장하는지 확인
 def tokens_match(tech_tokens: list[str], post_tokens: list[str]) -> bool:
-    """tech 토큰 시퀀스가 post_tokens에 '연속으로' 등장하는지 확인"""
     if not tech_tokens:
         return False
-
     L = len(tech_tokens)
     if L > len(post_tokens):
         return False
-
     for i in range(len(post_tokens) - L + 1):
-        if post_tokens[i : i + L] == tech_tokens:
+        if post_tokens[i:i + L] == tech_tokens:
             return True
     return False
 
-# 성능용 후보 축소 인덱스
-# - single_index: 단일 토큰 기술(예: redis, kafka) -> 토큰으로 매칭 후보 찾기
-# - multi_index: 다중 토큰 기술(예: github actions) -> 첫 토큰으로 후보 찾고 최종은 'tech in text'
+
+# 후보 축소 인덱스
 def build_tech_index(techs: list[str]):
-    single_index = defaultdict(list)
-    multi_index = defaultdict(list)
-    tech_tokens_map = {}
+    single_index = defaultdict(list)  # token -> [tech]
+    multi_index = defaultdict(list)   # first_token -> [tech]
+    tech_tokens_map: dict[str, list[str]] = {}
 
     for tech in techs:
         tokens = TOKEN_RE.findall(tech)
         if not tokens:
             continue
-
         tech_tokens_map[tech] = tokens
 
         if len(tokens) == 1:
@@ -170,6 +178,30 @@ def build_tech_index(techs: list[str]):
             multi_index[tokens[0]].append(tech)
 
     return single_index, multi_index, tech_tokens_map
+
+
+def find_max_creation_dt(posts_xml_path: Path) -> datetime | None:
+    """XML 안에서 가장 최신 CreationDate 찾기 (Question만)"""
+    max_dt = None
+    for _, post_type, _, _, _, _, created_at in iter_posts(posts_xml_path):
+        if post_type != "1":
+            continue
+        if created_at is None:
+            continue
+        if max_dt is None or created_at > max_dt:
+            max_dt = created_at
+    return max_dt
+
+
+def parse_anchor_dt(s: str) -> datetime | None:
+    return parse_creation_dt(s) if s else None
+
+
+WINDOW_TO_DELTA = {
+    "7d": timedelta(days=7),
+    "1m": timedelta(days=30),
+    "3m": timedelta(days=90),
+}
 
 
 class Command(BaseCommand):
@@ -185,13 +217,12 @@ class Command(BaseCommand):
         parser.add_argument("--limit", type=int, default=0, help="Optional: limit number of rows to scan (0=no limit)")
         parser.add_argument("--progress", type=int, default=10000, help="Print progress every N rows")
 
-        parser.add_argument(  # 전체 기술 topN 저장 토글
+        parser.add_argument(
             "--with-top-posts",
             action="store_true",
             help="If set, store tech-wise top posts into out.csv as top_posts column.",
         )
-        
-        # 특정 기술의 top N posts 추출 (예: git)
+
         parser.add_argument(
             "--detail-tech",
             default="",
@@ -203,35 +234,55 @@ class Command(BaseCommand):
             default=10,
             help="How many top posts to keep for --detail-tech (default 10)",
         )
-
-        # detail-tech 결과를 별도 파일로 저장할지/경로 (원하면 지정)
-        parser.add_argument(  
-            "--detail-out",   
-            default="",        
+        parser.add_argument(
+            "--detail-out",
+            default="",
             help="Optional: output CSV path for --detail-tech results. "
                  "If empty, auto-generate next to --out (e.g. git_top_posts_10.csv).",
         )
 
-        # DB 에 게시글, 게시글-기술스택 저장 옵션
         parser.add_argument(
             "--save-db",
             action="store_true",
             help="If set, save Article and ArticleStack into DB.",
         )
 
-        # DB 적재 배치 크기(ArticleStack bulk)
         parser.add_argument(
-            "--db-batch",
-            type=int,
-            default=2000,
-            help="Bulk insert batch size for ArticleStack when --save-db is set.",
+            "--window",
+            choices=["", "7d", "1m", "3m"],
+            default="",
+            help="Filter posts by CreationDate: 7d=last 7 days, 1m=last 30 days, 3m=last 90 days. Empty=all time.",
         )
 
+        parser.add_argument(
+            "--posts-out",
+            default="",
+            help="Optional: output CSV path for filtered posts list (post_id,created_at,url,title,view_count,tags).",
+        )
+        parser.add_argument(
+            "--posts-order",
+            choices=["", "views", "date"],
+            default="",
+            help="Sort order for --posts-out CSV. views=by view_count desc, date=by created_at desc. Empty=keep scan order.",
+        )
+
+        parser.add_argument(
+            "--window-base",
+            choices=["now", "max"],
+            default="max",
+            help="Base time for --window. now=use current time, max=use max CreationDate inside XML (recommended for old dumps).",
+        )
+        parser.add_argument(
+            "--anchor",
+            default="",
+            help="Optional: anchor datetime (ISO8601). If set, use this as base time for --window. Example: 2012-01-01T00:00:00+00:00",
+        )
 
     def handle(self, *args, **options):
         posts_path = Path(options["posts"]).expanduser()
         stacks_path = Path(options["stacks"]).expanduser()
         out_path = Path(options["out"]).expanduser()
+
         limit = int(options["limit"])
         progress = int(options["progress"])
 
@@ -239,10 +290,16 @@ class Command(BaseCommand):
         topn = int(options["topn"])
 
         detail_tech = normalize_tech_name(options.get("detail_tech") or "")
-        detail_out_opt = (options.get("detail_out") or "").strip()           
+        detail_out_opt = (options.get("detail_out") or "").strip()
 
-        save_db = bool(options.get("save_db")) 
-        db_batch = int(options.get("db_batch"))
+        save_db = bool(options.get("save_db"))
+
+        window = (options.get("window") or "").strip()
+        posts_out_opt = (options.get("posts_out") or "").strip()
+        posts_order = (options.get("posts_order") or "").strip()
+
+        window_base = (options.get("window_base") or "max").strip()
+        anchor_raw = (options.get("anchor") or "").strip()
 
         if not posts_path.exists():
             self.stderr.write(self.style.ERROR(f"Posts file not found: {posts_path}"))
@@ -251,61 +308,121 @@ class Command(BaseCommand):
             self.stderr.write(self.style.ERROR(f"Stacks CSV not found: {stacks_path}"))
             return
 
+        # ---- window cutoff 계산 (단일 window) ----
+        cutoff: datetime | None = None
+
+        # 🐶 [ADD] posts-out windows(7d/1m/3m) 계산용 base_dt/cutoffs 준비
+        # - anchor > window-base(now/max) 순서로 base_dt 결정
+        anchor_dt_for_windows = parse_anchor_dt(anchor_raw) if anchor_raw else None
+        if anchor_dt_for_windows is not None:
+            base_dt_for_windows = anchor_dt_for_windows
+        else:
+            if window_base == "now":
+                base_dt_for_windows = datetime.now(timezone.utc)
+            else:
+                base_dt_for_windows = find_max_creation_dt(posts_path)
+                if base_dt_for_windows is None:
+                    self.stderr.write(self.style.ERROR("Could not determine max CreationDate from XML."))
+                    return
+
+        cutoffs_for_windows = {
+            "7d": base_dt_for_windows - WINDOW_TO_DELTA["7d"],
+            "1m": base_dt_for_windows - WINDOW_TO_DELTA["1m"],
+            "3m": base_dt_for_windows - WINDOW_TO_DELTA["3m"],
+        }
+        # 🐶 [ADD] 로그 (posts-out/windows 기준시각)
+        self.stdout.write(
+            f"[windows] base_dt={base_dt_for_windows.isoformat()} cutoffs="
+            f"{ {k: v.isoformat() for k, v in cutoffs_for_windows.items()} }"
+        )
+
+        if window:
+            # 🐶 [MOD] 단일 window cutoff도 동일한 base_dt 로 계산(일관성)
+            cutoff = base_dt_for_windows - WINDOW_TO_DELTA[window]
+            self.stdout.write(f"[window] base_dt={base_dt_for_windows.isoformat()} cutoff={cutoff.isoformat()} window={window}")
+
+        # ---- 기술 목록 로드 ----
         try:
             techs = load_techs_from_csv(stacks_path)
         except Exception as e:
             self.stderr.write(self.style.ERROR(f"Failed to load stacks CSV: {e}"))
             return
-        
-        techs = [t for t in techs if not is_noise_tech(t)]
 
+        techs = [t for t in techs if not is_noise_tech(t)]
         if not techs:
             self.stderr.write(self.style.ERROR("No techs loaded from CSV (Name column empty?)."))
             return
 
-        # DB TechStack를 '소문자 normalize'해서 매핑 생성 (대소문자 그대로인 DB와 매칭하기 위함)
-        db_tech_map = {}
+        # ---- DB TechStack 매핑 (save_db일 때만) ----
+        db_tech_map: dict[str, TechStack] = {}
         if save_db:
             qs = TechStack.objects.filter(is_deleted=False).only("id", "name")
             db_tech_map = {normalize_tech_name(t.name): t for t in qs}
-
             if not db_tech_map:
                 self.stderr.write(self.style.ERROR("TechStack table is empty. Seed TechStack first."))
                 return
 
-            # CSV 기술 중 DB에 실제 존재하는 기술만 분석 대상으로 유지
+            # CSV 기술 중 DB에 존재하는 것만 유지
             techs = [t for t in techs if t in db_tech_map]
             if not techs:
                 self.stderr.write(self.style.ERROR("No CSV techs matched TechStack(name) in DB after normalization."))
                 return
 
-        tech_set = set(techs) 
+        tech_set = set(techs)
+        if detail_tech and detail_tech not in tech_set:
+            self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV"))
+            return
 
-        if detail_tech and detail_tech not in tech_set: 
-            self.stderr.write(self.style.ERROR(f"--detail-tech '{detail_tech}' not found in stacks CSV")) 
-            return 
-        
         single_index, multi_index, tech_tokens_map = build_tech_index(techs)
 
-        # 결과 집계용
-        mention_count = defaultdict(int)  # tech -> 언급된 게시글 수
-        total_views = defaultdict(int)    # tech -> 조회수 누적 합
-        tech_mentions_by_id = defaultdict(int)
-        top_posts_by_tech = defaultdict(list)
-        detail_heap = []
+        # ---- 집계 구조 ----
+        mention_count = defaultdict(int)      # tech -> 언급된 게시글 수
+        total_views = defaultdict(int)        # tech -> 조회수 누적 합
+        top_posts_by_tech = defaultdict(list) # tech -> heap(view_count, post_id, title)
+        detail_heap = []                      # heap(view_count, post_id, title)
+        filtered_posts_rows = []              # posts-out rows
 
         scanned = 0
 
-        # # ArticleStack bulk insert 버퍼
-        # rel_buffer = [] 
-
-        for post_id, post_type, title, body, tags, view_count in iter_posts(posts_path):
+        for post_id, post_type, title, body, tags, view_count, created_at in iter_posts(posts_path):
             if post_type != "1":
                 continue
+
+            # window 필터 (단일 window 옵션 유지)
+            if cutoff is not None:
+                if created_at is None or created_at < cutoff:
+                    continue
 
             scanned += 1
             if limit and scanned > limit:
                 break
+
+            # 🐶 [ADD] posts-out용 windows 컬럼 계산 (7d/1m/3m 소속)
+            windows_bucket = ""
+            if created_at is not None:
+                buckets = []
+                # 7d ⊂ 1m ⊂ 3m 구조라 created_at이 최신일수록 여러 버킷에 동시에 속함
+                if created_at >= cutoffs_for_windows["7d"]:
+                    buckets.append("7d")
+                if created_at >= cutoffs_for_windows["1m"]:
+                    buckets.append("1m")
+                if created_at >= cutoffs_for_windows["3m"]:
+                    buckets.append("3m")
+                windows_bucket = ";".join(buckets)
+
+            # posts-out: "기간 필터를 통과한 Question 전체"를 저장 (기존 동작 유지)
+            # - 너가 원하면 tech 매칭된 글만 저장하도록 아래 블록을 seen_in_this_post 이후로 옮기면 됨
+            if posts_out_opt:
+                filtered_posts_rows.append({
+                    "post_id": post_id,
+                    "created_at": created_at.isoformat() if created_at else "",
+                    "url": f"https://stackoverflow.com/questions/{post_id}",
+                    "title": normalize_spaces(title).replace("\n", " ").replace("\r", " "),
+                    "view_count": view_count,
+                    "tags": tags,
+                    "windows": windows_bucket,  # 🐶 [ADD]
+                    "_created_at_dt": created_at,
+                })
 
             text = normalize_post_text(title, body, tags)
             post_tokens = TOKEN_RE.findall(text)
@@ -333,40 +450,53 @@ class Command(BaseCommand):
                         total_views[tech] += view_count
                         seen_in_this_post.add(tech)
 
+            # 매칭된 tech가 없으면 이후 옵션 작업 스킵
+            if not seen_in_this_post:
+                if progress and scanned % progress == 0:
+                    self.stdout.write(f"scanned={scanned:,}")
+                continue
+
             # 3) 특정 기술(detail_tech)의 topN 유지 (조회수 기준)
-            if detail_tech and detail_tech in seen_in_this_post: 
-                heapq.heappush(detail_heap, (view_count, post_id, title)) 
-                if len(detail_heap) > topn:  
+            if detail_tech and detail_tech in seen_in_this_post:
+                heapq.heappush(detail_heap, (view_count, post_id, title))
+                if len(detail_heap) > topn:
                     heapq.heappop(detail_heap)
 
             # 4) tech별 topN 유지
-            if with_top_posts and seen_in_this_post:
+            if with_top_posts:
                 for tech in seen_in_this_post:
                     h = top_posts_by_tech[tech]
                     heapq.heappush(h, (view_count, post_id, title))
                     if len(h) > topn:
                         heapq.heappop(h)
 
-            # 5) DB 저장: Article, ArticleStack, TechStack(article_stack_count) 적재
-            if save_db and seen_in_this_post:
+            # 5) DB 저장
+            if save_db:
                 url = f"https://stackoverflow.com/questions/{post_id}"
 
-                article, created = Article.objects.get_or_create( 
+                article, created = Article.objects.get_or_create(
                     url=url,
                     defaults={
                         "source": "stackoverflow",
-                        "view_count": view_count
+                        "view_count": view_count,
+                        "external_created_at": created_at,
                     },
                 )
 
-                # 이미 존재하는 글이면 view_count 최신값으로 갱신
-                if not created and article.view_count != view_count:
+                update_fields = []
+                if article.view_count != view_count:
                     article.view_count = view_count
-                    article.save(update_fields=["view_count", "updated_at"])  
+                    update_fields.append("view_count")
 
-                # 새로 생긴 ArticleStack 관계만 tech_count +1
+                if created_at is not None and article.external_created_at != created_at:
+                    article.external_created_at = created_at
+                    update_fields.append("external_created_at")
+
+                if update_fields:
+                    update_fields.append("updated_at")
+                    article.save(update_fields=update_fields)
+
                 created_tech_ids = []
-                
                 with transaction.atomic():
                     for tech in seen_in_this_post:
                         ts = db_tech_map.get(tech)
@@ -377,20 +507,48 @@ class Command(BaseCommand):
                             article=article,
                             tech_stack=ts,
                         )
-
                         if rel_created:
                             created_tech_ids.append(ts.id)
 
                     if created_tech_ids:
                         TechStack.objects.filter(id__in=created_tech_ids).update(
-                            article_stack_count = F("article_stack_count") + 1
+                            article_stack_count=F("article_stack_count") + 1
                         )
 
             if progress and scanned % progress == 0:
                 self.stdout.write(f"scanned={scanned:,}")
 
+        # ---- posts-out 저장 ----
+        if posts_out_opt:
+            if posts_order == "views":
+                filtered_posts_rows.sort(key=lambda r: int(r.get("view_count") or 0), reverse=True)
+            elif posts_order == "date":
+                filtered_posts_rows.sort(
+                    key=lambda r: (
+                        r.get("_created_at_dt") is not None,
+                        r.get("_created_at_dt") or datetime.min.replace(tzinfo=timezone.utc),
+                    ),
+                    reverse=True,
+                )
 
-        # 조회수(total_views) 기준 정렬해서 CSV 출력
+            for r in filtered_posts_rows:
+                r.pop("_created_at_dt", None)
+
+            posts_out_path = Path(posts_out_opt).expanduser()
+            posts_out_path.parent.mkdir(parents=True, exist_ok=True)
+
+            with posts_out_path.open("w", newline="", encoding="utf-8") as pf:
+                # 🐶 [MOD] windows 컬럼 추가
+                pw = csv.DictWriter(
+                    pf,
+                    fieldnames=["post_id", "created_at", "url", "title", "view_count", "tags", "windows"],
+                )
+                pw.writeheader()
+                pw.writerows(filtered_posts_rows)
+
+            self.stdout.write(self.style.SUCCESS(f"Filtered posts saved: {posts_out_path}"))
+
+        # ---- 메인 out.csv 저장 ----
         rows = []
         for tech in techs:
             m = mention_count[tech]
@@ -427,31 +585,29 @@ class Command(BaseCommand):
             writer.writeheader()
             writer.writerows(rows)
 
-        # detail-tech 결과를 별도 CSV로 저장 (조회수 내림차순)
-        if detail_tech: 
-            if detail_out_opt:  
-                detail_out_path = Path(detail_out_opt).expanduser()  
+        # ---- detail-tech 저장 ----
+        if detail_tech:
+            if detail_out_opt:
+                detail_out_path = Path(detail_out_opt).expanduser()
             else:
-                detail_out_path = out_path.with_name(f"{detail_tech}_top_posts_{topn}.csv")  
+                detail_out_path = out_path.with_name(f"{detail_tech}_top_posts_{topn}.csv")
 
-            detail_out_path.parent.mkdir(parents=True, exist_ok=True)  
+            detail_out_path.parent.mkdir(parents=True, exist_ok=True)
 
-            detail_rows = []  
-            for vc, pid, t in sorted(detail_heap, reverse=True):  
-                detail_rows.append(  
-                    {
-                        "tech": detail_tech,
-                        "post_id": pid,
-                        "url": f"https://stackoverflow.com/questions/{pid}",
-                        "view_count": vc,
-                        "title": normalize_spaces(t).replace("\n", " ").replace("\r", " "),
-                    }
-                )
+            detail_rows = []
+            for vc, pid, t in sorted(detail_heap, reverse=True):
+                detail_rows.append({
+                    "tech": detail_tech,
+                    "post_id": pid,
+                    "url": f"https://stackoverflow.com/questions/{pid}",
+                    "view_count": vc,
+                    "title": normalize_spaces(t).replace("\n", " ").replace("\r", " "),
+                })
 
-            with detail_out_path.open("w", newline="", encoding="utf-8") as df:  
-                dw = csv.DictWriter(df, fieldnames=["tech", "post_id", "url", "view_count", "title"])  
-                dw.writeheader()  
-                dw.writerows(detail_rows)  
+            with detail_out_path.open("w", newline="", encoding="utf-8") as df:
+                dw = csv.DictWriter(df, fieldnames=["tech", "post_id", "url", "view_count", "title"])
+                dw.writeheader()
+                dw.writerows(detail_rows)
 
             self.stdout.write(self.style.SUCCESS(f"Detail saved: {detail_out_path}"))
 

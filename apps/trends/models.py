@@ -185,6 +185,12 @@ class Article(models.Model):
     source = models.TextField(
         verbose_name='게시글 출처'
     )
+    external_created_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        db_index=True,
+        verbose_name='원본 게시글 생성일'
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         verbose_name='등록일자'
