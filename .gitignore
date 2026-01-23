@@ -1,4 +1,6 @@
-# Python
+# ====================================================
+# [Python / Django]
+# ====================================================
 __pycache__/
 *.py[cod]
 *$py.class
@@ -19,90 +21,92 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+local_settings.py
 
-# 가상환경
+# ====================================================
+# [가상환경 (Virtual Environment)]
+# ====================================================
 venv/
 env/
 ENV/
+.venv/
 
-# Django
-*.log
-local_settings.py
-staticfiles/
-media/
-
-# 환경변수
+# ====================================================
+# [환경변수 및 비밀 정보]
+# ====================================================
 .env
 .env.local
 .env.production
+.env.development
 .env.*.local
-
-# IDE
-.idea/
-.vscode/
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-Thumbs.db
-
-# 테스트
-.coverage
-htmlcov/
-.pytest_cache/
-.tox/
-
-# 로그
-logs/
-*.log
-
-# Celery
-celerybeat-schedule
-celerybeat.pid
-
-# 데이터베이스
-pgdata/
-*.sql
-*.dump
-dump.rdb
-redis-data/
-
-# 모니터링 (Grafana, Prometheus, Loki)
-grafana.db
-grafana-data/
-prometheus-data/
-loki-data/
-
-# 메시지 큐
-rabbitmq-data/
-
-# 보안 파일
 *.pem
 *.key
 *.crt
 *.p12
 secrets/
 
-# 백업 파일
-*.bak
-*.backup
+# ====================================================
+# [데이터베이스 및 메시지 큐 데이터]
+# ====================================================
+pgdata/
+rabbitmq-data/
+redis-data/
+db.sqlite3
+*.sql
+*.dump
+dump.rdb
+
+# ====================================================
+# [미디어 및 정적 파일]
+# ====================================================
+staticfiles/
+media/
+
+# ====================================================
+# [로그 및 시스템 파일]
+# ====================================================
+logs/
+*.log
+celerybeat-schedule
+celerybeat.pid
+*.pid
+.DS_Store
+Thumbs.db
+
+# ====================================================
+# [테스트 및 커버리지]
+# ====================================================
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# ====================================================
+# [데이터 분석 및 대용량 데이터 파일]
+# ====================================================
+# 원본 데이터 및 결과물 (대용량)
+Posts.xml
+Posts_sample.xml
+out.csv
+tech_stack_extraction_log.jsonl
+*_top_posts_*.csv
+
+# 임시 분석 파일
 *.tmp
 tmp/
 temp/
 
-# Jupyter Notebook
+# ※ 주의: 기초 데이터 파일은 Git에 포함되어야 하므로 제외하지 않습니다.
+# (tech_stacks_merged_final.csv, tech_stacks_relationships.json 등)
+
+# ====================================================
+# [IDE 및 기타 설정]
+# ====================================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
 .ipynb_checkpoints/
-
-# PID 파일
-*.pid
-
-# llm 돌린 결과 로그
-tech_stack_extraction_log.jsonl
-
-# 스택 오버 플로우 결과 파일
-out.csv
-*_top_posts_*.csv
-Posts_sample.xml
-Posts.xml
+node_modules/
+npm-debug.log

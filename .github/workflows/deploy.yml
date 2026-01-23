@@ -30,23 +30,37 @@ jobs:
             # 2. 최신 코드 받기
             git pull origin main
             
-            # 3. .env 파일 생성 (Secrets에 저장된 내용으로 덮어쓰기)
-            echo "${{ secrets.ENV_FILE }}" > .env
+            # 3. 환경 변수 파일 생성 (.env.production)
+            echo "${{ secrets.ENV_FILE }}" > .env.production
 
-            # 4. API 서버 컨테이너 실행 (Backend, Nginx만)
-            # 기존 것 끄고
-            sudo docker compose -f docker-compose.api.yml down
-            # 새 설정으로 켜기 (이미지 빌드 포함)
-            sudo docker compose -f docker-compose.api.yml up -d --build --remove-orphans
+            # 4. API 서버 컨테이너 실행
+            # --env-file 옵션을 사용하여 .env.production을 적용합니다.
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production down
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --build --remove-orphans
 
-            # 컨테이너 실행 후 데이터베이스 관련 작업 수행 (csv 변경시 사용)
-            echo "Starting Database Migration and Data Import..."
-            sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py makemigrations --noinput
-            sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py migrate --noinput
-            sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py import_tech_stacks
-            sudo docker compose -f docker-compose.api.yml exec -T backend python manage.py import_categories
+            # 5. 데이터베이스 및 초기 데이터 등록 작업
+            # GitHub Actions 환경이므로 -T 옵션을 반드시 사용합니다.
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py migrate --noinput
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_tech_stacks
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_categories
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_tech_relationships
             
-            # 5. 불필요한 이미지 정리 (용량 확보)
+            # 6. 크롤링 및 분석 명령어 실행
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py run_crawling
+            
+            # StackOverflow 데이터 분석 (Posts.xml 경로 주의)
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py analyze_stackoverflow \
+              --posts ./Posts.xml \
+              --stacks ./tech_stacks_merged_final.csv \
+              --out ./out.csv \
+              --limit 50000 \
+              --progress 10000 \
+              --with-top-posts \
+              --detail-tech git \
+              --topn 10 \
+              --save-db
+            
+            # 7. 불필요한 이미지 정리
             docker image prune -f
 
   # ====================================================
@@ -73,11 +87,11 @@ jobs:
             
             git pull origin main
             
-            # .env 파일 생성
-            echo "${{ secrets.ENV_FILE }}" > .env
+            # 환경 변수 파일 생성 (.env.production)
+            echo "${{ secrets.ENV_FILE }}" > .env.production
             
-            # 워커 서버 컨테이너 실행 (RabbitMQ, Celery만)
-            sudo docker compose -f docker-compose.worker.yml down
-            sudo docker compose -f docker-compose.worker.yml up -d --build --remove-orphans
+            # 워커 서버 컨테이너 실행
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production down
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --build --remove-orphans
             
             docker image prune -f
