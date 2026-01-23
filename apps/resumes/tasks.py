@@ -82,10 +82,18 @@ def analyze_resume_task(resume_id):
                 methodologies=methodologies,
                 others=others
             )
+
+            # 4. ResumeStack 모델에 실제 TechStack 연결 (추가)
+            # 대소문자 구분 없이 DB의 TechStack과 매칭 시도
+            for tool_name in all_technical_tools:
+                tech_stack = TechStack.objects.filter(name__iexact=tool_name).first()
+                if tech_stack:
+                    ResumeStack.objects.get_or_create(resume=resume, tech_stack=tech_stack)
         
         logger.info(f"Successfully analyzed and updated resume {resume_id}.")
+        return {'resume_id': resume_id, 'status': 'SUCCESS'}
 
     except Exception as e:
         logger.error(f"An error occurred during resume analysis for resume {resume_id}: {str(e)}", exc_info=True)
-        # Optionally, handle the failure, e.g., by setting a 'failed' status on the resume model
+        # 작업 실패 시 예외를 다시 발생시켜 Celery가 실패 상태로 처리하도록 함
         raise

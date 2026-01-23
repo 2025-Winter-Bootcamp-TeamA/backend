@@ -4,7 +4,7 @@ import re
 from typing import Optional, Dict, Any
 
 class ResumeParserSystem:
-    def __init__(self, model: str = 'gemma3:12b', host: Optional[str] = None):
+    def __init__(self, model: str = 'gemma3:4b', host: Optional[str] = None):
         self.model = model
         self.max_retries = 2
         self.client = ollama.Client(host=host)
