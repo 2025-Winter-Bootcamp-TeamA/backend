@@ -2,28 +2,35 @@
 
 import django_filters
 from .models import JobPosting
+import django_filters
+from .models import JobPosting
 
 class JobPostingFilter(django_filters.FilterSet):
-    # 1. 지역 필터: 기업 모델의 region_city 또는 region_district 필드를 참조합니다.
+    # 1. 기업 필터 (새로 추가됨)
+    # URL에서 ?corp_id=1 처럼 특정 기업만 콕 집어서 볼 때 사용
+    corp_id = django_filters.NumberFilter(field_name='corp__id')
+    # URL에서 ?corp_name=삼성 처럼 기업 이름으로 검색할 때 사용 (선택 사항)
+    corp_name = django_filters.CharFilter(field_name='corp__corp_name', lookup_expr='icontains')
+
+    # 2. 지역 필터 (기존 유지)
     city = django_filters.CharFilter(field_name='corp__region_city', lookup_expr='icontains')
     district = django_filters.CharFilter(field_name='corp__region_district', lookup_expr='icontains')
 
-    # 2. 직무 및 키워드 검색: 제목이나 설명에 포함된 단어를 검색합니다.
+    # 3. 직무 및 키워드 검색 (기존 유지)
     search = django_filters.CharFilter(method='filter_search')
 
-    # 3. 경력 필터: 사용자가 입력한 연차가 공고의 [min_career, max_career] 범위에 포함되는지 확인합니다.
-    # 예: 사용자가 3을 입력하면, min_career <= 3 이고 max_career >= 3 인 공고를 반환합니다.
+    # 4. 경력 필터 (기존 유지)
+    # ?career_year=3 -> 경력 3년차가 지원 가능한 공고 필터링
     career_year = django_filters.NumberFilter(method='filter_by_career')
 
     class Meta:
         model = JobPosting
-        fields = ['city', 'district', 'career_year']
+        # 필드 목록에 corp_id와 corp_name을 꼭 추가해야 합니다.
+        fields = ['corp_id', 'corp_name', 'city', 'district', 'career_year']
 
     def filter_search(self, queryset, name, value):
-        # 제목 혹은 상세 설명에서 검색어를 찾습니다.
         return queryset.filter(title__icontains=value) | queryset.filter(description__icontains=value)
 
     def filter_by_career(self, queryset, name, value):
-        # 공고의 최소 경력보다는 크거나 같고, 최대 경력보다는 작거나 같은 범위를 필터링합니다.
-        # max_career가 99인 경우(경력 무관 등)도 고려하여 검색합니다.
+        # min_career <= value <= max_career (범위 검색)
         return queryset.filter(min_career__lte=value, max_career__gte=value)

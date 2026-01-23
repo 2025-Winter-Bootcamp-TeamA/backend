@@ -102,21 +102,35 @@ class JobPostingListView(generics.ListAPIView):
     # 필터 설정은 클래스 변수로 잘 유지하셨습니다.
     filter_backends = [DjangoFilterBackend]
     filterset_class = JobPostingFilter
-
     def get_queryset(self):
-        # 1. 기본 쿼리셋: 삭제되지 않은 공고와 기업 정보를 미리 가져옴 (성능 최적화)
+        # 1. 기본 쿼리셋 (삭제 안 된 것들)
         queryset = JobPosting.objects.select_related('corp').filter(
             is_deleted=False,
             corp__is_deleted=False
         ).order_by('-created_at')
 
-        # 2. 특정 기업의 공고만 조회하는 경우 (URL에 corp_id가 있을 때)
-        corp_id = self.kwargs.get('corp_id')
-        if corp_id:
-            return queryset.filter(corp_id=corp_id)
-        
-        # 3. 전체 공고를 조회하며 필터링하는 경우 (지도 화면 등)
+        # 2. URL 경로(path)에 corp_id가 포함된 경우 (예: corps/5/job-postings/)
+        # 이 경우, 강제로 해당 기업으로 범위를 좁힙니다.
+        corp_id_pk = self.kwargs.get('corp_id')
+        if corp_id_pk:
+            queryset = queryset.filter(corp_id=corp_id_pk)
+
+        # 3. 리턴하면, 나머지 필터(지역, 경력 등)는 filterset_class가 알아서 처리합니다.
         return queryset
+    # def get_queryset(self):
+    #     # 1. 기본 쿼리셋: 삭제되지 않은 공고와 기업 정보를 미리 가져옴 (성능 최적화)
+    #     queryset = JobPosting.objects.select_related('corp').filter(
+    #         is_deleted=False,
+    #         corp__is_deleted=False
+    #     ).order_by('-created_at')
+
+    #     # 2. 특정 기업의 공고만 조회하는 경우 (URL에 corp_id가 있을 때)
+    #     corp_id = self.kwargs.get('corp_id')
+    #     if corp_id:
+    #         return queryset.filter(corp_id=corp_id)
+        
+    #     # 3. 전체 공고를 조회하며 필터링하는 경우 (지도 화면 등)
+    #     return queryset
 
     @swagger_auto_schema(
         operation_summary="채용 공고 조회 및 필터링",

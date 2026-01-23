@@ -25,4 +25,6 @@ urlpatterns = [
     path('corps/<int:corp_id>/job-postings/', views.JobPostingListView.as_view(), name='job_posting_list'), #채용공고 조회
     #path('<int:pk>/', views.JobPostingDetailView.as_view(), name='job_posting_detail'),
     path('by-tech/<int:tech_stack_id>/', views.JobPostingByTechView.as_view(), name='job_posting_by_tech'),
+
+    path('job-postings/', views.JobPostingListView.as_view(), name='job_posting_list_all'), #채용공고 전체 조회(필터링용)
 ]
