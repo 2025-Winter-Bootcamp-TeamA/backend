@@ -51,7 +51,7 @@ jobs:
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py run_crawling
             
             # StackOverflow 데이터 분석 (Posts.xml 경로 주의)
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py analyze_stackoverflow \
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -d backend python manage.py analyze_stackoverflow \
               --posts ./Posts.xml \
               --stacks ./tech_stacks_merged_final.csv \
               --out ./out.csv \
