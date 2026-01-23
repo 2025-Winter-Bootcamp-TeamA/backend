@@ -17,7 +17,8 @@ import traceback # ✅ 추가: 상세 에러 로그 출력을 위해 필요
 import google.generativeai as genai
 from django.conf import settings
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
-from scripts.module_resume_extractor import ResumeParserSystem
+from celery.result import AsyncResult
+from .tasks import analyze_resume_task
 
 
 class ResumeListCreateView(generics.ListCreateAPIView):
@@ -306,7 +307,7 @@ class ResumeRestoreView(APIView):
 
 
 class ResumeAnalyzeView(APIView):
-    """이력서 분석 및 직무/프로젝트 경험 추출"""
+    """이력서 분석 및 직무/프로젝트 경험 추출 (비동기)"""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, resume_id):
@@ -318,66 +319,34 @@ class ResumeAnalyzeView(APIView):
         if not resume.url:
             return Response({'error': '이력서 URL이 없습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        try:
-            resume_text = extract_text_from_pdf_url(resume.url)
-            if not resume_text or not resume_text.strip():
-                return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+        # Celery 작업을 호출하여 비동기적으로 분석 실행
+        task = analyze_resume_task.delay(resume_id)
 
-            ollama_host= 'http://host.docker.internal:11434'
+        # 클라이언트에게 작업이 시작되었음을 알림
+        return Response(
+            {'message': '이력서 분석 작업이 시작되었습니다.', 'task_id': task.id},
+            status=status.HTTP_202_ACCEPTED
+        )
 
-            #ollama_host = settings.OLLAMA_URL
-            parser = ResumeParserSystem(host=ollama_host)
-            structured_data = parser.parse(resume_text)
 
-            with transaction.atomic():
-                WorkExperience.objects.filter(resume=resume).delete()
-                ProjectExperience.objects.filter(resume=resume).delete()
-                ResumeExtractedStack.objects.filter(resume=resume).delete() # Delete existing extracted stack
+class ResumeAnalysisStatusView(APIView):
+    """Celery 작업 상태 및 결과 확인"""
+    permission_classes = []  # 태스크 ID는 추측이 거의 불가능하므로 인증 없이 허용
 
-                if 'work_experience' in structured_data and structured_data['work_experience']:
-                    for exp in structured_data['work_experience']:
-                        WorkExperience.objects.create(
-                            resume=resume,
-                            organization=exp.get('organization') or '',
-                            details=exp.get('details') or ''
-                        )
+    def get(self, request, task_id):
+        task_result = AsyncResult(task_id)
+        
+        response_data = {
+            'task_id': task_id,
+            'status': task_result.state,
+            'result': None
+        }
 
-                if 'project_experience' in structured_data and structured_data['project_experience']:
-                    for exp in structured_data['project_experience']:
-                        ProjectExperience.objects.create(
-                            resume=resume,
-                            project_name=exp.get('name') or '',
-                            context=exp.get('context') or '',
-                            details=exp.get('details') or ''
-                        )
-
-                # Extract and combine technical tools, methodologies, and others
-                all_technical_tools = set()
-                methodologies = []
-                others = []
-
-                if 'project_experience' in structured_data and structured_data.get('project_experience'):
-                    for exp in structured_data['project_experience']:
-                        if 'tools' in exp and isinstance(exp['tools'], list):
-                            all_technical_tools.update(tool for tool in exp['tools'] if isinstance(tool, str))
-
-                if 'key_capabilities' in structured_data and structured_data.get('key_capabilities'):
-                    key_capabilities = structured_data['key_capabilities']
-                    if 'technical_tools' in key_capabilities and isinstance(key_capabilities['technical_tools'], list):
-                        all_technical_tools.update(tool for tool in key_capabilities['technical_tools'] if isinstance(tool, str))
-                    if 'methodologies' in key_capabilities and isinstance(key_capabilities['methodologies'], list):
-                        methodologies = [m for m in key_capabilities['methodologies'] if isinstance(m, str)]
-                    if 'others' in key_capabilities and isinstance(key_capabilities['others'], list):
-                        others = [o for o in key_capabilities['others'] if isinstance(o, str)]
-
-                ResumeExtractedStack.objects.create(
-                    resume=resume,
-                    technical_tools=list(all_technical_tools),
-                    methodologies=methodologies,
-                    others=others
-                )
-
-            return Response({'message': '분석 완료'}, status=status.HTTP_201_CREATED)
-
-        except Exception as e:
-            return Response({'error': f'분석 중 오류 발생: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        if task_result.successful():
+            # 작업이 성공적으로 완료되었을 때 결과
+            response_data['result'] = task_result.get()
+        elif task_result.failed():
+            # 작업 실패 시 에러 정보
+            response_data['result'] = str(task_result.info)  # 에러 메시지
+        
+        return Response(response_data)
