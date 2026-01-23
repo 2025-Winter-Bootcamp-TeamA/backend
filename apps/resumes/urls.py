@@ -12,13 +12,11 @@ urlpatterns = [
     path('', views.ResumeListCreateView.as_view(), name='resume_list_create'),
     path('<int:pk>/', views.ResumeDetailView.as_view(), name='resume_detail'),
     
-
     # 이력서 복원
     path('<int:pk>/restore/', views.ResumeRestoreView.as_view(), name='resume_restore'),
 
     # 이력서 분석
-    path('<int:pk>/analyze/', views.ResumeAnalyzeView.as_view(), name='resume_analyze'),
-    path('<int:resume_id>/matches/', views.ResumeMatchCreateAPIView.as_view(), name='resume_matches_create'),
+    path('<int:resume_id>/analyze/', views.ResumeAnalyzeView.as_view(), name='resume_analyze'),
 
     # 채용 공고 매칭
     path('<int:pk>/match/<int:job_posting_id>/', views.ResumeMatchingView.as_view(), name='resume_matching'),

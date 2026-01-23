@@ -11,6 +11,11 @@ from .utils import analyze_resume
 from django.db import transaction
 from decouple import config
 import os
+import json
+import re # ✅ 추가: 정규식 사용을 위해 필요
+import traceback # ✅ 추가: 상세 에러 로그 출력을 위해 필요
+import google.generativeai as genai
+from django.conf import settings
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
 from scripts.module_resume_extractor import ResumeParserSystem
 
@@ -106,93 +111,26 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
             ).update(is_deleted=True)
         
 
-
-class ResumeAnalyzeView(APIView):
-    """이력서 분석 (AI 기반) - Ollama Gemma3:12b 모델 사용"""
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request, pk):
-        """
-        S3에서 PDF를 다운로드하고, 텍스트를 추출한 후, 
-        Ollama Gemma3:12b로 기술 스택을 추출하여 저장합니다.
-        """
-        try:
-            # 1. 이력서 조회
-            resume = Resume.objects.get(pk=pk, user=request.user, is_deleted=False)
-            
-            if not resume.url:
-                return Response(
-                    {"error": "이력서 파일이 업로드되지 않았습니다."},
-                    status=status.HTTP_400_BAD_REQUEST
-                )
-            
-            # 2. Ollama URL 설정 (환경변수 또는 기본값)
-            ollama_url = config('OLLAMA_URL', default='http://localhost:11434')
-            
-            # 3. 이력서 분석 (S3 다운로드 → PDF 텍스트 추출 → Ollama 분석)
-            try:
-                resume_text, tech_stack_names = analyze_resume(resume.url, ollama_url)
-            except Exception as e:
-                return Response(
-                    {"error": f"이력서 분석 실패: {str(e)}"},
-                    status=status.HTTP_500_INTERNAL_SERVER_ERROR
-                )
-            
-            # 4. 기존 기술 스택 삭제 후 새로 저장
-            with transaction.atomic():
-                # 기존 기술 스택 삭제
-                ResumeStack.objects.filter(resume=resume).delete()
-                
-                # 새로운 기술 스택 저장
-                created_count = 0
-                for tech_name in tech_stack_names:
-                    try:
-                        tech_stack = TechStack.objects.get(name__iexact=tech_name)
-                        ResumeStack.objects.create(
-                            resume=resume,
-                            tech_stack=tech_stack
-                        )
-                        created_count += 1
-                    except TechStack.DoesNotExist:
-                        continue
-            
-            return Response({
-                "message": "이력서 분석이 완료되었습니다.",
-                "resume_id": resume.id,
-                "resume_title": resume.title,
-                "extracted_tech_count": created_count,
-                "tech_stacks": tech_stack_names
-            }, status=status.HTTP_200_OK)
-            
-        except Resume.DoesNotExist:
-            return Response(
-                {"error": "이력서를 찾을 수 없습니다."},
-                status=status.HTTP_404_NOT_FOUND
-            )
-
-import json
-import google.generativeai as genai
-from django.conf import settings
-
 class ResumeMatchingView(APIView):
-    """이력서와 채용 공고 매칭 (Gemini Pro)"""
+    """이력서와 채용 공고 매칭 (Gemini Pro) - JSON 파싱 강화 버전"""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, pk, job_posting_id):
+        # 1. 데이터 조회
         try:
             resume = Resume.objects.get(pk=pk, user=request.user, is_deleted=False)
             job_posting = JobPosting.objects.get(pk=job_posting_id, is_deleted=False)
         except (Resume.DoesNotExist, JobPosting.DoesNotExist):
             return Response({'error': '이력서 또는 채용 공고를 찾을 수 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
 
-        # Gemini API 설정
+        # 2. API 키 확인
         if not settings.GOOGLE_GEMINI_API_KEY:
-            return Response({'error': 'GOOGLE_GEMINI_API_KEY가 설정되지 않았습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            return Response({'error': 'GOOGLE_GEMINI_API_KEY 설정이 누락되었습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         try:
             genai.configure(api_key=settings.GOOGLE_GEMINI_API_KEY)
 
-            # 프롬프트에 사용할 데이터 준비
+            # 3. 프롬프트 데이터 구성
             job_description = job_posting.description
             
             work_experiences = WorkExperience.objects.filter(resume=resume)
@@ -206,70 +144,76 @@ class ResumeMatchingView(APIView):
             work_exp_str = "\n".join([f"- {w.organization}: {w.details}" for w in work_experiences])
             proj_exp_str = "\n".join([f"- {p.project_name}: {p.context}\n  {p.details}" for p in project_experiences])
 
-            # Gemini에 전달할 프롬프트 구성 (한국어)
+            # Gemini에 전달할 프롬프트
             prompt = f"""
-                        # Role
-                        당신은 세계적인 빅테크 기업의 시니어 기술 면접관이자 아키텍트입니다. 
-                        주어진 채용 공고(JD)의 요구사항과 지원자의 기술 스택/경험을 대조하여, '기술적 진실성'과 '경험의 깊이'를 날카롭게 파고드는 면접 질문을 생성하십시오.
+            # Role
+            당신은 세계적인 빅테크 기업의 시니어 기술 면접관이자 아키텍트입니다. 
+            주어진 채용 공고(JD)의 요구사항과 지원자의 기술 스택/경험을 대조하여, '기술적 진실성'과 '경험의 깊이'를 날카롭게 파고드는 면접 질문을 생성하십시오.
 
-                        # Context
-                        지원자의 연차, 학력, 수상 경력과 같은 정적 정보는 무시합니다. 오직 '기술적 역량'과 '프로젝트 수행 능력'에만 집중하십시오. 지원자가 사용한 기술들 사이의 관계(예: 왜 이 DB를 선택했는지, 특정 라이브러리를 사용한 이유가 무엇인지)를 심층 분석해야 합니다.
+            # Input Data
+            1. 채용 공고 (JD): {job_description}
+            2. 지원자 직무 경험: {work_exp_str}
+            3. 지원자 프로젝트 경험: {proj_exp_str}
+            4. 보유 기술 스택: {stacks_info}
 
-                        # Input Data
-                        1. 채용 공고 (JD): {job_description}
-                        2. 지원자 직무 경험: {work_exp_str}
-                        3. 지원자 프로젝트 경험: {proj_exp_str}
-                        4. 보유 기술 스택: {stacks_info}
+            # Analysis Task
+            1. [역량 대조]: JD 핵심 기술과 지원자의 숙련도를 추론하십시오.
+            2. [강점과 약점]: 기술적 적합성이 높은 부분(Positive)과 부족한 부분(Negative)을 도출하십시오.
+            3. [보완할 점]: JD와의 간극을 메우기 위해 학습해야 할 기술/개념을 제안하십시오.
+            4. [면접 질문]: Deep Dive, Trade-off, Scenario 유형을 섞어 5개의 질문을 생성하십시오.
 
-                        # Analysis Task
-                        1. [역량 대조]: JD에서 요구하는 핵심 기술과 지원자가 보유한 기술의 '숙련도'를 추론하십시오. 단순히 키워드가 일치하는지가 아니라, 실제 프로젝트에서 어떤 '맥락'으로 사용되었는지 분석합니다.
-                        2. [강점과 약점]: 기술적 적합성이 높은 부분(Positive)과, 기술적 깊이가 검증되지 않았거나 JD 대비 부족한 부분(Negative)을 도출하십시오.
-                        3. [보완할 점]: JD와의 기술적 간극을 메우기 위해, 지원자가 추가로 학습하거나 경험해야 할 기술/개념을 제안하십시오.
-                        4. [가변적 질문 생성]: 다음 3가지 유형을 섞어 5~7개의 질문을 생성하십시오.
-                        - Deep Dive: 지원자가 사용한 특정 기술의 내부 동작 원리나 최적화 경험 질문
-                        - Trade-off: 왜 다른 대안(A) 대신 이 기술(B)을 선택했는지에 대한 논리적 근거 질문
-                        - Scenario-based: JD의 기술 환경에서 발생할 수 있는 가상의 기술적 난관을 제시하고 해결 방법 질문
+            # Output Format (Strict JSON)
+            반드시 아래 JSON 형식을 준수해야 합니다. 마크다운 기호(```)나 잡담을 포함하지 마십시오.
 
-                        # Output Format (Strict JSON)
-                        반드시 아래 JSON 형식을 유지하며, 모든 답변은 한국어로 작성하십시오.
-
-                        {{
-                            "feedback": {{
-                                "positive": "제한된 형식 없이, 지원자의 기술적 강점과 프로젝트의 성숙도를 엔지니어링 관점에서 자유롭게 서술하십시오.",
-                                "negative": "JD와의 기술적 간극, 잠재적 리스크, 기술적 깊이가 우려되는 지점을 날카로운 비평 형태로 자유롭게 서술하십시오."
-                                "enhancements": "지원자가 보완해야 할 기술적 역량이나 개념을 구체적으로 제안하십시오."
-                            }},
-                            "questions": [
-                            "질문 1 (기술의 본질과 원리 파악)",
-                            "질문 2 (의사결정 과정 및 기술 선택의 이유)",
-                            "질문 3 (성능 최적화 또는 트러블슈팅 경험)",
-                            "질문 4 (JD 환경에 특화된 가상 시나리오 대응)",
-                            "질문 5 (기술 스택 간의 상호작용 및 아키텍처 이해도)"
-                            ]
-                        }}
+            {{
+                "feedback": {{
+                    "positive": "지원자의 강점 서술",
+                    "negative": "부족한 점 및 리스크 서술",
+                    "enhancements": "보완할 점 서술"
+                }},
+                "questions": [
+                    "질문 1",
+                    "질문 2",
+                    "질문 3",
+                    "질문 4",
+                    "질문 5"
+                ]
+            }}
             """
 
-            # Gemini API 호출
-            model = genai.GenerativeModel('gemini-3-flash-preview')
+            # 4. Gemini API 호출
+            model = genai.GenerativeModel('gemini-3-flash-preview') # ✅ 모델명 변경 (안정성 확보)
             response = model.generate_content(prompt)
             
-            response_text = ''.join(part.text for part in response.parts)
-            cleaned_response_text = response_text.strip().replace('```json', '').replace('```', '')
-            
-            print("--- Gemini API Response for JSON Parsing ---")
-            print(f"Response to be parsed: '{cleaned_response_text}'")
-            print("------------------------------------------")
+            raw_text = response.text
+            print(f"🔹 [Gemini Response Raw]: {raw_text[:100]}...") # 로그 확인용
 
-            response_json = json.loads(cleaned_response_text)
+            # 5. JSON 추출 로직 (정규식 사용)
+            # 중괄호로 둘러싸인 JSON 부분만 추출하여 파싱 에러 방지
+            json_match = re.search(r'\{[\s\S]*\}', raw_text)
             
+            if not json_match:
+                print("❌ JSON 형식을 찾을 수 없습니다.")
+                return Response({'error': 'AI 응답에서 데이터를 추출할 수 없습니다. (JSON 형식 불일치)'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            cleaned_json_text = json_match.group(0)
+
+            try:
+                response_json = json.loads(cleaned_json_text)
+            except json.JSONDecodeError as e:
+                print(f"❌ JSON 파싱 에러: {str(e)}")
+                print(f"❌ 파싱 시도 텍스트: {cleaned_json_text}")
+                return Response({'error': f'AI 데이터 파싱 실패: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            
+            # 6. 데이터 추출 및 저장
             feedback_json = response_json.get("feedback", {})
-            positive_feedback = feedback_json.get("positive", "긍정적 피드백을 생성하지 못했습니다.")
-            negative_feedback = feedback_json.get("negative", "부정적 피드백을 생성하지 못했습니다.")
-            enhancements_feedback = feedback_json.get("enhancements", "보완할 점 피드백을 생성하지 못했습니다.")
+            positive_feedback = feedback_json.get("positive", "정보 없음")
+            negative_feedback = feedback_json.get("negative", "정보 없음")
+            enhancements_feedback = feedback_json.get("enhancements", "정보 없음")
+            
             questions = response_json.get("questions", [])
             question_str = "\n".join([f"- {q}" for q in questions])
 
-            # 결과 저장 (update_or_create 사용)
             matching, created = ResumeMatching.objects.update_or_create(
                 resume=resume,
                 job_posting=job_posting,
@@ -285,7 +229,11 @@ class ResumeMatchingView(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED if created else status.HTTP_200_OK)
 
         except Exception as e:
-            return Response({'error': f'매칭 데이터 생성 중 오류 발생: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            print("\n" + "="*50)
+            print("🚨 ResumeMatchingView Error Traceback:")
+            traceback.print_exc()
+            print("="*50 + "\n")
+            return Response({'error': f'서버 내부 오류: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
 class ResumeMatchingListView(generics.ListAPIView):
@@ -349,7 +297,6 @@ class ResumeRestoreView(APIView):
                 is_deleted=True
             ).update(is_deleted=False)
 
-        # 주석
         return Response({
             'message': '이력서가 성공적으로 복원되었습니다.',
             'resume_id': resume.id,
@@ -358,7 +305,7 @@ class ResumeRestoreView(APIView):
         }, status=status.HTTP_200_OK)
 
 
-class ResumeMatchCreateAPIView(APIView):
+class ResumeAnalyzeView(APIView):
     """이력서 분석 및 직무/프로젝트 경험 추출"""
     permission_classes = [IsAuthenticated]
 
@@ -376,7 +323,8 @@ class ResumeMatchCreateAPIView(APIView):
             if not resume_text or not resume_text.strip():
                 return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-            ollama_host = 'http://host.docker.internal:11434' if os.path.exists('/.dockerenv') else config('OLLAMA_URL', default='http://localhost:11434')
+            ollama_host= 'http://host.docker.internal:11434'
+
             #ollama_host = settings.OLLAMA_URL
             parser = ResumeParserSystem(host=ollama_host)
             structured_data = parser.parse(resume_text)
