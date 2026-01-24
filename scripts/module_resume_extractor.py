@@ -68,6 +68,7 @@ class ResumeParserSystem:
 2. **기술명 영문 확인**: 'tools'와 'technical_tools'의 명칭이 영문 공식 명칭으로 작성되었습니까? (예: '파이썬'이 있으면 false)
 3. **설명문 언어 확인**: 기술 명칭 외의 설명(details, organization 등)이 영어로 번역되었습니까? **번역되었다면 false입니다.** 반드시 한국어를 유지해야 합니다.
 - 주의: 정보가 없어 `null`로 표시된 것은 정상입니다.
+- 주의: null로 표시되었다면 검토 명령을 내리세요.
 
 ### Data:
 - 원문: {resume_text}
