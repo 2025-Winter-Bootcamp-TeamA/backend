@@ -1,6 +1,6 @@
 from celery import shared_task
 from django.db import transaction
-from .models import Resume, WorkExperience, ProjectExperience, ResumeExtractedStack
+from .models import Resume, ResumeStack, WorkExperience, ProjectExperience, ResumeExtractedStack
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
 from scripts.module_resume_extractor import ResumeParserSystem
 import logging
@@ -12,6 +12,8 @@ def analyze_resume_task(resume_id):
     """
     Celery task to analyze a resume asynchronously.
     """
+    from apps.trends.models import TechStack
+
     try:
         resume = Resume.objects.get(pk=resume_id)
     except Resume.DoesNotExist:
