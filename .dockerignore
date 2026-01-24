@@ -1,103 +1,81 @@
-# Git
+# [Git]
 .git
 .gitignore
 
-# Python
-__pycache__
-*.py[cod]
-*$py.class
-*.so
-.Python
+# [Python Cache]
+**/__pycache__/
+**/*.py[cod]
+**/*.pyo
+**/*.pyd
+**/.Python
+**/*.so
+
+# [Virtual Environment]
 venv/
 env/
 ENV/
-*.egg-info/
-.eggs/
-dist/
-build/
+.venv/
+.env/
 
-# 환경변수 (비밀 정보)
+# [Environment Variables] - 보안 및 환경별 설정을 위해 이미지에서는 제외
 .env
+.env.production
+.env.development
 .env.local
 .env.*.local
 
-# IDE
+# [Large Data & Analysis Files]
+# Posts.xml은 서버 로컬에 두고 볼륨으로 연결하므로 빌드 컨텍스트에서 반드시 제외
+Posts.xml
+out.csv
+*.xml
+*.jsonl
+*.csv.tmp
+
+# [Database & Persistence] - 호스트의 데이터가 이미지에 박히지 않도록 제외
+pgdata/
+redis-data/
+rabbitmq-data/
+db.sqlite3
+*.sql
+*.dump
+dump.rdb
+
+# [Media & Static] - Docker Volume으로 관리하므로 제외
+media/
+staticfiles/
+
+# [IDE & Editor]
 .idea/
 .vscode/
 *.swp
 *.swo
 *~
+.DS_Store
+Thumbs.db
 
-# 테스트
-.pytest_cache/
-.coverage
-htmlcov/
-.tox/
-
-# Django
-local_settings.py
-
-# 로그
-logs/
-*.log
-
-# Celery
-celerybeat-schedule
-celerybeat.pid
-
-# 미디어 및 정적 파일 (Docker 볼륨으로 관리)
-media/
-staticfiles/
-
-# Docker
+# [Docker]
 Dockerfile
 docker-compose*.yml
 .dockerignore
 
-# 문서
-*.md
-docs/
-
-# OS
-.DS_Store
-Thumbs.db
-
-# 데이터베이스
-pgdata/
-*.sql
-*.dump
-dump.rdb
-redis-data/
-
-# 모니터링 (Grafana, Prometheus, Loki)
-grafana.db
+# [Monitoring]
 grafana-data/
 prometheus-data/
 loki-data/
+grafana.db
 
-# 메시지 큐
-rabbitmq-data/
-
-# 보안 파일
-*.pem
-*.key
-*.crt
-*.p12
-secrets/
-
-# 백업 파일
-*.bak
-*.backup
-*.tmp
+# [Logs & Temp]
+logs/
+*.log
 tmp/
 temp/
+celerybeat-schedule
+celerybeat.pid
 
-# Jupyter Notebook
-.ipynb_checkpoints/
-
-# PID 파일
-*.pid
-
-# 기타
+# [Frontend/Node] - 백엔드 이미지 빌드 시 불필요
 node_modules/
 npm-debug.log
+.next/
+dist/
+build/

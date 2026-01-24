@@ -6,10 +6,28 @@ Django 기본 설정 파일
 import os
 from pathlib import Path
 from datetime import timedelta
-from decouple import config
+from decouple import Config, RepositoryEnv
 
 # 프로젝트 기본 경로
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+# 환경에 따라 적절한 .env 파일 로드
+# DJANGO_SETTINGS_MODULE 환경변수를 확인하여 어떤 .env 파일을 사용할지 결정
+settings_module = os.environ.get('DJANGO_SETTINGS_MODULE', '')
+if 'production' in settings_module:
+    env_file = BASE_DIR / '.env.production'
+elif 'local' in settings_module:
+    env_file = BASE_DIR / '.env.local'
+else:
+    # 기본값: .env 파일 사용
+    env_file = BASE_DIR / '.env'
+
+# .env 파일이 존재하면 명시적으로 로드
+if env_file.exists():
+    config = Config(RepositoryEnv(str(env_file)))
+else:
+    # .env 파일이 없으면 시스템 환경변수에서만 읽기
+    from decouple import config
 
 # 보안 키 (환경변수에서 로드, 필수값)
 SECRET_KEY = config('SECRET_KEY')

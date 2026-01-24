@@ -14,7 +14,7 @@ import os
 import json
 import re # ✅ 추가: 정규식 사용을 위해 필요
 import traceback # ✅ 추가: 상세 에러 로그 출력을 위해 필요
-import google.generativeai as genai
+import google.genai as genai
 from django.conf import settings
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
 from celery.result import AsyncResult
@@ -129,7 +129,8 @@ class ResumeMatchingView(APIView):
             return Response({'error': 'GOOGLE_GEMINI_API_KEY 설정이 누락되었습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         
         try:
-            genai.configure(api_key=settings.GOOGLE_GEMINI_API_KEY)
+            # 새로운 google.genai SDK 사용
+            client = genai.Client(api_key=settings.GOOGLE_GEMINI_API_KEY)
 
             # 3. 프롬프트 데이터 구성
             job_description = job_posting.description
@@ -182,10 +183,12 @@ class ResumeMatchingView(APIView):
             }}
             """
 
-            # 4. Gemini API 호출
-            model = genai.GenerativeModel('gemini-3-flash-preview') # ✅ 모델명 변경 (안정성 확보)
-            response = model.generate_content(prompt)
-            
+            # 4. Gemini API 호출 (새로운 SDK)
+            response = client.models.generate_content(
+                model='gemini-1.5-flash',
+                contents=prompt
+            )
+
             raw_text = response.text
             print(f"🔹 [Gemini Response Raw]: {raw_text[:100]}...") # 로그 확인용
 
