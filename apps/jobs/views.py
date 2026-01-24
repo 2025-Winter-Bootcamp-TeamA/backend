@@ -138,45 +138,45 @@ class JobPostingListView(generics.ListAPIView):
             
         return super().list(request, *args, **kwargs)
     
-class JobPostingListView(generics.ListAPIView):
-    """
-    특정 기업의 채용 공고 목록 조회 View
-    """
-    permission_classes = [AllowAny]
-    serializer_class = JobPostingSerializer
+# class JobPostingListView(generics.ListAPIView):
+#     """
+#     특정 기업의 채용 공고 목록 조회 View
+#     """
+#     permission_classes = [AllowAny]
+#     serializer_class = JobPostingSerializer
 
-    def get_queryset(self):
-        # URL 설정(urls.py)에서 정의한 변수명 'corp_id'를 가져와야 함 ('pk'가 아님)
-        corp_id = self.kwargs.get('corp_id')
+#     def get_queryset(self):
+#         # URL 설정(urls.py)에서 정의한 변수명 'corp_id'를 가져와야 함 ('pk'가 아님)
+#         corp_id = self.kwargs.get('corp_id')
         
-        # 해당 기업이 실제로 존재하는지(삭제되지 않았는지) 확인
-        # get_object_or_404를 사용하지 않는 이유: 리스트 조회에서 상위 리소스가 없을 때 빈 리스트가 아닌 404를 명시적으로 주기 위함
-        return JobPosting.objects.filter(
-            corp_id=corp_id,
-            corp__is_deleted=False, # 기업이 삭제된 경우 공고도 조회되지 않아야 함
-            is_deleted=False
-        )
+#         # 해당 기업이 실제로 존재하는지(삭제되지 않았는지) 확인
+#         # get_object_or_404를 사용하지 않는 이유: 리스트 조회에서 상위 리소스가 없을 때 빈 리스트가 아닌 404를 명시적으로 주기 위함
+#         return JobPosting.objects.filter(
+#             corp_id=corp_id,
+#             corp__is_deleted=False, # 기업이 삭제된 경우 공고도 조회되지 않아야 함
+#             is_deleted=False
+#         )
     
-    @swagger_auto_schema(
-        operation_summary="채용 공고 조회",
-        operation_description="기업 ID를 기반으로 해당 기업이 올린 모든 채용 공고를 조회합니다.",
-        responses={
-            200: JobPostingSerializer(many=True),
-            404: "해당 ID의 기업을 찾을 수 없습니다."
-        }
-    )
-    def list(self, request, *args, **kwargs):
-        # urls.py의 변수명인 corp_id 사용
-        corp_id = self.kwargs.get('corp_id')
+#     @swagger_auto_schema(
+#         operation_summary="채용 공고 조회",
+#         operation_description="기업 ID를 기반으로 해당 기업이 올린 모든 채용 공고를 조회합니다.",
+#         responses={
+#             200: JobPostingSerializer(many=True),
+#             404: "해당 ID의 기업을 찾을 수 없습니다."
+#         }
+#     )
+#     def list(self, request, *args, **kwargs):
+#         # urls.py의 변수명인 corp_id 사용
+#         corp_id = self.kwargs.get('corp_id')
 
-        # 기업 존재 여부 검증 (DB 최적화: exists() 사용)
-        if not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
-            return Response(
-                {"message": "해당 ID의 기업을 찾을 수 없습니다."},
-                status=status.HTTP_404_NOT_FOUND
-            )
+#         # 기업 존재 여부 검증 (DB 최적화: exists() 사용)
+#         if not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
+#             return Response(
+#                 {"message": "해당 ID의 기업을 찾을 수 없습니다."},
+#                 status=status.HTTP_404_NOT_FOUND
+#             )
             
-        return super().list(request, *args, **kwargs)
+#         return super().list(request, *args, **kwargs)
 
 
 class JobPostingDetailView(generics.RetrieveAPIView):
