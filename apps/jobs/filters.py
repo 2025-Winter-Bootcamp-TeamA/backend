@@ -1,6 +1,7 @@
 # apps/jobs/filters.py
 
 import django_filters
+from django.db.models import Q  
 from .models import JobPosting
 
 class JobPostingFilter(django_filters.FilterSet):
@@ -8,7 +9,7 @@ class JobPostingFilter(django_filters.FilterSet):
     # URL에서 ?corp_id=1 처럼 특정 기업만 콕 집어서 볼 때 사용
     corp_id = django_filters.NumberFilter(field_name='corp__id')
     # URL에서 ?corp_name=삼성 처럼 기업 이름으로 검색할 때 사용 (선택 사항)
-    corp_name = django_filters.CharFilter(field_name='corp__corp_name', lookup_expr='icontains')
+    corp_name = django_filters.CharFilter(field_name='corp__name', lookup_expr='icontains')
 
     # 2. 지역 필터 (기존 유지)
     city = django_filters.CharFilter(field_name='corp__region_city', lookup_expr='icontains')
@@ -23,12 +24,45 @@ class JobPostingFilter(django_filters.FilterSet):
 
     class Meta:
         model = JobPosting
-        # 필드 목록에 corp_id와 corp_name을 꼭 추가해야 합니다.
         fields = ['corp_id', 'corp_name', 'city', 'district', 'career_year']
 
     def filter_search(self, queryset, name, value):
-        return queryset.filter(title__icontains=value) | queryset.filter(description__icontains=value)
+        """
+        [개선됨] Q 객체를 사용하여 제목, 설명, 기업명을 한 번에 검색합니다.
+        (성능 및 안정성 향상)
+        """
+        return queryset.filter(
+            Q(title__icontains=value) | 
+            Q(description__icontains=value) | 
+            Q(corp__name__icontains=value)
+        )
 
     def filter_by_career(self, queryset, name, value):
-        # min_career <= value <= max_career (범위 검색)
-        return queryset.filter(min_career__lte=value, max_career__gte=value)
+        """
+        [디버깅 모드] 경력 필터링 로직
+        """
+        # 1. 입력값 확인
+        print(f"\n[DEBUG] 사용자 입력 연차: {value} (Type: {type(value)})")
+
+        if value is None:
+            return queryset
+
+        # 2. 필터링 전, 해당 공고의 실제 DB 값 확인 (ID와 경력값 출력)
+        # (너무 많이 출력되면 보기 힘들므로 상위 5개만 확인)
+        print("[DEBUG] DB 데이터 샘플 확인 (필터링 전):")
+        for job in queryset[:5]:
+            print(f" - 공고 ID: {job.id} | 기업: {job.corp.name} | Min: {job.min_career} | Max: {job.max_career}")
+
+        # 3. 실제 필터링 적용
+        # Q객체 사용: (최대 경력이 내 연차보다 크거나) OR (0이거나) OR (NULL이거나)
+        filtered_qs = queryset.filter(
+            min_career__lte=value
+        ).filter(
+            Q(max_career__gte=value) | Q(max_career=0) | Q(max_career__isnull=True)
+        )
+
+        # 4. 결과 확인
+        print(f"[DEBUG] 필터링 후 남은 공고 개수: {filtered_qs.count()}")
+        print(f"[DEBUG] 생성된 SQL 쿼리: {filtered_qs.query}\n")
+        
+        return filtered_qs
