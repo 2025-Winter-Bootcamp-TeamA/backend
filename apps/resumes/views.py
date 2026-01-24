@@ -17,7 +17,8 @@ import traceback # ✅ 추가: 상세 에러 로그 출력을 위해 필요
 import google.genai as genai
 from django.conf import settings
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
-from scripts.module_resume_extractor import ResumeParserSystem
+from celery.result import AsyncResult
+from .tasks import analyze_resume_task
 
 
 class ResumeListCreateView(generics.ListCreateAPIView):
@@ -148,7 +149,7 @@ class ResumeMatchingView(APIView):
             work_exp_str = "\n".join([f"- {w.organization}: {w.details}" for w in work_experiences])
             proj_exp_str = "\n".join([f"- {p.project_name}: {p.context}\n  {p.details}" for p in project_experiences])
 
-            # Gemini에 전달할 프롬프트
+            # Gemini에 전달할 프롬프트 (JSON 형식 대신 커스텀 태그 사용)
             prompt = f"""
             # Role
             당신은 세계적인 빅테크 기업의 시니어 기술 면접관이자 아키텍트입니다. 
@@ -166,67 +167,81 @@ class ResumeMatchingView(APIView):
             3. [보완할 점]: JD와의 간극을 메우기 위해 학습해야 할 기술/개념을 제안하십시오.
             4. [면접 질문]: Deep Dive, Trade-off, Scenario 유형을 섞어 5개의 질문을 생성하십시오.
 
-            # Output Format (Strict JSON)
-            반드시 아래 JSON 형식을 준수해야 합니다. 마크다운 기호(```)나 잡담을 포함하지 마십시오.
+            # Output Format (Strict Custom Tags)
+            절대 JSON을 사용하지 마십시오. 반드시 아래 제공된 커스텀 태그 형식으로만 응답해야 합니다. 각 태그 사이에 내용을 채워주세요.
+            각 feedback은 150자 내외로 간결하게 작성하고, 질문은 200자 이상의 구체적이고 심도있는 질문을 생성하십시오.
 
-            {{
-                "feedback": {{
-                    "positive": "지원자의 강점 서술",
-                    "negative": "부족한 점 및 리스크 서술",
-                    "enhancements": "보완할 점 서술"
-                }},
-                "questions": [
-                    "질문 1",
-                    "질문 2",
-                    "질문 3",
-                    "질문 4",
-                    "질문 5"
-                ]
-            }}
+            [POSITIVE_FEEDBACK_START]
+            (지원자의 강점 서술)
+            [POSITIVE_FEEDBACK_END]
+
+            [NEGATIVE_FEEDBACK_START]
+            (부족한 점 및 리스크 서술)
+            [NEGATIVE_FEEDBACK_END]
+
+            [ENHANCEMENTS_START]
+            (보완할 점 서술)
+            [ENHANCEMENTS_END]
+
+            [QUESTION_1_START]
+            (질문 1)
+            [QUESTION_1_END]
+
+            [QUESTION_2_START]
+            (질문 2)
+            [QUESTION_2_END]
+
+            [QUESTION_3_START]
+            (질문 3)
+            [QUESTION_3_END]
+
+            [QUESTION_4_START]
+            (질문 4)
+            [QUESTION_4_END]
+
+            [QUESTION_5_START]
+            (질문 5)
+            [QUESTION_5_END]
             """
 
-            # 4. Gemini API 호출 (gemini-1.5-flash deprecated → gemini-2.5-flash 사용)
+            # 4. Gemini API 호출
             response = client.models.generate_content(
                 model='gemini-2.5-flash',
                 contents=prompt
             )
-
             raw_text = response.text
-            print(f"🔹 [Gemini Response Raw]: {raw_text[:100]}...") # 로그 확인용
 
-            # 5. JSON 추출 로직 (정규식 사용)
-            # 중괄호로 둘러싸인 JSON 부분만 추출하여 파싱 에러 방지
-            json_match = re.search(r'\{[\s\S]*\}', raw_text)
-            
-            if not json_match:
-                print("❌ JSON 형식을 찾을 수 없습니다.")
-                return Response({'error': 'AI 응답에서 데이터를 추출할 수 없습니다. (JSON 형식 불일치)'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-            
-            cleaned_json_text = json_match.group(0)
+            # 5. 커스텀 태그 기반 파싱 로직
+            def extract_text_between_tags(text, start_tag, end_tag):
+                start_index = text.find(start_tag)
+                if start_index == -1: return ""
+                end_index = text.find(end_tag, start_index)
+                if end_index == -1: return ""
+                return text[start_index + len(start_tag):end_index].strip()
 
-            try:
-                response_json = json.loads(cleaned_json_text)
-            except json.JSONDecodeError as e:
-                print(f"❌ JSON 파싱 에러: {str(e)}")
-                print(f"❌ 파싱 시도 텍스트: {cleaned_json_text}")
-                return Response({'error': f'AI 데이터 파싱 실패: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            positive_feedback = extract_text_between_tags(raw_text, '[POSITIVE_FEEDBACK_START]', '[POSITIVE_FEEDBACK_END]')
+            negative_feedback = extract_text_between_tags(raw_text, '[NEGATIVE_FEEDBACK_START]', '[NEGATIVE_FEEDBACK_END]')
+            enhancements_feedback = extract_text_between_tags(raw_text, '[ENHANCEMENTS_START]', '[ENHANCEMENTS_END]')
             
-            # 6. 데이터 추출 및 저장
-            feedback_json = response_json.get("feedback", {})
-            positive_feedback = feedback_json.get("positive", "정보 없음")
-            negative_feedback = feedback_json.get("negative", "정보 없음")
-            enhancements_feedback = feedback_json.get("enhancements", "정보 없음")
+            questions = []
+            for i in range(1, 6):
+                question = extract_text_between_tags(raw_text, f'[QUESTION_{i}_START]', f'[QUESTION_{i}_END]')
+                if question:
+                    questions.append(question)
             
-            questions = response_json.get("questions", [])
+            if not positive_feedback and not negative_feedback and not questions:
+                 return Response({'error': 'AI 응답에서 유효한 내용을 추출할 수 없습니다. 형식이 다를 수 있습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
             question_str = "\n".join([f"- {q}" for q in questions])
 
+            # 6. 데이터 저장
             matching, created = ResumeMatching.objects.update_or_create(
                 resume=resume,
                 job_posting=job_posting,
                 defaults={
-                    'positive_feedback': positive_feedback,
-                    'negative_feedback': negative_feedback,
-                    'enhancements_feedback': enhancements_feedback,
+                    'positive_feedback': positive_feedback or "정보 없음",
+                    'negative_feedback': negative_feedback or "정보 없음",
+                    'enhancements_feedback': enhancements_feedback or "정보 없음",
                     'question': question_str,
                 }
             )
@@ -312,7 +327,7 @@ class ResumeRestoreView(APIView):
 
 
 class ResumeAnalyzeView(APIView):
-    """이력서 분석 및 직무/프로젝트 경험 추출"""
+    """이력서 분석 및 직무/프로젝트 경험 추출 (비동기)"""
     permission_classes = [IsAuthenticated]
 
     def post(self, request, resume_id):
@@ -324,71 +339,46 @@ class ResumeAnalyzeView(APIView):
         if not resume.url:
             return Response({'error': '이력서 URL이 없습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # 상대 경로(/media/...)는 requests.get()에서 쓸 수 있도록 절대 URL로 변환
+        # 1. 브라우저가 접근 가능한 절대 URL 생성
         pdf_url = resume.url
         if pdf_url.startswith('/'):
             pdf_url = request.build_absolute_uri(pdf_url)
 
-        try:
-            resume_text = extract_text_from_pdf_url(pdf_url)
-            if not resume_text or not resume_text.strip():
-                return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+        # 2. Docker 내부 통신용 URL로 변환 (Celery Worker가 접근할 수 있도록)
+        #    Celery 컨테이너는 'localhost'가 아닌 'backend' 서비스 이름으로 웹서버에 접근해야 함
+        internal_pdf_url = pdf_url.replace('localhost', 'backend').replace('127.0.0.1', 'backend')
 
-            ollama_host= 'http://host.docker.internal:11434'
+        # 디버그 로그 추가
+        print(f"DEBUG: Passing URL to Celery: {internal_pdf_url}")
 
-            #ollama_host = settings.OLLAMA_URL
-            parser = ResumeParserSystem(host=ollama_host)
-            structured_data = parser.parse(resume_text)
+        # Celery 작업을 호출하여 비동기적으로 분석 실행 (내부 URL 전달)
+        task = analyze_resume_task.delay(resume.id, internal_pdf_url)
 
-            with transaction.atomic():
-                WorkExperience.objects.filter(resume=resume).delete()
-                ProjectExperience.objects.filter(resume=resume).delete()
-                ResumeExtractedStack.objects.filter(resume=resume).delete() # Delete existing extracted stack
+        # 클라이언트에게 작업이 시작되었음을 알림
+        return Response(
+            {'message': '이력서 분석 작업이 시작되었습니다.', 'task_id': task.id},
+            status=status.HTTP_202_ACCEPTED
+        )
 
-                if 'work_experience' in structured_data and structured_data['work_experience']:
-                    for exp in structured_data['work_experience']:
-                        WorkExperience.objects.create(
-                            resume=resume,
-                            organization=exp.get('organization') or '',
-                            details=exp.get('details') or ''
-                        )
 
-                if 'project_experience' in structured_data and structured_data['project_experience']:
-                    for exp in structured_data['project_experience']:
-                        ProjectExperience.objects.create(
-                            resume=resume,
-                            project_name=exp.get('name') or '',
-                            context=exp.get('context') or '',
-                            details=exp.get('details') or ''
-                        )
+class ResumeAnalysisStatusView(APIView):
+    """Celery 작업 상태 및 결과 확인"""
+    permission_classes = []  # 태스크 ID는 추측이 거의 불가능하므로 인증 없이 허용
 
-                # Extract and combine technical tools, methodologies, and others
-                all_technical_tools = set()
-                methodologies = []
-                others = []
+    def get(self, request, task_id):
+        task_result = AsyncResult(task_id)
+        
+        response_data = {
+            'task_id': task_id,
+            'status': task_result.state,
+            'result': None
+        }
 
-                if 'project_experience' in structured_data and structured_data.get('project_experience'):
-                    for exp in structured_data['project_experience']:
-                        if 'tools' in exp and isinstance(exp['tools'], list):
-                            all_technical_tools.update(tool for tool in exp['tools'] if isinstance(tool, str))
-
-                if 'key_capabilities' in structured_data and structured_data.get('key_capabilities'):
-                    key_capabilities = structured_data['key_capabilities']
-                    if 'technical_tools' in key_capabilities and isinstance(key_capabilities['technical_tools'], list):
-                        all_technical_tools.update(tool for tool in key_capabilities['technical_tools'] if isinstance(tool, str))
-                    if 'methodologies' in key_capabilities and isinstance(key_capabilities['methodologies'], list):
-                        methodologies = [m for m in key_capabilities['methodologies'] if isinstance(m, str)]
-                    if 'others' in key_capabilities and isinstance(key_capabilities['others'], list):
-                        others = [o for o in key_capabilities['others'] if isinstance(o, str)]
-
-                ResumeExtractedStack.objects.create(
-                    resume=resume,
-                    technical_tools=list(all_technical_tools),
-                    methodologies=methodologies,
-                    others=others
-                )
-
-            return Response({'message': '분석 완료'}, status=status.HTTP_201_CREATED)
-
-        except Exception as e:
-            return Response({'error': f'분석 중 오류 발생: {str(e)}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        if task_result.successful():
+            # 작업이 성공적으로 완료되었을 때 결과
+            response_data['result'] = task_result.get()
+        elif task_result.failed():
+            # 작업 실패 시 에러 정보
+            response_data['result'] = str(task_result.info)  # 에러 메시지
+        
+        return Response(response_data)
