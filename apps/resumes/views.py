@@ -253,7 +253,7 @@ class ResumeMatchingListView(generics.ListAPIView):
         return ResumeMatching.objects.filter(
             resume__user=self.request.user,
             is_deleted=False
-        ).select_related('job_posting', 'resume')
+        ).select_related('job_posting', 'resume').order_by('-id')
 
 
 class ResumeMatchingDetailView(generics.RetrieveAPIView):

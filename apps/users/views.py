@@ -7,69 +7,33 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework_simplejwt.tokens import RefreshToken
-from .serializers import UserSerializer, SignupSerializer, LoginSerializer
+from .serializers import UserSerializer
 import requests
 from decouple import config
 from drf_yasg.utils import swagger_auto_schema # Swagger 설정을 위한 데코레이터 임포트
 from drf_yasg import openapi # 상세한 파라미터 설정을 위한 모듈
 import logging
-from django.shortcuts import get_object_or_404
-from django.conf import settings
+from django.shortcuts import get_object_or_404, redirect
+from django.core.cache import cache
+from urllib.parse import quote
+import secrets
 from .models import User  
-class SignupView(generics.CreateAPIView):
-    """일반 회원가입"""
-    permission_classes = [AllowAny]
-    serializer_class = SignupSerializer
-    
-    @swagger_auto_schema(
-        operation_summary="회원가입",
-        operation_description="이메일, 사용자명, 이름, 비밀번호를 입력하여 새 계정을 생성합니다.",
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'email': openapi.Schema(type=openapi.TYPE_STRING, description='이메일 주소'),
-                'username': openapi.Schema(type=openapi.TYPE_STRING, description='사용자명'),
-                'name': openapi.Schema(type=openapi.TYPE_STRING, description='이름'),
-                'password': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호 (최소 8자)'),
-                'password_confirm': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호 확인'),
-            },
-            required=['email', 'username', 'name', 'password', 'password_confirm']
-        ),
-        responses={
-            201: UserSerializer(),
-            400: "입력 데이터 오류",
-        }
-    )
-    def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-
-class LoginView(APIView):
-    """일반 JWT 로그인"""
-    permission_classes = [AllowAny]
-
-    @swagger_auto_schema(
-        operation_description="이메일과 비밀번호로 로그인하여 JWT 토큰을 발급받습니다.",
-        request_body=openapi.Schema(
-            type=openapi.TYPE_OBJECT,
-            properties={
-                'email': openapi.Schema(type=openapi.TYPE_STRING, description='이메일'),
-                'password': openapi.Schema(type=openapi.TYPE_STRING, description='비밀번호')
-            },
-            required=['email', 'password']
-        ),
-    )
-    def post(self, request):
-        serializer = LoginSerializer(data=request.data)
-        serializer.is_valid(raise_exception=True)
-        user = serializer.validated_data['user']
-
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-            'user': UserSerializer(user).data
-        })
+# ========== 일반 로그인/회원가입 (주석 처리, 구글 소셜 로그인만 사용) ==========
+# class SignupView(generics.CreateAPIView):
+#     """일반 회원가입"""
+#     permission_classes = [AllowAny]
+#     serializer_class = SignupSerializer
+#     @swagger_auto_schema(...)
+#     def post(self, request, *args, **kwargs):
+#         return super().post(request, *args, **kwargs)
+#
+# class LoginView(APIView):
+#     """일반 JWT 로그인"""
+#     permission_classes = [AllowAny]
+#     def post(self, request):
+#         serializer = LoginSerializer(data=request.data)
+#         ...
+#         return Response({'refresh': ..., 'access': ..., 'user': ...})
 
 class LogoutView(APIView):
     
@@ -182,182 +146,199 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 #                 {'error': '로그인 처리 중 오류가 발생했습니다.'},
 #                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
 #             )
-# class GoogleLoginStartView(APIView):
-#     """구글 로그인 시작 (Redirect URL 반환)"""
-    
-#     permission_classes = [AllowAny]
-#     @swagger_auto_schema(
-#         #operation_summary="구글 로그인 시작",
-#         operation_description="구글 로그인 페이지로 리다이렉트할 수 있는 URL을 반환합니다.",
-#     ) 
-#     def get(self, request):
-#         # 환경변수에서 가져오기
-#         client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
-        
-#         # redirect_uri를 동적으로 생성 (실제 백엔드 경로와 일치하도록)
-#         # 로컬 환경에서는 localhost, 프로덕션에서는 환경변수 사용
-#         if settings.DEBUG:
-#             base_url = 'http://localhost:8000'
-#         else:
-#             base_url = config('BACKEND_URL', default='https://api.devroad.cloud')
-        
-#         redirect_uri = f"{base_url}/api/v1/users/auth/google/callback/"
-        
-#         # URL 인코딩
-#         from urllib.parse import quote
-#         redirect_uri_encoded = quote(redirect_uri, safe='')
-        
-#         # 구글 로그인 페이지 URL 생성
-#         google_auth_url = (
-#             "https://accounts.google.com/o/oauth2/v2/auth"
-#             f"?client_id={client_id}"
-#             f"&redirect_uri={redirect_uri_encoded}"
-#             "&response_type=code"          # code를 받기 위함 (Authorization Code Flow)
-#             "&scope=email%20profile%20openid"
-#             "&access_type=offline"         # refresh_token도 받기
-#         )
-        
-#         return Response({"redirectUrl": google_auth_url})
+class GoogleLoginStartView(APIView):
+    """구글 로그인 시작 (Redirect URL 반환)"""
+
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="구글 로그인 페이지로 리다이렉트할 수 있는 URL을 반환합니다.",
+    )
+    def get(self, request):
+        client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
+        redirect_uri = config('GOOGLE_REDIRECT_URI')
+
+        # CSRF 방지를 위한 state 생성 및 세션 저장
+        state = secrets.token_urlsafe(32)
+        request.session['oauth_state'] = state
+
+        redirect_uri_encoded = quote(redirect_uri, safe='')
+
+        google_auth_url = (
+            "https://accounts.google.com/o/oauth2/v2/auth"
+            f"?client_id={client_id}"
+            f"&redirect_uri={redirect_uri_encoded}"
+            "&response_type=code"
+            "&scope=email%20profile%20openid"
+            "&access_type=offline"
+            f"&state={state}"
+            "&prompt=consent"
+        )
+
+        return Response({"redirectUrl": google_auth_url})
 
 
-# class GoogleLoginCallbackView(APIView):
-#     """구글 로그인 콜백 처리 (Authorization Code → JWT)"""
-    
-#     permission_classes = [AllowAny]
-    
-#     @swagger_auto_schema(
-#         #operation_summary="구글 로그인 콜백",
-#         operation_description="Google에서 받은 authorization code를 access_token으로 교환하고 JWT를 발급합니다.",
-#         manual_parameters=[
-#             openapi.Parameter('code', openapi.IN_QUERY, description="Google authorization code", type=openapi.TYPE_STRING),
-#         ]
-#     )
-#     def get(self, request):
-#         """GET 요청으로 code를 받아서 처리"""
-#         code = request.GET.get('code')
-        
-#         if not code:
-#             return Response(
-#                 {'error': 'authorization code가 필요합니다.'},
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
-        
-#         try:
-#             # 1. code를 access_token으로 교환
-#             client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
-#             client_secret = config('GOOGLE_OAUTH2_CLIENT_SECRET')
-            
-#             # redirect_uri를 동적으로 생성 (실제 백엔드 경로와 일치하도록)
-#             if settings.DEBUG:
-#                 base_url = 'http://localhost:8000'
-#             else:
-#                 base_url = config('BACKEND_URL', default='https://api.devroad.cloud')
-            
-#             redirect_uri = f"{base_url}/api/v1/users/auth/google/callback/"
-            
-#             token_response = requests.post(
-#                 'https://oauth2.googleapis.com/token',
-#                 data={
-#                     'code': code,
-#                     'client_id': client_id,
-#                     'client_secret': client_secret,
-#                     'redirect_uri': redirect_uri,
-#                     'grant_type': 'authorization_code',
-#                 },
-#                 timeout=10
-#             )
-#             token_response.raise_for_status()
-#             token_data = token_response.json()
-#             access_token = token_data.get('access_token')
-            
-#             if not access_token:
-#                 return Response(
-#                     {'error': 'access_token을 가져올 수 없습니다.'},
-#                     status=status.HTTP_400_BAD_REQUEST
-#                 )
-            
-#             # 2. access_token으로 사용자 정보 조회
-#             user_response = requests.get(
-#                 'https://www.googleapis.com/oauth2/v3/userinfo',
-#                 headers={'Authorization': f'Bearer {access_token}'},
-#                 timeout=10
-#             )
-#             user_response.raise_for_status()
-#             user_data = user_response.json()
-            
-#             email = user_data.get('email')
-#             name = user_data.get('name')
-#             # 구글에서 프로필 이미지 URL 가져오기
-#             picture = user_data.get('picture')
+class GoogleLoginCallbackView(APIView):
+    """구글 로그인 콜백 처리 (Authorization Code → JWT)"""
 
-#             if not email:
-#                 return Response(
-#                     {'error': '구글에서 이메일을 가져올 수 없습니다.'},
-#                     status=status.HTTP_400_BAD_REQUEST
-#                 )
-            
-#             from .models import User
-            
-#             # 3. DB에서 사용자 조회/생성
-#             user, created = User.objects.get_or_create(
-#                 email=email,
-#                 defaults={
-#                     'username': email.split('@')[0],
-#                     'name': name or 'Google User',
-#                     'profile_image': picture,  # 생성 시 이미지 저장
-#                     'is_deleted': False
-#                 }
-#             )
-#             if not created:
-#                 is_changed = False
-                
-#                 # 이름이 바뀌었으면 업데이트
-#                 if name and user.name != name:
-#                     user.name = name
-#                     is_changed = True
-                
-#                 # 사진이 바뀌었으면 업데이트
-#                 if picture and user.profile_image != picture:
-#                     user.profile_image = picture
-#                     is_changed = True
-                
-#                 # 변경사항이 있을 때만 DB 저장 (쿼리 절약)
-#                 if is_changed:
-#                     user.save()
-            
-#             # 4. JWT 토큰 발급
-#             refresh = RefreshToken.for_user(user)
-            
-#             # 5. 프론트엔드로 리다이렉트 (토큰을 쿼리 파라미터로 전달)
-#             # 로컬 환경(DEBUG=True)에서는 localhost:3000, 프로덕션에서는 환경변수 사용
-#             if settings.DEBUG:
-#                 frontend_url = 'http://localhost:3000'
-#             else:
-#                 frontend_url = config('FRONTEND_URL')
-            
-#             redirect_url = (
-#                 f"{frontend_url}/auth/callback"
-#                 f"?access={str(refresh.access_token)}"
-#                 f"&refresh={str(refresh)}"
-#             )
-            
-#             from django.shortcuts import redirect
-#             return redirect(redirect_url)
-            
-#         except requests.RequestException as e:
-#             logging.error(f'Google API call failed: {e}')
-#             return Response(
-#                 {'error': 'Google API 호출에 실패했습니다.'},
-#                 status=status.HTTP_400_BAD_REQUEST
-#             )
-        
-#         except Exception as e:
-#             logging.exception('Unexpected error during Google login callback')
-#             return Response(
-#                 {'error': '로그인 처리 중 오류가 발생했습니다.'},
-#                 status=status.HTTP_500_INTERNAL_SERVER_ERROR
-#             )
-        
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="Google에서 받은 authorization code를 access_token으로 교환하고 JWT를 발급합니다.",
+        manual_parameters=[
+            openapi.Parameter('code', openapi.IN_QUERY, description="Google authorization code", type=openapi.TYPE_STRING),
+            openapi.Parameter('state', openapi.IN_QUERY, description="CSRF 방지 state", type=openapi.TYPE_STRING),
+        ]
+    )
+    def get(self, request):
+        code = request.GET.get('code')
+        if not code:
+            return Response(
+                {'error': 'authorization code가 필요합니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        # state 검증 (CSRF 방지)
+        state = request.GET.get('state')
+        session_state = request.session.pop('oauth_state', None)
+        if not state or state != session_state:
+            return Response(
+                {'error': '유효하지 않은 state입니다. 다시 시도해주세요.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+        try:
+            client_id = config('GOOGLE_OAUTH2_CLIENT_ID')
+            client_secret = config('GOOGLE_OAUTH2_CLIENT_SECRET')
+            redirect_uri = config('GOOGLE_REDIRECT_URI')
+
+            token_response = requests.post(
+                'https://oauth2.googleapis.com/token',
+                data={
+                    'code': code,
+                    'client_id': client_id,
+                    'client_secret': client_secret,
+                    'redirect_uri': redirect_uri,
+                    'grant_type': 'authorization_code',
+                },
+                timeout=10
+            )
+            token_response.raise_for_status()
+            token_data = token_response.json()
+            access_token = token_data.get('access_token')
+
+            if not access_token:
+                return Response(
+                    {'error': 'access_token을 가져올 수 없습니다.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user_response = requests.get(
+                'https://www.googleapis.com/oauth2/v3/userinfo',
+                headers={'Authorization': f'Bearer {access_token}'},
+                timeout=10
+            )
+            user_response.raise_for_status()
+            user_data = user_response.json()
+
+            email = user_data.get('email')
+            name = user_data.get('name')
+            picture = user_data.get('picture')
+
+            if not email:
+                return Response(
+                    {'error': '구글에서 이메일을 가져올 수 없습니다.'},
+                    status=status.HTTP_400_BAD_REQUEST
+                )
+
+            user, created = User.objects.get_or_create(
+                email=email,
+                defaults={
+                    'username': email.split('@')[0],
+                    'name': name or 'Google User',
+                    'profile_image': picture,
+                    'is_deleted': False
+                }
+            )
+            if not created:
+                is_changed = False
+                if name and user.name != name:
+                    user.name = name
+                    is_changed = True
+                if picture and user.profile_image != picture:
+                    user.profile_image = picture
+                    is_changed = True
+                if is_changed:
+                    user.save()
+
+            refresh = RefreshToken.for_user(user)
+            frontend_url = config('FRONTEND_URL')
+            # 일회용 코드로 토큰 전달 (URL 쿼리 노출 방지)
+            one_time_code = secrets.token_urlsafe(32)
+            cache.set(
+                f'auth_code:{one_time_code}',
+                {
+                    'access': str(refresh.access_token),
+                    'refresh': str(refresh),
+                    'profile_image': picture or getattr(user, 'profile_image', None),
+                },
+                timeout=300,
+            )
+            redirect_url = f"{frontend_url}/auth/callback?code={one_time_code}"
+            return redirect(redirect_url)
+
+        except requests.RequestException as e:
+            logging.error(f'Google API call failed: {e}')
+            return Response(
+                {'error': 'Google API 호출에 실패했습니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        except Exception as e:
+            logging.exception('Unexpected error during Google login callback')
+            return Response(
+                {'error': '로그인 처리 중 오류가 발생했습니다.'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+
+class ExchangeCodeView(APIView):
+    """
+    OAuth 콜백 후 일회용 code를 JWT로 교환 (토큰 URL 노출 방지)
+    POST /api/v1/users/auth/exchange-code/  body: { "code": "..." }
+    """
+    permission_classes = [AllowAny]
+
+    @swagger_auto_schema(
+        operation_description="일회용 인증 코드를 JWT(access, refresh) 및 profile_image로 교환합니다.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={'code': openapi.Schema(type=openapi.TYPE_STRING, description='일회용 코드')},
+            required=['code'],
+        ),
+        responses={200: 'access, refresh, profile_image(선택)', 400: '잘못된/만료된 코드'},
+    )
+    def post(self, request):
+        code = request.data.get('code')
+        if not code:
+            return Response(
+                {'error': 'code가 필요합니다.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        cache_key = f'auth_code:{code}'
+        data = cache.get(cache_key)
+        if not data:
+            return Response(
+                {'error': '만료되었거나 잘못된 코드입니다. 다시 로그인해주세요.'},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+        cache.delete(cache_key)
+        return Response({
+            'access': data['access'],
+            'refresh': data['refresh'],
+            'profile_image': data.get('profile_image'),
+        })
+
+
 class UserDeleteView(APIView):
     """
     회원 삭제 (논리 삭제: is_deleted=True, is_active=False)
