@@ -81,7 +81,10 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
         # DB 데이터가 없으면 원본 PDF에서 추출 시도
         if not extracted_text and instance.url:
             try:
-                resume_text = extract_text_from_pdf_url(instance.url)
+                pdf_url = instance.url
+                if pdf_url.startswith('/'):
+                    pdf_url = request.build_absolute_uri(pdf_url)
+                resume_text = extract_text_from_pdf_url(pdf_url)
                 if resume_text and resume_text.strip():
                     extracted_text = resume_text
             except Exception as e:
@@ -183,9 +186,9 @@ class ResumeMatchingView(APIView):
             }}
             """
 
-            # 4. Gemini API 호출 (새로운 SDK)
+            # 4. Gemini API 호출 (gemini-1.5-flash deprecated → gemini-2.5-flash 사용)
             response = client.models.generate_content(
-                model='gemini-1.5-flash',
+                model='gemini-2.5-flash',
                 contents=prompt
             )
 
@@ -322,8 +325,13 @@ class ResumeAnalyzeView(APIView):
         if not resume.url:
             return Response({'error': '이력서 URL이 없습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
-        # Celery 작업을 호출하여 비동기적으로 분석 실행
-        task = analyze_resume_task.delay(resume_id)
+        # 상대 경로(/media/...)는 Celery 작업에서 직접 접근할 수 없으므로 절대 URL로 변환
+        pdf_url = resume.url
+        if pdf_url.startswith('/'):
+            pdf_url = request.build_absolute_uri(pdf_url)
+
+        # Celery 작업을 호출하여 비동기적으로 분석 실행 (절대 URL 전달)
+        task = analyze_resume_task.delay(resume.id, pdf_url)
 
         # 클라이언트에게 작업이 시작되었음을 알림
         return Response(

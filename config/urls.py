@@ -4,12 +4,30 @@ TeamA API URL 설정
 
 from django.contrib import admin
 from django.urls import path, include
+from django.http import JsonResponse
 from django.conf import settings
 from django.conf.urls.static import static
 from rest_framework import permissions
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from apps.users import views as user_views
+
+
+def api_v1_root(request):
+    """API v1 루트: 서버 동작 확인 및 엔드포인트 안내."""
+    return JsonResponse({
+        "message": "TeamA API v1",
+        "endpoints": {
+            "users": "/api/v1/users/",
+            "trends": "/api/v1/trends/",
+            "jobs": "/api/v1/jobs/",
+            "resumes": "/api/v1/resumes/",
+            "interviews": "/api/v1/interviews/",
+            "swagger": "/swagger/",
+            "redoc": "/redoc/",
+        },
+    })
+
 
 # Swagger 문서 설정
 schema_view = get_schema_view(
@@ -29,8 +47,10 @@ urlpatterns = [
     # 관리자
     path('admin/', admin.site.urls),
 
+    # API v1 루트 (서버 동작 확인용)
+    path('api/v1/', api_v1_root),
+
     # API 엔드포인트
-    #path('api/v1/users/', include('apps.users.urls')),
     path('api/v1/users/', include('apps.users.urls')),
     path('api/v1/trends/', include('apps.trends.urls')),
     path('api/v1/jobs/', include('apps.jobs.urls')),
