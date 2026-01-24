@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import filters
+from .filters import JobPostingFilter # 채용지도 필터링 임포트
 
 from .models import Corp, JobPosting, CorpBookmark
 from .serializers import (
@@ -92,6 +93,51 @@ class CorpDetailView(generics.RetrieveAPIView):
             )
 
 
+class JobPostingListView(generics.ListAPIView):
+    """
+    채용 공고 목록 조회 및 필터링 View
+    """
+    permission_classes = [AllowAny]
+    serializer_class = JobPostingSerializer
+    
+    # 필터 설정은 클래스 변수로 잘 유지하셨습니다.
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = JobPostingFilter
+    def get_queryset(self):
+        # 1. 기본 쿼리셋 (삭제 안 된 것들)
+        queryset = JobPosting.objects.select_related('corp').filter(
+            is_deleted=False,
+            corp__is_deleted=False
+        ).order_by('-created_at')
+
+        # 2. URL 경로(path)에 corp_id가 포함된 경우 (예: corps/5/job-postings/)
+        # 이 경우, 강제로 해당 기업으로 범위를 좁힙니다.
+        corp_id_pk = self.kwargs.get('corp_id')
+        if corp_id_pk:
+            queryset = queryset.filter(corp_id=corp_id_pk)
+
+        # 3. 리턴하면, 나머지 필터(지역, 경력 등)는 filterset_class가 알아서 처리합니다.
+        return queryset
+    @swagger_auto_schema(
+        operation_summary="채용 공고 조회 및 필터링",
+        operation_description="전체 공고 필터링(시/도, 경력 등) 또는 특정 기업의 공고를 조회합니다.",
+        responses={
+            200: JobPostingSerializer(many=True),
+            404: "해당 ID의 기업을 찾을 수 없습니다."
+        }
+    )
+    def list(self, request, *args, **kwargs):
+        corp_id = self.kwargs.get('corp_id')
+
+        # 기업 ID가 들어왔을 때만 기업 존재 여부 체크
+        if corp_id and not Corp.objects.filter(id=corp_id, is_deleted=False).exists():
+            return Response(
+                {"message": "해당 ID의 기업을 찾을 수 없습니다."},
+                status=status.HTTP_404_NOT_FOUND
+            )
+            
+        return super().list(request, *args, **kwargs)
+    
 class JobPostingListView(generics.ListAPIView):
     """
     특정 기업의 채용 공고 목록 조회 View
