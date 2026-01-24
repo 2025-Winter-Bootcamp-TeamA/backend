@@ -8,7 +8,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 @shared_task
-def analyze_resume_task(resume_id):
+def analyze_resume_task(resume_id, pdf_url):
     """
     Celery task to analyze a resume asynchronously.
     """
@@ -20,15 +20,11 @@ def analyze_resume_task(resume_id):
         logger.error(f"Resume with id {resume_id} not found.")
         return
 
-    if not resume.url:
-        logger.error(f"Resume with id {resume_id} has no URL.")
-        return
-
     try:
-        # 1. Extract text from PDF
-        resume_text = extract_text_from_pdf_url(resume.url)
+        # 1. Extract text from PDF using the provided absolute URL
+        resume_text = extract_text_from_pdf_url(pdf_url)
         if not resume_text or not resume_text.strip():
-            logger.error(f"Could not extract text from PDF for resume {resume_id}.")
+            logger.error(f"Could not extract text from PDF for resume {resume_id} using URL {pdf_url}.")
             # Optionally, update resume status to 'failed'
             return
 
