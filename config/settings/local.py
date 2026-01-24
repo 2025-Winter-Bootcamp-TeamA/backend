@@ -6,7 +6,7 @@ from .base import *
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']  # 로컬 개발 환경
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'backend']  # 로컬 개발 환경
 
 # CORS 설정 (개발 환경)
 CORS_ALLOW_ALL_ORIGINS = True

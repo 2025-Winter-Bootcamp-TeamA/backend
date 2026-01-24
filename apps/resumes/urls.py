@@ -17,6 +17,7 @@ urlpatterns = [
 
     # 이력서 분석
     path('<int:resume_id>/analyze/', views.ResumeAnalyzeView.as_view(), name='resume_analyze'),
+    path('analyze/status/<str:task_id>/', views.ResumeAnalysisStatusView.as_view(), name='resume_analysis_status'),
 
     # 채용 공고 매칭
     path('<int:pk>/match/<int:job_posting_id>/', views.ResumeMatchingView.as_view(), name='resume_matching'),
