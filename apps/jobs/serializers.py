@@ -19,7 +19,7 @@ class CorpDetailSerializer(serializers.ModelSerializer):
         model = Corp
         fields = [
             'id', 'name', 'logo_url', 'address',
-            'latitude', 'longitude', #'job_posting_count'
+            'latitude', 'longitude',  'region_city', 'region_district'
         ]
     def get_job_posting_count(self, obj):
         return obj.job_postings.filter(is_deleted=False).count()
@@ -40,7 +40,8 @@ class JobPostingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = JobPosting
-        fields = ['id', 'corp', 'url', 'title', 'career', 'expiry_date','created_at']
+        fields = ['id', 'corp', 'url', 'title', 'career','min_career', 'max_career'
+                   'expiry_date','created_at']
 
 
 class JobPostingDetailSerializer(serializers.ModelSerializer):
