@@ -80,7 +80,10 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
         # DB 데이터가 없으면 원본 PDF에서 추출 시도
         if not extracted_text and instance.url:
             try:
-                resume_text = extract_text_from_pdf_url(instance.url)
+                pdf_url = instance.url
+                if pdf_url.startswith('/'):
+                    pdf_url = request.build_absolute_uri(pdf_url)
+                resume_text = extract_text_from_pdf_url(pdf_url)
                 if resume_text and resume_text.strip():
                     extracted_text = resume_text
             except Exception as e:
@@ -182,9 +185,9 @@ class ResumeMatchingView(APIView):
             }}
             """
 
-            # 4. Gemini API 호출 (새로운 SDK)
+            # 4. Gemini API 호출 (gemini-1.5-flash deprecated → gemini-2.5-flash 사용)
             response = client.models.generate_content(
-                model='gemini-1.5-flash',
+                model='gemini-2.5-flash',
                 contents=prompt
             )
 
@@ -321,8 +324,13 @@ class ResumeAnalyzeView(APIView):
         if not resume.url:
             return Response({'error': '이력서 URL이 없습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
+        # 상대 경로(/media/...)는 requests.get()에서 쓸 수 있도록 절대 URL로 변환
+        pdf_url = resume.url
+        if pdf_url.startswith('/'):
+            pdf_url = request.build_absolute_uri(pdf_url)
+
         try:
-            resume_text = extract_text_from_pdf_url(resume.url)
+            resume_text = extract_text_from_pdf_url(pdf_url)
             if not resume_text or not resume_text.strip():
                 return Response({'error': 'PDF에서 텍스트를 추출할 수 없었습니다.'}, status=status.HTTP_400_BAD_REQUEST)
 
