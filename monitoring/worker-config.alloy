@@ -1,0 +1,17 @@
+discovery.docker "containers" {
+  host = "unix:///var/run/docker.sock"
+}
+
+loki.source.docker "logs" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.docker.containers.targets
+  forward_to = [loki.write.local.receiver]
+}
+
+loki.write "local" {
+  endpoint {
+    // API 서버의 Private IP를 적거나 환경변수를 사용하세요. 
+    // 여기서는 API 서버의 Loki 주소를 가리켜야 합니다.
+    url = "http://3.39.84.152:3100/loki/api/v1/push"
+  }
+}
