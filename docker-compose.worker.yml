@@ -5,6 +5,10 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
+    deploy:
+      resources:
+        limits:
+          memory: 300M
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
@@ -26,6 +30,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: celery
+    deploy:
+      resources:
+        limits:
+          memory: 600M
+        reservations:
+          memory: 300M
     command: celery -A config worker -l warning
     env_file:
       - .env.production
@@ -44,6 +54,10 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: celery-beat
+    deploy:
+      resources:
+        limits:
+          memory: 150M
     command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler
     env_file:
       - .env.production
@@ -60,6 +74,10 @@ services:
   celery-exporter:
     image: mher/flower:latest
     container_name: celery-exporter
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     command: celery --broker=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672// flower --port=5555
     ports:
       - "5555:5555" # Prometheus가 이 포트로 지표를 긁어감
@@ -71,6 +89,10 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor-worker
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     ports:
       - "8081:8080" # Prometheus가 접속할 포트
     volumes:
@@ -86,6 +108,10 @@ services:
   alloy:
     image: grafana/alloy:latest
     container_name: alloy-worker
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     volumes:
       - ./monitoring/worker-config.alloy:/etc/alloy/config.alloy
       - /var/run/docker.sock:/var/run/docker.sock

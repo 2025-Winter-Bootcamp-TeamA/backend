@@ -2,7 +2,7 @@ name: Deploy to EC2
 
 on:
   push:
-    branches: ["main"] # main 브랜치에 푸시될 때 실행
+    branches: ["main"]
 
 jobs:
   # ====================================================
@@ -20,49 +20,54 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          command_timeout: 30m
+          command_timeout: 40m
           script: |
-            set -e # 에러 발생 시 즉시 중단
+            set -e 
             
-            # 1. 프로젝트 폴더로 이동 (폴더가 없으면 clone)
             if [ ! -d "backend" ]; then
               git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
             fi
             cd backend
             
-            # 2. 최신 코드 받기
             git fetch origin
             git reset --hard origin/main
             git clean -fd -e letsencrypt/ || true
             
-            # 3. 환경 변수 파일 생성 (.env.production)
             echo "${{ secrets.ENV_FILE }}" > .env.production
 
-            # 4. [모니터링 설정] Prometheus에 Worker IP 주입
-            # prometheus.yml 내의 ${WORKER_SERVER_IP}를 실제 Worker 서버 IP로 치환
+            # [모니터링 설정] Prometheus에 Worker IP 주입
             sed -i "s/\${WORKER_SERVER_IP}/${{ secrets.HOST_WORKER }}/g" monitoring/prometheus.yml
 
-            # 5. [모니터링 설정] Alloy 로그 수집 권한 부여
-            # 컨테이너 로그 파일에 접근할 수 있도록 권한 조정
+            # [모니터링 설정] Alloy 로그 수집 권한 부여
             sudo chmod -R 755 /var/lib/docker/containers || true
 
-            # 6. API 서버 및 모니터링 컨테이너 빌드 및 실행
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production down
+            # API 서버 컨테이너 빌드
             sudo docker compose -f docker-compose.api.yml --env-file .env.production build --no-cache
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --remove-orphans
 
+            # [순차 배포 1단계] 핵심 서비스 실행
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d backend nginx
+            echo "핵심 서비스(Backend, Nginx) 안정화 대기 중 (30초)..."
+            sleep 30
+
+            # [순차 배포 2단계] 모니터링 저장소 실행
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d prometheus loki
+            echo "모니터링 저장소(Prometheus, Loki) 실행 중 (15초)..."
+            sleep 15
+
+            # [순차 배포 3단계] 시각화 및 수집기 실행
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d grafana alloy cadvisor
+            echo "모든 모니터링 도구 가동 완료."
             sleep 10
 
-            # 7. 데이터베이스 및 초기 데이터 등록 작업
+            # DB 마이그레이션 및 데이터 임포트
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py migrate --noinput
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_tech_stacks
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_categories
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py import_tech_relationships
             
-            # 8. 크롤링 및 분석 명령어 실행
+            # 크롤링 및 분석 실행
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py run_crawling
             
-            # StackOverflow 데이터 분석 (백그라운드 실행)
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -d backend python manage.py analyze_stackoverflow \
               --posts ./Posts.xml \
               --stacks ./tech_stacks_merged_final.csv \
@@ -82,7 +87,7 @@ jobs:
   deploy-worker:
     name: Deploy Worker Server
     runs-on: ubuntu-latest
-    needs: deploy-api # API 배포 완료 후 실행
+    needs: deploy-api 
     
     steps:
       - name: Deploy Worker via SSH
@@ -92,7 +97,7 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: 22
-          command_timeout: 20m
+          command_timeout: 30m
           script: |
             set -e
             if [ ! -d "backend" ]; then
@@ -105,10 +110,21 @@ jobs:
             git clean -fd -e letsencrypt/ || true
             
             echo "${{ secrets.ENV_FILE }}" > .env.production
-            
-            # 워커 서버 컨테이너 빌드 및 실행
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production down
+
+            # 워커 서버 컨테이너 빌드
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --remove-orphans
+            
+            # [순차 배포 1단계] 브로커 실행
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d rabbitmq
+            echo "RabbitMQ 안정화 대기 중 (30초)..."
+            sleep 30
+
+            # [순차 배포 2단계] 워커 및 스케줄러 실행
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d celery celery-beat celery-exporter
+            echo "Celery 및 모니터링 도구 실행 중 (15초)..."
+            sleep 15
+
+            # [순차 배포 3단계] 워커 전용 수집기 실행
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d cadvisor alloy
             
             sudo docker image prune -f

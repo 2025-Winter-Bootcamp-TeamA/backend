@@ -7,6 +7,12 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: backend
+    deploy:
+      resources:
+        limits:
+          memory: 400M
+        reservations:
+          memory: 200M
     command: >
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
@@ -30,6 +36,10 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     ports:
       - "80:80"
       - "443:443"
@@ -46,6 +56,12 @@ services:
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+        reservations:
+          memory: 100M
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
       - prometheus_data:/prometheus
@@ -60,6 +76,10 @@ services:
   loki:
     image: grafana/loki:latest
     container_name: loki
+    deploy:
+      resources:
+        limits:
+          memory: 150M
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -71,6 +91,10 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
+    deploy:
+      resources:
+        limits:
+          memory: 150M
     ports:
       - "3000:3000"
     environment:
@@ -85,6 +109,10 @@ services:
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor-api
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
@@ -99,6 +127,10 @@ services:
   alloy:
     image: grafana/alloy:latest
     container_name: alloy-api
+    deploy:
+      resources:
+        limits:
+          memory: 100M
     volumes:
       - ./monitoring/config.alloy:/etc/alloy/config.alloy
       - /var/run/docker.sock:/var/run/docker.sock
