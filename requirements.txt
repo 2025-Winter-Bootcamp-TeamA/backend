@@ -37,6 +37,7 @@ pandas>=2.2.0
 numpy>=2.0.0
 fuzzywuzzy==0.18.0
 python-Levenshtein==0.25.0
+PyPDF2==3.0.1
 
 # 웹 스크래핑
 beautifulsoup4==4.12.3
