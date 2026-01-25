@@ -1,8 +1,9 @@
 # Django 핵심
-Django>=5.0.9  # 보안 패치 적용
+Django>=5.0.9
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 django-filter==23.5
+django-prometheus==2.3.1  # 추가: Django 지표 수집용
 
 # 데이터베이스
 psycopg[binary]>=3.2.0
@@ -10,7 +11,7 @@ django-redis==5.4.0
 
 # Celery 비동기 작업
 celery==5.3.6
-django-celery-beat==2.6.0   #클롤링을 위한 Celery 스케줄러 추가 
+django-celery-beat==2.6.0
 flower==2.0.1
 
 # 환경변수 관리
@@ -26,9 +27,9 @@ PyJWT==2.8.0
 dj-rest-auth==5.0.2
 
 # AI/ML
-openai>=1.54.0  # 최신 API 지원
-google-genai>=0.2.0  # 새로운 Gemini SDK (google.generativeai는 deprecated)
-httpx>=0.27.2  # 보안 패치 적용
+openai>=1.54.0
+google-genai>=0.2.0
+httpx>=0.27.2
 ollama>=0.6.1
 
 # 데이터 처리
@@ -39,26 +40,10 @@ python-Levenshtein==0.25.0
 
 # 웹 스크래핑
 beautifulsoup4==4.12.3
-requests>=2.32.3  # CVE-2024-35195 보안 패치
+requests>=2.32.3
 selenium==4.17.2
 
 # 프로덕션 서버
-gunicorn>=22.0.0  # 보안 및 성능 개선
-
-# 개발 도구
-django-debug-toolbar==4.3.0
-
-# 테스트
-pytest==8.0.0
-pytest-django==4.7.0
-pytest-cov==4.1.0
-factory-boy==3.3.0
-
-# 유틸리티
-Pillow>=10.4.0
-python-dateutil==2.8.2
-PyPDF2==3.0.1
-
-# AWS S3 스토리지
-boto3>=1.34.0
-django-storages>=1.14.2
+gunicorn==21.2.0
+django-storages[boto3]==1.14.2
+watchtower==3.3.1 # 추가: CloudWatch 로깅용
