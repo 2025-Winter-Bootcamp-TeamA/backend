@@ -128,18 +128,27 @@ class TechTrend(models.Model):
         related_name='trends',
         verbose_name='기술 스택'
     )
-    trend_from = models.CharField(
-        max_length=255,
-        verbose_name='트렌드 출처 (키워드)'
-    )
-    mention_count = models.BigIntegerField(
+    # trend_from = models.CharField(
+    #     max_length=255,
+    #     verbose_name='트렌드 출처 (키워드)'
+    # )
+    job_mention_count = models.BigIntegerField(
         default=0,
-        verbose_name='언급 수'
+        verbose_name='채용공고 언급 수'
     )
-    change_rate = models.FloatField(
+    #게시글 쪽 erd
+    # community_mention_count = models.IntegerField(
+    #     default=0,
+    #     verbose_name='커뮤니티 언급 수'
+    #     )
+    job_change_rate = models.FloatField(
         default=0.0,
-        verbose_name='전주 대비 증가율'
+        verbose_name='전주 대비 채용공고 증가율'
     )
+    # community_change_rate = models.FloatField(
+    #     default=0.0,
+    #     verbose_name='전주 대비 커뮤니티 증가율'
+    # )
     reference_date = models.DateField(
         verbose_name='기준 날짜'
     )
@@ -160,7 +169,21 @@ class TechTrend(models.Model):
         db_table = 'tech_trend'
         verbose_name = '기술 트렌드'
         verbose_name_plural = '기술 트렌드 목록'
-        ordering = ['-reference_date', '-mention_count']
+        # [수정 2] ordering 필드명 수정 (mention_count -> job_mention_count)
+        ordering = ['-reference_date', '-job_mention_count']
+        
+        indexes = [
+            models.Index(fields=['reference_date']), 
+            models.Index(fields=['tech_stack', 'reference_date']),
+        ]
+        # [수정 3] constraints에서 trend_from 제거
+        # "하루에(reference_date) + 한 기술스택(tech_stack)은 오직 1개의 데이터만 존재한다"
+        constraints = [
+            models.UniqueConstraint(
+                fields=['tech_stack', 'reference_date'],
+                name='unique_daily_trend_per_stack'
+            )
+        ]
 
     def __str__(self):
         return f"{self.tech_stack.name} - {self.reference_date}"

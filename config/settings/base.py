@@ -7,6 +7,7 @@ import os
 from pathlib import Path
 from datetime import timedelta
 from decouple import Config, RepositoryEnv
+from celery.schedules import crontab #셀러리비트 스케쥴
 
 # 프로젝트 기본 경로
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -199,6 +200,21 @@ CELERY_RESULT_SERIALIZER = 'json'
 CELERY_TIMEZONE = 'Asia/Seoul'
 CELERY_TASK_TRACK_STARTED = True
 CELERY_TASK_TIME_LIMIT = 30 * 60  # 30분
+
+# Celery Beat 스케줄 설정
+CELERY_BEAT_SCHEDULE = {
+    # 1. 크롤링 (매일 밤 23:00)
+    'daily-crawling': {
+        'task': 'apps.jobs.tasks.schedule_crawling',
+        'schedule': crontab(hour=23, minute=0),
+    },
+    
+    # 2. 트렌드 집계 (매일 밤 23:30) - 크롤링 끝나고 50분 뒤
+    'daily-trend-calculation': {
+        'task': 'apps.jobs.tasks.calculate_daily_trends',
+        'schedule': crontab(hour=23, minute=50),
+    },
+}
 
 # 캐시 설정 (Redis)
 CACHES = {

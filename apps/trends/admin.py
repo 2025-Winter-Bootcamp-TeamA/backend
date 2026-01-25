@@ -25,10 +25,11 @@ class TechStackAdmin(admin.ModelAdmin):
 
 @admin.register(TechTrend)
 class TechTrendAdmin(admin.ModelAdmin):
-    list_display = ['tech_stack', 'mention_count', 'change_rate', 'reference_date']
+    list_display = ['tech_stack', 'job_mention_count', 'job_change_rate', 'reference_date']
     list_filter = ['reference_date', 'tech_stack']
-    ordering = ['-reference_date', '-mention_count']
-
+    search_fields = ['tech_stack__name']
+    ordering = ['-reference_date', '-job_mention_count']
+    date_hierarchy = 'reference_date'
 
 @admin.register(Article)
 class ArticleAdmin(admin.ModelAdmin):

@@ -159,28 +159,70 @@ class CategoryListView(generics.ListAPIView):
     serializer_class = CategorySerializer
 
 
+# class TechTrendListView(generics.ListAPIView):
+#     """기술 트렌드 목록
+#         요청 예시: GET /api/trends/?tech_stack=1&ordering=reference_date
+#     """
+#     permission_classes = [AllowAny]
+#     queryset = TechTrend.objects.filter(is_deleted=False)
+#     serializer_class = TechTrendSerializer
+#     filter_backends = [DjangoFilterBackend]
+#     filterset_fields = ['tech_stack', 'reference_date']
+
+# class TrendRankingView(APIView):
+#     """트렌드 랭킹 조회"""
+#     permission_classes = [AllowAny]
+
+#     def get(self, request):
+#         # 최근 트렌드 기준 상위 10개
+#         trends = TechTrend.objects.filter(
+#             is_deleted=False
+#         ).order_by('-reference_date', '-mention_count')[:10]
+
+#         serializer = TechTrendSerializer(trends, many=True)
+#         return Response(serializer.data)
 class TechTrendListView(generics.ListAPIView):
-    """기술 트렌드 목록"""
+    """
+    기술 트렌드 목록 (그래프 데이터용)
+    요청 예시: GET /api/trends/?tech_stack=1&ordering=reference_date
+    """
     permission_classes = [AllowAny]
-    queryset = TechTrend.objects.filter(is_deleted=False)
     serializer_class = TechTrendSerializer
-    filter_backends = [DjangoFilterBackend]
+    
+    # [필터 설정]
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter] # OrderingFilter 추가
     filterset_fields = ['tech_stack', 'reference_date']
+    
+    # [정렬 설정] 기본적으로 날짜 오름차순 (과거->현재)
+    ordering_fields = ['reference_date', 'job_mention_count']
+    ordering = ['reference_date'] 
 
-
+    def get_queryset(self):
+        # [최적화] select_related를 써야 기술 스택 정보를 가져올 때 DB를 1번만 조회합니다.
+        # (없으면 데이터 100개일 때 쿼리가 101번 나가는 N+1 문제 발생)
+        queryset = TechTrend.objects.select_related('tech_stack').filter(is_deleted=False)
+        
+        # [선택 사항] "최근 30일" 데이터만 기본으로 보여주고 싶다면?
+        # days = self.request.query_params.get('days')
+        # if days:
+        #     start_date = timezone.now().date() - timedelta(days=int(days))
+        #     queryset = queryset.filter(reference_date__gte=start_date)
+            
+        return queryset
 class TrendRankingView(APIView):
-    """트렌드 랭킹 조회"""
+    """
+    실시간 트렌드 랭킹 조회 (TOP 10)
+    """
     permission_classes = [AllowAny]
 
     def get(self, request):
-        # 최근 트렌드 기준 상위 10개
-        trends = TechTrend.objects.filter(
+        # [최적화] 여기도 select_related('tech_stack') 필수!
+        trends = TechTrend.objects.select_related('tech_stack').filter(
             is_deleted=False
-        ).order_by('-reference_date', '-mention_count')[:10]
+        ).order_by('-reference_date', '-job_mention_count')[:10]
 
         serializer = TechTrendSerializer(trends, many=True)
         return Response(serializer.data)
-
 
 class TechBookmarkListCreateAPIView(APIView):
     """
