@@ -15,8 +15,12 @@ class JobPostingFilter(django_filters.FilterSet):
     city = django_filters.CharFilter(field_name='corp__region_city', lookup_expr='icontains')
     district = django_filters.CharFilter(field_name='corp__region_district', lookup_expr='icontains')
 
-    # 3. 직무 및 키워드 검색 (기존 유지)
+    # 3.통합검색 직무 및 키워드 검색 (기존 유지)
     search = django_filters.CharFilter(method='filter_search')
+
+    # 3. [추가됨] 직무(제목) 및 기술 스택 필터
+    # 공고 제목에 '백엔드', '프론트' 등이 포함된 것을 찾습니다.
+    job_title = django_filters.CharFilter(field_name='title', lookup_expr='icontains')
 
     # 4. 경력 필터 (기존 유지)
     # ?career_year=3 -> 경력 3년차가 지원 가능한 공고 필터링
@@ -24,7 +28,7 @@ class JobPostingFilter(django_filters.FilterSet):
 
     class Meta:
         model = JobPosting
-        fields = ['corp_id', 'corp_name', 'city', 'district', 'career_year']
+        fields = ['corp_id', 'corp_name', 'city', 'district', 'career_year','job_title', 'search']
 
     def filter_search(self, queryset, name, value):
         """
