@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'drf_yasg',
+    'django_celery_beat',  # 크롤링 작업을 위해 추가
+    'django_prometheus',  # 모니터링 용
     # # 소셜 로그인 우린 allauth가아닌 requests 라이브러리 +  SimpleJWT 사용
     # 'allauth',
     # 'allauth.account',
@@ -73,6 +75,7 @@ INSTALLED_APPS = [
 
 # 미들웨어
 MIDDLEWARE = [
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -81,6 +84,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
     #'allauth.account.middleware.AccountMiddleware',
 ]
 

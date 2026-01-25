@@ -9,8 +9,8 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     ports:
-      - "5672:5672"   # API 서버 접속용 포트
-      - "15672:15672" # 관리자 페이지
+      - "5672:5672"
+      - "15672:15672"
     healthcheck:
       test: ["CMD", "rabbitmq-diagnostics", "check_running"]
       interval: 30s
@@ -20,7 +20,7 @@ services:
       - teamA-network
     restart: always
 
-  # 2. Celery Worker (비동기 작업 처리)
+  # 2. Celery Worker
   celery:
     build:
       context: .
@@ -38,19 +38,59 @@ services:
       - teamA-network
     restart: always
 
-  # 3. Celery Beat (스케줄러)
+  # 3. Celery Beat
   celery-beat:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: celery-beat
-    command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler #크롤링을 위해 수정
+    command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler
     env_file:
       - .env.production
     environment:
       - DJANGO_SETTINGS_MODULE=config.settings.production
     depends_on:
-      - celery
+      rabbitmq:
+        condition: service_healthy
+    networks:
+      - teamA-network
+    restart: always
+
+  # 4. Celery Exporter (셀러리 지표 추출)
+  celery-exporter:
+    image: mher/flower:latest
+    container_name: celery-exporter
+    command: celery --broker=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672// flower --port=5555
+    ports:
+      - "5555:5555" # Prometheus가 이 포트로 지표를 긁어감
+    networks:
+      - teamA-network
+    restart: always
+
+  # 5. cAdvisor (워커 서버 컨테이너 모니터링)
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.47.2
+    container_name: cadvisor-worker
+    ports:
+      - "8081:8080" # Prometheus가 접속할 포트
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:rw
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - teamA-network
+    restart: always
+
+  # 6. Alloy (워커 서버 로그 및 지표 전송기)
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy-worker
+    volumes:
+      - ./monitoring/worker-config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+    command: run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - teamA-network
     restart: always
