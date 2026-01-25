@@ -9,8 +9,8 @@ class CorpSerializer(serializers.ModelSerializer):
     """기업 시리얼라이저"""
     class Meta:
         model = Corp
-        fields = ['id', 'name', 'logo_url', 'address'
-                   #'latitude', 'longitude',  'region_city', 'region_district'
+        fields = ['id', 'name', 'logo_url', 'address',
+                  'region_city', 'region_district',
                   ]
 
 class CorpDetailSerializer(serializers.ModelSerializer):
@@ -58,7 +58,6 @@ class JobPostingDetailSerializer(serializers.ModelSerializer):
             #'stack_count',
             'tech_stacks', 'created_at'
         ]
-
 # class CorpBookmarkSerializer(serializers.ModelSerializer):
 #     """기업 즐겨찾기 시리얼라이저"""
 #     corp = CorpSerializer(read_only=True)
