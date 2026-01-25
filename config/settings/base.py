@@ -57,8 +57,6 @@ INSTALLED_APPS = [
     # 'allauth.account',
     # 'allauth.socialaccount',
     # 'allauth.socialaccount.providers.google',
-    
-    'django_celery_beat',  # 크롤링 작업을 위해 추가
 
     # AWS S3 연동을 위한 라이브러리
     'storages',
