@@ -79,9 +79,31 @@ class CorpAdmin(admin.ModelAdmin):
 
 @admin.register(JobPosting)
 class JobPostingAdmin(admin.ModelAdmin):
-    list_display = ['corp', 'title', 'created_at','expiry_date','career','posting_number']
+    list_display = ['corp', 'title', 'created_at','expiry_date','career','posting_number','is_deleted']
     list_filter = ['corp', 'created_at']
     search_fields = ['title', 'corp__name']
+    actions = ['mark_as_deleted', 'mark_as_active']
+
+    @admin.action(description='선택한 공고를 비공개(Soft Delete) 처리')
+    def mark_as_deleted(self, request, queryset):
+        count = 0
+        for job in queryset:
+            # 이미 삭제된 건 건너뛰기 (선택 사항)
+            if not job.is_deleted:
+                job.is_deleted = True
+                job.save() # [중요] 여기서 save()를 해야 signals.py가 작동해서 카운트가 감소함!
+                count += 1
+        self.message_user(request, f"{count}개의 공고가 비공개 처리되었습니다.")
+
+    @admin.action(description='선택한 공고를 다시 공개(Active) 처리')
+    def mark_as_active(self, request, queryset):
+        count = 0
+        for job in queryset:
+            if job.is_deleted:
+                job.is_deleted = False
+                job.save() # [중요] 여기서 save()를 해야 signals.py가 작동해서 카운트가 증가함!
+                count += 1
+        self.message_user(request, f"{count}개의 공고가 복구되었습니다.")
     
 @admin.register(JobPostingStack)
 class JobPostingStackAdmin(admin.ModelAdmin):
