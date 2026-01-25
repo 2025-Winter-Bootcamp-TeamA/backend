@@ -3,6 +3,7 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
@@ -10,6 +11,13 @@ from rest_framework import filters
 from .filters import JobPostingFilter # 채용지도 필터링 임포트
 
 from .models import Corp, JobPosting, CorpBookmark
+
+
+class JobPostingListPagination(PageNumberPagination):
+    """채용공고 목록: page_size 쿼리 파라미터로 크기 지정 가능 (채용 지도 필터 시 전체 매칭 수집용)"""
+    page_size = 20
+    page_size_query_param = 'page_size'
+    max_page_size = 10000
 from .serializers import (
     CorpSerializer, CorpDetailSerializer,
     JobPostingSerializer, JobPostingDetailSerializer,
@@ -59,6 +67,24 @@ class CorpListView(generics.ListAPIView):
         return Response(serializer.data)
 
 
+class JobStatsView(APIView):
+    """
+    대시보드용 통계: 분석된 기업 수, 수집된 공고 수를 한 번에 반환.
+    COUNT 쿼리 2회로 단일 요청 처리.
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        corps_count = Corp.objects.filter(is_deleted=False).count()
+        job_postings_count = JobPosting.objects.filter(
+            is_deleted=False, corp__is_deleted=False
+        ).count()
+        return Response({
+            'corps_count': corps_count,
+            'job_postings_count': job_postings_count,
+        })
+
+
 class CorpDetailView(generics.RetrieveAPIView):
     """
     기업 상세 조회 View
@@ -95,12 +121,12 @@ class CorpDetailView(generics.RetrieveAPIView):
 
 class JobPostingListView(generics.ListAPIView):
     """
-    채용 공고 목록 조회 및 필터링 View
+    채용 공고 목록 조회 및 필터링 View.
+    경력·직무·지역 필터를 동시에 주면 AND 조건으로 모두 만족하는 공고만 반환.
     """
     permission_classes = [AllowAny]
     serializer_class = JobPostingSerializer
-    
-    # 필터 설정은 클래스 변수로 잘 유지하셨습니다.
+    pagination_class = JobPostingListPagination
     filter_backends = [DjangoFilterBackend]
     filterset_class = JobPostingFilter
     def get_queryset(self):

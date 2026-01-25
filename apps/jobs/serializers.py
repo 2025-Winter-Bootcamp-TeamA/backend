@@ -6,11 +6,12 @@ from apps.trends.serializers import TechStackSerializer
 from .models import Corp, JobPosting, JobPostingStack, CorpBookmark
 
 class CorpSerializer(serializers.ModelSerializer):
-    """기업 시리얼라이저"""
+    """기업 시리얼라이저 (채용 지도용 좌표 포함)"""
     class Meta:
         model = Corp
         fields = ['id', 'name', 'logo_url', 'address',
                   'region_city', 'region_district',
+                  'latitude', 'longitude',
                   ]
 
 class CorpDetailSerializer(serializers.ModelSerializer):

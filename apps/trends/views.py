@@ -2,12 +2,15 @@
 트렌드 뷰
 """
 
+from datetime import timedelta
 from rest_framework import generics, status, filters
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 from .models import TechStack, Category, TechTrend, TechBookmark
 from .models import Article
 from rest_framework import generics, filters
@@ -181,33 +184,38 @@ class CategoryListView(generics.ListAPIView):
 
 #         serializer = TechTrendSerializer(trends, many=True)
 #         return Response(serializer.data)
+class TechTrendListPagination(PageNumberPagination):
+    """그래프용 트렌드 목록: 7~90일치 포인트를 한 번에 반환"""
+    page_size = 100
+    page_size_query_param = 'page_size'
+    max_page_size = 100
+
+
 class TechTrendListView(generics.ListAPIView):
     """
     기술 트렌드 목록 (그래프 데이터용)
-    요청 예시: GET /api/trends/?tech_stack=1&ordering=reference_date
+    요청 예시: GET /api/v1/trends/?tech_stack=1&days=7|30|90&ordering=reference_date
+    - days: 7, 30, 90 (최근 N일, 생략 시 기간 제한 없음)
     """
     permission_classes = [AllowAny]
     serializer_class = TechTrendSerializer
-    
-    # [필터 설정]
-    filter_backends = [DjangoFilterBackend, filters.OrderingFilter] # OrderingFilter 추가
+    pagination_class = TechTrendListPagination
+
+    filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['tech_stack', 'reference_date']
-    
-    # [정렬 설정] 기본적으로 날짜 오름차순 (과거->현재)
     ordering_fields = ['reference_date', 'job_mention_count']
-    ordering = ['reference_date'] 
+    ordering = ['reference_date']
 
     def get_queryset(self):
         # [최적화] select_related를 써야 기술 스택 정보를 가져올 때 DB를 1번만 조회합니다.
-        # (없으면 데이터 100개일 때 쿼리가 101번 나가는 N+1 문제 발생)
         queryset = TechTrend.objects.select_related('tech_stack').filter(is_deleted=False)
-        
-        # [선택 사항] "최근 30일" 데이터만 기본으로 보여주고 싶다면?
-        # days = self.request.query_params.get('days')
-        # if days:
-        #     start_date = timezone.now().date() - timedelta(days=int(days))
-        #     queryset = queryset.filter(reference_date__gte=start_date)
-            
+
+        # 기간 필터: days=7 | 30 | 90 (최근 N일)
+        days = self.request.query_params.get('days')
+        if days and days in ('7', '30', '90'):
+            start = timezone.now().date() - timedelta(days=int(days))
+            queryset = queryset.filter(reference_date__gte=start)
+
         return queryset
 class TrendRankingView(APIView):
     """

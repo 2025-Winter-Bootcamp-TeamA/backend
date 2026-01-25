@@ -94,11 +94,12 @@ class ResumeMatchingSerializer(serializers.ModelSerializer):
     """이력서 매칭 정보 시리얼라이저"""
     job_posting_title = serializers.CharField(source='job_posting.title', read_only=True)
     resume_title = serializers.CharField(source='resume.title', read_only=True)
+    job_posting_corp_id = serializers.IntegerField(source='job_posting.corp_id', read_only=True)
 
     class Meta:
         model = ResumeMatching
         fields = [
-            'id', 'job_posting', 'resume', 'job_posting_title', 'resume_title',
+            'id', 'job_posting', 'resume', 'job_posting_title', 'resume_title', 'job_posting_corp_id',
             'positive_feedback', 'negative_feedback', 'enhancements_feedback', 'question', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
