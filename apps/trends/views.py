@@ -109,15 +109,17 @@ class CategoryTechStackListView(generics.ListAPIView):
 class TechStackListView(generics.ListAPIView):
     """
     기술 스택 목록 조회 API
-    - GET /tech-stacks: 기술 스택 목록 조회 (검색 및 필터링 지원)
+    - GET /tech-stacks: 기술 스택 목록 조회 (검색, 필터링, 정렬 지원)
+    - ordering=-job_stack_count: 채용공고 스택 수 기준 내림차순 (대시보드 Top 5용)
     """
     permission_classes = [AllowAny]
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
-    # 이름만 부분 일치 검색 + exact 필터 병행
-    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
     filterset_fields = ['name']
     search_fields = ['name']  # 기술 스택 이름으로 부분 일치 검색 가능 (icontains 자동 적용)
+    ordering_fields = ['id', 'name', 'job_stack_count', 'article_stack_count', 'created_at']
+    ordering = ['-job_stack_count']  # 기본: job_stack_count 내림차순
 
     @swagger_auto_schema(
         operation_summary='기술 스택 목록 조회',
