@@ -17,8 +17,15 @@ urlpatterns = [
     
     # 기업 목록 (더 일반적인 패턴)
     path('corps/', views.CorpListView.as_view(), name='corp_list'),
+
+    # 대시보드 통계 (분석된 기업 수, 수집된 공고 수)
+    path('stats/', views.JobStatsView.as_view(), name='job_stats'),
     
     # 즐겨찾기
     path('corp-bookmarks/<int:corp_bookmark_id>/', views.CorpBookmarkDetailView.as_view(), name='corp_bookmark_detail'),
     path('corp-bookmarks/', views.CorpBookmarkListView.as_view(), name='corp_bookmark_list'),
+
+    #채용공고 전체 조회(필터링용)
+    path('job-postings/', views.JobPostingListView.as_view(), name='job_posting_list_all'), 
+
 ]
