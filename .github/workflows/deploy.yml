@@ -33,16 +33,16 @@ jobs:
             # 2. 최신 코드 받기
             git fetch origin
             git reset --hard origin/main
-            # [수정] letsencrypt 폴더 제외 및 권한 에러 무시 설정 추가
             git clean -fd -e letsencrypt/ || true
             
             # 3. 환경 변수 파일 생성 (.env.production)
             echo "${{ secrets.ENV_FILE }}" > .env.production
 
-            # 4. API 서버 컨테이너 실행
-            # --no-cache를 유지하여 빌드 캐시 꼬임 방지
+            # 4. API 서버 컨테이너 빌드 및 실행
+            # [수정] 빌드와 실행을 분리하여 --no-cache 에러 해결
             sudo docker compose -f docker-compose.api.yml --env-file .env.production down
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --build --no-cache --remove-orphans
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production build --no-cache
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --remove-orphans
 
             sleep 10
 
@@ -96,12 +96,13 @@ jobs:
             
             git fetch origin
             git reset --hard origin/main
-            # [수정] 워커 서버에서도 동일하게 clean 명령어 수정
             git clean -fd -e letsencrypt/ || true
             
             echo "${{ secrets.ENV_FILE }}" > .env.production
             
+            # [수정] 워커 서버에서도 빌드와 실행 분리
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production down
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --build --no-cache --remove-orphans
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --remove-orphans
             
             sudo docker image prune -f
