@@ -1,8 +1,10 @@
+// discovery.docker "containers" 부분은 기존과 동일하게 유지
 discovery.docker "containers" {
   host = "unix:///var/run/docker.sock"
 }
 
 loki.source.docker "logs" {
+  host       = "unix:///var/run/docker.sock" // [중요] 이 줄이 빠져서 에러가 난 것입니다!
   targets    = discovery.docker.containers.targets
   forward_to = [loki.write.local.receiver]
 }
