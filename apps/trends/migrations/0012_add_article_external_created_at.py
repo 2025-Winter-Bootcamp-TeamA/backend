@@ -3,6 +3,35 @@
 from django.db import migrations, models
 
 
+def check_and_add_field(apps, schema_editor):
+    """external_created_at 컬럼이 이미 존재하는지 확인하고 없을 때만 추가"""
+    db_alias = schema_editor.connection.alias
+    with schema_editor.connection.cursor() as cursor:
+        cursor.execute("""
+            SELECT column_name 
+            FROM information_schema.columns 
+            WHERE table_name='article' AND column_name='external_created_at'
+        """)
+        exists = cursor.fetchone() is not None
+    
+    if not exists:
+        # 컬럼이 없으면 SQL로 직접 추가
+        with schema_editor.connection.cursor() as cursor:
+            cursor.execute("""
+                ALTER TABLE article 
+                ADD COLUMN external_created_at TIMESTAMP NULL
+            """)
+
+
+def reverse_add_field(apps, schema_editor):
+    """마이그레이션 되돌리기"""
+    with schema_editor.connection.cursor() as cursor:
+        cursor.execute("""
+            ALTER TABLE article 
+            DROP COLUMN IF EXISTS external_created_at
+        """)
+
+
 class Migration(migrations.Migration):
 
     dependencies = [
@@ -10,9 +39,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.AddField(
-            model_name='article',
-            name='external_created_at',
-            field=models.DateTimeField(blank=True, null=True, verbose_name='원본 게시글 생성일'),
-        ),
+        migrations.RunPython(check_and_add_field, reverse_add_field),
     ]
