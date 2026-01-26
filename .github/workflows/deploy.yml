@@ -42,8 +42,11 @@ jobs:
             # [모니터링 설정] Alloy 로그 수집 권한 부여
             sudo chmod -R 755 /var/lib/docker/containers || true
 
-            # API 서버 컨테이너 빌드 (requirements.txt의 PyPDF2 반영을 위해 --no-cache 유지)
+            # API 서버 컨테이너 빌드
+            sudo docker compose -f docker-compose.api.yml down
+            sudo docker system prune -f   # 안 쓰는 캐시 삭제 (안전함)
             sudo docker compose -f docker-compose.api.yml --env-file .env.production build --no-cache
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate
 
             # [순차 배포] 부하 분산을 위한 단계별 실행
             sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate backend nginx
@@ -93,10 +96,13 @@ jobs:
             sed -i "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
 
             # 4. 컨테이너 실행
+            sudo docker compose -f docker-compose.worker.yml down
+            sudo docker system prune -f   # 안 쓰는 캐시 삭제 (안전함)
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d rabbitmq
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate rabbitmq
             sleep 30
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d celery celery-beat celery-exporter
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate celery celery-beat celery-exporter
             sleep 15
             
             # 5. 수집기 강제 재시작 (변경된 설정 반영)
