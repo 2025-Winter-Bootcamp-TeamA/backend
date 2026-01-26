@@ -46,7 +46,7 @@ jobs:
             sudo docker compose -f docker-compose.api.yml --env-file .env.production build --no-cache
 
             # [순차 배포] 부하 분산을 위한 단계별 실행
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d backend nginx
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate backend nginx
             sleep 30
             sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate prometheus loki
             sleep 15
@@ -67,7 +67,6 @@ jobs:
     name: Deploy Worker Server
     runs-on: ubuntu-latest
     needs: deploy-api 
-    
     steps:
       - name: Deploy Worker via SSH
         uses: appleboy/ssh-action@master
@@ -79,35 +78,28 @@ jobs:
           command_timeout: 30m
           script: |
             set -e
-            if [ ! -d "backend" ]; then
-              git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
-            fi
             cd backend
-
-            # [중요] 1. 기존에 잘못 생성된 파일/디렉토리 제거 (Git 초기화 전 수행)
+            
+            # 1. 기존의 꼬인 설정 파일/디렉토리 제거
             sudo rm -rf monitoring/worker-config.alloy
             
-            # 2. 최신 코드를 가져옴 (이때 정상적인 worker-config.alloy 파일이 생성됨)
+            # 2. 최신 코드 가져오기 (정상적인 alloy 원본 파일 확보)
             git fetch origin
             git reset --hard origin/main
-            git clean -fd -e letsencrypt/ || true
             
             echo "${{ secrets.ENV_FILE }}" > .env.production
             
-            # 3. Alloy 설정 내 API 서버의 탄력적 IP 주입 (Loki 주소)
-            sed "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
+            # 3. [핵심 수정] sed -i를 사용하여 원본 파일을 직접 치환 (tmp 파일 에러 방지)
+            sed -i "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
 
-            # 워커 서버 컨테이너 빌드
+            # 4. 컨테이너 실행
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
-            
-            # [순차 배포] 브로커 선행 실행 필수
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d rabbitmq
-            echo "RabbitMQ 안정화 대기 중 (30초)..."
             sleep 30
-
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d celery celery-beat celery-exporter
             sleep 15
-
+            
+            # 5. 수집기 강제 재시작 (변경된 설정 반영)
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate cadvisor alloy
             
             sudo docker image prune -f

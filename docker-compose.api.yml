@@ -1,33 +1,15 @@
-version: '3.8'
-
 services:
-  # 1. Django 백엔드
+  # 1. Django Backend
   backend:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: backend
-    deploy:
-      resources:
-        limits:
-          memory: 400M
-        reservations:
-          memory: 200M
-    command: >
-      sh -c "python manage.py migrate &&
-             python manage.py collectstatic --noinput &&
-             gunicorn --bind 0.0.0.0:8000 --workers 3 config.wsgi:application"
+    env_file: .env.production
+    ports:
+      - "8000:8000" # 외부에서 /metrics 접속 확인용
     volumes:
-      - static_volume:/app/staticfiles
-      - media_volume:/app/media
-      - /home/ubuntu/backend/Posts.xml:/app/Posts.xml
-      - /home/ubuntu/backend/tech_stacks_merged_final.csv:/app/tech_stacks_merged_final.csv
-      - /home/ubuntu/backend/tech_stacks_relationships.json:/app/tech_stacks_relationships.json
-    env_file:
-      - .env.production
-    environment:
-      - RABBITMQ_HOST=${WORKER_SERVER_IP}
-      - DJANGO_SETTINGS_MODULE=config.settings.production
+      - .:/app
     networks:
       - teamA-network
     restart: always
@@ -36,38 +18,26 @@ services:
   nginx:
     image: nginx:alpine
     container_name: nginx
-    deploy:
-      resources:
-        limits:
-          memory: 100M
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./letsencrypt:/etc/letsencrypt:ro
-      - static_volume:/app/staticfiles:ro
-      - media_volume:/app/media:ro
+      - ./letsencrypt:/etc/letsencrypt
+    depends_on:
+      - backend
     networks:
       - teamA-network
     restart: always
 
-  # 3. Prometheus (지표 저장소)
+  # 3. Prometheus
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
-    deploy:
-      resources:
-        limits:
-          memory: 200M
-        reservations:
-          memory: 100M
+    ports:
+      - "9090:9090" # Prometheus UI 접속용
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
     networks:
       - teamA-network
     restart: always
@@ -76,10 +46,6 @@ services:
   loki:
     image: grafana/loki:latest
     container_name: loki
-    deploy:
-      resources:
-        limits:
-          memory: 150M
     ports:
       - "3100:3100"
     command: -config.file=/etc/loki/local-config.yaml
@@ -91,51 +57,41 @@ services:
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
-    deploy:
-      resources:
-        limits:
-          memory: 150M
     ports:
       - "3000:3000"
-    environment:
-      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
-    volumes:
-      - grafana_data:/var/lib/grafana
+    depends_on:
+      - prometheus
+      - loki
     networks:
       - teamA-network
     restart: always
 
-  # 6. cAdvisor (API 서버 컨테이너 모니터링)
+  # 6. Alloy (로그 수집기)
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy-api
+    ports:
+      - "12345:12345" # Alloy 상태 확인 UI
+    volumes:
+      - ./monitoring/config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
+    networks:
+      - teamA-network
+    restart: always
+
+  # 7. cAdvisor (컨테이너 모니터링)
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor-api
-    deploy:
-      resources:
-        limits:
-          memory: 100M
+    privileged: true # 오타 수정 완료
+    ports:
+      - "8080:8080"
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro
-    networks:
-      - teamA-network
-    restart: always
-
-  # 7. Alloy (API 서버 로그 수집기)
-  alloy:
-    image: grafana/alloy:latest
-    container_name: alloy-api
-    deploy:
-      resources:
-        limits:
-          memory: 100M
-    volumes:
-      - ./monitoring/config.alloy:/etc/alloy/config.alloy
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-    command: run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - teamA-network
     restart: always
@@ -143,9 +99,3 @@ services:
 networks:
   teamA-network:
     driver: bridge
-
-volumes:
-  static_volume:
-  media_volume:
-  prometheus_data:
-  grafana_data:

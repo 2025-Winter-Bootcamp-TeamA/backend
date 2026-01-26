@@ -1,122 +1,86 @@
-version: '3.8'
-
 services:
   # 1. RabbitMQ
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
-    deploy:
-      resources:
-        limits:
-          memory: 300M
-    environment:
-      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER}
-      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD}
     ports:
       - "5672:5672"
       - "15672:15672"
-    healthcheck:
-      test: ["CMD", "rabbitmq-diagnostics", "check_running"]
-      interval: 30s
-      timeout: 10s
-      retries: 5
+    environment:
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
     networks:
       - teamA-network
     restart: always
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   # 2. Celery Worker
   celery:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: celery
-    deploy:
-      resources:
-        limits:
-          memory: 600M
-        reservations:
-          memory: 300M
-    command: celery -A config worker -l warning
-    env_file:
-      - .env.production
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.production
+    command: celery -A config worker --loglevel=info
+    env_file: .env.production
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      - rabbitmq
     networks:
       - teamA-network
     restart: always
 
   # 3. Celery Beat
   celery-beat:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    build: .
     container_name: celery-beat
-    deploy:
-      resources:
-        limits:
-          memory: 150M
-    command: celery -A config beat -l warning --scheduler django_celery_beat.schedulers:DatabaseScheduler
-    env_file:
-      - .env.production
-    environment:
-      - DJANGO_SETTINGS_MODULE=config.settings.production
+    command: celery -A config beat --loglevel=info
+    env_file: .env.production
     depends_on:
-      rabbitmq:
-        condition: service_healthy
+      - rabbitmq
     networks:
       - teamA-network
     restart: always
 
-  # 4. Celery Exporter (셀러리 지표 추출)
+  # 4. Celery Exporter (수정 완료)
   celery-exporter:
-    image: mher/flower:latest
+    image: danihodovic/celery-exporter:latest # 이미지 교체
     container_name: celery-exporter
-    deploy:
-      resources:
-        limits:
-          memory: 100M
-    command: celery --broker=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672// flower --port=5555
+    environment:
+      - CELERY_EXPORTER_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
     ports:
-      - "5555:5555" # Prometheus가 이 포트로 지표를 긁어감
+      - "9808:9808" # 5555에서 9808로 변경
+    depends_on:
+      - rabbitmq
+    networks:
+      - teamA-network
+    restart: always
+    # command 줄은 완전히 제거했습니다.
+
+  # 5. Alloy (로그 수집기)
+  alloy:
+    image: grafana/alloy:latest
+    container_name: alloy-worker
+    volumes:
+      - ./monitoring/worker-config.alloy:/etc/alloy/config.alloy
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - teamA-network
     restart: always
 
-  # 5. cAdvisor (워커 서버 컨테이너 모니터링)
+  # 6. cAdvisor (워커 컨테이너 모니터링)
   cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor-worker
-    deploy:
-      resources:
-        limits:
-          memory: 100M
+    privileged: true
     ports:
-      - "8081:8080" # Prometheus가 접속할 포트
+      - "8081:8080" # Prometheus.yml 설정에 맞춰 8081 개방
     volumes:
       - /:/rootfs:ro
       - /var/run:/var/run:rw
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - teamA-network
-    restart: always
-
-  # 6. Alloy (워커 서버 로그 및 지표 전송기)
-  alloy:
-    image: grafana/alloy:latest
-    container_name: alloy-worker
-    deploy:
-      resources:
-        limits:
-          memory: 100M
-    volumes:
-      - ./monitoring/worker-config.alloy:/etc/alloy/config.alloy
-      - /var/run/docker.sock:/var/run/docker.sock
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-    command: run --storage.path=/var/lib/alloy/data /etc/alloy/config.alloy
     networks:
       - teamA-network
     restart: always

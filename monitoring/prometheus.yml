@@ -16,4 +16,4 @@ scrape_configs:
 
   - job_name: 'celery-exporter'
     static_configs:
-      - targets: ['${WORKER_SERVER_IP}:5555']
+      - targets: ['${WORKER_SERVER_IP}:9808']

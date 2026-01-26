@@ -2,7 +2,7 @@ discovery.docker "containers" {
   host = "unix:///var/run/docker.sock"
 }
 
-// [핵심] 도커 컨테이너 이름을 추출하여 라벨로 변환
+// 1. 도커 컨테이너 이름을 추출하여 라벨로 변환
 discovery.relabel "docker_logs" {
   targets = discovery.docker.containers.targets
 
@@ -15,12 +15,14 @@ discovery.relabel "docker_logs" {
 
 loki.source.docker "logs" {
   host       = "unix:///var/run/docker.sock"
+  // [수정] relabel된 output을 사용해야 unknown_service가 뜨지 않습니다.
   targets    = discovery.relabel.docker_logs.output 
   forward_to = [loki.write.local.receiver]
 }
 
 loki.write "local" {
   endpoint {
+    // deploy.yml에 의해 실제 API 서버 IP로 치환됩니다.
     url = "http://${API_SERVER_IP}:3100/loki/api/v1/push"
   }
 }
