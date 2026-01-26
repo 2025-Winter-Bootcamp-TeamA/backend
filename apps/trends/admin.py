@@ -25,7 +25,7 @@ class TechStackAdmin(admin.ModelAdmin):
 
 @admin.register(TechTrend)
 class TechTrendAdmin(admin.ModelAdmin):
-    list_display = ['tech_stack', 'job_mention_count', 'job_change_rate', 'reference_date']
+    list_display = ['tech_stack', 'job_mention_count', 'article_mention_count', 'job_change_rate', 'article_change_rate', 'reference_date']
     list_filter = ['reference_date', 'tech_stack']
     search_fields = ['tech_stack__name']
     ordering = ['-reference_date', '-job_mention_count']

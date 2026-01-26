@@ -136,19 +136,18 @@ class TechTrend(models.Model):
         default=0,
         verbose_name='채용공고 언급 수'
     )
-    #게시글 쪽 erd
-    # community_mention_count = models.IntegerField(
-    #     default=0,
-    #     verbose_name='커뮤니티 언급 수'
-    #     )
+    article_mention_count = models.BigIntegerField(
+        default=0,
+        verbose_name='게시글 언급 수'
+    )
     job_change_rate = models.FloatField(
         default=0.0,
         verbose_name='전주 대비 채용공고 증가율'
     )
-    # community_change_rate = models.FloatField(
-    #     default=0.0,
-    #     verbose_name='전주 대비 커뮤니티 증가율'
-    # )
+    article_change_rate = models.FloatField(
+        default=0.0,
+        verbose_name='전주 대비 게시글 증가율'
+    )
     reference_date = models.DateField(
         verbose_name='기준 날짜'
     )
@@ -207,6 +206,11 @@ class Article(models.Model):
     )
     source = models.TextField(
         verbose_name='게시글 출처'
+    )
+    external_created_at = models.DateTimeField(
+        null=True,
+        blank=True,
+        verbose_name='원본 게시글 생성일'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,

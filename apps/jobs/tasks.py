@@ -22,45 +22,56 @@ def schedule_crawling():
 def calculate_daily_trends():
     """
     [Celery] 일별 트렌드 집계 (채용공고 기준)
+    각 날짜별로 전체 기술 스택 언급량 대비 각 기술 스택의 언급량 비율(%)을 계산하여 저장
     """
     now = timezone.now()
     today = now.date()
     
     print(f"[Trend] {today} 일자 기술 트렌드 집계 시작...")
 
-    stacks = TechStack.objects.all()
+    stacks = TechStack.objects.filter(is_deleted=False)
     
+    # 1. 모든 기술 스택의 채용공고 카운트 계산
+    tech_counts = {}
     for stack in stacks:
-        # 1. 채용 공고 카운트
         current_job_count = stack.job_postings.filter(
             is_deleted=False,
             job_posting__is_deleted=False
         ).count()
-
-        # 2. 전주 데이터 가져오기 (7일 전)
-        target_date = today - timedelta(days=7)
-        
-        last_trend = TechTrend.objects.filter(
-            tech_stack=stack,
-            reference_date=target_date
-        ).first()
-
-        prev_job_count = last_trend.job_mention_count if last_trend else 0
-        
-        # 3. 채용 공고 증가율(%) 계산
-        job_change_rate = 0.0
-        if prev_job_count > 0:
-            job_change_rate = ((current_job_count - prev_job_count) / prev_job_count) * 100
+        tech_counts[stack.id] = current_job_count
+    
+    # 2. 해당 날짜의 전체 기술 스택 언급량 합계 계산
+    total_job_count = sum(tech_counts.values())
+    
+    # 3. 각 기술 스택별로 비율 계산 및 저장
+    if total_job_count == 0:
+        # 언급량이 없으면 비율 계산 불가, 모든 기술 스택에 0.0 저장
+        for stack in stacks:
+            TechTrend.objects.update_or_create(
+                tech_stack=stack,
+                reference_date=today,
+                defaults={
+                    'job_mention_count': 0,
+                    'job_change_rate': 0.0,
+                    'is_deleted': False
+                }
+            )
+    else:
+        for stack in stacks:
+            current_job_count = tech_counts.get(stack.id, 0)
             
-        # 4. 데이터 저장 (trend_from 삭제됨, 필드명 변경 반영)
-        TechTrend.objects.update_or_create(
-            tech_stack=stack,
-            reference_date=today,
-            defaults={
-                'job_mention_count': current_job_count,
-                'job_change_rate': round(job_change_rate, 2),
-                'is_deleted': False
-            }
-        )
+            # 전체 대비 비율 계산 (%)
+            job_change_rate = (current_job_count / total_job_count) * 100
+            
+            # 데이터 저장
+            TechTrend.objects.update_or_create(
+                tech_stack=stack,
+                reference_date=today,
+                defaults={
+                    'job_mention_count': current_job_count,
+                    'job_change_rate': round(job_change_rate, 2),
+                    'is_deleted': False
+                }
+            )
     
     print(f"[Trend] 총 {stacks.count()}개 스택의 트렌드 저장 완료!")

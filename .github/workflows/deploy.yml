@@ -33,7 +33,7 @@ jobs:
             git reset --hard origin/main
             git clean -fd -e letsencrypt/ || true
             
-            # .env.production 생성 (PyPDF2는 requirements.txt에 추가되어 있어야 함)
+            # .env.production 생성
             echo "${{ secrets.ENV_FILE }}" > .env.production
 
             # [모니터링 설정] Prometheus에 Worker IP 주입
@@ -48,9 +48,9 @@ jobs:
             # [순차 배포] 부하 분산을 위한 단계별 실행
             sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d backend nginx
             sleep 30
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d prometheus loki
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate prometheus loki
             sleep 15
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d grafana alloy cadvisor
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreategrafana alloy cadvisor
             
             # DB 및 초기 데이터 설정
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py migrate --noinput
@@ -91,8 +91,11 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env.production
             
             # 3. Alloy 설정 내 API 서버의 탄력적 IP 주입 (Loki 주소)
-            # worker-config.alloy 파일 안에 ${API_SERVER_IP}라는 플레이스홀더가 있어야 합니다.
-            sed -i "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
+            sudo rm -rf monitoring/worker-config.alloy
+            mkdir -p monitoring
+            cp monitoring/worker-config.alloy monitoring/worker-config.alloy.tmp
+            sed "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy.tmp > monitoring/worker-config.alloy
+            rm monitoring/worker-config.alloy.tmp
 
             # 워커 서버 컨테이너 빌드
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
@@ -105,6 +108,6 @@ jobs:
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d celery celery-beat celery-exporter
             sleep 15
 
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d cadvisor alloy
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate cadvisor alloy
             
             sudo docker image prune -f
