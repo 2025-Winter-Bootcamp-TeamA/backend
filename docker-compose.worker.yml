@@ -45,6 +45,7 @@ services:
   # 4. Celery Exporter (수정 완료)
   celery-exporter:
     image: danihodovic/celery-exporter:latest # 이미지 교체
+    platform: linux/amd64 # ARM64 호환성을 위한 x86_64 에뮬레이션
     container_name: celery-exporter
     environment:
       - CELERY_EXPORTER_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
