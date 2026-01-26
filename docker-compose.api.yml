@@ -6,6 +6,8 @@ services:
       dockerfile: Dockerfile
     container_name: backend
     env_file: .env.production
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.production
     ports:
       - "8000:8000" # 외부에서 /metrics 접속 확인용
     volumes:
