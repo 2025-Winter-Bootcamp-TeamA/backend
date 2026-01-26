@@ -1,11 +1,23 @@
-// discovery.docker "containers" 부분은 기존과 동일하게 유지
+// 1. 도커 컨테이너 탐색
 discovery.docker "containers" {
   host = "unix:///var/run/docker.sock"
 }
 
+// 2. [추가] 도커 메타데이터를 실제 레이블로 변환
+discovery.relabel "docker_logs" {
+  targets = discovery.docker.containers.targets
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container_name"
+  }
+}
+
+// 3. 변환된 레이블을 사용하여 로그 수집
 loki.source.docker "logs" {
-  host       = "unix:///var/run/docker.sock" // [중요] 이 줄이 빠져서 에러가 난 것입니다!
-  targets    = discovery.docker.containers.targets
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_logs.output // [수정] relabel된 출력을 사용
   forward_to = [loki.write.local.receiver]
 }
 

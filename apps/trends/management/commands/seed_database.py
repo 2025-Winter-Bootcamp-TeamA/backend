@@ -641,7 +641,7 @@ class Command(BaseCommand):
         source_csv_path = options['source_csv']
 
         # --- Step 1: Import/Sync Tech Stacks from CSV ---
-        self.stdout.write(f'\n[Step 1/4] Importing/Syncing TechStacks from {source_csv_path}...'))
+        self.stdout.write(f'\n[Step 1/4] Importing/Syncing TechStacks from {source_csv_path}...')
         try:
             with open(source_csv_path, 'r', encoding='utf-8') as file:
                 reader = csv.DictReader(file)
@@ -662,7 +662,7 @@ class Command(BaseCommand):
             raise
 
         # --- Step 2: Deduplicate Tech Stacks (Safety Measure) ---
-        self.stdout.write('\n[Step 2/4] Deduplicating TechStack entries...'))
+        self.stdout.write('\n[Step 2/4] Deduplicating TechStack entries...')
         duplicate_names = (
             TechStack.objects.values('name')
             .annotate(name_count=Count('name'))
@@ -672,7 +672,7 @@ class Command(BaseCommand):
         if duplicate_names.exists():
             for entry in duplicate_names:
                 name = entry['name']
-                self.stdout.write(f'  - Processing duplicate name: "{name}"'))
+                self.stdout.write(f'  - Processing duplicate name: "{name}"')
                 duplicates = TechStack.objects.filter(name=name).order_by('id')
                 canonical_stack = duplicates.first()
                 redundant_stacks = duplicates.exclude(id=canonical_stack.id)
@@ -685,10 +685,10 @@ class Command(BaseCommand):
                     redundant_stack.delete()
             self.stdout.write(self.style.SUCCESS('...Deduplication complete.'))
         else:
-            self.stdout.write('  - No duplicate TechStack names found. Skipping deduplication.'))
+            self.stdout.write('  - No duplicate TechStack names found. Skipping deduplication.')
 
         # --- Step 3: Sync Categories (Define 9 categories, delete erroneous ones) ---
-        self.stdout.write('\n[Step 3/4] Syncing 9-category system and cleaning old categories...'))
+        self.stdout.write('\n[Step 3/4] Syncing 9-category system and cleaning old categories...')
         
         # Define the canonical 9 category names
         canonical_category_names = [
@@ -702,7 +702,7 @@ class Command(BaseCommand):
             category, created = Category.objects.get_or_create(name=name)
             category_objects[name] = category
             if created:
-                self.stdout.write(f'  - Created canonical category: "{name}"'))
+                self.stdout.write(f'  - Created canonical category: "{name}"')
 
         # Delete any old, erroneous categories
         erroneous_categories_to_delete = ['IDE & Tool', 'OS', 'Embedded System']
@@ -713,10 +713,10 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('...Category syncing complete.'))
 
         # --- Step 4: Apply Full Categorization ---
-        self.stdout.write('\n[Step 4/4] Applying full categorization to all TechStacks...'))
-        self.stdout.write('  - Clearing all existing tech-category relationships for a fresh start.'))
+        self.stdout.write('\n[Step 4/4] Applying full categorization to all TechStacks...')
+        self.stdout.write('  - Clearing all existing tech-category relationships for a fresh start.')
         deleted_rels_count, _ = CategoryTech.objects.all().delete()
-        self.stdout.write(f'  - Deleted {deleted_rels_count} old relationships.'))
+        self.stdout.write(f'  - Deleted {deleted_rels_count} old relationships.')
 
         all_tech_stacks = TechStack.objects.all()
         uncategorized_count = 0
@@ -748,6 +748,6 @@ class Command(BaseCommand):
                 self.stdout.write(self.style.NOTICE(f'    - No categorization found for "{tech_stack.name}".'))
         
         self.stdout.write(self.style.SUCCESS(f'\nCategorization complete!'))
-        self.stdout.write(f'  - {categorized_count} TechStacks were categorized.'))
-        self.stdout.write(f'  - {uncategorized_count} TechStacks remain uncategorized (please update MASTER_CATEGORIZATION_MAP).'))
+        self.stdout.write(f'  - {categorized_count} TechStacks were categorized.')
+        self.stdout.write(f'  - {uncategorized_count} TechStacks remain uncategorized (please update MASTER_CATEGORIZATION_MAP).')
         self.stdout.write(self.style.SUCCESS('\n--- Database Seeding Complete! ---'))

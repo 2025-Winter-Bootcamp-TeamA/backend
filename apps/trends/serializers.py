@@ -30,7 +30,9 @@ class TechTrendSerializer(serializers.ModelSerializer):
         model = TechTrend
         fields = [
             'id', 'tech_stack',# 'trend_from',
-            'job_mention_count', 'job_change_rate', 'reference_date'
+            'job_mention_count', 'job_change_rate',
+            'article_mention_count', 'article_change_rate',
+            'reference_date'
         ]
 
 

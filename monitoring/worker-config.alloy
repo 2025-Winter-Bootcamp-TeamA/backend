@@ -2,6 +2,17 @@ discovery.docker "containers" {
   host = "unix:///var/run/docker.sock"
 }
 
+// [추가] 워커 서버 컨테이너 이름 추출
+discovery.relabel "docker_logs" {
+  targets = discovery.docker.containers.targets
+
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "/(.*)"
+    target_label  = "container_name"
+  }
+}
+
 loki.source.docker "logs" {
   host       = "unix:///var/run/docker.sock"
   targets    = discovery.docker.containers.targets
