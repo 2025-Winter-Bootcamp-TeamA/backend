@@ -37,8 +37,7 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env.production
 
             # [모니터링 설정] .env.production에서 Worker Private IP 추출하여 Prometheus에 주입
-            WORKER_PRIVATE_IP=$(grep "^WORKER_SERVER_IP=" .env.production | cut -d '=' -f 2)
-            sed -i "s/\${WORKER_SERVER_IP}/$WORKER_PRIVATE_IP/g" monitoring/prometheus.yml
+            sed -i "s/\${WORKER_SERVER_IP}/${{ secrets.HOST_WORKER }}/g" monitoring/prometheus.yml
 
             # [모니터링 설정] Alloy 로그 수집 권한 부여
             sudo chmod -R 755 /var/lib/docker/containers || true
