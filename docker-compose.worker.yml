@@ -42,21 +42,22 @@ services:
       - teamA-network
     restart: always
 
-  # 4. Celery Exporter (수정 완료)
-  celery-exporter:
-    image: danihodovic/celery-exporter:latest # 이미지 교체
-    platform: linux/amd64 # ARM64 호환성을 위한 x86_64 에뮬레이션
-    container_name: celery-exporter
-    environment:
-      - CELERY_EXPORTER_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
-    ports:
-      - "9808:9808" # 5555에서 9808로 변경
-    depends_on:
-      - rabbitmq
-    networks:
-      - teamA-network
-    restart: always
-    # command 줄은 완전히 제거했습니다.
+  # 4. Celery Exporter - ARM64 아키텍처 호환 이슈로 비활성화
+  # QEMU 에뮬레이션이 제대로 작동하지 않아 AMD64 이미지 실행 불가
+  # Celery 모니터링은 Flower 또는 로그로 대체
+  # celery-exporter:
+  #   image: danihodovic/celery-exporter:latest
+  #   platform: linux/amd64
+  #   container_name: celery-exporter
+  #   environment:
+  #     - CELERY_EXPORTER_BROKER_URL=amqp://${RABBITMQ_USER}:${RABBITMQ_PASSWORD}@rabbitmq:5672//
+  #   ports:
+  #     - "9808:9808"
+  #   depends_on:
+  #     - rabbitmq
+  #   networks:
+  #     - teamA-network
+  #   restart: always
 
   # 5. Alloy (로그 수집기)
   alloy:
