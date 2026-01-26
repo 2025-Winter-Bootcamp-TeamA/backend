@@ -82,18 +82,20 @@ jobs:
           script: |
             set -e
             cd backend
-            
-            # 1. 기존의 꼬인 설정 파일/디렉토리 제거
-            sudo rm -rf monitoring/worker-config.alloy
-            
-            # 2. 최신 코드 가져오기 (정상적인 alloy 원본 파일 확보)
+
+            # 1. 최신 코드 가져오기
             git fetch origin
             git reset --hard origin/main
-            
+            git clean -fd -e letsencrypt/ || true
+
             echo "${{ secrets.ENV_FILE }}" > .env.production
-            
-            # 3. [핵심 수정] sed -i를 사용하여 원본 파일을 직접 치환 (tmp 파일 에러 방지)
+
+            # 2. Alloy 설정 파일의 환경변수 치환
             sed -i "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
+
+            # 3. 변경 확인 (디버깅용)
+            echo "=== worker-config.alloy 확인 ==="
+            cat monitoring/worker-config.alloy
 
             # 4. 컨테이너 실행
             sudo docker compose -f docker-compose.worker.yml down
