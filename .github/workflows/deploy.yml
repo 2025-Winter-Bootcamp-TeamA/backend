@@ -98,13 +98,13 @@ jobs:
             cat monitoring/worker-config.alloy
 
             # 4. 컨테이너 실행
-            sudo docker compose -f docker-compose.worker.yml down
+            sudo docker compose -f docker-compose.worker.yml down --remove-orphans
             sudo docker system prune -f   # 안 쓰는 캐시 삭제 (안전함)
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate --remove-orphans
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate rabbitmq
             sleep 30
-            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate celery celery-beat celery-exporter
+            sudo docker compose -f docker-compose.worker.yml --env-file .env.production up -d --force-recreate celery celery-beat
             sleep 15
             
             # 5. 수집기 강제 재시작 (변경된 설정 반영)
