@@ -17,7 +17,7 @@ discovery.relabel "docker_logs" {
 // 3. 변환된 레이블을 사용하여 로그 수집
 loki.source.docker "logs" {
   host       = "unix:///var/run/docker.sock"
-  targets    = discovery.relabel.docker_logs.output // [수정] relabel된 출력을 사용
+  targets    = discovery.relabel.docker_logs.output
   forward_to = [loki.write.local.receiver]
 }
 

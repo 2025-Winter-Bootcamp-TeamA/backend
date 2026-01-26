@@ -2,7 +2,7 @@ discovery.docker "containers" {
   host = "unix:///var/run/docker.sock"
 }
 
-// [추가] 워커 서버 컨테이너 이름 추출
+// [핵심] 도커 컨테이너 이름을 추출하여 라벨로 변환
 discovery.relabel "docker_logs" {
   targets = discovery.docker.containers.targets
 
@@ -15,14 +15,12 @@ discovery.relabel "docker_logs" {
 
 loki.source.docker "logs" {
   host       = "unix:///var/run/docker.sock"
-  targets    = discovery.docker.containers.targets
+  targets    = discovery.relabel.docker_logs.output 
   forward_to = [loki.write.local.receiver]
 }
 
 loki.write "local" {
   endpoint {
-    // API 서버의 Private IP를 적거나 환경변수를 사용하세요. 
-    // 여기서는 API 서버의 Loki 주소를 가리켜야 합니다.
     url = "http://${API_SERVER_IP}:3100/loki/api/v1/push"
   }
 }

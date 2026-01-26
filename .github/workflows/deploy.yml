@@ -95,7 +95,7 @@ jobs:
             echo "${{ secrets.ENV_FILE }}" > .env.production
             
             # 3. Alloy 설정 내 API 서버의 탄력적 IP 주입 (Loki 주소)
-            sed "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy.tmp > monitoring/worker-config.alloy
+            sed "s/\${API_SERVER_IP}/${{ secrets.HOST_API }}/g" monitoring/worker-config.alloy
 
             # 워커 서버 컨테이너 빌드
             sudo docker compose -f docker-compose.worker.yml --env-file .env.production build --no-cache
