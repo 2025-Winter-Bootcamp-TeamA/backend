@@ -50,7 +50,7 @@ jobs:
             sleep 30
             sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate prometheus loki
             sleep 15
-            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreategrafana alloy cadvisor
+            sudo docker compose -f docker-compose.api.yml --env-file .env.production up -d --force-recreate grafana alloy cadvisor
             
             # DB 및 초기 데이터 설정
             sudo docker compose -f docker-compose.api.yml --env-file .env.production exec -T backend python manage.py migrate --noinput
