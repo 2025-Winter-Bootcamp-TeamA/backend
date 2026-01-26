@@ -38,6 +38,7 @@ services:
       - "9090:9090" # Prometheus UI 접속용
     volumes:
       - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
     networks:
       - teamA-network
     restart: always
@@ -48,6 +49,9 @@ services:
     container_name: loki
     ports:
       - "3100:3100"
+    volumes:
+      - loki-data:/loki
+      - ./monitoring/loki-config.yml:/etc/loki/local-config.yaml:ro
     command: -config.file=/etc/loki/local-config.yaml
     networks:
       - teamA-network
@@ -59,6 +63,16 @@ services:
     container_name: grafana
     ports:
       - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USERNAME}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_AUTH_ANONYMOUS_ENABLED=false
+      - GF_SERVER_DOMAIN=${API_SERVER_IP}
+      - GF_SERVER_ROOT_URL=http://${API_SERVER_IP}:3000
+      - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./grafana/provisioning:/etc/grafana/provisioning:ro
     depends_on:
       - prometheus
       - loki
@@ -99,3 +113,11 @@ services:
 networks:
   teamA-network:
     driver: bridge
+
+volumes:
+  grafana-data:
+    driver: local
+  loki-data:
+    driver: local
+  prometheus-data:
+    driver: local
