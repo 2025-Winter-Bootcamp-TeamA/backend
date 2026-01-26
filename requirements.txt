@@ -21,6 +21,9 @@ python-decouple==3.8
 # API 문서화
 drf-yasg==1.21.7
 
+# 개발 도구 (로컬/개발 환경)
+django-debug-toolbar>=4.0.0
+
 # 인증
 djangorestframework-simplejwt==5.3.1
 PyJWT==2.8.0
