@@ -83,7 +83,11 @@ jobs:
               git clone https://github.com/2025-Winter-Bootcamp-TeamA/backend.git backend
             fi
             cd backend
+
+            # [중요] 1. 기존에 잘못 생성된 파일/디렉토리 제거 (Git 초기화 전 수행)
+            sudo rm -rf monitoring/worker-config.alloy
             
+            # 2. 최신 코드를 가져옴 (이때 정상적인 worker-config.alloy 파일이 생성됨)
             git fetch origin
             git reset --hard origin/main
             git clean -fd -e letsencrypt/ || true
