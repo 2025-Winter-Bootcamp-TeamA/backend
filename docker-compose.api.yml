@@ -98,7 +98,7 @@ services:
 
   # 7. cAdvisor (컨테이너 모니터링)
   cadvisor:
-      image: gcr.io/cadvisor/cadvisor:v0.56.2
+      image: ghcr.io/google/cadvisor:v0.56.2
       container_name: cadvisor-api
       privileged: true
       ports:
