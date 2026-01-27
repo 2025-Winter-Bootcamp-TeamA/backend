@@ -73,7 +73,7 @@ services:
 
   # 6. cAdvisor (워커 컨테이너 모니터링)
   cadvisor:
-      image: gcr.io/cadvisor/cadvisor:v0.49.1
+      image: gcr.io/cadvisor/cadvisor:v0.56.2
       container_name: cadvisor-worker
       privileged: true
       ports:
