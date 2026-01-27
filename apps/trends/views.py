@@ -140,21 +140,21 @@ class TechStackListView(generics.ListAPIView):
         search = request.query_params.get('search', '')
         name = request.query_params.get('name', '')
         ordering = request.query_params.get('ordering', '-job_stack_count')
+        page = request.query_params.get('page', '1')
 
-        cache_key = f'trends:techstack:list:{search}:{name}:{ordering}'
+        cache_key = f'trends:techstack:list:{search}:{name}:{ordering}:{page}'
         cached_data = cache.get(cache_key)
 
         if cached_data is not None:
             return Response(cached_data)
 
-        # 캐시 미스 - DB 조회
-        queryset = self.filter_queryset(self.get_queryset())
-        serializer = self.get_serializer(queryset, many=True)
+        # 캐시 미스 - DB 조회 (페이지네이션 포함)
+        response = super().list(request, *args, **kwargs)
 
-        # 캐시 저장 (30분)
-        cache.set(cache_key, serializer.data, 60 * 30)
+        # 캐시 저장 (30분) - 페이지네이션된 응답 전체를 캐시
+        cache.set(cache_key, response.data, 60 * 30)
 
-        return Response(serializer.data)
+        return response
 
 
 class TechStackDetailView(generics.RetrieveAPIView):
