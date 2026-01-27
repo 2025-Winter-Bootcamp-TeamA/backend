@@ -97,26 +97,26 @@ services:
     restart: always
 
   # 7. cAdvisor (컨테이너 모니터링)
-cadvisor:
-    image: gcr.io/cadvisor/cadvisor:v0.47.2
-    container_name: cadvisor-api
-    privileged: true
-    ports:
-      - "8080:8080"
-    volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro # /var/run 전체를 읽기 전용으로
-      - /var/run/docker.sock:/var/run/docker.sock:ro # [추가] 도커 소켓 직접 연결
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-      - /dev/disk/:/dev/disk:ro # [추가] 디스크 장치 정보 연결
-    # [추가] 특정 환경에서 도커 컨테이너만 수집하도록 강제
-    command:
-      - '--docker_only=true'
-      - '--housekeeping_interval=10s'
-    networks:
-      - teamA-network
-    restart: always
+  cadvisor:
+      image: gcr.io/cadvisor/cadvisor:v0.47.2
+      container_name: cadvisor-api
+      privileged: true
+      ports:
+        - "8080:8080"
+      volumes:
+        - /:/rootfs:ro
+        - /var/run:/var/run:ro # /var/run 전체를 읽기 전용으로
+        - /var/run/docker.sock:/var/run/docker.sock:ro # [추가] 도커 소켓 직접 연결
+        - /sys:/sys:ro
+        - /var/lib/docker/:/var/lib/docker:ro
+        - /dev/disk/:/dev/disk:ro # [추가] 디스크 장치 정보 연결
+      # [추가] 특정 환경에서 도커 컨테이너만 수집하도록 강제
+      command:
+        - '--docker_only=true'
+        - '--housekeeping_interval=10s'
+      networks:
+        - teamA-network
+      restart: always
 
 networks:
   teamA-network:
