@@ -8,6 +8,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
 from rest_framework import filters
+from django.core.cache import cache
 from .filters import JobPostingFilter # 채용지도 필터링 임포트
 
 from .models import Corp, JobPosting, CorpBookmark
@@ -69,12 +70,20 @@ class CorpListView(generics.ListAPIView):
 
 class JobStatsView(APIView):
     """
-    대시보드용 통계: 분석된 기업 수, 수집된 공고 수를 한 번에 반환.
+    대시보드용 통계: 분석된 기업 수, 수집된 공고 수를 한 번에 반환 (캐시 적용: 10분)
     COUNT 쿼리 2회로 단일 요청 처리.
     """
     permission_classes = [AllowAny]
 
     def get(self, request):
+        """대시보드 통계를 캐시에서 조회하거나 DB에서 가져옴"""
+        cache_key = 'jobs:stats'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data)
+
+        # 캐시 미스 - DB 조회
         from django.db.models import Q
         # 채용지도와 동일하게 위도/경도가 유효한 기업만 카운트
         # 위도 또는 경도가 null이거나 0이면 제외
@@ -88,10 +97,16 @@ class JobStatsView(APIView):
         job_postings_count = JobPosting.objects.filter(
             is_deleted=False, corp__is_deleted=False
         ).count()
-        return Response({
+
+        stats_data = {
             'corps_count': corps_count,
             'job_postings_count': job_postings_count,
-        })
+        }
+
+        # 캐시 저장 (10분)
+        cache.set(cache_key, stats_data, 60 * 10)
+
+        return Response(stats_data)
 
 
 class CorpDetailView(generics.RetrieveAPIView):

@@ -11,6 +11,7 @@ from rest_framework.pagination import PageNumberPagination
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
+from django.core.cache import cache
 from .models import TechStack, Category, TechTrend, TechBookmark
 from .models import Article
 from rest_framework import generics, filters
@@ -111,7 +112,7 @@ class CategoryTechStackListView(generics.ListAPIView):
 
 class TechStackListView(generics.ListAPIView):
     """
-    기술 스택 목록 조회 API
+    기술 스택 목록 조회 API (캐시 적용: 30분)
     - GET /tech-stacks: 기술 스택 목록 조회 (검색, 필터링, 정렬 지원)
     - ordering=-job_stack_count: 채용공고 스택 수 기준 내림차순 (대시보드 Top 5용)
     """
@@ -134,14 +135,51 @@ class TechStackListView(generics.ListAPIView):
         }
     )
     def list(self, request, *args, **kwargs):
-        return super().list(request, *args, **kwargs)
+        """기술 스택 목록을 캐시에서 조회하거나 DB에서 가져옴"""
+        # 쿼리 파라미터를 캐시 키에 포함 (검색, 필터, 정렬 대응)
+        search = request.query_params.get('search', '')
+        name = request.query_params.get('name', '')
+        ordering = request.query_params.get('ordering', '-job_stack_count')
+
+        cache_key = f'trends:techstack:list:{search}:{name}:{ordering}'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data)
+
+        # 캐시 미스 - DB 조회
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+
+        # 캐시 저장 (30분)
+        cache.set(cache_key, serializer.data, 60 * 30)
+
+        return Response(serializer.data)
 
 
 class TechStackDetailView(generics.RetrieveAPIView):
-    """기술 스택 상세"""
+    """기술 스택 상세 (캐시 적용: 1시간)"""
     permission_classes = [AllowAny]
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
+
+    def retrieve(self, request, *args, **kwargs):
+        """기술 스택 상세를 캐시에서 조회하거나 DB에서 가져옴"""
+        tech_stack_id = kwargs.get('pk')
+        cache_key = f'trends:techstack:{tech_stack_id}'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data)
+
+        # 캐시 미스 - DB 조회
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+
+        # 캐시 저장 (1시간)
+        cache.set(cache_key, serializer.data, 60 * 60)
+
+        return Response(serializer.data)
 
 
 class TechDocsURLView(APIView):
@@ -156,10 +194,27 @@ class TechDocsURLView(APIView):
 
 
 class CategoryListView(generics.ListAPIView):
-    """카테고리 목록"""
+    """카테고리 목록 (캐시 적용: 1시간)"""
     permission_classes = [AllowAny]
     queryset = Category.objects.filter(is_deleted=False)
     serializer_class = CategorySerializer
+
+    def list(self, request, *args, **kwargs):
+        """카테고리 목록을 캐시에서 조회하거나 DB에서 가져옴"""
+        cache_key = 'trends:category:list'
+        cached_data = cache.get(cache_key)
+
+        if cached_data is not None:
+            return Response(cached_data)
+
+        # 캐시 미스 - DB 조회
+        queryset = self.filter_queryset(self.get_queryset())
+        serializer = self.get_serializer(queryset, many=True)
+
+        # 캐시 저장 (1시간)
+        cache.set(cache_key, serializer.data, 60 * 60)
+
+        return Response(serializer.data)
 
 
 # class TechTrendListView(generics.ListAPIView):
