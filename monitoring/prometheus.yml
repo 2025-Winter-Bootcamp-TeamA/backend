@@ -6,6 +6,9 @@ scrape_configs:
     static_configs:
       - targets: ['backend:8000']
     relabel_configs:
+      - source_labels: [container_label_com_docker_compose_service]
+        regex: "(.*)"
+        target_label: container_name
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
@@ -14,6 +17,9 @@ scrape_configs:
     static_configs:
       - targets: ['cadvisor-api:8080']
     relabel_configs:
+      - source_labels: [container_label_com_docker_compose_service]
+        regex: "(.*)"
+        target_label: container_name
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
@@ -22,6 +28,9 @@ scrape_configs:
     static_configs:
       - targets: ['172.31.51.114:8081']
     relabel_configs:
+      - source_labels: [container_label_com_docker_compose_service]
+        regex: "(.*)"
+        target_label: container_name
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
