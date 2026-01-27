@@ -75,7 +75,16 @@ class JobStatsView(APIView):
     permission_classes = [AllowAny]
 
     def get(self, request):
-        corps_count = Corp.objects.filter(is_deleted=False).count()
+        from django.db.models import Q
+        # 채용지도와 동일하게 위도/경도가 유효한 기업만 카운트
+        # 위도 또는 경도가 null이거나 0이면 제외
+        corps_count = Corp.objects.filter(
+            is_deleted=False,
+            latitude__isnull=False,
+            longitude__isnull=False
+        ).exclude(
+            Q(latitude=0) | Q(longitude=0)
+        ).count()
         job_postings_count = JobPosting.objects.filter(
             is_deleted=False, corp__is_deleted=False
         ).count()
