@@ -12,6 +12,11 @@ scrape_configs:
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
+    metric_relabel_configs:
+      - source_labels: [name]
+        regex: "^/(.*)"
+        target_label: container_name
+        replacement: "${1}"
 
   - job_name: 'cadvisor-api'
     static_configs:
@@ -23,6 +28,11 @@ scrape_configs:
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
+    metric_relabel_configs:
+      - source_labels: [name]
+        regex: "^/(.*)"
+        target_label: container_name
+        replacement: "${1}"
 
   - job_name: 'cadvisor-worker'
     static_configs:
@@ -34,6 +44,11 @@ scrape_configs:
       - source_labels: [name]
         regex: "/(.*)"
         target_label: container_name
+    metric_relabel_configs:
+      - source_labels: [name]
+        regex: "^/(.*)"
+        target_label: container_name
+        replacement: "${1}"
 
   # celery-exporter는 ARM64 호환 이슈로 비활성화
   # - job_name: 'celery-exporter'
