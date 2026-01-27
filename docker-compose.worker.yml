@@ -72,17 +72,22 @@ services:
     restart: always
 
   # 6. cAdvisor (워커 컨테이너 모니터링)
-  cadvisor:
+cadvisor:
     image: gcr.io/cadvisor/cadvisor:v0.47.2
     container_name: cadvisor-worker
     privileged: true
     ports:
-      - "8081:8080" # Prometheus.yml 설정에 맞춰 8081 개방
+      - "8081:8080" # 워커는 보통 8081 포트를 사용합니다.
     volumes:
       - /:/rootfs:ro
-      - /var/run:/var/run:rw
+      - /var/run:/var/run:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # [추가] 워커 도커 소켓 연결
       - /sys:/sys:ro
       - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro # [추가] 디스크 정보
+    command:
+      - '--docker_only=true'    # [추가] 도커 컨테이너 수집에 집중
+      - '--housekeeping_interval=10s'
     networks:
       - teamA-network
     restart: always
