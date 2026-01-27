@@ -4,7 +4,7 @@ from .models import Resume, ResumeStack, WorkExperience, ProjectExperience, Resu
 from scripts.pdf_text_extractor import extract_text_from_pdf_url
 from scripts.module_resume_extractor import ResumeParserSystem
 import logging
-
+from django.conf import settings
 logger = logging.getLogger(__name__)
 
 @shared_task
@@ -29,7 +29,7 @@ def analyze_resume_task(resume_id, pdf_url):
             return
 
         # 2. Analyze with AI model
-        ollama_host = 'http://host.docker.internal:11434'
+        ollama_host = settings.OLLAMA_URL
         parser = ResumeParserSystem(host=ollama_host)
         structured_data = parser.parse(resume_text)
 
