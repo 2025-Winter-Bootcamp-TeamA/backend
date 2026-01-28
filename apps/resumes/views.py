@@ -170,18 +170,25 @@ class ResumeMatchingView(APIView):
 
             # Output Format (Strict Custom Tags)
             절대 JSON을 사용하지 마십시오. 반드시 아래 제공된 커스텀 태그 형식으로만 응답해야 합니다. 각 태그 사이에 내용을 채워주세요.
-            각 feedback은 150자 내외로 간결하게 작성하고, 질문은 200자 이상의 구체적이고 심도있는 질문을 생성하십시오.
+            각 feedback은 글머리 기호(•)를 사용하여 2-4개의 항목으로 작성하고, 각 항목은 50자 내외로 핵심만 간결하게 작성하십시오.
+            질문은 200자 이상의 구체적이고 심도있는 질문을 생성하십시오.
 
             [POSITIVE_FEEDBACK_START]
-            (지원자의 강점 서술)
+            • (강점 1 - 50자 내외)
+            • (강점 2 - 50자 내외)
+            • (강점 3 - 50자 내외)
             [POSITIVE_FEEDBACK_END]
 
             [NEGATIVE_FEEDBACK_START]
-            (부족한 점 및 리스크 서술)
+            • (약점 1 - 50자 내외)
+            • (약점 2 - 50자 내외)
+            • (약점 3 - 50자 내외)
             [NEGATIVE_FEEDBACK_END]
 
             [ENHANCEMENTS_START]
-            (보완할 점 서술)
+            • (보완점 1 - 50자 내외)
+            • (보완점 2 - 50자 내외)
+            • (보완점 3 - 50자 내외)
             [ENHANCEMENTS_END]
 
             [QUESTION_1_START]
