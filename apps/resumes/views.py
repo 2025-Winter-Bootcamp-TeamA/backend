@@ -162,16 +162,27 @@ class ResumeMatchingView(APIView):
             3. 지원자 프로젝트 경험: {proj_exp_str}
             4. 보유 기술 스택: {stacks_info}
 
+            # 기술 면접 참고 주제 (지원자의 기술 스택과 관련된 주제 중심으로 질문 생성)
+            - Computer Science: 자료구조(Array, LinkedList, Stack, Queue, Hash, Tree, Graph), 알고리즘(정렬, 탐색, DP)
+            - 운영체제: 프로세스 vs 스레드, 교착상태(DeadLock), 동기화(Mutex, Semaphore), 메모리 관리, CPU 스케줄링
+            - 네트워크: OSI 7계층, TCP/UDP, HTTP/HTTPS, REST API, 로드밸런싱, 쿠키/세션
+            - 데이터베이스: SQL vs NoSQL, 인덱스, 트랜잭션, 정규화, JOIN, Redis
+            - 웹: 브라우저 동작원리, CSR/SSR, JWT, OAuth, CSRF/XSS
+            - 언어별: Java(JVM, GC, 멀티스레드), Python(GIL), JavaScript(이벤트루프, 클로저)
+            - Spring: Bean, MVC, JPA, 트랜잭션, Security
+            - DevOps: Docker, Kubernetes, CI/CD, 모니터링
+
             # Analysis Task
             1. [역량 대조]: JD 핵심 기술과 지원자의 숙련도를 추론하십시오.
             2. [강점과 약점]: 기술적 적합성이 높은 부분(Positive)과 부족한 부분(Negative)을 도출하십시오.
             3. [보완할 점]: JD와의 간극을 메우기 위해 학습해야 할 기술/개념을 제안하십시오.
-            4. [면접 질문]: Deep Dive, Trade-off, Scenario 유형을 섞어 5개의 질문을 생성하십시오.
+            4. [면접 질문]: 위 분석 결과와 기술 면접 참고 주제를 바탕으로, 지원자의 경험과 연관된 기술 심화 질문 5개를 생성하십시오.
 
             # Output Format (Strict Custom Tags)
             절대 JSON을 사용하지 마십시오. 반드시 아래 제공된 커스텀 태그 형식으로만 응답해야 합니다. 각 태그 사이에 내용을 채워주세요.
             각 feedback은 글머리 기호(•)를 사용하여 2-4개의 항목으로 작성하고, 각 항목은 50자 내외로 핵심만 간결하게 작성하십시오.
-            질문은 200자 이상의 구체적이고 심도있는 질문을 생성하십시오.
+            질문은 100자 내외로 핵심을 짚는 간결한 질문을 생성하십시오.
+            모범 답변은 지원자의 경험을 바탕으로 100자 내외로 핵심 포인트만 간결하게 작성하십시오.
 
             [POSITIVE_FEEDBACK_START]
             • (강점 1 - 50자 내외)
@@ -194,22 +205,37 @@ class ResumeMatchingView(APIView):
             [QUESTION_1_START]
             (질문 1)
             [QUESTION_1_END]
+            [ANSWER_1_START]
+            (질문 1에 대한 모범 답변)
+            [ANSWER_1_END]
 
             [QUESTION_2_START]
             (질문 2)
             [QUESTION_2_END]
+            [ANSWER_2_START]
+            (질문 2에 대한 모범 답변)
+            [ANSWER_2_END]
 
             [QUESTION_3_START]
             (질문 3)
             [QUESTION_3_END]
+            [ANSWER_3_START]
+            (질문 3에 대한 모범 답변)
+            [ANSWER_3_END]
 
             [QUESTION_4_START]
             (질문 4)
             [QUESTION_4_END]
+            [ANSWER_4_START]
+            (질문 4에 대한 모범 답변)
+            [ANSWER_4_END]
 
             [QUESTION_5_START]
             (질문 5)
             [QUESTION_5_END]
+            [ANSWER_5_START]
+            (질문 5에 대한 모범 답변)
+            [ANSWER_5_END]
             """
 
             # 4. Gemini API 호출
@@ -232,15 +258,19 @@ class ResumeMatchingView(APIView):
             enhancements_feedback = extract_text_between_tags(raw_text, '[ENHANCEMENTS_START]', '[ENHANCEMENTS_END]')
             
             questions = []
+            answers = []
             for i in range(1, 6):
                 question = extract_text_between_tags(raw_text, f'[QUESTION_{i}_START]', f'[QUESTION_{i}_END]')
+                answer = extract_text_between_tags(raw_text, f'[ANSWER_{i}_START]', f'[ANSWER_{i}_END]')
                 if question:
                     questions.append(question)
+                    answers.append(answer if answer else "답변 없음")
             
             if not positive_feedback and not negative_feedback and not questions:
                  return Response({'error': 'AI 응답에서 유효한 내용을 추출할 수 없습니다. 형식이 다를 수 있습니다.'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
             question_str = "\n".join([f"- {q}" for q in questions])
+            answer_str = "\n".join([f"- {a}" for a in answers])
 
             # 6. 데이터 저장
             matching, created = ResumeMatching.objects.update_or_create(
@@ -251,6 +281,7 @@ class ResumeMatchingView(APIView):
                     'negative_feedback': negative_feedback or "정보 없음",
                     'enhancements_feedback': enhancements_feedback or "정보 없음",
                     'question': question_str,
+                    'answer': answer_str,
                 }
             )
             

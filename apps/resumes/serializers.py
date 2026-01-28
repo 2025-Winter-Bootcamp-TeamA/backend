@@ -100,7 +100,7 @@ class ResumeMatchingSerializer(serializers.ModelSerializer):
         model = ResumeMatching
         fields = [
             'id', 'job_posting', 'resume', 'job_posting_title', 'resume_title', 'job_posting_corp_id',
-            'positive_feedback', 'negative_feedback', 'enhancements_feedback', 'question', 'created_at'
+            'positive_feedback', 'negative_feedback', 'enhancements_feedback', 'question', 'answer', 'created_at'
         ]
         read_only_fields = ['id', 'created_at']
 

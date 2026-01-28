@@ -40,6 +40,7 @@ class ResumeMatching(models.Model):
     negative_feedback = models.TextField(blank=True, null=True, verbose_name='부정적 분석')
     enhancements_feedback = models.TextField(blank=True, null=True, verbose_name='보완할 점 분석')
     question = models.TextField(blank=True, null=True, verbose_name='면접 질문')
+    answer = models.TextField(blank=True, null=True, verbose_name='모범 답변')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='등록일자')
     is_deleted = models.BooleanField(default=False, verbose_name='삭제 여부')
 
