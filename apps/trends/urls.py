@@ -12,6 +12,7 @@ urlpatterns = [
     path('tech-stacks/', views.TechStackListView.as_view(), name='tech_stack_list'),
     path('tech-stacks/<int:pk>/', views.TechStackDetailView.as_view(), name='tech_stack_detail'),
     path('tech-stacks/<int:tech_stack_id>/docs/', views.TechDocsURLView.as_view(), name='tech_docs_url'),
+    path('top-stacks/', views.TopTechStacksView.as_view(), name='top_stacks'),  # 대시보드 Top 5
 
     # 카테고리
     path('categories/', views.CategoryListView.as_view(), name='category_list'),

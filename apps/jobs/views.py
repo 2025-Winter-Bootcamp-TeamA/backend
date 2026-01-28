@@ -28,9 +28,10 @@ from .serializers import (
 
 class CorpListView(generics.ListAPIView):
     """
-    기업 목록 조회 및 검색 View
+    기업 목록 조회 및 검색 View (전체 반환)
     """
     permission_classes = [AllowAny]
+    pagination_class = None  # 페이지네이션 비활성화
     # 논리적으로 삭제되지 않은 기업만 조회 대상으로 설정합니다.
     queryset = Corp.objects.filter(is_deleted=False)
     serializer_class = CorpSerializer
@@ -237,24 +238,35 @@ class JobPostingDetailView(generics.RetrieveAPIView):
 
 
 class JobPostingByTechView(generics.ListAPIView):
-    """기술 스택별 채용 공고 조회 View"""
+    """기술 스택별 채용 공고 조회 View (마감일 임박순 100개)"""
     permission_classes = [AllowAny]
     serializer_class = JobPostingSerializer
+    pagination_class = None  # 페이지네이션 비활성화
 
     def get_queryset(self):
+        from django.db.models import F
+        from django.db.models.functions import Coalesce
+        from datetime import date
+        
         tech_stack_id = self.kwargs.get('tech_stack_id')
+        today = date.today()
+        
+        # 마감일이 적게 남은 순서로 정렬 (마감일이 없는 경우 맨 뒤로)
         return JobPosting.objects.filter(
             is_deleted=False,
             tech_stacks__tech_stack_id=tech_stack_id,
             tech_stacks__is_deleted=False
-        ).distinct() # 중복 제거
+        ).distinct().order_by(
+            F('expiry_date').asc(nulls_last=True)  # 마감일 오름차순 (null은 맨 뒤)
+        )[:100]  # 100개로 제한
 
 
 class CorpBookmarkListView(generics.ListCreateAPIView):
     """
-    즐겨찾기 기업 목록 조회 및 추가 View
+    즐겨찾기 기업 목록 조회 및 추가 View (전체 반환)
     """
     permission_classes = [IsAuthenticated]
+    pagination_class = None  # 페이지네이션 비활성화
     
     def get_serializer_class(self):
         if self.request.method == 'POST':

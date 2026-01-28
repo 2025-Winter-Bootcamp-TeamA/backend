@@ -112,11 +112,12 @@ class CategoryTechStackListView(generics.ListAPIView):
 
 class TechStackListView(generics.ListAPIView):
     """
-    기술 스택 목록 조회 API (캐시 적용: 30분)
+    기술 스택 목록 조회 API (캐시 적용: 30분, 전체 반환)
     - GET /tech-stacks: 기술 스택 목록 조회 (검색, 필터링, 정렬 지원)
     - ordering=-job_stack_count: 채용공고 스택 수 기준 내림차순 (대시보드 Top 5용)
     """
     permission_classes = [AllowAny]
+    pagination_class = None  # 페이지네이션 비활성화
     queryset = TechStack.objects.filter(is_deleted=False)
     serializer_class = TechStackSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
@@ -180,6 +181,60 @@ class TechStackDetailView(generics.RetrieveAPIView):
         cache.set(cache_key, serializer.data, 60 * 60)
 
         return Response(serializer.data)
+
+
+class TopTechStacksView(APIView):
+    """
+    대시보드용: TechStack 테이블의 job_stack_count 기준 Top 5
+    전체 언급량은 최근 90일간 TechTrend의 job_mention_count 합계로 표시
+    캐시 적용: 30분
+    """
+    permission_classes = [AllowAny]
+
+    def get(self, request):
+        from django.db.models import Sum
+        
+        # 캐시 확인
+        cache_key = 'trends:top5:90days'
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return Response(cached_data)
+        
+        # 최근 90일 기준 날짜 계산
+        today = timezone.now().date()
+        start_date = today - timedelta(days=90)
+        
+        # 1. TechStack 테이블에서 job_stack_count 기준 Top 5 조회
+        top_stacks = TechStack.objects.filter(
+            is_deleted=False
+        ).order_by('-job_stack_count')[:5]
+        
+        # 2. 각 기술 스택의 90일간 job_mention_count 합계 계산
+        result = []
+        for stack in top_stacks:
+            # TechTrend에서 해당 기술 스택의 90일간 job_mention_count 합계
+            trend_sum = TechTrend.objects.filter(
+                tech_stack=stack,
+                reference_date__gte=start_date,
+                reference_date__lte=today,
+                is_deleted=False
+            ).aggregate(
+                total_job_mentions=Sum('job_mention_count')
+            )
+            
+            result.append({
+                'id': stack.id,
+                'name': stack.name,
+                'logo': stack.logo,
+                'docs_url': stack.docs_url,
+                'job_stack_count': stack.job_stack_count,  # 정렬 기준값
+                'total_mentions': trend_sum['total_job_mentions'] or 0,  # 표시될 언급량
+            })
+        
+        # 캐시 저장 (30분)
+        cache.set(cache_key, result, 60 * 30)
+        
+        return Response(result)
 
 
 class TechDocsURLView(APIView):
@@ -248,13 +303,13 @@ class TechTrendListPagination(PageNumberPagination):
 
 class TechTrendListView(generics.ListAPIView):
     """
-    기술 트렌드 목록 (그래프 데이터용)
+    기술 트렌드 목록 (그래프 데이터용, 전체 반환)
     요청 예시: GET /api/v1/trends/?tech_stack=1&days=7|30|90&ordering=reference_date
     - days: 7, 30, 90 (최근 N일, 생략 시 기간 제한 없음)
     """
     permission_classes = [AllowAny]
     serializer_class = TechTrendSerializer
-    pagination_class = TechTrendListPagination
+    pagination_class = None  # 페이지네이션 비활성화
 
     filter_backends = [DjangoFilterBackend, filters.OrderingFilter]
     filterset_fields = ['tech_stack', 'reference_date']

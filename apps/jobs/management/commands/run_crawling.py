@@ -1,15 +1,100 @@
 import requests
 import time
+import re
+from collections import defaultdict
 from django.core.management.base import BaseCommand
 from django.db import transaction
 from apps.jobs.models import Corp, JobPosting, JobPostingStack
 from apps.trends.models import TechStack
-from fuzzywuzzy import process  # 문자열 유사도 매칭을 위해 필수
+# [주석 처리] skill_tags 방식 사용하지 않음
+# from fuzzywuzzy import process  # 문자열 유사도 매칭을 위해 필수
 import requests
 import os
 
+# 토큰 추출용 정규식 (기술명에서 토큰 추출)
+TOKEN_RE = re.compile(r"[a-z0-9\+\#\.\-]+")
+
+# 노이즈 기술명 필터링 (너무 일반적인 단어)
+NOISE_TECHS = {
+    "d", "q", "make", "simple", "mean", "parse", "render", "echo", "stream", "buffer",
+    "box", "hub", "dash", "flux", "salt", "ent", "tower", "buddy", "play", "linear",
+    "segment", "prism", "foundation", "slick", "realm", "crystal", "heap",
+}
+
+# 필터링하면 안 되는 짧은 기술명
+KNOWN_SHORT_TECHS = {"go", "r", "d3", "qt", "c", "c#", "c++"}
+
+
+def normalize_text(text: str) -> str:
+    """텍스트 정규화 (소문자, 공백 정리)"""
+    return " ".join((text or "").lower().split())
+
+
+def is_noise_tech(tech: str) -> bool:
+    """노이즈 기술명인지 확인"""
+    if tech in KNOWN_SHORT_TECHS:
+        return False
+    if not tech or tech in NOISE_TECHS:
+        return True
+    tokens = TOKEN_RE.findall(tech)
+    if not tokens:
+        return True
+    # 단일 토큰이면서 알파벳만 있고 길이가 2 이하면 노이즈
+    if len(tokens) == 1:
+        t = tokens[0]
+        if t.isalpha() and len(t) <= 2:
+            return True
+    return False
+
+
+def build_tech_index(techs: list[str]):
+    """기술 스택 검색용 인덱스 생성"""
+    single_index = defaultdict(list)  # 단일 토큰 -> [tech]
+    multi_index = defaultdict(list)   # 첫 번째 토큰 -> [tech]
+    tech_tokens_map = {}
+
+    for tech in techs:
+        tokens = TOKEN_RE.findall(tech.lower())
+        if not tokens:
+            continue
+        tech_tokens_map[tech] = tokens
+
+        if len(tokens) == 1:
+            single_index[tokens[0]].append(tech)
+        else:
+            multi_index[tokens[0]].append(tech)
+
+    return single_index, multi_index, tech_tokens_map
+
+
+def find_techs_in_text(text: str, single_index, multi_index, tech_tokens_map) -> set:
+    """텍스트에서 기술 스택 찾기"""
+    found_techs = set()
+    text_lower = normalize_text(text)
+    text_tokens = TOKEN_RE.findall(text_lower)
+
+    for i, token in enumerate(text_tokens):
+        # 단일 토큰 기술 매칭
+        for tech in single_index.get(token, []):
+            if not is_noise_tech(tech.lower()):
+                found_techs.add(tech)
+
+        # 다중 토큰 기술 매칭
+        for tech in multi_index.get(token, []):
+            tech_tokens = tech_tokens_map.get(tech, [])
+            if not tech_tokens:
+                continue
+            # 연속 토큰 매칭 확인
+            L = len(tech_tokens)
+            if i + L <= len(text_tokens):
+                if text_tokens[i:i + L] == tech_tokens:
+                    found_techs.add(tech)
+
+    return found_techs
+
+
 class Command(BaseCommand):
-    help = '원티드 IT 개발 직군 공고 수집 (경력 추출 및 Fuzzy 기술 매칭 포함)'
+    help = '원티드 IT 개발 직군 공고 수집 (경력 추출 및 기술 매칭 포함)'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -18,6 +103,17 @@ class Command(BaseCommand):
             default=1000, 
             help='수집할 공고의 최대 개수 (0 입력 시 전체 수집, 기본값: 1000)'
         )
+        # [주석 처리] skill_tags 방식은 일치율이 낮아 기본적으로 본문 분석 사용
+        # parser.add_argument(
+        #     '--use-body-analysis',
+        #     action='store_true',
+        #     help='skill_tags 대신 본문 분석으로 기술 스택 추출'
+        # )
+        # parser.add_argument(
+        #     '--combine-methods',
+        #     action='store_true',
+        #     help='skill_tags와 본문 분석을 병행하여 기술 스택 추출'
+        # )
     # [추가됨] 카카오 좌표 -> 주소 변환 함수
     def get_region_from_kakao(self, lat, lng, api_key):
         url = "https://dapi.kakao.com/v2/local/geo/coord2regioncode.json"
@@ -66,6 +162,11 @@ class Command(BaseCommand):
             self.stdout.write(self.style.ERROR("[FATAL] KAKAO_REST_API_KEY가 환경 변수에 설정되지 않았습니다."))
             return
         target_count = options['count']
+        
+        # [주석 처리] skill_tags 방식은 일치율이 낮아 기본적으로 본문 분석만 사용
+        # use_body_analysis = options.get('use_body_analysis', False)
+        # combine_methods = options.get('combine_methods', False)
+        
         base_url = "https://www.wanted.co.kr/api/v4/jobs"
         
         headers = {
@@ -76,6 +177,11 @@ class Command(BaseCommand):
         # [성능 최적화] 우리 DB에 있는 기술 스택 이름만 메모리에 로드
         existing_stacks = list(TechStack.objects.values_list('name', flat=True))
         self.stdout.write(self.style.SUCCESS(f"[INFO] 현재 DB 내 기술 스택 {len(existing_stacks)}개를 로드했습니다."))
+        
+        # 본문 분석용 인덱스 생성 (기본 모드)
+        single_index, multi_index, tech_tokens_map = build_tech_index(existing_stacks)
+        self.stdout.write(self.style.SUCCESS(f"[INFO] 본문 분석용 인덱스 생성 완료"))
+        self.stdout.write(self.style.WARNING("[MODE] 본문 분석 모드 (기본)"))
 
         limit = 50
         offset = 0
@@ -213,7 +319,8 @@ class Command(BaseCommand):
                             f"## 우대사항\n{detail_content.get('preferred_points', '')}"
                         )
                         
-                        skill_tags = job_detail.get('skill_tags', [])
+                        # [주석 처리] skill_tags 방식 사용하지 않음
+                        # skill_tags = job_detail.get('skill_tags', [])
                         logo_thumb = (job.get('logo_img') or {}).get('thumb')
 
                         with transaction.atomic():
@@ -248,39 +355,37 @@ class Command(BaseCommand):
                                 }
                             )
 
-                            # --- [3. Fuzzy Matching 및 언급량 계산 기반 기술 스택 연결] ---
+                            # --- [3. 기술 스택 연결 (본문 분석 방식)] ---
                             JobPostingStack.objects.filter(job_posting=job_obj).delete()
-
-                            # 본문 텍스트를 소문자로 변환하여 대소문자 구분 없이 카운트 준비
-                            description_lower = full_description.lower()
-
-                            for skill in skill_tags:
-                                skill_name = skill.get('title')
-                                if not skill_name: continue
-                                
-                                # 1. Fuzzy Matching 실행
-                                match = process.extractOne(skill_name, existing_stacks, score_cutoff=85)
-
-                                if match:
-                                    target_name = match[0]
-                                    ts = TechStack.objects.get(name=target_name)
-                                    
-                                    # # 2. 언급량(Count) 계산
-                                    # # 본문에서 해당 기술명이 몇 번 등장하는지 계산 (최소 1번은 태그에 있었으므로 1 보장)
-                                    # mention_count = description_lower.count(target_name.lower())
-                                    # if mention_count == 0:
-                                    #     mention_count = 1  # 태그에는 있지만 본문 설명에는 직접 언급되지 않은 경우
-                                    
-                                    # 3. 데이터 저장
+                            
+                            # 본문 분석으로 기술 스택 추출
+                            matched_techs = find_techs_in_text(
+                                full_description, 
+                                single_index, 
+                                multi_index, 
+                                tech_tokens_map
+                            )
+                            
+                            # [주석 처리] skill_tags 방식 - 일치율이 낮아 사용하지 않음
+                            # for skill in skill_tags:
+                            #     skill_name = skill.get('title')
+                            #     if not skill_name: 
+                            #         continue
+                            #     # Fuzzy Matching 실행
+                            #     match = process.extractOne(skill_name, existing_stacks, score_cutoff=85)
+                            #     if match:
+                            #         matched_techs.add(match[0])
+                            
+                            # 매칭된 기술 스택 저장
+                            for tech_name in matched_techs:
+                                try:
+                                    ts = TechStack.objects.get(name=tech_name)
                                     JobPostingStack.objects.create(
                                         job_posting=job_obj, 
-                                        tech_stack=ts, 
-                                        #job_stack_count=mention_count  # 계산된 언급량 반영
+                                        tech_stack=ts
                                     )
-                                    
-                                    # self.stdout.write(f"   [Matched] {target_name} ({mention_count}회 언급)")
-                                else:
-                                    self.stdout.write(self.style.WARNING(f"   [Skip] 신규 기술 발견: {skill_name}"))
+                                except TechStack.DoesNotExist:
+                                    pass  # DB에 없는 기술 스택은 스킵
                                                                             
                             total_collected += 1
                         if total_collected % 10 == 0:

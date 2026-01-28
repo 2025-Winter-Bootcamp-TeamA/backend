@@ -22,8 +22,9 @@ from .tasks import analyze_resume_task
 
 
 class ResumeListCreateView(generics.ListCreateAPIView):
-    """이력서 목록 조회 및 생성(PDF 업로드)"""
+    """이력서 목록 조회 및 생성(PDF 업로드) - 전체 반환"""
     permission_classes = [IsAuthenticated]
+    pagination_class = None  # 페이지네이션 비활성화
     serializer_class = ResumeSerializer
     parser_classes = [MultiPartParser, FormParser]
 
@@ -258,8 +259,9 @@ class ResumeMatchingView(APIView):
 
 
 class ResumeMatchingListView(generics.ListAPIView):
-    """이력서 매칭 목록 조회"""
+    """이력서 매칭 목록 조회 - 전체 반환"""
     permission_classes = [IsAuthenticated]
+    pagination_class = None  # 페이지네이션 비활성화
     serializer_class = ResumeMatchingSerializer
 
     def get_queryset(self):

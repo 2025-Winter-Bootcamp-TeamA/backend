@@ -24,10 +24,14 @@ def create_admin():
     if settings.DEBUG:
         # 로컬 환경
         email = "admin@teamA.com"
+        username = "admin"
+        name = "관리자"
         password = "admin1234"
     else:
         # 프로덕션 환경
         email = "admin@devroad.cloud"
+        username = "admin"
+        name = "DevRoad Admin"
         password = "TeamA2025!"
 
     # 기존 사용자 확인
@@ -55,6 +59,8 @@ def create_admin():
     # 새 superuser 생성
     user = User.objects.create_superuser(
         email=email,
+        username=username,
+        name=name,
         password=password
     )
 
