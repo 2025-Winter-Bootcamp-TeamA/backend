@@ -76,7 +76,7 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
             # 직무 경험 추가
             if work_experiences.exists():
                 formatted_text_parts.append('직무 경험:\n\n')
-                for exp in work_experiences:
+                for idx, exp in enumerate(work_experiences):
                     formatted_text_parts.append(f"{exp.organization}\n")
                     # details가 문자열이면 줄바꿈으로 분리
                     if isinstance(exp.details, str):
@@ -86,12 +86,20 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
 
                     for detail in details_list:
                         formatted_text_parts.append(f"• {detail}\n")
-                    formatted_text_parts.append('\n')
+
+                    # 마지막 항목이 아니면 구분선 추가
+                    if idx < work_experiences.count() - 1:
+                        formatted_text_parts.append('\n' + '-' * 50 + '\n\n')
+                    else:
+                        formatted_text_parts.append('\n')
 
             # 프로젝트 경험 추가
             if project_experiences.exists():
+                # 직무 경험이 있으면 큰 구분감 추가
+                if work_experiences.exists():
+                    formatted_text_parts.append('\n' + '=' * 50 + '\n\n')
                 formatted_text_parts.append('프로젝트 경험:\n\n')
-                for exp in project_experiences:
+                for idx, exp in enumerate(project_experiences):
                     formatted_text_parts.append(f"{exp.project_name}\n")
                     if exp.context:
                         formatted_text_parts.append(f"{exp.context}\n\n")
@@ -104,7 +112,12 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
 
                     for detail in details_list:
                         formatted_text_parts.append(f"• {detail}\n")
-                    formatted_text_parts.append('\n')
+
+                    # 마지막 항목이 아니면 구분선 추가
+                    if idx < project_experiences.count() - 1:
+                        formatted_text_parts.append('\n' + '-' * 50 + '\n\n')
+                    else:
+                        formatted_text_parts.append('\n')
 
             # 합쳐진 텍스트 생성
             if formatted_text_parts:
