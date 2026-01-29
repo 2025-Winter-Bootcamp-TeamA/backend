@@ -7,14 +7,20 @@ from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
 from apps.resumes.models import ResumeMatching
 from apps.resumes.serializers import ResumeMatchingSerializer
 
 
 class InterviewQuestionView(APIView):
-    """면접 질문 조회 (ResumeMatching의 question 필드 활용)"""
+    """
+    면접 질문 조회 (ResumeMatching의 question 필드 활용)
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    """
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def get(self, request, matching_id):
         try:
             matching = ResumeMatching.objects.get(
@@ -43,9 +49,14 @@ class InterviewQuestionView(APIView):
 
 
 class SubmitInterviewAnswerView(APIView):
-    """면접 답변 제출 및 피드백 업데이트"""
+    """
+    면접 답변 제출 및 피드백 업데이트
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    """
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def post(self, request, matching_id):
         user_answer = request.data.get('answer')
 

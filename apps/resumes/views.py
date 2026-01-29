@@ -3,6 +3,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
+from drf_yasg.utils import swagger_auto_schema
 from apps.jobs.models import JobPosting
 from apps.trends.models import TechStack
 from .models import Resume, ResumeMatching, ResumeStack, WorkExperience, ProjectExperience, ResumeExtractedStack
@@ -370,9 +371,14 @@ class ResumeMatchingDetailView(generics.RetrieveAPIView):
 
 
 class ResumeRestoreView(APIView):
-    """이력서 복원 (분석 내용 및 면접 질문 포함)"""
+    """
+    이력서 복원 (분석 내용 및 면접 질문 포함)
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    """
     permission_classes = [IsAuthenticated]
 
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def patch(self, request, pk):
         """
         삭제된 이력서를 복원합니다.

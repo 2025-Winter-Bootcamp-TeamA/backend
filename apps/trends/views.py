@@ -32,10 +32,16 @@ from apps.jobs.serializers import JobPostingSerializer
 class CategoryJobPostingListView(generics.ListAPIView):
     """
     특정 카테고리에 포함된 기술 스택을 가진 채용 공고 목록 조회
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
     """
     permission_classes = [AllowAny]
     # apps/jobs/serializers.py에 있는 시리얼라이저를 사용합니다.
-    serializer_class = JobPostingSerializer 
+    serializer_class = JobPostingSerializer
+
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         category_id = self.kwargs['category_id']
@@ -60,10 +66,16 @@ class CategoryJobPostingListView(generics.ListAPIView):
 class CategoryArticleListView(generics.ListAPIView):
     """
     특정 카테고리에 포함된 기술 스택을 가진 게시글 목록 조회
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
     """
     permission_classes = [AllowAny]
     serializer_class = ArticleSerializer
     filter_backends = [filters.OrderingFilter]
+
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
     ordering_fields = ['created_at', 'view_count', 'id'] # 허용할 정렬 필드
     ordering = ['-id'] # 기본: 최신순
 
@@ -88,9 +100,17 @@ class CategoryArticleListView(generics.ListAPIView):
 
 
 class CategoryTechStackListView(generics.ListAPIView):
-    """카테고리별 기술 스택 목록"""
+    """
+    카테고리별 기술 스택 목록
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    """
     permission_classes = [AllowAny] # 모든 사용자 접근 허용
     serializer_class = TechStackByCategorySerializer # 시리얼라이저 지정
+
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self): # API가 반환할 쿼리셋 정의
         return TechStack.objects.filter(
@@ -238,9 +258,15 @@ class TopTechStacksView(APIView):
 
 
 class TechDocsURLView(APIView):
-    """기술 스택 공식 문서 URL 조회"""
+    """
+    기술 스택 공식 문서 URL 조회
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    (참고: docs_url 자체는 TechStackSerializer를 통해 다른 API에서 제공되므로 기능은 사용 중)
+    """
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def get(self, request, tech_stack_id):
         # is_deleted=False 조건으로 삭제되지 않은 객체만 조회, 없으면 404 에러
         tech_stack = get_object_or_404(TechStack, pk=tech_stack_id, is_deleted=False)
@@ -249,10 +275,18 @@ class TechDocsURLView(APIView):
 
 
 class CategoryListView(generics.ListAPIView):
-    """카테고리 목록 (캐시 적용: 1시간)"""
+    """
+    카테고리 목록 (캐시 적용: 1시간)
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
+    """
     permission_classes = [AllowAny]
     queryset = Category.objects.filter(is_deleted=False)
     serializer_class = CategorySerializer
+
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
 
     def list(self, request, *args, **kwargs):
         """카테고리 목록을 캐시에서 조회하거나 DB에서 가져옴"""
@@ -330,9 +364,12 @@ class TechTrendListView(generics.ListAPIView):
 class TrendRankingView(APIView):
     """
     실시간 트렌드 랭킹 조회 (TOP 10)
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
     """
     permission_classes = [AllowAny]
 
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def get(self, request):
         # [최적화] 여기도 select_related('tech_stack') 필수!
         trends = TechTrend.objects.select_related('tech_stack').filter(

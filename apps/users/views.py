@@ -36,12 +36,24 @@ from .models import User
 #         return Response({'refresh': ..., 'access': ..., 'user': ...})
 
 class LogoutView(APIView):
-    
+    """로그아웃 - 리프레시 토큰 블랙리스트 처리"""
     permission_classes = [IsAuthenticated]
+
     @swagger_auto_schema(
-            #operation_summary="로그아웃",
-            operation_description="사용자의 리프레시 토큰을 블랙리스트에 추가하여 로그아웃 처리합니다."
-        )
+        operation_summary="로그아웃",
+        operation_description="사용자의 리프레시 토큰을 블랙리스트에 추가하여 로그아웃 처리합니다.",
+        request_body=openapi.Schema(
+            type=openapi.TYPE_OBJECT,
+            properties={
+                'refresh': openapi.Schema(type=openapi.TYPE_STRING, description='리프레시 토큰')
+            },
+            required=['refresh']
+        ),
+        responses={
+            200: "로그아웃 성공",
+            400: "로그아웃 실패"
+        }
+    )
     def post(self, request):
         try:
             refresh_token = request.data['refresh']
@@ -61,6 +73,18 @@ class ProfileView(generics.RetrieveUpdateAPIView):
 
     def get_object(self):
         return self.request.user
+
+    @swagger_auto_schema(auto_schema=None)  # Swagger에서 숨김
+    def get(self, request, *args, **kwargs):
+        return super().get(request, *args, **kwargs)
+
+    @swagger_auto_schema(auto_schema=None)  # Swagger에서 숨김
+    def put(self, request, *args, **kwargs):
+        return super().put(request, *args, **kwargs)
+
+    @swagger_auto_schema(auto_schema=None)  # Swagger에서 숨김
+    def patch(self, request, *args, **kwargs):
+        return super().patch(request, *args, **kwargs)
 
 
 # ========== Google OAuth 로그인 관련 코드 (주석 처리) ==========
@@ -343,17 +367,12 @@ class UserDeleteView(APIView):
     """
     회원 삭제 (논리 삭제: is_deleted=True, is_active=False)
     API: DELETE /auth/{users_id}
+
+    ❌ 미사용 API - 프론트엔드에서 사용하지 않음
     """
     permission_classes = [IsAuthenticated]
 
-    @swagger_auto_schema(
-        operation_description="특정 사용자의 계정을 비활성화(Soft Delete) 합니다.",
-        responses={
-            204: "삭제 성공",
-            403: "권한 없음 (본인 계정만 삭제 가능)",
-            404: "사용자를 찾을 수 없음"
-        }
-    )
+    @swagger_auto_schema(auto_schema=None)  # 스웨거에서 숨김
     def delete(self, request, users_id):
         # 1. 삭제할 대상 객체 조회
         target_user = get_object_or_404(User, id=users_id)
