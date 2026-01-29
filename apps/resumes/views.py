@@ -55,31 +55,62 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
-        
+
         # DB에 저장된 work_experiences와 project_experiences 데이터 가져오기
         work_experiences = WorkExperience.objects.filter(resume=instance)
         project_experiences = ProjectExperience.objects.filter(resume=instance)
-        
-        # 텍스트로 포맷팅
-        formatted_text_parts = []
-        
-        # 직무 경험 추가
-        if work_experiences.exists():
-            formatted_text_parts.append('직무 경험:\n')
-            for exp in work_experiences:
-                formatted_text_parts.append(f"{exp.organization}: {exp.details}\n")
-            formatted_text_parts.append('\n')
-        
-        # 프로젝트 경험 추가
-        if project_experiences.exists():
-            formatted_text_parts.append('프로젝트 경험:\n')
-            for exp in project_experiences:
-                formatted_text_parts.append(f"{exp.project_name}\n{exp.context}\n{exp.details}\n\n")
-        
-        # 합쳐진 텍스트 생성
-        extracted_text = ''.join(formatted_text_parts).strip() if formatted_text_parts else None
-        
-        # DB 데이터가 없으면 원본 PDF에서 추출 시도
+
+        # 기술 스택 정보 가져오기
+        try:
+            extracted_stack = ResumeExtractedStack.objects.get(resume=instance)
+            has_extracted_data = True
+        except ResumeExtractedStack.DoesNotExist:
+            has_extracted_data = False
+
+        extracted_text = None
+
+        # DB에 구조화된 데이터가 있으면 포맷팅하여 사용
+        if has_extracted_data or work_experiences.exists() or project_experiences.exists():
+            formatted_text_parts = []
+
+            # 직무 경험 추가
+            if work_experiences.exists():
+                formatted_text_parts.append('직무 경험:\n\n')
+                for exp in work_experiences:
+                    formatted_text_parts.append(f"{exp.organization}\n")
+                    # details가 문자열이면 줄바꿈으로 분리
+                    if isinstance(exp.details, str):
+                        details_list = [d.strip() for d in exp.details.split('\n') if d.strip()]
+                    else:
+                        details_list = []
+
+                    for detail in details_list:
+                        formatted_text_parts.append(f"• {detail}\n")
+                    formatted_text_parts.append('\n')
+
+            # 프로젝트 경험 추가
+            if project_experiences.exists():
+                formatted_text_parts.append('프로젝트 경험:\n\n')
+                for exp in project_experiences:
+                    formatted_text_parts.append(f"{exp.project_name}\n")
+                    if exp.context:
+                        formatted_text_parts.append(f"{exp.context}\n\n")
+
+                    # details가 문자열이면 줄바꿈으로 분리
+                    if isinstance(exp.details, str):
+                        details_list = [d.strip() for d in exp.details.split('\n') if d.strip()]
+                    else:
+                        details_list = []
+
+                    for detail in details_list:
+                        formatted_text_parts.append(f"• {detail}\n")
+                    formatted_text_parts.append('\n')
+
+            # 합쳐진 텍스트 생성
+            if formatted_text_parts:
+                extracted_text = ''.join(formatted_text_parts).strip()
+
+        # DB에 구조화된 데이터가 없으면 PDF에서 추출
         if not extracted_text and instance.url:
             try:
                 pdf_url = instance.url
@@ -91,17 +122,17 @@ class ResumeDetailView(generics.RetrieveDestroyAPIView):
             except Exception as e:
                 # 텍스트 추출 실패해도 에러 없이 진행
                 pass
-        
+
         # 인스턴스에 추출된 텍스트를 임시로 저장 (serializer에서 사용)
         instance._extracted_text = extracted_text
-        
+
         serializer = self.get_serializer(instance)
         data = serializer.data
-        
+
         # serializer에서 None이면 직접 설정
         if extracted_text and not data.get('extracted_text'):
             data['extracted_text'] = extracted_text
-        
+
         return Response(data)
 
     def perform_destroy(self, instance):

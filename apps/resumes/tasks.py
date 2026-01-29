@@ -39,22 +39,36 @@ def analyze_resume_task(resume_id, pdf_url):
             ProjectExperience.objects.filter(resume=resume).delete()
             ResumeExtractedStack.objects.filter(resume=resume).delete()
 
+            # 직무 경험 저장 (정제된 데이터만 저장됨)
+            work_exp_count = 0
             if 'work_experience' in structured_data and structured_data['work_experience']:
                 for exp in structured_data['work_experience']:
-                    WorkExperience.objects.create(
-                        resume=resume,
-                        organization=exp.get('organization') or '',
-                        details=exp.get('details') or ''
-                    )
+                    # 이미 정제된 데이터이므로 그대로 저장
+                    details_list = exp.get('details', [])
+                    if isinstance(details_list, list) and len(details_list) > 0:
+                        WorkExperience.objects.create(
+                            resume=resume,
+                            organization=exp.get('organization', ''),
+                            details='\n'.join(details_list)
+                        )
+                        work_exp_count += 1
 
+            # 프로젝트 경험 저장 (정제된 데이터만 저장됨)
+            project_exp_count = 0
             if 'project_experience' in structured_data and structured_data['project_experience']:
                 for exp in structured_data['project_experience']:
-                    ProjectExperience.objects.create(
-                        resume=resume,
-                        project_name=exp.get('name') or '',
-                        context=exp.get('context') or '',
-                        details=exp.get('details') or ''
-                    )
+                    # 이미 정제된 데이터이므로 그대로 저장
+                    details_list = exp.get('details', [])
+                    if isinstance(details_list, list) and len(details_list) > 0:
+                        ProjectExperience.objects.create(
+                            resume=resume,
+                            project_name=exp.get('name', ''),
+                            context=exp.get('context', ''),
+                            details='\n'.join(details_list)
+                        )
+                        project_exp_count += 1
+
+            logger.info(f"Resume {resume_id}: 직무 경험 {work_exp_count}개, 프로젝트 경험 {project_exp_count}개 저장 완료")
             
             all_technical_tools = set()
             methodologies = []
